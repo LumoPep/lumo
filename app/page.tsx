@@ -325,10 +325,10 @@ export default function HomePage() {
       <div className="bg-ink py-4 overflow-hidden ticker-container">
         <div className="ticker-content">
           <div className="ticker-text">
-            BPC-157 · 99.14% <span className="text-clay">··</span> TB-500 · 98.73% <span className="text-clay">··</span> IPAMORELIN · 99.12% <span className="text-clay">··</span> CJC-1295 · 98.81% <span className="text-clay">··</span> PT-141 · 99.05% <span className="text-clay">··</span> EPITHALON · 99.31% <span className="text-clay">··</span> SELANK · 98.55% <span className="text-clay">··</span> GHK-CU · 99.08% <span className="text-clay">··</span> HEXARELIN · 98.92% <span className="text-clay">··</span>
+            BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
           </div>
           <div className="ticker-text" aria-hidden="true">
-            BPC-157 · 99.14% <span className="text-clay">··</span> TB-500 · 98.73% <span className="text-clay">··</span> IPAMORELIN · 99.12% <span className="text-clay">··</span> CJC-1295 · 98.81% <span className="text-clay">··</span> PT-141 · 99.05% <span className="text-clay">··</span> EPITHALON · 99.31% <span className="text-clay">··</span> SELANK · 98.55% <span className="text-clay">··</span> GHK-CU · 99.08% <span className="text-clay">··</span> HEXARELIN · 98.92% <span className="text-clay">··</span>
+            BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
           </div>
         </div>
       </div>
@@ -590,7 +590,7 @@ export default function HomePage() {
             fontWeight: 300,
             color: '#1A1814',
             textAlign: 'center',
-            marginBottom: '48px',
+            marginBottom: '56px',
             fontStyle: 'normal',
             letterSpacing: '-0.02em',
           }}
@@ -601,8 +601,8 @@ export default function HomePage() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '20px',
-            maxWidth: '900px',
+            gap: '48px 56px',
+            maxWidth: '1000px',
             margin: '0 auto',
           }}
         >
@@ -612,28 +612,28 @@ export default function HomePage() {
               body: 'Every lot is tested by an independent laboratory for identity, purity, and endotoxin before shipping.',
               cta: '→ VIEW CERTIFICATES',
               href: '/coa',
-              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><path d="M20 8v20l-8 16h32l-8-16V8"/><line x1="16" y1="8" x2="40" y2="8"/></svg>`,
+              icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><path d="M20 8v20l-8 16h32l-8-16V8"/><line x1="16" y1="8" x2="40" y2="8"/></svg>`,
             },
             {
               title: 'Research-grade pricing',
               body: 'High-purity peptides without procurement overhead. Transparent per-lot pricing, no subscription required.',
               cta: '→ BROWSE COMPOUNDS',
               href: '/products',
-              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><polygon points="28,6 50,28 28,50 6,28"/></svg>`,
+              icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><polygon points="28,6 50,28 28,50 6,28"/></svg>`,
             },
             {
               title: 'Cold-shipped, lot-traceable',
               body: 'Every order ships with ice pack and insulated liner. Your lot number is traceable from synthesis to delivery.',
               cta: '→ OUR PROCESS',
               href: '/about',
-              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><line x1="28" y1="4" x2="28" y2="52"/><line x1="4" y1="28" x2="52" y2="28"/><line x1="10" y1="10" x2="46" y2="46"/><line x1="46" y1="10" x2="10" y2="46"/></svg>`,
+              icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><line x1="28" y1="4" x2="28" y2="52"/><line x1="4" y1="28" x2="52" y2="28"/><line x1="10" y1="10" x2="46" y2="46"/><line x1="46" y1="10" x2="10" y2="46"/></svg>`,
             },
             {
               title: 'Research library included',
               body: 'Every compound page links to peer-reviewed literature. We cite our sources and show our work.',
               cta: '→ READ THE JOURNAL',
               href: '/journal',
-              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><rect x="8" y="6" width="32" height="44" rx="2"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="26" x2="32" y2="26"/><line x1="16" y1="34" x2="28" y2="34"/></svg>`,
+              icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><rect x="8" y="6" width="32" height="44" rx="2"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="26" x2="32" y2="26"/><line x1="16" y1="34" x2="28" y2="34"/></svg>`,
             },
           ].map((card, i) => (
             <motion.div
@@ -643,32 +643,37 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               style={{
-                background: 'white',
-                borderRadius: '20px',
-                padding: '32px',
                 position: 'relative',
-                minHeight: '200px',
-                boxShadow: '0 2px 12px rgba(26,24,20,0.05)',
-                overflow: 'hidden',
+                paddingTop: '8px',
               }}
             >
-              <h3
+              <div
                 style={{
-                  fontFamily: 'Inter Tight, Inter, sans-serif',
-                  fontSize: '17px',
-                  fontWeight: 600,
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  opacity: 0.12
+                }}
+                dangerouslySetInnerHTML={{ __html: card.icon }}
+              />
+              <h3
+                className="font-display"
+                style={{
+                  fontSize: '22px',
+                  fontWeight: 300,
                   color: '#1A1814',
-                  marginBottom: '10px',
+                  marginBottom: '12px',
+                  fontStyle: 'italic',
                 }}
               >
                 {card.title}
               </h3>
               <p
+                className="font-editorial"
                 style={{
-                  fontFamily: 'Newsreader, serif',
-                  fontSize: '14px',
+                  fontSize: '15px',
                   color: 'rgba(26,24,20,0.65)',
-                  lineHeight: 1.65,
+                  lineHeight: 1.7,
                   marginBottom: '16px',
                 }}
               >
@@ -676,20 +681,17 @@ export default function HomePage() {
               </p>
               <a
                 href={card.href}
+                className="font-mono hover:underline"
                 style={{
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '10px',
-                  letterSpacing: '1.5px',
-                  color: '#B8624A',
+                  fontSize: '11px',
+                  letterSpacing: '1.2px',
+                  color: '#C89A3C',
                   textDecoration: 'none',
+                  textTransform: 'uppercase',
                 }}
               >
                 {card.cta}
               </a>
-              <div
-                style={{ position: 'absolute', bottom: '24px', right: '24px', opacity: 0.25 }}
-                dangerouslySetInnerHTML={{ __html: card.icon }}
-              />
             </motion.div>
           ))}
         </div>
@@ -932,374 +934,91 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          {/* Mosaic Grid */}
+          {/* Uniform 8-Card Grid */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              gridAutoRows: '130px',
-              gap: '12px',
+              gap: '16px',
             }}
           >
-            {/* Growth Hormone - Largest (4 compounds) - spans 2x2 */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0 }}
-              style={{ gridColumn: 'span 2', gridRow: 'span 2' }}
-            >
-              <Link href="/products?category=Growth+Hormone">
+            {[
+              { name: 'Growth Hormone', count: 4, slug: 'Growth+Hormone' },
+              { name: 'Healing & Recovery', count: 3, slug: 'Healing+%26+Recovery' },
+              { name: 'Metabolic', count: 2, slug: 'Metabolic' },
+              { name: 'Skin & Longevity', count: 1, slug: 'Skin+%26+Longevity' },
+              { name: 'Longevity', count: 1, slug: 'Longevity' },
+              { name: 'Nootropic', count: 2, slug: 'Nootropic' },
+              { name: 'Blends', count: 2, slug: 'Blends' },
+              { name: 'Ancillary', count: 1, slug: 'Ancillary' },
+            ].map((category, index) => {
+              const categoryColor = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic'];
+              return (
                 <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#e8e0b8',
-                    borderRadius: '16px',
-                    padding: '22px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
+                  key={category.name}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate={categoriesInView ? "visible" : "hidden"}
+                  transition={{ delay: index * 0.05 }}
                 >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '9px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      4 COMPOUNDS
-                    </div>
-                    <h3 className="font-display mb-2" style={{ fontSize: '26px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Growth Hormone
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '12px', lineHeight: '1.5', color: 'rgba(26,24,20,0.6)', marginBottom: '12px' }}>
-                      CJC-1295 No DAC · CJC+Ipamorelin · Ipamorelin · Tesamorelin
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
+                  <Link href={`/products?category=${category.slug}`}>
+                    <motion.div
+                      whileHover={{
+                        scale: 1.01,
+                        transition: { duration: 0.2 }
+                      }}
+                      style={{
+                        backgroundColor: '#EBE2CF',
+                        borderRadius: '10px',
+                        borderLeft: `3px solid ${categoryColor}`,
+                        padding: '20px',
+                        height: '140px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <div>
+                        <div
+                          className="font-mono uppercase tracking-mono mb-2"
+                          style={{
+                            fontSize: '10px',
+                            letterSpacing: '1.5px',
+                            color: 'rgba(26,24,20,0.45)'
+                          }}
+                        >
+                          {category.count} {category.count === 1 ? 'COMPOUND' : 'COMPOUNDS'}
+                        </div>
+                        <h3
+                          className="font-display"
+                          style={{
+                            fontSize: '20px',
+                            fontStyle: 'italic',
+                            fontWeight: 300,
+                            color: '#1A1814',
+                            lineHeight: '1.2'
+                          }}
+                        >
+                          {category.name}
+                        </h3>
+                      </div>
+                      <div
+                        className="font-mono uppercase"
+                        style={{
+                          fontSize: '10px',
+                          letterSpacing: '1.2px',
+                          color: categoryColor,
+                          fontWeight: 500
+                        }}
+                      >
+                        → EXPLORE
+                      </div>
+                    </motion.div>
+                  </Link>
                 </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Healing & Recovery - Medium-Large (3 compounds) - spans 2x1 */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.1 }}
-              style={{ gridColumn: 'span 2', gridRow: 'span 1' }}
-            >
-              <Link href="/products?category=Healing+%26+Recovery">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#b8d8d2',
-                    borderRadius: '16px',
-                    padding: '20px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '9px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      3 COMPOUNDS
-                    </div>
-                    <h3 className="font-display mb-2" style={{ fontSize: '20px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Healing & Recovery
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '11px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      BPC-157 · TB-500 · BPC+TB Blend
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Metabolic - Medium (2 compounds) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.2 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Metabolic">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#e8c8bc',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      2 COMPOUNDS
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Metabolic
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      Lumo-2 TRZ · Lumo-3 RT
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Nootropic - Medium (2 compounds) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.3 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Nootropic">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#d0cec8',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      2 COMPOUNDS
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Nootropic
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      Selank · Semax
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Skin & Longevity - Small (1 compound) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.4 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Skin+%26+Longevity">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#c8d8c0',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      1 COMPOUND
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Skin & Longevity
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      GHK-Cu
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Blends - Medium (2 compounds) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.5 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Blends">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#c8d8d0',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      2 COMPOUNDS
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Blends
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      GLOW Blend · KLOW Blend
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Longevity - Small (1 compound) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.6 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Longevity">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#e0e0b0',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      1 COMPOUND
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Longevity
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      NAD+
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Ancillary - Small (1 compound) */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={categoriesInView ? "visible" : "hidden"}
-              transition={{ delay: 0.7 }}
-              style={{ gridColumn: 'span 1' }}
-            >
-              <Link href="/products?category=Ancillary">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{
-                    backgroundColor: '#d8d0c8',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div>
-                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
-                      1 COMPOUND
-                    </div>
-                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
-                      Ancillary
-                    </h3>
-                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
-                      BAC Water
-                    </div>
-                  </div>
-                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
-                    → EXPLORE
-                  </div>
-                </motion.div>
-              </Link>
-            </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

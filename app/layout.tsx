@@ -4,6 +4,7 @@ import "./globals.css";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import FooterDisclaimer from "@/components/FooterDisclaimer";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         <NavBar />
         <main className="min-h-screen pt-16">{children}</main>
         <Footer />
+        <FooterDisclaimer />
         <CartDrawer />
         <Toast />
       </body>

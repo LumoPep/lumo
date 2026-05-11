@@ -170,7 +170,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
               <div
                 className="font-mono text-xs uppercase tracking-mono hover:underline"
-                style={{ color: '#B8624A' }}
+                style={{ color: '#C89A3C' }}
               >
                 → VIEW LOT
               </div>

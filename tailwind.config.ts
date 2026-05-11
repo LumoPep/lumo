@@ -14,7 +14,7 @@ const config: Config = {
         cream: "#EBE2CF",
         clay: "#B8624A",
         ochre: "#C89A3C",
-        sage: "#6D7A5C",
+        sage: "#607A5C",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "serif"],
