@@ -1,17 +1,31 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { PRODUCTS, CATEGORIES } from "@/data/products";
+import { PRODUCTS, CATEGORIES, CATEGORY_COLORS } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
-export default function ProductsPage() {
+function ProductsPageContent() {
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("name");
   const [searchFocused, setSearchFocused] = useState(false);
   const [prevCount, setPrevCount] = useState(0);
   const [displayCount, setDisplayCount] = useState(0);
+
+  // Handle URL category parameter on page load
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      // Decode URL-encoded category names
+      const decodedCategory = decodeURIComponent(categoryParam.replace(/\+/g, ' '));
+      if (CATEGORIES.includes(decodedCategory)) {
+        setSelectedCategory(decodedCategory);
+      }
+    }
+  }, [searchParams]);
 
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...PRODUCTS];
@@ -178,33 +192,35 @@ export default function ProductsPage() {
             </div>
           </motion.div>
 
-          {/* Category Tabs - Pill style with pulsing dot */}
-          <div className="mb-10 overflow-x-auto scrollbar-hide">
-            <div className="flex justify-center space-x-3 min-w-max pb-2">
-              {CATEGORIES.map((category) => (
-                <motion.button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-6 py-3 font-mono text-xs uppercase tracking-mono transition-all whitespace-nowrap flex items-center gap-2 ${
-                    selectedCategory === category
-                      ? "text-cream"
-                      : "text-ink hover:bg-cream hover:bg-opacity-50"
-                  }`}
+          {/* Category Filter Pills */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px', justifyContent: 'center' }}>
+            {['All', 'Metabolic', 'Healing & Recovery', 'Growth Hormone', 'Skin & Longevity', 'Longevity', 'Nootropic', 'Blends', 'Ancillary'].map((cat) => {
+              const categoryColor = cat === 'All' ? '#1A1814' : CATEGORY_COLORS[cat] || '#1A1814';
+              const isSelected = selectedCategory === cat;
+
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`category-pill ${isSelected ? 'selected' : ''}`}
+                  data-category={cat}
                   style={{
-                    borderRadius: "24px",
-                    backgroundColor: selectedCategory === category ? "#B8624A" : "transparent",
-                    border: selectedCategory === category ? "none" : "1px solid rgba(26,24,20,0.12)",
-                  }}
+                    '--category-color': categoryColor,
+                    borderRadius: '999px',
+                    border: `1.5px solid ${isSelected ? categoryColor : 'rgba(26,24,20,0.15)'}`,
+                    background: isSelected ? categoryColor : 'white',
+                    color: '#1A1814',
+                    padding: '6px 18px',
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    fontFamily: 'inherit',
+                  } as React.CSSProperties}
                 >
-                  {selectedCategory === category && (
-                    <span className="pulsing-dot-inline">●</span>
-                  )}
-                  {category}
-                </motion.button>
-              ))}
-            </div>
+                  {cat}
+                </button>
+              );
+            })}
           </div>
 
           {/* Count and Sort */}
@@ -302,6 +318,21 @@ export default function ProductsPage() {
           scrollbar-width: none;
         }
       `}</style>
+
+      <style jsx global>{`
+        .category-pill:not(.selected):hover {
+          background: color-mix(in srgb, var(--category-color) 25%, white) !important;
+          border-color: var(--category-color) !important;
+        }
+      `}</style>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-bone" />}>
+      <ProductsPageContent />
+    </Suspense>
   );
 }

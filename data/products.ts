@@ -494,14 +494,14 @@ export const CATEGORIES = [
 ]
 
 export const CATEGORY_COLORS: Record<string, string> = {
-  'Metabolic': '#B8624A',
-  'Healing & Recovery': '#B8624A',
-  'Growth Hormone': '#C89A3C',
-  'Skin & Longevity': '#6D7A5C',
-  'Longevity': '#6D7A5C',
-  'Nootropic': '#1A1814',
-  'Blends': '#C89A3C',
-  'Ancillary': '#8B7355',
+  'Metabolic': '#EDD4CB',
+  'Healing & Recovery': '#C8DDD8',
+  'Growth Hormone': '#EDE0C4',
+  'Skin & Longevity': '#D0D9C8',
+  'Longevity': '#E8E4C0',
+  'Nootropic': '#D4D0CC',
+  'Blends': '#D4E0D0',
+  'Ancillary': '#DDD6CC',
 }
 
 export function getProductBySlug(slug: string): Product | undefined {

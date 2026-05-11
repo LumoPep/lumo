@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Product, CATEGORY_COLORS } from "@/data/products";
 
 interface ProductCardProps {
@@ -9,6 +9,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [hovered, setHovered] = useState(false);
   const lowestPrice = Math.min(...product.prices);
   const firstSize = product.sizes[0];
   const categoryColor = CATEGORY_COLORS[product.category] || "#B8624A";
@@ -20,31 +21,33 @@ export default function ProductCard({ product }: ProductCardProps) {
     <Link href={`/products/${product.slug}`} className="block h-full">
       <div
         style={{
-          borderTop: `4px solid ${categoryColor}`,
+          borderTop: `6px solid ${categoryColor}`,
           borderRadius: '20px',
           overflow: 'hidden',
           cursor: 'pointer',
           height: '100%',
+          boxShadow: hovered
+            ? '0 8px 24px rgba(26,24,20,0.1)'
+            : '0 2px 12px rgba(26,24,20,0.06)',
+          transition: 'box-shadow 0.2s ease',
         }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        <motion.div
-          whileHover={{ y: -8, boxShadow: "0 24px 48px rgba(26,24,20,0.14)" }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+        <div
           style={{
-            background: 'white',
-            borderRadius: '0 0 20px 20px',
-            boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+            background: 'transparent',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
           }}
         >
-          {/* TOP BLOCK - Bone Background with Vial */}
+          {/* TOP BLOCK - Transparent Background with Vial */}
           <div
             style={{
               position: 'relative',
-              background: '#F5EFE4',
-              minHeight: '320px',
+              background: 'transparent',
+              minHeight: '300px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -72,16 +75,20 @@ export default function ProductCard({ product }: ProductCardProps) {
               <div
                 style={{
                   position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  background: categoryColor,
+                  top: '12px',
+                  right: '12px',
+                  background: product.badge === 'Wolverine Stack' ? '#1A1814' : '#B8624A',
                   color: 'white',
                   fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '9px',
-                  letterSpacing: '1.5px',
-                  textTransform: 'uppercase',
-                  padding: '3px 8px',
-                  borderRadius: '2px',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase' as const,
+                  padding: '4px 12px',
+                  borderRadius: '999px',
+                  boxShadow: product.badge === 'Wolverine Stack'
+                    ? '0 2px 8px rgba(26,24,20,0.4)'
+                    : '0 2px 8px rgba(184,98,74,0.4)',
+                  fontWeight: 500,
                 }}
               >
                 {product.badge}
@@ -99,15 +106,29 @@ export default function ProductCard({ product }: ProductCardProps) {
                 filter: 'drop-shadow(-6px 12px 24px rgba(26,24,20,0.25))',
                 display: 'block',
                 margin: '0 auto',
+                transform: hovered ? 'scale(1.08)' : 'scale(1)',
+                transition: 'transform 0.3s ease',
               }}
             />
           </div>
 
-          {/* BOTTOM BLOCK - Details */}
-          <div className="bg-white flex-1 flex flex-col" style={{ padding: '16px' }}>
+          {/* BOTTOM BLOCK - Details with category color tint */}
+          <div
+            className="flex-1 flex flex-col"
+            style={{
+              padding: '16px 18px 20px',
+              background: `linear-gradient(to bottom, ${categoryColor}65, ${categoryColor}48)`,
+            }}
+          >
             {/* Lot Line */}
-            <div className="font-mono text-ink opacity-60 mb-2"
-              style={{ fontSize: "11px", letterSpacing: "0.05em" }}>
+            <div
+              className="font-mono mb-2"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.05em",
+                color: 'rgba(26,24,20,0.5)',
+              }}
+            >
               {firstSize} · LYOPHILIZED · LOT {product.batch} ·{" "}
               <span className="text-ochre font-medium">
                 {isUSPGrade ? 'USP GRADE' : product.purity}
@@ -116,7 +137,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Description - 2 lines max */}
             <p
-              className="font-editorial text-ink opacity-70 mb-4 flex-1"
+              className="font-editorial mb-4 flex-1"
               style={{
                 fontSize: "14px",
                 lineHeight: "1.5",
@@ -124,22 +145,38 @@ export default function ProductCard({ product }: ProductCardProps) {
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
+                color: 'rgba(26,24,20,0.65)',
               }}
             >
               {product.synopsis}
             </p>
 
             {/* Footer Row - Price and CTA */}
-            <div className="flex items-end justify-between pt-2 border-t border-ink border-opacity-10">
-              <div className="font-display text-ink" style={{ fontWeight: 300, fontSize: "24px" }}>
+            <div
+              className="flex items-end justify-between pt-2"
+              style={{
+                borderTop: `1px solid ${categoryColor}60`,
+              }}
+            >
+              <div
+                className="font-display"
+                style={{
+                  fontWeight: 300,
+                  fontSize: "24px",
+                  color: '#1A1814',
+                }}
+              >
                 ${lowestPrice.toFixed(2)}
               </div>
-              <div className="font-mono text-xs uppercase tracking-mono text-clay hover:underline">
+              <div
+                className="font-mono text-xs uppercase tracking-mono hover:underline"
+                style={{ color: '#B8624A' }}
+              >
                 → VIEW LOT
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </Link>
   );

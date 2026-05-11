@@ -72,9 +72,9 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen">
       {/* Main Product Section - Bone Background */}
-      <section className="bg-bone py-16 px-6">
+      <section className="bg-bone py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Left Column - 55% */}
             <div className="lg:col-span-7">
               {/* Product Image */}
@@ -84,25 +84,24 @@ export default function ProductPage() {
                 transition={{ duration: 0.6 }}
                 style={{
                   position: 'relative',
-                  background: '#F5EFE4',
-                  borderRadius: '20px',
-                  padding: '40px',
+                  background: `linear-gradient(135deg, ${categoryColor}15, ${categoryColor}08)`,
+                  borderRadius: '16px',
+                  padding: '32px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  minHeight: '480px',
-                  marginBottom: '32px',
-                  borderLeft: `4px solid ${categoryColor}`,
+                  minHeight: '320px',
+                  marginBottom: '24px',
                 }}
               >
                 <Image
                   src='/images/vial-transparent.png'
                   alt={product.name}
-                  width={460}
-                  height={540}
+                  width={280}
+                  height={330}
                   style={{
                     objectFit: 'contain',
-                    filter: 'drop-shadow(-12px 24px 48px rgba(26,24,20,0.2))',
+                    filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                     transform: 'none',
                   }}
                   priority
@@ -110,7 +109,7 @@ export default function ProductPage() {
               </motion.div>
 
               {/* Tabbed Section */}
-              <div className="bg-white" style={{ borderRadius: "16px", padding: "32px" }}>
+              <div className="bg-cream" style={{ borderRadius: "16px", padding: "32px" }}>
                 {/* Tab Navigation */}
                 <div className="flex space-x-1 border-b hairline-border mb-8">
                   {tabs.map((tab) => (
@@ -274,65 +273,77 @@ export default function ProductPage() {
             {/* Right Column - 45% Sticky */}
             <div className="lg:col-span-5">
               <div className="lg:sticky lg:top-20">
-                {/* Badge */}
-                {product.badge && (
-                  <div className="mb-4">
+                {/* Category Badge + Product Badge */}
+                <div className="mb-3 flex items-center gap-2 flex-wrap">
+                  <span
+                    className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono"
+                    style={{
+                      borderRadius: "12px",
+                      backgroundColor: categoryColor,
+                      color: '#1A1814',
+                      fontWeight: 500,
+                      letterSpacing: '1px',
+                    }}
+                  >
+                    {product.category}
+                  </span>
+                  {product.badge && (
                     <span
-                      className="inline-block px-4 py-2 bg-clay text-cream font-mono text-xs uppercase tracking-mono"
-                      style={{ borderRadius: "20px" }}
+                      className="inline-block px-3 py-1 bg-clay text-cream font-mono text-xs uppercase tracking-mono"
+                      style={{ borderRadius: "12px" }}
                     >
                       {product.badge}
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
 
                 {/* Product Name */}
                 <h1
-                  className="font-display text-ink mb-3"
-                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "52px", lineHeight: 1.1 }}
+                  className="font-display text-ink mb-2"
+                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "42px", lineHeight: 1.1 }}
                 >
                   {product.name}
                 </h1>
 
                 {/* Description */}
-                <p className="font-editorial text-ink opacity-70 mb-6" style={{ fontSize: "16px" }}>
+                <p className="font-editorial text-ink opacity-70 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
                   {product.synopsis}
                 </p>
 
                 {/* Purity Display */}
-                <div className="bg-cream hairline-border p-6 mb-6" style={{ borderRadius: "12px" }}>
-                  <div className="flex items-baseline justify-between mb-3">
+                <div className="bg-cream hairline-border p-5 mb-5" style={{ borderRadius: "12px" }}>
+                  <div className="flex items-baseline justify-between mb-2">
                     <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
                       HPLC PURITY
                     </span>
                     <span
                       className="font-display text-ochre"
-                      style={{ fontWeight: 300, fontSize: "42px", lineHeight: 1 }}
+                      style={{ fontWeight: 300, fontSize: "36px", lineHeight: 1 }}
                     >
-                      {product.purity}%
+                      {product.purity}
                     </span>
                   </div>
-                  <div className="bg-bone h-3" style={{ borderRadius: "6px" }}>
+                  <div className="bg-bone h-2" style={{ borderRadius: "4px" }}>
                     <motion.div
                       initial={{ width: 0 }}
-                      animate={{ width: `${product.purity}%` }}
+                      animate={{ width: `${product.purity}` }}
                       transition={{ duration: 1.2, delay: 0.3 }}
                       className="h-full bg-ochre"
-                      style={{ borderRadius: "6px" }}
+                      style={{ borderRadius: "4px" }}
                     />
                   </div>
                 </div>
 
                 {/* Lot + Report Grid */}
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  <div className="bg-cream hairline-border p-4" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1">
+                <div className="grid grid-cols-2 gap-3 mb-5">
+                  <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1" style={{ fontSize: "10px" }}>
                       LOT NUMBER
                     </span>
                     <span className="font-mono text-sm text-ink font-medium">{product.batch}</span>
                   </div>
-                  <div className="bg-cream hairline-border p-4" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1">
+                  <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1" style={{ fontSize: "10px" }}>
                       REPORT NO.
                     </span>
                     <span className="font-mono text-sm text-ink font-medium">{product.report}</span>
@@ -340,23 +351,28 @@ export default function ProductPage() {
                 </div>
 
                 {/* Size Selector */}
-                <div className="mb-6">
-                  <label className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-3">
+                <div className="mb-4">
+                  <label className="font-mono uppercase tracking-mono text-ink opacity-60 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
                     SELECT SIZE
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2">
                     {product.sizes.map((size, index) => (
                       <motion.button
                         key={index}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setSelectedVariant(index)}
-                        className={`p-4 transition-all ${
+                        className={`p-3 transition-all ${
                           selectedVariant === index
-                            ? "bg-ink text-cream border-0"
+                            ? "border-0"
                             : "bg-cream text-ink hairline-border hover:border-clay"
                         }`}
-                        style={{ borderRadius: "12px", transition: "all 150ms" }}
+                        style={{
+                          borderRadius: "10px",
+                          transition: "all 150ms",
+                          backgroundColor: selectedVariant === index ? categoryColor : undefined,
+                          color: selectedVariant === index ? '#1A1814' : undefined,
+                        }}
                       >
                         <div className="font-mono text-sm font-medium">{size}</div>
                         <div className="font-mono text-xs opacity-70">${product.prices[index].toFixed(2)}</div>
@@ -366,17 +382,17 @@ export default function ProductPage() {
                 </div>
 
                 {/* RUO Disclaimer - Prominent */}
-                <div className="bg-clay p-6 mb-6" style={{ borderRadius: "12px" }}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-white text-lg">⚠</span>
+                <div className="bg-clay p-4 mb-4" style={{ borderRadius: "12px" }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-white text-base">⚠</span>
                     <h4
                       className="font-mono uppercase text-white font-medium"
-                      style={{ fontSize: "11px", letterSpacing: "2px" }}
+                      style={{ fontSize: "10px", letterSpacing: "1.5px" }}
                     >
                       RESEARCH USE ONLY
                     </h4>
                   </div>
-                  <p className="font-editorial text-cream italic" style={{ fontSize: "13px", lineHeight: 1.6 }}>
+                  <p className="font-editorial text-cream italic" style={{ fontSize: "12px", lineHeight: 1.5 }}>
                     This compound is sold strictly for in vitro research and laboratory use. Not for
                     human or animal consumption. Not a drug, food, or supplement. By purchasing you
                     confirm you are a qualified researcher and will use this compound in compliance
@@ -385,14 +401,14 @@ export default function ProductPage() {
                 </div>
 
                 {/* Quantity + Add to Cart */}
-                <div className="mb-6">
-                  <label className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-3">
+                <div className="mb-4">
+                  <label className="font-mono uppercase tracking-mono text-ink opacity-60 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
                     QUANTITY
                   </label>
-                  <div className="flex items-center bg-cream p-2 mb-4" style={{ borderRadius: "8px" }}>
+                  <div className="flex items-center bg-cream p-1 mb-3" style={{ borderRadius: "8px" }}>
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-12 h-12 font-mono text-ink hover:text-clay transition-colors"
+                      className="w-10 h-10 font-mono text-ink hover:text-clay transition-colors"
                     >
                       −
                     </button>
@@ -404,7 +420,7 @@ export default function ProductPage() {
                     />
                     <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-12 h-12 font-mono text-ink hover:text-clay transition-colors"
+                      className="w-10 h-10 font-mono text-ink hover:text-clay transition-colors"
                     >
                       +
                     </button>
@@ -412,18 +428,24 @@ export default function ProductPage() {
 
                   {/* Add to Cart Button */}
                   <motion.button
-                    whileHover={{ scale: 1.01, backgroundColor: "rgba(26,24,20,0.85)" }}
+                    whileHover={{ scale: 1.01, opacity: 0.9 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAddToCart}
-                    className="w-full bg-ink text-cream font-mono text-xs uppercase tracking-mono"
-                    style={{ borderRadius: "8px", height: "56px", transition: "all 150ms" }}
+                    className="w-full font-mono text-xs uppercase tracking-mono"
+                    style={{
+                      borderRadius: "8px",
+                      height: "50px",
+                      transition: "all 150ms",
+                      backgroundColor: categoryColor,
+                      color: '#1A1814',
+                    }}
                   >
                     ADD TO CART · ${(product.prices[selectedVariant] * quantity).toFixed(2)}
                   </motion.button>
                 </div>
 
                 {/* Trust Badges - Horizontal 2x2 Grid */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   {trustBadges.map((badge, index) => (
                     <motion.div
                       key={index}
@@ -431,16 +453,16 @@ export default function ProductPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
                       whileHover={{ borderColor: "#B8624A" }}
-                      className="bg-cream hairline-border p-4 transition-all group"
-                      style={{ borderRadius: "12px" }}
+                      className="bg-cream hairline-border p-3 transition-all group"
+                      style={{ borderRadius: "10px" }}
                     >
-                      <div className="text-2xl mb-2 transition-colors group-hover:text-clay">
+                      <div className="text-xl mb-1 transition-colors group-hover:text-clay">
                         {badge.icon}
                       </div>
-                      <div className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-1">
+                      <div className="font-mono uppercase tracking-mono text-ink font-medium mb-1" style={{ fontSize: "10px", letterSpacing: "1px" }}>
                         {badge.title}
                       </div>
-                      <div className="font-editorial text-xs text-ink opacity-60" style={{ fontSize: "11px" }}>
+                      <div className="font-editorial text-ink opacity-60" style={{ fontSize: "10px" }}>
                         {badge.description}
                       </div>
                     </motion.div>

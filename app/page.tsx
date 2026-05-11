@@ -150,43 +150,27 @@ export default function HomePage() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* HERO SECTION - Background Image with Overlay */}
-      <section className="py-24 md:py-32 px-6 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1800&q=80"
-            alt="Laboratory background"
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Dark gradient overlay */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(to right, rgba(26,24,20,0.92) 50%, rgba(26,24,20,0.75) 100%)",
-            }}
-          />
-        </div>
-        <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* HERO SECTION - Clean Light Hero with 2 Floating Vials */}
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: '520px', background: '#F5EFE4', paddingTop: '0', paddingBottom: '80px', paddingLeft: '24px', paddingRight: '24px' }}>
+        <div className="container mx-auto max-w-7xl relative">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'flex-start' }}>
             {/* Left Side - Staggered Word Animation */}
-            <div>
+            <div style={{ width: '50%', paddingTop: '40px', minWidth: '400px', flex: '1 1 400px' }}>
               {/* Eyebrow - slides up + fades in */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0 }}
-                className="font-mono text-xs uppercase tracking-mono text-clay mb-6"
+                className="font-mono text-xs uppercase tracking-mono"
+                style={{ color: '#1A1814', marginTop: 0, marginBottom: '12px' }}
               >
                 LOT 24·11·B · NOW SHIPPING
               </motion.div>
 
               {/* Headline - words animate in one by one */}
               <motion.h1
-                className="font-display text-6xl md:text-8xl text-cream mb-8 leading-[0.95]"
-                style={{ fontWeight: 300, letterSpacing: "-0.035em", y: heroY }}
+                className="font-display text-6xl md:text-8xl mb-8 leading-[0.95]"
+                style={{ fontWeight: 300, letterSpacing: "-0.035em", color: '#1A1814', y: heroY }}
               >
                 {["Precision", "peptides", "for"].map((word, i) => (
                   <motion.span
@@ -203,7 +187,8 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="text-clay italic inline-block"
+                  className="italic inline-block"
+                  style={{ color: '#B8624A' }}
                 >
                   serious
                 </motion.span>{" "}
@@ -220,10 +205,10 @@ export default function HomePage() {
               {/* Subheading slogan */}
               <motion.p
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="font-editorial text-xl text-cream mb-4 leading-relaxed max-w-lg italic"
-                style={{ fontSize: "22px" }}
+                className="font-editorial text-xl mb-4 leading-relaxed max-w-lg italic"
+                style={{ fontSize: "22px", color: 'rgba(26,24,20,0.65)' }}
               >
                 Light, made measurable.
               </motion.p>
@@ -231,9 +216,10 @@ export default function HomePage() {
               {/* Description */}
               <motion.p
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
-                className="font-editorial text-base text-cream mb-10 leading-relaxed max-w-lg opacity-80"
+                className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
+                style={{ color: 'rgba(26,24,20,0.65)' }}
               >
                 Synthesized to spec. Verified by an independent lab. Cold-shipped,
                 lot-traceable, footnoted.
@@ -248,201 +234,88 @@ export default function HomePage() {
               >
                 <Link
                   href="/products"
-                  className="px-8 py-4 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all active:scale-[0.97]"
-                  style={{ borderRadius: "8px" }}
+                  className="px-8 py-4 font-mono text-xs uppercase tracking-mono transition-all active:scale-[0.97]"
+                  style={{ borderRadius: "8px", background: '#B8624A', color: 'white' }}
                 >
                   → SEE CURRENT LOTS
                 </Link>
                 <Link
                   href="/coa"
-                  className="px-8 py-4 border-2 border-cream text-cream font-mono text-xs uppercase tracking-mono hover:bg-cream hover:text-ink transition-all active:scale-[0.97]"
-                  style={{ borderRadius: "8px" }}
+                  className="px-8 py-4 border-2 font-mono text-xs uppercase tracking-mono transition-all active:scale-[0.97]"
+                  style={{ borderRadius: "8px", borderColor: '#1A1814', color: '#1A1814', background: 'transparent' }}
                 >
                   READ A COA
                 </Link>
               </motion.div>
             </div>
 
-            {/* Right Side - Rotating Product Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
-              <div
-                className="relative overflow-hidden"
+            {/* Right Side - 2 Floating Vials Only */}
+            <div style={{ width: '50%', position: 'relative', height: '560px', minWidth: '400px', flex: '1 1 400px', paddingTop: '20px', background: 'transparent' }}>
+              {/* Large front vial - 260px, absolute positioned */}
+              <img
+                src='/images/vial-transparent.png'
+                alt='Research vial'
                 style={{
-                  borderRadius: "24px",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-                  minHeight: "460px",
+                  position: 'absolute',
+                  bottom: '20px',
+                  right: '160px',
+                  width: '260px',
+                  height: 'auto',
+                  animation: 'float2 4s ease-in-out infinite',
+                  filter: 'drop-shadow(-8px 20px 32px rgba(26,24,20,0.2))',
+                  zIndex: 2,
+                  background: 'transparent',
                 }}
-              >
-                {/* Rotating Content with AnimatePresence */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={heroProductIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6 }}
-                    style={{ display: 'flex', minHeight: '460px' }}
-                  >
-                    {/* Left Side - 48% Bone Background with Vial */}
-                    <div
-                      style={{
-                        flex: '0 0 48%',
-                        background: '#F5EFE4',
-                        minHeight: '460px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '20px',
-                      }}
-                    >
-                      <img
-                        src='/images/vial-transparent.png'
-                        alt={currentProduct.name}
-                        style={{
-                          width: '80%',
-                          height: 'auto',
-                          maxHeight: '380px',
-                          objectFit: 'contain',
-                          filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.25))',
-                          display: 'block',
-                          margin: '0 auto',
-                        }}
-                      />
-                    </div>
+              />
+              {/* Vial shadow for large front vial */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '12px',
+                  right: '160px',
+                  width: '182px',
+                  height: '16px',
+                  background: 'rgba(26,24,20,0.12)',
+                  borderRadius: '50%',
+                  filter: 'blur(8px)',
+                  zIndex: 1,
+                  transform: 'translateX(50%)',
+                }}
+              />
 
-                    {/* Right Side - 52% Category Color with Details */}
-                    <div
-                      style={{
-                        flex: '0 0 52%',
-                        background: CATEGORY_COLORS[currentProduct.category] || '#B8624A',
-                        padding: '32px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        position: 'relative',
-                      }}
-                    >
-                      {/* Badge - Top Right */}
-                      <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
-                        <div
-                          className="flex items-center space-x-1"
-                          style={{
-                            color: '#F5EFE4',
-                            opacity: 0.85,
-                            fontFamily: 'JetBrains Mono, monospace',
-                            fontSize: '9px',
-                            letterSpacing: '1.5px',
-                          }}
-                        >
-                          <span>●</span>
-                          <span>3RD-PARTY TESTED</span>
-                        </div>
-                      </div>
-
-                      {/* Top Label */}
-                      <div
-                        style={{
-                          fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: '10px',
-                          color: '#F5EFE4',
-                          opacity: 0.7,
-                          letterSpacing: '2px',
-                          marginBottom: '12px',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        ● NEWEST LOT · VERIFIED
-                      </div>
-
-                      {/* Compound Name */}
-                      <h3
-                        style={{
-                          fontFamily: 'Fraunces, Georgia, serif',
-                          fontSize: '42px',
-                          color: '#F5EFE4',
-                          fontWeight: 300,
-                          fontStyle: 'italic',
-                          marginBottom: '16px',
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        {currentProduct.name}
-                      </h3>
-
-                      {/* Lot + Purity Line */}
-                      <div
-                        style={{
-                          fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: '11px',
-                          color: '#F5EFE4',
-                          opacity: 0.65,
-                          marginBottom: '20px',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        LOT {currentProduct.batch} · {currentProduct.sizes[0]} · {currentProduct.purity}
-                      </div>
-
-                      {/* Price and Button */}
-                      <div className="flex items-end justify-between">
-                        <div
-                          style={{
-                            fontFamily: 'Fraunces, Georgia, serif',
-                            fontSize: '36px',
-                            color: '#F5EFE4',
-                            fontWeight: 300,
-                          }}
-                        >
-                          ${lowestPrice.toFixed(2)}
-                        </div>
-                        <Link
-                          href={`/products/${currentProduct.slug}`}
-                          style={{
-                            background: '#F5EFE4',
-                            color: CATEGORY_COLORS[currentProduct.category] || '#B8624A',
-                            fontFamily: 'JetBrains Mono, monospace',
-                            fontSize: '11px',
-                            letterSpacing: '1px',
-                            textTransform: 'uppercase',
-                            padding: '10px 20px',
-                            borderRadius: '6px',
-                            transition: 'all 150ms',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                          }}
-                          className="hover:opacity-90 active:scale-[0.97]"
-                        >
-                          → VIEW
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Dot Indicators - Outside the card */}
-              </div>
-
-              {/* Dot Indicators - Below the card */}
-              <div className="flex justify-center gap-2 mt-6">
-                {PRODUCTS.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setHeroProductIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === heroProductIndex
-                        ? "bg-clay w-3 h-3"
-                        : "bg-cream bg-opacity-30"
-                    }`}
-                  />
-                ))}
-              </div>
-            </motion.div>
+              {/* Smaller back vial - 180px, absolute positioned */}
+              <img
+                src='/images/vial-transparent.png'
+                alt='Research vial'
+                style={{
+                  position: 'absolute',
+                  bottom: '60px',
+                  right: '320px',
+                  width: '180px',
+                  height: 'auto',
+                  animation: 'float1 5s ease-in-out infinite',
+                  filter: 'drop-shadow(-6px 16px 24px rgba(26,24,20,0.15))',
+                  opacity: 0.7,
+                  zIndex: 1,
+                  background: 'transparent',
+                }}
+              />
+              {/* Vial shadow for smaller back vial */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '52px',
+                  right: '320px',
+                  width: '126px',
+                  height: '16px',
+                  background: 'rgba(26,24,20,0.12)',
+                  borderRadius: '50%',
+                  filter: 'blur(8px)',
+                  zIndex: 0,
+                  transform: 'translateX(50%)',
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -460,15 +333,15 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* TRUST BAR - Full Clay Background with Counter Animations */}
-      <section ref={trustRef} className="bg-clay py-12 px-6">
+      {/* TRUST BAR - Pastel Ochre Background with Counter Animations */}
+      <section ref={trustRef} className="py-12 px-6" style={{ background: '#EDE0C4' }}>
         <motion.div
           className="container mx-auto max-w-7xl"
           variants={containerVariants}
           initial="hidden"
           animate={trustInView ? "visible" : "hidden"}
         >
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 md:divide-x divide-cream divide-opacity-20">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 md:divide-x" style={{ borderColor: 'rgba(26,24,20,0.15)' }}>
             {[
               {
                 icon: (
@@ -525,11 +398,11 @@ export default function HomePage() {
                 variants={itemVariants}
                 className="text-center md:px-6"
               >
-                <div className="text-cream opacity-90">{item.icon}</div>
-                <div className="font-mono text-xs uppercase tracking-mono text-cream font-medium mb-1">
+                <div style={{ color: '#1A1814' }}>{item.icon}</div>
+                <div className="font-mono text-xs uppercase tracking-mono font-medium mb-1" style={{ color: '#1A1814' }}>
                   {item.label}
                 </div>
-                <div className="font-editorial text-sm text-cream opacity-70">
+                <div className="font-editorial text-sm" style={{ color: '#1A1814', opacity: 0.7 }}>
                   {item.desc}
                 </div>
               </motion.div>
@@ -652,9 +525,8 @@ export default function HomePage() {
               src='/images/vial-transparent.png'
               alt='Research Grade Packaging'
               style={{
-                width: '65%',
-                maxWidth: '280px',
-                height: 'auto',
+                width: 'auto',
+                height: '480px',
                 filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                 display: 'block',
                 margin: '0 auto'
@@ -706,6 +578,120 @@ export default function HomePage() {
               → View Certificates of Analysis
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      {/* FEATURE BLOCKS SECTION */}
+      <section style={{ background: '#F5EFE4', padding: '80px 40px' }}>
+        <h2
+          style={{
+            fontFamily: 'Fraunces, serif',
+            fontSize: '36px',
+            fontWeight: 300,
+            color: '#1A1814',
+            textAlign: 'center',
+            marginBottom: '48px',
+            fontStyle: 'normal',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Why researchers choose Lumo.
+        </h2>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '20px',
+            maxWidth: '900px',
+            margin: '0 auto',
+          }}
+        >
+          {[
+            {
+              title: 'Third-party verified, every batch',
+              body: 'Every lot is tested by an independent laboratory for identity, purity, and endotoxin before shipping.',
+              cta: '→ VIEW CERTIFICATES',
+              href: '/coa',
+              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><path d="M20 8v20l-8 16h32l-8-16V8"/><line x1="16" y1="8" x2="40" y2="8"/></svg>`,
+            },
+            {
+              title: 'Research-grade pricing',
+              body: 'High-purity peptides without procurement overhead. Transparent per-lot pricing, no subscription required.',
+              cta: '→ BROWSE COMPOUNDS',
+              href: '/products',
+              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><polygon points="28,6 50,28 28,50 6,28"/></svg>`,
+            },
+            {
+              title: 'Cold-shipped, lot-traceable',
+              body: 'Every order ships with ice pack and insulated liner. Your lot number is traceable from synthesis to delivery.',
+              cta: '→ OUR PROCESS',
+              href: '/about',
+              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><line x1="28" y1="4" x2="28" y2="52"/><line x1="4" y1="28" x2="52" y2="28"/><line x1="10" y1="10" x2="46" y2="46"/><line x1="46" y1="10" x2="10" y2="46"/></svg>`,
+            },
+            {
+              title: 'Research library included',
+              body: 'Every compound page links to peer-reviewed literature. We cite our sources and show our work.',
+              cta: '→ READ THE JOURNAL',
+              href: '/journal',
+              icon: `<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#B8624A" strokeWidth="1.5"><rect x="8" y="6" width="32" height="44" rx="2"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="26" x2="32" y2="26"/><line x1="16" y1="34" x2="28" y2="34"/></svg>`,
+            },
+          ].map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              style={{
+                background: 'white',
+                borderRadius: '20px',
+                padding: '32px',
+                position: 'relative',
+                minHeight: '200px',
+                boxShadow: '0 2px 12px rgba(26,24,20,0.05)',
+                overflow: 'hidden',
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: 'Inter Tight, Inter, sans-serif',
+                  fontSize: '17px',
+                  fontWeight: 600,
+                  color: '#1A1814',
+                  marginBottom: '10px',
+                }}
+              >
+                {card.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: 'Newsreader, serif',
+                  fontSize: '14px',
+                  color: 'rgba(26,24,20,0.65)',
+                  lineHeight: 1.65,
+                  marginBottom: '16px',
+                }}
+              >
+                {card.body}
+              </p>
+              <a
+                href={card.href}
+                style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '10px',
+                  letterSpacing: '1.5px',
+                  color: '#B8624A',
+                  textDecoration: 'none',
+                }}
+              >
+                {card.cta}
+              </a>
+              <div
+                style={{ position: 'absolute', bottom: '24px', right: '24px', opacity: 0.25 }}
+                dangerouslySetInnerHTML={{ __html: card.icon }}
+              />
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -929,102 +915,391 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORIES - Bone Background with Enhanced Hover */}
-      <section ref={categoriesRef} className="py-24 px-6" style={{ background: '#F5EFE4' }}>
+      {/* CATEGORIES - Mosaic Layout by Compound Count */}
+      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '48px', paddingBottom: '48px' }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
-            className="text-center mb-16"
+            className="text-center mb-10"
           >
-            <h2 className="font-display text-5xl mb-4" style={{ fontWeight: 300, color: '#1A1814' }}>
+            <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
               Browse by research area.
             </h2>
-            <p className="font-editorial text-xl" style={{ color: 'rgba(26,24,20,0.6)' }}>
+            <p className="font-editorial text-lg" style={{ color: 'rgba(26,24,20,0.6)' }}>
               Compounds organized by application.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                name: "Healing & Recovery",
-                color: "#B8624A",
-                hoverColor: "#C8826A",
-                count: PRODUCTS.filter((p) => p.category === "Healing & Recovery").length,
-                slug: "Healing+%26+Recovery",
-              },
-              {
-                name: "Growth Hormone",
-                color: "#C89A3C",
-                hoverColor: "#D8AA4C",
-                count: PRODUCTS.filter((p) => p.category === "Growth Hormone").length,
-                slug: "Growth+Hormone",
-              },
-              {
-                name: "Longevity",
-                color: "#6D7A5C",
-                hoverColor: "#7D8A6C",
-                count: PRODUCTS.filter((p) => p.category === "Longevity").length,
-                slug: "Longevity",
-              },
-              {
-                name: "Nootropic",
-                color: "#1A1814",
-                hoverColor: "#2A2824",
-                count: PRODUCTS.filter((p) => p.category === "Nootropic").length,
-                slug: "Nootropic",
-              },
-            ].map((category, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                initial="hidden"
-                animate={categoriesInView ? "visible" : "hidden"}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link href={`/products?category=${category.slug}`}>
-                  <motion.div
-                    whileHover={{
-                      y: -8,
-                      backgroundColor: category.hoverColor,
-                      boxShadow: "0 12px 40px rgba(26,24,20,0.16)",
-                      transition: { duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }
-                    }}
-                    className="p-8 h-48 flex flex-col justify-between group"
-                    style={{
-                      backgroundColor: category.color,
-                      borderRadius: "20px",
-                      boxShadow: "0 4px 24px rgba(26,24,20,0.08)",
-                    }}
-                  >
-                    <div>
-                      <h3
-                        className="font-display text-3xl text-cream mb-2"
-                        style={{ fontWeight: 300, fontStyle: "italic" }}
-                      >
-                        {category.name}
-                      </h3>
-                      <div className="font-mono text-xs uppercase tracking-mono text-cream opacity-70">
-                        {category.count} COMPOUNDS
-                      </div>
+          {/* Mosaic Grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridAutoRows: '130px',
+              gap: '12px',
+            }}
+          >
+            {/* Growth Hormone - Largest (4 compounds) - spans 2x2 */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0 }}
+              style={{ gridColumn: 'span 2', gridRow: 'span 2' }}
+            >
+              <Link href="/products?category=Growth+Hormone">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#e8e0b8',
+                    borderRadius: '16px',
+                    padding: '22px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '9px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      4 COMPOUNDS
                     </div>
-                    <div className="font-mono text-xs uppercase tracking-mono text-cream flex items-center">
-                      <motion.span
-                        className="inline-block mr-2"
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 4 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        →
-                      </motion.span>
-                      BROWSE
+                    <h3 className="font-display mb-2" style={{ fontSize: '26px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Growth Hormone
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '12px', lineHeight: '1.5', color: 'rgba(26,24,20,0.6)', marginBottom: '12px' }}>
+                      CJC-1295 No DAC · CJC+Ipamorelin · Ipamorelin · Tesamorelin
                     </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Healing & Recovery - Medium-Large (3 compounds) - spans 2x1 */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.1 }}
+              style={{ gridColumn: 'span 2', gridRow: 'span 1' }}
+            >
+              <Link href="/products?category=Healing+%26+Recovery">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#b8d8d2',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '9px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      3 COMPOUNDS
+                    </div>
+                    <h3 className="font-display mb-2" style={{ fontSize: '20px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Healing & Recovery
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '11px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      BPC-157 · TB-500 · BPC+TB Blend
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Metabolic - Medium (2 compounds) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.2 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Metabolic">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#e8c8bc',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      2 COMPOUNDS
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Metabolic
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      Lumo-2 TRZ · Lumo-3 RT
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Nootropic - Medium (2 compounds) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.3 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Nootropic">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#d0cec8',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      2 COMPOUNDS
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Nootropic
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      Selank · Semax
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Skin & Longevity - Small (1 compound) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.4 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Skin+%26+Longevity">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#c8d8c0',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      1 COMPOUND
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Skin & Longevity
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      GHK-Cu
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Blends - Medium (2 compounds) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.5 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Blends">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#c8d8d0',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      2 COMPOUNDS
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Blends
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      GLOW Blend · KLOW Blend
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Longevity - Small (1 compound) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.6 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Longevity">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#e0e0b0',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      1 COMPOUND
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Longevity
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      NAD+
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Ancillary - Small (1 compound) */}
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={categoriesInView ? "visible" : "hidden"}
+              transition={{ delay: 0.7 }}
+              style={{ gridColumn: 'span 1' }}
+            >
+              <Link href="/products?category=Ancillary">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 16px 48px rgba(26,24,20,0.16)",
+                    transition: { duration: 0.3 }
+                  }}
+                  style={{
+                    backgroundColor: '#d8d0c8',
+                    borderRadius: '16px',
+                    padding: '18px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 24px rgba(26,24,20,0.08)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div>
+                    <div className="font-mono uppercase tracking-mono mb-1" style={{ fontSize: '8px', letterSpacing: '1.5px', color: 'rgba(26,24,20,0.5)' }}>
+                      1 COMPOUND
+                    </div>
+                    <h3 className="font-display mb-1" style={{ fontSize: '16px', fontStyle: 'italic', fontWeight: 300, color: '#1A1814', lineHeight: '1.1' }}>
+                      Ancillary
+                    </h3>
+                    <div className="font-editorial" style={{ fontSize: '10px', lineHeight: '1.4', color: 'rgba(26,24,20,0.6)' }}>
+                      BAC Water
+                    </div>
+                  </div>
+                  <div className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '1.2px', color: '#1A1814', fontWeight: 500 }}>
+                    → EXPLORE
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>

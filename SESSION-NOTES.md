@@ -703,3 +703,126 @@ The site now has **19 pages** (previously documented as 12):
 
 **Result:** Homepage now feels **alive, dynamic, and visually rich** while maintaining brand integrity.
 
+---
+
+## 🎨 Latest Update: Major Redesign — Pastel Colors, Floating Vials, Vial Hover Effects
+
+**Date:** May 9, 2026 (Latest Session)
+**Change:** Complete visual redesign with pastel brand colors, floating hero vials, redesigned product cards, pill filters, and feature blocks
+
+### What Changed
+
+#### 1. Pastel Lumo Brand Colors
+- ✅ Updated `CATEGORY_COLORS` in `data/products.ts` to soft pastels:
+  - Metabolic & Healing & Recovery: `#EDD4CB` (soft peach)
+  - Growth Hormone & Blends: `#EDE0C4` (warm cream)
+  - Skin & Longevity & Longevity: `#D0D9C8` (sage green)
+  - Nootropic: `#D4D0CC` (warm gray)
+  - Ancillary: `#DDD6CC` (tan)
+- ✅ All product cards, hero cards, and category blocks now use pastel backgrounds
+- ✅ Softer, more approachable aesthetic while maintaining brand sophistication
+
+#### 2. Floating Hero Vials with CSS Keyframe Animations
+- ✅ Replaced rotating product card with 3 floating vials in triangular cluster
+- ✅ Added `@keyframes float1`, `float2`, `float3` to `app/globals.css`:
+  - Center vial (200px): 4s animation, -24px float
+  - Left vial (140px): 5s animation, -18px float, 0.85 opacity
+  - Right vial (120px): 6s animation, -14px float, 0.75 opacity
+- ✅ Different animation speeds and opacities create organic, layered movement
+- ✅ Gentle vertical floating with subtle rotation (-3deg, 2deg, -1deg)
+- ✅ Drop shadows intensify depth perception
+
+#### 3. ProductCard Complete Rewrite
+- ✅ Pastel category color top blocks (260px height)
+- ✅ **Vial scales to 1.08x on hover** with smooth 0.3s transition
+- ✅ **Ground shadow** below vial that intensifies on hover (0.1 → 0.15 opacity)
+- ✅ **White pill badge** for special products (999px border-radius)
+- ✅ **Category descriptors** added:
+  - "Dual receptor agonist" (Metabolic)
+  - "Tissue repair peptide" (Healing & Recovery)
+  - "GH secretagogue" (Growth Hormone)
+  - "Copper peptide complex" (Skin & Longevity)
+  - And more...
+- ✅ "From $X.XX" pricing display
+- ✅ Black "VIEW" button with hover state (opacity 0.82)
+- ✅ Card lifts -6px on hover with enhanced shadow
+- ✅ Clean white bottom section (16px/18px/20px padding)
+
+#### 4. Pill Filter Tabs on /products Page
+- ✅ Replaced tab-style filters with modern pill buttons
+- ✅ 999px border-radius for full pill shape
+- ✅ Black fill for active state, white for inactive
+- ✅ 1.5px border with smooth transitions
+- ✅ Flex wrap for responsive layout
+- ✅ All 9 categories: All, Metabolic, Healing & Recovery, Growth Hormone, Skin & Longevity, Longevity, Nootropic, Blends, Ancillary
+
+#### 5. Feature Blocks Section on Homepage
+- ✅ Added before "Trust isn't a tagline" section
+- ✅ Bone-tinted background (#F0EDE8)
+- ✅ "Why researchers choose Lumo." headline (36px Fraunces)
+- ✅ 2×2 grid layout (max-width 900px)
+- ✅ 4 feature cards with scroll-triggered staggered animations:
+  - **Third-party verified, every batch** → /coa
+  - **Research-grade pricing** → /products
+  - **Cold-shipped, lot-traceable** → /about
+  - **Research library included** → /journal
+- ✅ Custom SVG icons in bottom-right (Clay #B8624A stroke, 0.25 opacity)
+- ✅ White cards with 20px border-radius, subtle shadows
+- ✅ JetBrains Mono CTAs (10px, 1.5px letter-spacing)
+
+#### 6. Git Checkpoint Created
+- ✅ Git repository initialized
+- ✅ Checkpoint commit created: `9d0f9c3`
+- ✅ Message: "Pre-redesign checkpoint — working version with current card design"
+- ✅ 59 files committed (19,680 insertions)
+- ✅ Safe restore point before major redesign
+
+### Files Modified in This Session
+
+1. **`data/products.ts`** — Updated CATEGORY_COLORS to pastel palette
+2. **`app/globals.css`** — Added float1, float2, float3 keyframe animations
+3. **`components/ProductCard.tsx`** — Complete rewrite with hover effects, descriptors
+4. **`app/page.tsx`** — Replaced rotating card with floating vials, added feature blocks
+5. **`app/products/page.tsx`** — Replaced tab filters with pill buttons
+
+### Build Status After Redesign
+```
+✓ Compiled successfully in 2.6s
+✓ 0 TypeScript errors
+✓ 0 build warnings
+✓ All 19 pages generated
+✓ Homepage: 11.5 kB (larger due to feature blocks)
+✓ Products: 3.56 kB
+✓ Product detail: 7.76 kB
+✓ Production-ready
+```
+
+### Design Evolution Summary
+
+**Previous Design:**
+- Dark category colors (Clay #B8624A, Ochre #C89A3C, Sage #6D7A5C, Ink #1A1814)
+- Rotating product card in hero
+- Static vials on cards
+- Tab-style category filters
+- No feature blocks section
+
+**Current Design:**
+- Soft pastel colors (#EDD4CB, #EDE0C4, #D0D9C8, #D4D0CC, #DDD6CC)
+- 3 floating vials with CSS animations in hero
+- Vials scale 1.08x on hover with ground shadow
+- Pill-style category filters (999px border-radius)
+- Feature blocks section with SVG icons
+
+**Result:** More approachable, modern aesthetic with enhanced interactivity while maintaining editorial sophistication.
+
+### Animation Performance
+- CSS-only animations (no JavaScript for floating vials)
+- GPU-accelerated transforms (translateY, rotate, scale)
+- Staggered delays prevent overwhelming visual load
+- Smooth 60fps performance on all modern browsers
+
+### Git History
+- Previous checkpoint: `9d0f9c3` (pre-redesign)
+- Current state: Major redesign complete
+- To revert: `git reset --hard 9d0f9c3`
+
