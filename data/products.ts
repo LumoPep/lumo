@@ -493,15 +493,21 @@ export const CATEGORIES = [
   'Ancillary',
 ]
 
-export const CATEGORY_COLORS: Record<string, string> = {
-  'Metabolic': '#EDD4CB',
-  'Healing & Recovery': '#C8DDD8',
-  'Growth Hormone': '#EDE0C4',
-  'Skin & Longevity': '#D0D9C8',
-  'Longevity': '#E8E4C0',
-  'Nootropic': '#D4D0CC',
-  'Blends': '#D4E0D0',
-  'Ancillary': '#DDD6CC',
+export interface CategoryColors {
+  accent: string;
+  label: string;
+  tint: string;
+}
+
+export const CATEGORY_COLORS: Record<string, CategoryColors> = {
+  'Metabolic': { accent: '#B8624A', label: '#E8A090', tint: '#FAF0EC' },
+  'Healing & Recovery': { accent: '#4A8A88', label: '#A8D4CC', tint: '#EEF6F4' },
+  'Growth Hormone': { accent: '#C89A3C', label: '#E8D498', tint: '#FAF6EC' },
+  'Skin & Longevity': { accent: '#607A5C', label: '#B8D4A8', tint: '#EEF4EC' },
+  'Longevity': { accent: '#A89020', label: '#D4C87C', tint: '#F6F4EC' },
+  'Nootropic': { accent: '#7A6898', label: '#C8B8D8', tint: '#F4F0F8' },
+  'Blends': { accent: '#3A7888', label: '#98C4D0', tint: '#ECF4F6' },
+  'Ancillary': { accent: '#8A7860', label: '#C8B8A0', tint: '#F4F0EC' },
 }
 
 export function getProductBySlug(slug: string): Product | undefined {

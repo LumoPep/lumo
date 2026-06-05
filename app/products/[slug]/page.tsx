@@ -33,7 +33,7 @@ export default function ProductPage() {
     return notFound();
   }
 
-  const categoryColor = CATEGORY_COLORS[product.category] || "#B8624A";
+  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic'];
 
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
@@ -84,7 +84,7 @@ export default function ProductPage() {
                 transition={{ duration: 0.6 }}
                 style={{
                   position: 'relative',
-                  background: `linear-gradient(135deg, ${categoryColor}15, ${categoryColor}08)`,
+                  background: 'transparent',
                   borderRadius: '16px',
                   padding: '32px',
                   display: 'flex',
@@ -97,12 +97,13 @@ export default function ProductPage() {
                 <Image
                   src='/images/vial-transparent.png'
                   alt={product.name}
-                  width={280}
-                  height={330}
+                  width={364}
+                  height={429}
                   style={{
                     objectFit: 'contain',
                     filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                     transform: 'none',
+                    mixBlendMode: 'multiply',
                   }}
                   priority
                 />
@@ -279,8 +280,8 @@ export default function ProductPage() {
                     className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono"
                     style={{
                       borderRadius: "12px",
-                      backgroundColor: categoryColor,
-                      color: '#1A1814',
+                      backgroundColor: categoryColors.accent,
+                      color: 'white',
                       fontWeight: 500,
                       letterSpacing: '1px',
                     }}
@@ -370,8 +371,8 @@ export default function ProductPage() {
                         style={{
                           borderRadius: "10px",
                           transition: "all 150ms",
-                          backgroundColor: selectedVariant === index ? categoryColor : undefined,
-                          color: selectedVariant === index ? '#1A1814' : undefined,
+                          backgroundColor: selectedVariant === index ? categoryColors.accent : undefined,
+                          color: selectedVariant === index ? 'white' : undefined,
                         }}
                       >
                         <div className="font-mono text-sm font-medium">{size}</div>
@@ -436,8 +437,8 @@ export default function ProductPage() {
                       borderRadius: "8px",
                       height: "50px",
                       transition: "all 150ms",
-                      backgroundColor: categoryColor,
-                      color: '#1A1814',
+                      backgroundColor: categoryColors.accent,
+                      color: 'white',
                     }}
                   >
                     ADD TO CART · ${(product.prices[selectedVariant] * quantity).toFixed(2)}

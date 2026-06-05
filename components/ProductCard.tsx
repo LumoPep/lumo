@@ -12,7 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
   const lowestPrice = Math.min(...product.prices);
   const firstSize = product.sizes[0];
-  const categoryColor = CATEGORY_COLORS[product.category] || "#B8624A";
+  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic'];
 
   // Special handling for BAC Water - it has 'USP Grade' instead of percentage
   const isUSPGrade = product.purity === 'USP Grade';
@@ -21,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <Link href={`/products/${product.slug}`} className="block h-full">
       <div
         style={{
-          borderTop: `6px solid ${categoryColor}`,
+          borderTop: `6px solid ${categoryColors.accent}`,
           borderRadius: '20px',
           overflow: 'hidden',
           cursor: 'pointer',
@@ -99,15 +99,16 @@ export default function ProductCard({ product }: ProductCardProps) {
               src='/images/vial-transparent.png'
               alt={product.name}
               style={{
-                width: '75%',
+                width: '98%',
                 height: 'auto',
-                maxHeight: '220px',
+                maxHeight: '385px',
                 objectFit: 'contain',
                 filter: 'drop-shadow(-6px 12px 24px rgba(26,24,20,0.25))',
                 display: 'block',
                 margin: '0 auto',
                 transform: hovered ? 'scale(1.08)' : 'scale(1)',
                 transition: 'transform 0.3s ease',
+                mixBlendMode: 'multiply',
               }}
             />
           </div>
@@ -117,7 +118,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="flex-1 flex flex-col"
             style={{
               padding: '16px 18px 20px',
-              background: `linear-gradient(to bottom, ${categoryColor}65, ${categoryColor}48)`,
+              background: `${categoryColors.tint}66`,
             }}
           >
             {/* Lot Line */}
@@ -155,7 +156,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div
               className="flex items-end justify-between pt-2"
               style={{
-                borderTop: `1px solid ${categoryColor}60`,
+                borderTop: `1px solid ${categoryColors.accent}40`,
               }}
             >
               <div

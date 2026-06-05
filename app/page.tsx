@@ -249,70 +249,103 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Right Side - 2 Floating Vials Only */}
+            {/* Right Side - 3 Floating Vials */}
             <div style={{ width: '50%', position: 'relative', height: '560px', minWidth: '400px', flex: '1 1 400px', paddingTop: '20px', background: 'transparent' }}>
-              {/* Large front vial - 260px, absolute positioned */}
+              {/* Large front vial - 504px, absolute positioned */}
               <img
                 src='/images/vial-transparent.png'
                 alt='Research vial'
                 style={{
                   position: 'absolute',
                   bottom: '20px',
-                  right: '160px',
-                  width: '260px',
+                  right: '140px',
+                  width: '504px',
                   height: 'auto',
                   animation: 'float2 4s ease-in-out infinite',
                   filter: 'drop-shadow(-8px 20px 32px rgba(26,24,20,0.2))',
                   zIndex: 2,
                   background: 'transparent',
+                  mixBlendMode: 'multiply',
                 }}
               />
               {/* Vial shadow for large front vial */}
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '12px',
-                  right: '160px',
-                  width: '182px',
-                  height: '16px',
-                  background: 'rgba(26,24,20,0.12)',
+                  bottom: '8px',
+                  right: '250px',
+                  width: '240px',
+                  height: '24px',
+                  background: 'radial-gradient(ellipse, rgba(26,24,20,0.15) 0%, rgba(26,24,20,0.05) 50%, transparent 70%)',
                   borderRadius: '50%',
-                  filter: 'blur(8px)',
+                  filter: 'blur(12px)',
                   zIndex: 1,
-                  transform: 'translateX(50%)',
                 }}
               />
 
-              {/* Smaller back vial - 180px, absolute positioned */}
+              {/* Third vial - 454px, to the right of front vial */}
               <img
                 src='/images/vial-transparent.png'
                 alt='Research vial'
                 style={{
                   position: 'absolute',
-                  bottom: '60px',
-                  right: '320px',
-                  width: '180px',
+                  bottom: '40px',
+                  right: '-45px',
+                  width: '454px',
+                  height: 'auto',
+                  animation: 'float3 4.7s ease-in-out infinite',
+                  filter: 'drop-shadow(-7px 18px 28px rgba(26,24,20,0.18))',
+                  opacity: 0.85,
+                  zIndex: 1,
+                  background: 'transparent',
+                  mixBlendMode: 'multiply',
+                }}
+              />
+              {/* Vial shadow for third vial */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '28px',
+                  right: '65px',
+                  width: '212px',
+                  height: '23px',
+                  background: 'radial-gradient(ellipse, rgba(26,24,20,0.13) 0%, rgba(26,24,20,0.04) 50%, transparent 70%)',
+                  borderRadius: '50%',
+                  filter: 'blur(11px)',
+                  zIndex: 0,
+                }}
+              />
+
+              {/* Smaller back vial - 360px, absolute positioned */}
+              <img
+                src='/images/vial-transparent.png'
+                alt='Research vial'
+                style={{
+                  position: 'absolute',
+                  bottom: '70px',
+                  right: '370px',
+                  width: '360px',
                   height: 'auto',
                   animation: 'float1 5s ease-in-out infinite',
                   filter: 'drop-shadow(-6px 16px 24px rgba(26,24,20,0.15))',
                   opacity: 0.7,
                   zIndex: 1,
                   background: 'transparent',
+                  mixBlendMode: 'multiply',
                 }}
               />
               {/* Vial shadow for smaller back vial */}
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '52px',
-                  right: '320px',
-                  width: '126px',
-                  height: '16px',
-                  background: 'rgba(26,24,20,0.12)',
+                  bottom: '58px',
+                  right: '450px',
+                  width: '168px',
+                  height: '22px',
+                  background: 'radial-gradient(ellipse, rgba(26,24,20,0.12) 0%, rgba(26,24,20,0.04) 50%, transparent 70%)',
                   borderRadius: '50%',
-                  filter: 'blur(8px)',
+                  filter: 'blur(10px)',
                   zIndex: 0,
-                  transform: 'translateX(50%)',
                 }}
               />
             </div>
@@ -529,7 +562,8 @@ export default function HomePage() {
                 height: '480px',
                 filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                 display: 'block',
-                margin: '0 auto'
+                margin: '0 auto',
+                mixBlendMode: 'multiply',
               }}
             />
             <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-40 mt-8">
@@ -952,7 +986,7 @@ export default function HomePage() {
               { name: 'Blends', count: 2, slug: 'Blends' },
               { name: 'Ancillary', count: 1, slug: 'Ancillary' },
             ].map((category, index) => {
-              const categoryColor = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic'];
+              const categoryColors = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic'];
               return (
                 <motion.div
                   key={category.name}
@@ -970,7 +1004,7 @@ export default function HomePage() {
                       style={{
                         backgroundColor: '#EBE2CF',
                         borderRadius: '10px',
-                        borderLeft: `3px solid ${categoryColor}`,
+                        borderLeft: `3px solid ${categoryColors.accent}`,
                         padding: '20px',
                         height: '140px',
                         display: 'flex',
@@ -1008,7 +1042,7 @@ export default function HomePage() {
                         style={{
                           fontSize: '10px',
                           letterSpacing: '1.2px',
-                          color: categoryColor,
+                          color: categoryColors.accent,
                           fontWeight: 500
                         }}
                       >

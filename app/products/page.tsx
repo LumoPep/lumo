@@ -195,7 +195,9 @@ function ProductsPageContent() {
           {/* Category Filter Pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px', justifyContent: 'center' }}>
             {['All', 'Metabolic', 'Healing & Recovery', 'Growth Hormone', 'Skin & Longevity', 'Longevity', 'Nootropic', 'Blends', 'Ancillary'].map((cat) => {
-              const categoryColor = cat === 'All' ? '#1A1814' : CATEGORY_COLORS[cat] || '#1A1814';
+              const categoryColors = cat === 'All'
+                ? { accent: '#1A1814', label: '#1A1814', tint: '#1A1814' }
+                : CATEGORY_COLORS[cat] || CATEGORY_COLORS['Metabolic'];
               const isSelected = selectedCategory === cat;
 
               return (
@@ -205,16 +207,17 @@ function ProductsPageContent() {
                   className={`category-pill ${isSelected ? 'selected' : ''}`}
                   data-category={cat}
                   style={{
-                    '--category-color': categoryColor,
+                    '--category-color': categoryColors.accent,
                     borderRadius: '999px',
-                    border: `1.5px solid ${isSelected ? categoryColor : 'rgba(26,24,20,0.15)'}`,
-                    background: isSelected ? categoryColor : 'white',
-                    color: '#1A1814',
+                    border: `1.5px solid ${isSelected ? categoryColors.accent : 'rgba(26,24,20,0.15)'}`,
+                    background: isSelected ? categoryColors.accent : 'white',
+                    color: isSelected ? 'white' : '#1A1814',
                     padding: '6px 18px',
                     fontSize: '13px',
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
                     fontFamily: 'inherit',
+                    fontWeight: isSelected ? 500 : 400,
                   } as React.CSSProperties}
                 >
                   {cat}
