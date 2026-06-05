@@ -62,13 +62,6 @@ export default function ProductPage() {
     { id: "research", label: "Research" },
   ];
 
-  const trustBadges = [
-    { icon: "⚗", title: "HPLC TESTED", description: "Independent lab verification" },
-    { icon: "✓", title: "COA INCLUDED", description: "Full documentation" },
-    { icon: "●", title: "MASS SPEC", description: "Molecular weight confirmed" },
-    { icon: "🛡", title: "7× TESTED", description: "Independent verification" },
-  ];
-
   return (
     <div className="min-h-screen">
       {/* Main Product Section - Bone Background */}
@@ -445,29 +438,143 @@ export default function ProductPage() {
                   </motion.button>
                 </div>
 
-                {/* Trust Badges - Horizontal 2x2 Grid */}
-                <div className="grid grid-cols-2 gap-2">
-                  {trustBadges.map((badge, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-                      whileHover={{ borderColor: "#B8624A" }}
-                      className="bg-cream hairline-border p-3 transition-all group"
-                      style={{ borderRadius: "10px" }}
-                    >
-                      <div className="text-xl mb-1 transition-colors group-hover:text-clay">
-                        {badge.icon}
-                      </div>
-                      <div className="font-mono uppercase tracking-mono text-ink font-medium mb-1" style={{ fontSize: "10px", letterSpacing: "1px" }}>
-                        {badge.title}
-                      </div>
-                      <div className="font-editorial text-ink opacity-60" style={{ fontSize: "10px" }}>
-                        {badge.description}
-                      </div>
-                    </motion.div>
-                  ))}
+                {/* 7× Tested Grid - 2 rows × 4 columns */}
+                <div className="grid grid-cols-4 gap-2">
+                  {/* Row 1 - Tests 1-4 */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><rect width="5" height="5.5" x="9.5" y="16.5" rx="1"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      HPLC PURITY
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      Independent lab
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1.5-1.5"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      IDENTITY
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      Sequence confirmed
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      NET CONTENT
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      Exact mg verified
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      BATCH CONSISTENCY
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      Lot-to-lot stability
+                    </div>
+                  </motion.div>
+
+                  {/* Row 2 - Tests 5-7 + Accent tile */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      ENDOTOXINS
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      LAL tested
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      HEAVY METALS
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      ICP-MS screened
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8, duration: 0.5 }}
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
+                  >
+                    <div className="text-[#607A5C] text-lg mb-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
+                      STERILITY
+                    </div>
+                    <div className="text-[11px] text-[#1A1814]/60">
+                      Contamination-free
+                    </div>
+                  </motion.div>
+
+                  {/* Accent Tile */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9, duration: 0.5 }}
+                    className="bg-[#607A5C] rounded-lg p-3 flex flex-col items-center justify-center text-center col-span-1"
+                  >
+                    <div className="text-xl font-medium text-white leading-none">
+                      7×
+                    </div>
+                    <div className="text-[10px] text-[#d4e8d0] tracking-widest uppercase mt-1">
+                      TESTED
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
