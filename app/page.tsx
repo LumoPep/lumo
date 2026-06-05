@@ -7,6 +7,18 @@ import { motion, useInView, useScroll, useTransform, AnimatePresence } from "fra
 import { PRODUCTS, getFeaturedProducts, CATEGORY_COLORS } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
+// Add hover effect for test chips
+const testChipStyles = `
+  .test-chip {
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+  .test-chip:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 2px #607A5C;
+  }
+`;
+
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -150,6 +162,7 @@ export default function HomePage() {
 
   return (
     <div className="overflow-x-hidden">
+      <style dangerouslySetInnerHTML={{ __html: testChipStyles }} />
       {/* HERO SECTION - Clean Light Hero with 2 Floating Vials */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: '520px', background: '#F5EFE4', paddingTop: '0', paddingBottom: '80px', paddingLeft: '24px', paddingRight: '24px' }}>
         <div className="container mx-auto max-w-7xl relative">
@@ -221,7 +234,7 @@ export default function HomePage() {
                 className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
                 style={{ color: 'rgba(26,24,20,0.65)' }}
               >
-                Synthesized to spec. Verified by an independent lab. Lot-traceable, documented, footnoted.
+                7× independently tested. Every batch verified by third-party accredited labs.
               </motion.p>
 
               {/* CTA buttons - slide up together */}
@@ -357,85 +370,111 @@ export default function HomePage() {
       <div className="bg-ink py-4 overflow-hidden ticker-container">
         <div className="ticker-content">
           <div className="ticker-text">
-            BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
+            <span className="text-ochre">· 7× TESTED ·</span> <span className="text-clay">··</span> BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
           </div>
           <div className="ticker-text" aria-hidden="true">
-            BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
+            <span className="text-ochre">· 7× TESTED ·</span> <span className="text-clay">··</span> BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
           </div>
         </div>
       </div>
 
-      {/* TRUST BAR - Pastel Ochre Background with Counter Animations */}
-      <section ref={trustRef} className="py-12 px-6" style={{ background: '#EDE0C4' }}>
-        <motion.div
-          className="container mx-auto max-w-7xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate={trustInView ? "visible" : "hidden"}
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x" style={{ borderColor: 'rgba(26,24,20,0.15)' }}>
-            {[
-              {
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 40 40" className="mb-3">
-                    <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <path d="M20 8 L20 20 L28 20" stroke="currentColor" strokeWidth="2" fill="none" />
-                  </svg>
-                ),
-                label: "HPLC TESTED",
-                desc: "98%+ purity verified",
-              },
-              {
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 40 40" className="mb-3">
-                    <rect x="8" y="12" width="24" height="18" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <path d="M12 12 L12 8 L28 8 L28 12" stroke="currentColor" strokeWidth="2" fill="none" />
-                  </svg>
-                ),
-                label: "COA INCLUDED",
-                desc: "Full documentation",
-              },
-              {
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 40 40" className="mb-3">
-                    <circle cx="20" cy="20" r="12" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <path d="M20 14 L20 20 L26 20" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                ),
-                label: "LOT TRACEABLE",
-                desc: "Batch verified",
-              },
-              {
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 40 40" className="mb-3">
-                    <rect x="10" y="12" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <path d="M15 12 L15 8 L25 8 L25 12" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                ),
-                label: "CRYPTO ACCEPTED",
-                desc: "Secure payment",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="text-center md:px-6"
-              >
-                <div style={{ color: '#1A1814' }}>{item.icon}</div>
-                <div className="font-mono text-xs uppercase tracking-mono font-medium mb-1" style={{ color: '#1A1814' }}>
-                  {item.label}
-                </div>
-                <div className="font-editorial text-sm" style={{ color: '#1A1814', opacity: 0.7 }}>
-                  {item.desc}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      {/* UNIFIED SECTION: 7× Testing + Product Carousel - Clay Left Border */}
+      <div style={{ borderLeft: '4px solid #B8624A', background: '#F5EFE4' }}>
+        {/* 7× TESTING FRAMEWORK */}
+        <section ref={trustRef} className="pt-16 pb-0 px-8">
+          <motion.div
+            className="container mx-auto max-w-7xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate={trustInView ? "visible" : "hidden"}
+          >
+            {/* Header - Left aligned */}
+            <motion.div variants={itemVariants} className="mb-10">
+              <h2 className="text-[10px] font-medium tracking-widest uppercase text-[#B8624A] mb-3">
+                7× INDEPENDENTLY TESTED
+              </h2>
+              <p className="text-2xl font-serif italic text-[#1A1814]">
+                Every batch. Every lot. No exceptions.
+              </p>
+            </motion.div>
 
-      {/* PRODUCT CAROUSEL - Bone Background with Drag & Enhanced Interactions */}
-      <section ref={carouselSectionRef} className="bg-bone py-24 px-6">
+            {/* 7 Test Tiles - Horizontal Row with Hover Effect */}
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 max-w-5xl">
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><rect width="5" height="5.5" x="9.5" y="16.5" rx="1"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  HPLC PURITY
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  Independent lab
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1.5-1.5"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  IDENTITY
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  Sequence confirmed
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  NET CONTENT
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  Exact mg verified
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  BATCH CONSISTENCY
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  Lot-to-lot stability
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  ENDOTOXINS
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  LAL tested
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  HEAVY METALS
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  ICP-MS screened
+                </div>
+              </div>
+
+              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
+                  STERILITY
+                </div>
+                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                  Contamination-free
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* PRODUCT CAROUSEL - Now merged into unified section */}
+        <section ref={carouselSectionRef} className="pt-8 pb-24 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
@@ -447,7 +486,7 @@ export default function HomePage() {
               Our research compounds.
             </h2>
             <p className="font-editorial text-xl text-ink opacity-60">
-              Tested for purity, identity, and endotoxin.
+              Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
             </p>
           </motion.div>
 
@@ -532,6 +571,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* PACKAGING SECTION - Split with Vial */}
       <section className="relative overflow-hidden">
