@@ -252,16 +252,11 @@ export default function AboutPage() {
               },
               {
                 number: "04",
-                title: "Lyophilized Stability",
-                description: "Room temperature stable during shipping. No special handling required.",
-              },
-              {
-                number: "05",
                 title: "Secure Payments",
                 description: "Cryptocurrency accepted. Privacy-focused. No sensitive data stored.",
               },
               {
-                number: "06",
+                number: "05",
                 title: "Legal Compliance",
                 description: "Research use only. Proper disclaimers. 21+ age verification.",
               },

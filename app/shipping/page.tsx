@@ -48,7 +48,7 @@ const sections = [
     number: "05",
     title: "PO Boxes & Address Requirements",
     content: [
-      "We can ship to PO Boxes via USPS. All lyophilized peptides are room temperature stable during standard shipping times.",
+      "We can ship to PO Boxes via USPS.",
       "We recommend shipping to a physical street address where someone can receive the package promptly.",
       "Ensure your shipping address is accurate and complete. We are not responsible for lost packages due to incorrect addresses provided at checkout.",
     ],
@@ -223,7 +223,7 @@ export default function ShippingPage() {
                   style={{ borderRadius: "12px", borderLeft: "4px solid #B8624A" }}
                 >
                   <p className="font-editorial text-ink italic" style={{ fontSize: "15px" }}>
-                    <strong className="text-clay">SHIPPING GUARANTEE:</strong> All lyophilized research peptides are room temperature stable during standard shipping times. Orders ship Monday through Friday with full tracking. If your package arrives damaged, we'll reship immediately at no cost.
+                    <strong className="text-clay">SHIPPING GUARANTEE:</strong> Orders ship Monday through Friday with full tracking. If your package arrives damaged, we'll reship immediately at no cost.
                   </p>
                 </motion.div>
               </div>
