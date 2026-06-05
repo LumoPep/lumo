@@ -402,7 +402,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex items-center space-x-2 font-mono text-xs text-ink opacity-60">
                   <span className="text-clay">●</span>
-                  <span>Cold-shipped packaging</span>
+                  <span>Room temp stable packaging</span>
                 </div>
               </div>
             </div>

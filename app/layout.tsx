@@ -41,7 +41,7 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: "Lumo · Research Peptides",
   description:
-    "Precision peptides for serious research. Synthesized to spec. Verified by an independent lab. Cold-shipped, lot-traceable, footnoted.",
+    "Precision peptides for serious research. Synthesized to spec. Verified by an independent lab. Lot-traceable, documented, footnoted.",
   keywords:
     "research peptides, BPC-157, TB-500, peptide research, laboratory peptides, HPLC tested",
 };

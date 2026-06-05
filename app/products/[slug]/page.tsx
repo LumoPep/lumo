@@ -66,7 +66,7 @@ export default function ProductPage() {
     { icon: "⚗", title: "HPLC TESTED", description: "Independent lab verification" },
     { icon: "✓", title: "COA INCLUDED", description: "Full documentation" },
     { icon: "●", title: "MASS SPEC", description: "Molecular weight confirmed" },
-    { icon: "❄", title: "COLD SHIPPED", description: "Temperature controlled" },
+    { icon: "📦", title: "ROOM TEMP STABLE", description: "No cold shipping required" },
   ];
 
   return (

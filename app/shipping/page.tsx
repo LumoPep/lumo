@@ -9,7 +9,7 @@ const sections = [
     number: "01",
     title: "Shipping Overview",
     content: [
-      "Lumo ships research peptides with temperature-controlled packaging to ensure product integrity from our facility to your laboratory.",
+      "Lumo ships research peptides in secure packaging to ensure product integrity from our facility to your laboratory.",
       "All orders are processed within 1-2 business days of payment confirmation. Cryptocurrency payments are confirmed automatically via blockchain, typically within 10-60 minutes.",
     ],
   },
@@ -20,22 +20,12 @@ const sections = [
     content: [
       "We currently ship only within the United States. All orders are shipped via USPS Priority Mail or FedEx with 2-5 business day delivery times.",
       "Shipping costs are calculated at checkout based on order weight and destination. Most orders qualify for flat-rate shipping of $12-15.",
-      "Orders over $200 qualify for free expedited shipping with cold-chain packaging.",
-    ],
-  },
-  {
-    id: "cold-chain",
-    number: "03",
-    title: "Cold-Chain Temperature Control",
-    content: [
-      "Research peptides are sensitive to temperature fluctuations. All orders are packed with: Insulated thermal packaging; Gel ice packs to maintain 2-8°C during transit; Temperature-indicating labels to verify cold-chain integrity.",
-      "Orders over $200 automatically include premium cold-chain packaging at no additional cost. Smaller orders can add cold-chain packaging for $8.",
-      "We ship Monday-Wednesday only to ensure packages don't sit in warehouses over weekends.",
+      "Orders over $200 qualify for free expedited shipping.",
     ],
   },
   {
     id: "discreet",
-    number: "04",
+    number: "03",
     title: "Discreet Packaging",
     content: [
       "All packages are shipped in plain, unmarked boxes with no external indication of contents.",
@@ -45,7 +35,7 @@ const sections = [
   },
   {
     id: "tracking",
-    number: "05",
+    number: "04",
     title: "Tracking & Delivery",
     content: [
       "You will receive a tracking number via email as soon as your order ships. Track your package through USPS or FedEx using this number.",
@@ -55,27 +45,27 @@ const sections = [
   },
   {
     id: "po-boxes",
-    number: "06",
+    number: "05",
     title: "PO Boxes & Address Requirements",
     content: [
-      "We can ship to PO Boxes via USPS. However, cold-chain integrity cannot be guaranteed for PO Box deliveries, as packages may sit in unrefrigerated conditions.",
+      "We can ship to PO Boxes via USPS. All lyophilized peptides are room temperature stable during standard shipping times.",
       "We recommend shipping to a physical street address where someone can receive the package promptly.",
       "Ensure your shipping address is accurate and complete. We are not responsible for lost packages due to incorrect addresses provided at checkout.",
     ],
   },
   {
     id: "lost-damaged",
-    number: "07",
+    number: "06",
     title: "Lost or Damaged Shipments",
     content: [
       "All shipments are fully insured. If your package is lost in transit, contact us after 14 business days with no delivery and we will reship at no cost.",
-      "If your package arrives damaged or shows signs of temperature compromise: Contact us within 48 hours; Provide photos of the damage; We will reship immediately or issue a full refund.",
+      "If your package arrives damaged: Contact us within 48 hours; Provide photos of the damage; We will reship immediately or issue a full refund.",
       "We take responsibility for proper shipping and handling of all products.",
     ],
   },
   {
     id: "restrictions",
-    number: "08",
+    number: "07",
     title: "Shipping Restrictions",
     content: [
       "We do not currently ship internationally. Domestic US shipping only at this time.",
@@ -140,7 +130,7 @@ export default function ShippingPage() {
             className="font-display text-ink mb-6"
             style={{ fontWeight: 300, fontStyle: "italic", fontSize: "56px", lineHeight: 1.1 }}
           >
-            Cold-shipped. Lot-traceable. Signed for.
+            Fast. Discreet. Lot-traceable.
           </motion.h1>
 
           <motion.p
@@ -149,7 +139,7 @@ export default function ShippingPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="font-editorial text-lg text-ink max-w-2xl"
           >
-            Temperature-controlled packaging and expedited delivery for all research compounds.
+            Secure packaging and expedited delivery for all research compounds.
           </motion.p>
         </div>
       </section>
@@ -223,7 +213,7 @@ export default function ShippingPage() {
                   </motion.section>
                 ))}
 
-                {/* Cold-Chain Commitment */}
+                {/* Stability Note */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -233,11 +223,7 @@ export default function ShippingPage() {
                   style={{ borderRadius: "12px", borderLeft: "4px solid #B8624A" }}
                 >
                   <p className="font-editorial text-ink italic" style={{ fontSize: "15px" }}>
-                    <strong className="text-clay">COLD-CHAIN GUARANTEE:</strong> Research peptides are
-                    temperature-sensitive. Every shipment includes insulated packaging and gel ice packs
-                    to maintain 2-8°C during transit. Orders ship Monday-Wednesday only to avoid weekend
-                    delays. If your package shows signs of temperature compromise, we'll reship
-                    immediately at no cost.
+                    <strong className="text-clay">SHIPPING GUARANTEE:</strong> All lyophilized research peptides are room temperature stable during standard shipping times. Orders ship Monday through Friday with full tracking. If your package arrives damaged, we'll reship immediately at no cost.
                   </p>
                 </motion.div>
               </div>

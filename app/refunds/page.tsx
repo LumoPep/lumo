@@ -10,7 +10,7 @@ const sections = [
     title: "Refund Policy Overview",
     content: [
       "Due to the nature of research chemicals and peptides, Lumo maintains a strict no-refund policy on all opened or used products. This is an industry-standard practice for research chemical suppliers.",
-      "Research peptides are sensitive biological compounds that require specific storage and handling conditions. Once a product leaves our temperature-controlled facility, we cannot verify its integrity or storage conditions, making returns and refunds unsafe and impractical.",
+      "Research peptides are sensitive biological compounds that require specific storage and handling conditions. Once a product leaves our facility, we cannot verify its integrity or storage conditions, making returns and refunds unsafe and impractical.",
     ],
   },
   {

@@ -221,8 +221,7 @@ export default function HomePage() {
                 className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
                 style={{ color: 'rgba(26,24,20,0.65)' }}
               >
-                Synthesized to spec. Verified by an independent lab. Cold-shipped,
-                lot-traceable, footnoted.
+                Synthesized to spec. Verified by an independent lab. Lot-traceable, documented, footnoted.
               </motion.p>
 
               {/* CTA buttons - slide up together */}
@@ -374,7 +373,7 @@ export default function HomePage() {
           initial="hidden"
           animate={trustInView ? "visible" : "hidden"}
         >
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 md:divide-x" style={{ borderColor: 'rgba(26,24,20,0.15)' }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x" style={{ borderColor: 'rgba(26,24,20,0.15)' }}>
             {[
               {
                 icon: (
@@ -395,15 +394,6 @@ export default function HomePage() {
                 ),
                 label: "COA INCLUDED",
                 desc: "Full documentation",
-              },
-              {
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 40 40" className="mb-3">
-                    <path d="M20 8 L24 16 L32 16 L26 22 L28 30 L20 25 L12 30 L14 22 L8 16 L16 16 Z" stroke="currentColor" strokeWidth="2" fill="none" />
-                  </svg>
-                ),
-                label: "COLD SHIPPED",
-                desc: "Temperature controlled",
               },
               {
                 icon: (
@@ -656,8 +646,8 @@ export default function HomePage() {
               icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><polygon points="28,6 50,28 28,50 6,28"/></svg>`,
             },
             {
-              title: 'Cold-shipped, lot-traceable',
-              body: 'Every order ships with ice pack and insulated liner. Your lot number is traceable from synthesis to delivery.',
+              title: 'Fast shipping, lot-traceable',
+              body: 'Every order ships with secure packaging and full tracking. Your lot number is traceable from synthesis to delivery.',
               cta: '→ OUR PROCESS',
               href: '/about',
               icon: `<svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="rgba(26,24,20,0.15)" strokeWidth="1.5"><line x1="28" y1="4" x2="28" y2="52"/><line x1="4" y1="28" x2="52" y2="28"/><line x1="10" y1="10" x2="46" y2="46"/><line x1="46" y1="10" x2="10" y2="46"/></svg>`,
@@ -792,9 +782,9 @@ export default function HomePage() {
               },
               {
                 number: "03",
-                title: "Cold Shipped",
+                title: "Fast Delivery",
                 description:
-                  "Temperature-controlled packaging. Tracking provided. CoA included in every shipment.",
+                  "Secure packaging with tracking. CoA included in every shipment. Room temperature stable.",
               },
             ].map((step, index) => (
               <motion.div

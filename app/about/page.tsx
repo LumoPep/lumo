@@ -252,8 +252,8 @@ export default function AboutPage() {
               },
               {
                 number: "04",
-                title: "Cold-Chain Handling",
-                description: "Temperature-controlled from synthesis to your door. Integrity maintained.",
+                title: "Lyophilized Stability",
+                description: "Room temperature stable during shipping. No special handling required.",
               },
               {
                 number: "05",
