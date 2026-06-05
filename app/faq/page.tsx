@@ -111,7 +111,7 @@ const faqCategories: FAQCategory[] = [
       {
         question: "How are products shipped?",
         answer:
-          "All peptides are shipped in insulated packaging with gel ice packs to maintain temperature stability during transit. Packages are discreetly labeled with no indication of contents. We use expedited shipping services (2-5 business days) to minimize transit time and ensure product integrity.",
+          "All peptides are shipped in secure packaging. Packages are discreetly labeled with no indication of contents. We use expedited shipping services (2-5 business days) to ensure prompt delivery.",
       },
       {
         question: "Do you ship internationally?",
