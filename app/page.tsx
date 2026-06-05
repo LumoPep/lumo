@@ -64,11 +64,11 @@ export default function HomePage() {
   };
 
   const categoryColors = {
-    "Healing & Recovery": "#B8624A",
-    "Growth Hormone": "#C89A3C",
-    "Longevity": "#6D7A5C",
+    "Tissue Repair Research": "#B8624A",
+    "Secretagogue Research": "#C89A3C",
+    "Cellular Research": "#6D7A5C",
     "Melanocortin": "#1A1814",
-    "Nootropic": "#B8624A",
+    "Neuro Research": "#B8624A",
   };
 
   // Animation variants
@@ -977,16 +977,16 @@ export default function HomePage() {
             }}
           >
             {[
-              { name: 'Growth Hormone', count: 4, slug: 'Growth+Hormone' },
-              { name: 'Healing & Recovery', count: 3, slug: 'Healing+%26+Recovery' },
-              { name: 'Metabolic', count: 2, slug: 'Metabolic' },
-              { name: 'Skin & Longevity', count: 1, slug: 'Skin+%26+Longevity' },
-              { name: 'Longevity', count: 1, slug: 'Longevity' },
-              { name: 'Nootropic', count: 2, slug: 'Nootropic' },
-              { name: 'Blends', count: 2, slug: 'Blends' },
-              { name: 'Ancillary', count: 1, slug: 'Ancillary' },
+              { name: 'Secretagogue Research', count: 4, slug: 'secretagogue-research' },
+              { name: 'Tissue Repair Research', count: 3, slug: 'tissue-repair-research' },
+              { name: 'Metabolic Research', count: 2, slug: 'metabolic-research' },
+              { name: 'Dermal Research', count: 1, slug: 'dermal-research' },
+              { name: 'Cellular Research', count: 1, slug: 'cellular-research' },
+              { name: 'Neuro Research', count: 2, slug: 'neuro-research' },
+              { name: 'Blends', count: 2, slug: 'blends' },
+              { name: 'Ancillary', count: 1, slug: 'ancillary' },
             ].map((category, index) => {
-              const categoryColors = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic'];
+              const categoryColors = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic Research'];
               return (
                 <motion.div
                   key={category.name}

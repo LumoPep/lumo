@@ -12,7 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
   const lowestPrice = Math.min(...product.prices);
   const firstSize = product.sizes[0];
-  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic'];
+  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
   // Special handling for BAC Water - it has 'USP Grade' instead of percentage
   const isUSPGrade = product.purity === 'USP Grade';

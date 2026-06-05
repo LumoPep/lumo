@@ -103,7 +103,7 @@ export default function CoAPage() {
               {
                 title: "Identity",
                 description: "Mass spectrometry confirms molecular weight and correct peptide identity.",
-                color: "#4A8A88", // Healing & Recovery accent
+                color: "#4A8A88", // Tissue Repair Research accent
               },
               {
                 title: "Net Content",
@@ -118,12 +118,12 @@ export default function CoAPage() {
               {
                 title: "Endotoxins",
                 description: "LAL testing detects bacterial endotoxins to ensure research safety.",
-                color: "#7A6898", // Nootropic accent
+                color: "#7A6898", // Neuro Research accent
               },
               {
                 title: "Heavy Metals",
                 description: "Industry-leading heavy metal screening. No other supplier offers this level of verification.",
-                color: "#A89020", // Longevity accent
+                color: "#A89020", // Cellular Research accent
                 badge: "DIFFERENTIATOR",
               },
             ].map((test, index) => (
@@ -331,7 +331,7 @@ export default function CoAPage() {
 function CoACard({ product, index }: { product: any; index: number }) {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
-  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic'];
+  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
   return (
     <motion.div

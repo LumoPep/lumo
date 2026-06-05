@@ -194,10 +194,10 @@ function ProductsPageContent() {
 
           {/* Category Filter Pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px', justifyContent: 'center' }}>
-            {['All', 'Metabolic', 'Healing & Recovery', 'Growth Hormone', 'Skin & Longevity', 'Longevity', 'Nootropic', 'Blends', 'Ancillary'].map((cat) => {
+            {['All', 'Metabolic Research', 'Tissue Repair Research', 'Secretagogue Research', 'Dermal Research', 'Cellular Research', 'Neuro Research', 'Blends', 'Ancillary'].map((cat) => {
               const categoryColors = cat === 'All'
                 ? { accent: '#1A1814', label: '#1A1814', tint: '#1A1814' }
-                : CATEGORY_COLORS[cat] || CATEGORY_COLORS['Metabolic'];
+                : CATEGORY_COLORS[cat] || CATEGORY_COLORS['Metabolic Research'];
               const isSelected = selectedCategory === cat;
 
               return (

@@ -33,7 +33,7 @@ export default function ProductPage() {
     return notFound();
   }
 
-  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic'];
+  const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
