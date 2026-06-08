@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { getProductBySlug, PRODUCTS, CATEGORY_COLORS } from "@/data/products";
@@ -8,6 +8,8 @@ import { useCartStore } from "@/lib/store";
 import { showToast } from "@/components/Toast";
 import ProductCard from "@/components/ProductCard";
 import CoAViewer from "@/components/CoAViewer";
+import BundleSelector from "@/components/BundleSelector";
+import ResearchSection from "@/components/ResearchSection";
 import { notFound } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 
@@ -15,11 +17,24 @@ export default function ProductPage() {
   const params = useParams();
   const product = getProductBySlug(params.slug as string);
 
+  if (!product) {
+    return notFound();
+  }
+
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [bundleQty, setBundleQty] = useState(1);
+  const [cartPrice, setCartPrice] = useState(product.prices[0]);
   const [activeTab, setActiveTab] = useState("technical");
 
   const { addItem, openCart } = useCartStore();
+
+  // Reset cart state when variant changes
+  useEffect(() => {
+    setQuantity(1);
+    setBundleQty(1);
+    setCartPrice(product.prices[selectedVariant]);
+  }, [selectedVariant, product.prices]);
 
   const labResultsRef = useRef(null);
   const researchRef = useRef(null);
@@ -29,24 +44,28 @@ export default function ProductPage() {
   const researchInView = useInView(researchRef, { once: true, margin: "-100px" });
   const relatedInView = useInView(relatedRef, { once: true, margin: "-100px" });
 
-  if (!product) {
-    return notFound();
-  }
-
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
-    const price = product.prices[selectedVariant];
+    const basePrice = product.prices[selectedVariant];
     const sku = product.skus[selectedVariant];
-    addItem({
-      productId: product.id.toString(),
-      productName: product.name,
-      variant: size,
-      price: price,
-      sku: sku,
-    });
-    showToast(`Added ${product.name} (${size}) to cart`);
+
+    // Total items = quantity × bundle qty
+    const totalItems = quantity * bundleQty;
+
+    // Add items to cart
+    for (let i = 0; i < totalItems; i++) {
+      addItem({
+        productId: product.id.toString(),
+        productName: product.name,
+        variant: size,
+        price: basePrice,
+        sku: sku,
+      });
+    }
+
+    showToast(`Added ${totalItems}x ${product.name} (${size}) to cart`);
     openCart();
   };
 
@@ -58,6 +77,7 @@ export default function ProductPage() {
   const tabs = [
     { id: "technical", label: "Technical Specs" },
     { id: "coa", label: "CoA" },
+    { id: "testing", label: "Testing" },
     { id: "storage", label: "Storage" },
     { id: "research", label: "Research" },
   ];
@@ -85,6 +105,7 @@ export default function ProductPage() {
                   justifyContent: 'center',
                   minHeight: '320px',
                   marginBottom: '24px',
+                  overflow: 'hidden',
                 }}
               >
                 <Image
@@ -92,12 +113,16 @@ export default function ProductPage() {
                   alt={product.name}
                   width={364}
                   height={429}
+                  className="hover:scale-110"
                   style={{
                     objectFit: 'contain',
                     filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
-                    transform: 'none',
                     mixBlendMode: 'multiply',
+                    transition: 'transform 0.5s ease',
+                    cursor: 'default',
                   }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
                   priority
                 />
               </motion.div>
@@ -134,60 +159,62 @@ export default function ProductPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="space-y-6"
                     >
-                      <div>
-                        <h3 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-4">
-                          CHEMICAL PROPERTIES
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                              CAS Number:
-                            </span>
-                            <span className="font-mono text-sm text-ink ml-2">{product.casNumber}</span>
-                          </div>
-                          <div>
-                            <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                              Molecular Weight:
-                            </span>
-                            <span className="font-mono text-sm text-ink ml-2">
-                              {product.mw}
-                            </span>
-                          </div>
-                          <div className="md:col-span-2">
-                            <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                              Molecular Formula:
-                            </span>
-                            <span className="font-mono text-sm text-ink ml-2">{product.formula}</span>
-                          </div>
+                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '12px' }}>
+                        CHEMICAL PROPERTIES
+                      </h3>
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                            CAS NUMBER
+                          </span>
+                          <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
+                            {product.casNumber}
+                          </span>
+                        </div>
+
+                        <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                            MOLECULAR WEIGHT
+                          </span>
+                          <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
+                            {product.mw}
+                          </span>
+                        </div>
+
+                        <div className="col-span-2" style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                            MOLECULAR FORMULA
+                          </span>
+                          <span style={{ fontSize: '13px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
+                            {product.formula}
+                          </span>
                         </div>
                       </div>
 
-                      <div>
-                        <h3 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-4">
-                          PHYSICAL PROPERTIES
-                        </h3>
-                        <div className="space-y-3">
-                          <div>
-                            <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                              Appearance:
+                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '12px', marginTop: '16px' }}>
+                        PHYSICAL PROPERTIES
+                      </h3>
+                      <div className="space-y-3">
+                        <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                            APPEARANCE
+                          </span>
+                          <span style={{ fontFamily: 'inherit', fontStyle: 'normal', fontSize: '14px', color: '#1A1814' }}>
+                            {product.appearance}
+                          </span>
+                        </div>
+
+                        {product.sequence && product.sequence !== 'N/A' && (
+                          <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
+                            <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                              SEQUENCE
                             </span>
-                            <span className="font-editorial text-sm text-ink ml-2">
-                              {product.appearance}
+                            <span style={{ fontSize: '13px', fontFamily: 'monospace', lineHeight: 1.6, color: '#1A1814', wordBreak: 'break-all', whiteSpace: 'normal' }}>
+                              {product.sequence}
                             </span>
                           </div>
-                          {product.sequence && product.sequence !== 'N/A' && (
-                            <div>
-                              <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                                Sequence:
-                              </span>
-                              <span className="font-mono text-sm text-ink ml-2">
-                                {product.sequence}
-                              </span>
-                            </div>
-                          )}
-                        </div>
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -200,6 +227,110 @@ export default function ProductPage() {
                       transition={{ duration: 0.3 }}
                     >
                       <CoAViewer product={product} />
+                    </motion.div>
+                  )}
+
+                  {activeTab === "testing" && (
+                    <motion.div
+                      key="testing"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                      <h3 className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]/40 mb-4">
+                        INDEPENDENT VERIFICATION — KOVERA LABS
+                      </h3>
+
+                      {/* 7× Testing Grid - 4+4 Layout */}
+                      <div className="grid grid-cols-4 gap-3">
+                        {/* Test 1 - HPLC Purity */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><rect width="5" height="5.5" x="9.5" y="16.5" rx="1"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            HPLC PURITY
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            Independent lab
+                          </div>
+                        </div>
+
+                        {/* Test 2 - Identity */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1.5-1.5"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            IDENTITY
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            Sequence confirmed
+                          </div>
+                        </div>
+
+                        {/* Test 3 - Net Content */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            NET CONTENT
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            Exact mg verified
+                          </div>
+                        </div>
+
+                        {/* Test 4 - Batch Consistency */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            BATCH CONSISTENCY
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            Lot-to-lot stability
+                          </div>
+                        </div>
+
+                        {/* Test 5 - Endotoxins */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            ENDOTOXINS
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            LAL tested
+                          </div>
+                        </div>
+
+                        {/* Test 6 - Heavy Metals */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            HEAVY METALS
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            ICP-MS screened
+                          </div>
+                        </div>
+
+                        {/* Test 7 - Sterility */}
+                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
+                            STERILITY
+                          </div>
+                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                            Contamination-free
+                          </div>
+                        </div>
+
+                        {/* Accent Tile - 7× TESTED */}
+                        <div className="bg-[#607A5C] rounded-lg p-4 flex flex-col items-center justify-center text-center">
+                          <div className="text-3xl font-medium text-white leading-none">
+                            7×
+                          </div>
+                          <div className="text-[11px] text-[#d4e8d0] tracking-widest uppercase mt-1">
+                            TESTED
+                          </div>
+                        </div>
+                      </div>
                     </motion.div>
                   )}
 
@@ -261,6 +392,25 @@ export default function ProductPage() {
                     </motion.div>
                   )}
                 </div>
+              </div>
+
+              {/* RUO Disclaimer - Below tabs in left column */}
+              <div className="bg-clay p-4 mt-4" style={{ borderRadius: "12px" }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-white text-base">⚠</span>
+                  <h4
+                    className="font-mono uppercase text-white font-medium"
+                    style={{ fontSize: "10px", letterSpacing: "1.5px" }}
+                  >
+                    RESEARCH USE ONLY
+                  </h4>
+                </div>
+                <p className="font-editorial text-cream italic" style={{ fontSize: "12px", lineHeight: 1.5 }}>
+                  This compound is sold strictly for in vitro research and laboratory use. Not for
+                  human or animal consumption. Not a drug, food, or supplement. By purchasing you
+                  confirm you are a qualified researcher and will use this compound in compliance
+                  with all applicable laws. Must be 21 or older.
+                </p>
               </div>
             </div>
 
@@ -375,210 +525,62 @@ export default function ProductPage() {
                   </div>
                 </div>
 
-                {/* RUO Disclaimer - Prominent */}
-                <div className="bg-clay p-4 mb-4" style={{ borderRadius: "12px" }}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-white text-base">⚠</span>
-                    <h4
-                      className="font-mono uppercase text-white font-medium"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px" }}
-                    >
-                      RESEARCH USE ONLY
-                    </h4>
-                  </div>
-                  <p className="font-editorial text-cream italic" style={{ fontSize: "12px", lineHeight: 1.5 }}>
-                    This compound is sold strictly for in vitro research and laboratory use. Not for
-                    human or animal consumption. Not a drug, food, or supplement. By purchasing you
-                    confirm you are a qualified researcher and will use this compound in compliance
-                    with all applicable laws. Must be 21 or older.
-                  </p>
-                </div>
-
-                {/* Quantity + Add to Cart */}
+                {/* Bundle Selector + Add to Cart */}
                 <div className="mb-4">
-                  <label className="font-mono uppercase tracking-mono text-ink opacity-60 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
-                    QUANTITY
-                  </label>
-                  <div className="flex items-center bg-cream p-1 mb-3" style={{ borderRadius: "8px" }}>
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-10 h-10 font-mono text-ink hover:text-clay transition-colors"
-                    >
-                      −
-                    </button>
-                    <input
-                      type="number"
-                      value={quantity}
-                      onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                      className="flex-1 text-center bg-transparent text-ink font-mono font-medium focus:outline-none"
-                    />
-                    <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="w-10 h-10 font-mono text-ink hover:text-clay transition-colors"
-                    >
-                      +
-                    </button>
-                  </div>
+                  <BundleSelector
+                    key={selectedVariant}
+                    basePrice={product.prices[selectedVariant]}
+                    productSlug={product.slug}
+                    onSelect={(qty, bundle, price) => {
+                      setQuantity(qty);
+                      setBundleQty(bundle);
+                      setCartPrice(price);
+                    }}
+                  />
 
                   {/* Add to Cart Button */}
                   <motion.button
                     whileHover={{ scale: 1.01, opacity: 0.9 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAddToCart}
-                    className="w-full font-mono text-xs uppercase tracking-mono"
+                    className="w-full py-4 rounded-lg text-[11px] font-medium tracking-widest uppercase text-white transition-colors"
                     style={{
-                      borderRadius: "8px",
-                      height: "50px",
-                      transition: "all 150ms",
-                      backgroundColor: categoryColors.accent,
-                      color: 'white',
+                      backgroundColor: categoryColors.accent || '#B8624A',
                     }}
                   >
-                    ADD TO CART · ${(product.prices[selectedVariant] * quantity).toFixed(2)}
+                    ADD TO CART · ${cartPrice.toFixed(2)}
                   </motion.button>
                 </div>
 
-                {/* 7× Tested Grid - 2 rows × 4 columns */}
-                <div className="grid grid-cols-4 gap-2">
-                  {/* Row 1 - Tests 1-4 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><rect width="5" height="5.5" x="9.5" y="16.5" rx="1"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      HPLC PURITY
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      Independent lab
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1.5-1.5"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      IDENTITY
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      Sequence confirmed
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      NET CONTENT
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      Exact mg verified
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      BATCH CONSISTENCY
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      Lot-to-lot stability
-                    </div>
-                  </motion.div>
-
-                  {/* Row 2 - Tests 5-7 + Accent tile */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      ENDOTOXINS
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      LAL tested
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      HEAVY METALS
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      ICP-MS screened
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8, duration: 0.5 }}
-                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-3 flex flex-col gap-1"
-                  >
-                    <div className="text-[#607A5C] text-lg mb-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-                    </div>
-                    <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]">
-                      STERILITY
-                    </div>
-                    <div className="text-[11px] text-[#1A1814]/60">
-                      Contamination-free
-                    </div>
-                  </motion.div>
-
-                  {/* Accent Tile */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9, duration: 0.5 }}
-                    className="bg-[#607A5C] rounded-lg p-3 flex flex-col items-center justify-center text-center col-span-1"
-                  >
-                    <div className="text-xl font-medium text-white leading-none">
-                      7×
-                    </div>
-                    <div className="text-[10px] text-[#d4e8d0] tracking-widest uppercase mt-1">
-                      TESTED
-                    </div>
-                  </motion.div>
+                {/* Independent Verification Strip */}
+                <div style={{ marginTop: '16px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '10px' }}>
+                    7× Independently Tested
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                    {[
+                      { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
+                      { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
+                      { icon: 'ti-weight', label: 'Net Content', sub: 'Exact mg verified' },
+                      { icon: 'ti-shield-check', label: 'Sterility', sub: 'Contamination-free' },
+                      { icon: 'ti-virus-off', label: 'Endotoxins', sub: 'LAL tested' },
+                      { icon: 'ti-leaf', label: 'Heavy Metals', sub: 'ICP-MS screened' },
+                      { icon: 'ti-stack-2', label: 'Batch Consistency', sub: 'Lot-to-lot stability' },
+                    ].map((chip, i) => (
+                      <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
+                        <span style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
+                        <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.55)', lineHeight: 1.3 }}>{chip.sub}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Research Section */}
+          <ResearchSection slug={product.slug} />
         </div>
       </section>
 
