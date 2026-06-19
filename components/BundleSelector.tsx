@@ -3,26 +3,17 @@ import { useState } from 'react'
 
 interface BundleTier {
   qty: number
+  label: string
   discountPct: number
-  badge?: {
-    text: string
-    bgColor: string
-  }
+  badge: string
+  highlight?: boolean
 }
 
 const TIERS: BundleTier[] = [
-  { qty: 1, discountPct: 0 },
-  {
-    qty: 3,
-    discountPct: 5,
-    badge: { text: 'MOST POPULAR', bgColor: '#B8624A' }
-  },
-  { qty: 6, discountPct: 12 },
-  {
-    qty: 10,
-    discountPct: 20,
-    badge: { text: 'BEST VALUE', bgColor: '#607A5C' }
-  },
+  { qty: 1,  label: 'Single vial',  discountPct: 0,  badge: '' },
+  { qty: 3,  label: 'Save 10%',     discountPct: 10, badge: '10% off' },
+  { qty: 6,  label: 'Save 15%',     discountPct: 15, badge: '15% off' },
+  { qty: 10, label: 'Best value',   discountPct: 20, badge: '20% off', highlight: true },
 ]
 
 interface BundleSelectorProps {
@@ -93,16 +84,6 @@ export default function BundleSelector({ basePrice, productSlug, onSelect }: Bun
                   : 'bg-[#EBE2CF] border-[#1A1814]/10',
               ].join(' ')}
             >
-              {/* Badge */}
-              {tier.badge && (
-                <div
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 text-[7px] font-medium tracking-widest uppercase px-2 py-1 rounded-full whitespace-nowrap z-10 text-white"
-                  style={{ backgroundColor: tier.badge.bgColor }}
-                >
-                  {tier.badge.text}
-                </div>
-              )}
-
               {/* Number */}
               <div className="text-2xl font-serif text-[#1A1814] leading-none">
                 {tier.qty}
@@ -113,10 +94,10 @@ export default function BundleSelector({ basePrice, productSlug, onSelect }: Bun
                 {tier.qty === 1 ? 'VIAL' : 'VIALS'}
               </div>
 
-              {/* Discount */}
-              {tier.discountPct > 0 && (
-                <div className="text-[9px] font-medium text-[#B8624A] mt-1">
-                  {tier.discountPct}% OFF
+              {/* Discount Badge */}
+              {tier.badge && (
+                <div className="text-[9px] font-medium text-[#B8624A] mt-1 uppercase">
+                  {tier.badge}
                 </div>
               )}
             </button>
