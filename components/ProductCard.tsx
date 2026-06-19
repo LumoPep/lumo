@@ -55,45 +55,49 @@ export default function ProductCard({ product }: ProductCardProps) {
               padding: '20px 16px 8px 16px',
             }}
           >
-            {/* Product Name - Top Left */}
+            {/* Header Row - Product Name + Badge */}
             <div
+              className="flex items-start justify-between gap-2"
               style={{
                 position: 'absolute',
                 top: '14px',
                 left: '16px',
-                fontFamily: 'Fraunces, Georgia, serif',
-                fontSize: '22px',
-                color: '#1A1814',
-                fontStyle: 'italic',
-                fontWeight: 300,
+                right: '16px',
               }}
             >
-              {product.name}
-            </div>
-
-            {product.badge && (
               <div
+                className="flex-1 min-w-0"
                 style={{
-                  position: 'absolute',
-                  top: '12px',
-                  right: '12px',
-                  background: product.badge === 'Wolverine Stack' ? '#1A1814' : '#B8624A',
-                  color: 'white',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '9px',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase' as const,
-                  padding: '4px 12px',
-                  borderRadius: '999px',
-                  boxShadow: product.badge === 'Wolverine Stack'
-                    ? '0 2px 8px rgba(26,24,20,0.4)'
-                    : '0 2px 8px rgba(184,98,74,0.4)',
-                  fontWeight: 500,
+                  fontFamily: 'Fraunces, Georgia, serif',
+                  fontSize: '22px',
+                  color: '#1A1814',
+                  fontStyle: 'italic',
+                  fontWeight: 300,
                 }}
               >
-                {product.badge}
+                {product.name}
               </div>
-            )}
+
+              {product.badge && (
+                <div
+                  className="flex-shrink-0"
+                  style={{
+                    background: '#B8624A',
+                    color: 'white',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontSize: '9px',
+                    letterSpacing: '2px',
+                    textTransform: 'uppercase' as const,
+                    padding: '4px 12px',
+                    borderRadius: '999px',
+                    boxShadow: '0 2px 8px rgba(184,98,74,0.4)',
+                    fontWeight: 500,
+                  }}
+                >
+                  {product.badge}
+                </div>
+              )}
+            </div>
 
             <img
               src='/images/vial-transparent.png'
@@ -113,25 +117,24 @@ export default function ProductCard({ product }: ProductCardProps) {
             />
           </div>
 
-          {/* BOTTOM BLOCK - Details with category color tint */}
+          {/* BOTTOM BLOCK - Details */}
           <div
             className="flex-1 flex flex-col"
             style={{
               padding: '16px 18px 20px',
-              background: `${categoryColors.tint}66`,
+              background: 'transparent',
             }}
           >
             {/* Lot Line */}
             <div
-              className="font-mono mb-2"
+              className="font-mono mb-2 text-[#1A1814]/70"
               style={{
                 fontSize: "11px",
                 letterSpacing: "0.05em",
-                color: 'rgba(26,24,20,0.5)',
               }}
             >
               {firstSize} · LYOPHILIZED · LOT {product.batch} ·{" "}
-              <span className="text-ochre font-medium">
+              <span className="font-medium" style={{ color: '#C89A3C' }}>
                 {isUSPGrade ? 'USP GRADE' : product.purity}
               </span>
             </div>
@@ -152,7 +155,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Description - 2 lines max */}
             <p
-              className="font-editorial mb-4 flex-1"
+              className="font-editorial mb-4 flex-1 text-[#1A1814]/75"
               style={{
                 fontSize: "14px",
                 lineHeight: "1.5",
@@ -160,7 +163,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-                color: 'rgba(26,24,20,0.65)',
               }}
             >
               {product.synopsis}
@@ -173,15 +175,28 @@ export default function ProductCard({ product }: ProductCardProps) {
                 borderTop: `1px solid ${categoryColors.accent}40`,
               }}
             >
-              <div
-                className="font-display"
-                style={{
-                  fontWeight: 300,
-                  fontSize: "24px",
-                  color: '#1A1814',
-                }}
-              >
-                ${lowestPrice.toFixed(2)}
+              <div className="flex flex-col">
+                <div
+                  className="font-display"
+                  style={{
+                    fontWeight: 300,
+                    fontSize: "24px",
+                    color: '#1A1814',
+                  }}
+                >
+                  ${lowestPrice.toFixed(2)}
+                </div>
+                {product.sizes.length > 1 && (
+                  <div
+                    className="text-[10px]"
+                    style={{
+                      color: 'rgba(26,24,20,0.55)',
+                      marginTop: '2px',
+                    }}
+                  >
+                    {product.sizes.join(' / ')}
+                  </div>
+                )}
               </div>
               <div
                 className="font-mono text-xs uppercase tracking-mono hover:underline"

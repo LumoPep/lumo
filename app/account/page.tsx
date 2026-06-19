@@ -120,7 +120,7 @@ export default function AccountPage() {
                 </nav>
 
                 <div className="mt-8 pt-6 border-t hairline-border">
-                  <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-40 mb-2">
+                  <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-55 mb-2">
                     ACCOUNT
                   </div>
                   <div className="font-editorial text-sm text-ink mb-1">
@@ -174,7 +174,7 @@ export default function AccountPage() {
                                 <div className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-1">
                                   {order.id}
                                 </div>
-                                <div className="font-mono text-xs text-ink opacity-40">
+                                <div className="font-mono text-xs text-ink opacity-55">
                                   {order.date}
                                 </div>
                               </div>
@@ -201,7 +201,7 @@ export default function AccountPage() {
                                   <div className="font-editorial text-sm text-ink">
                                     {compound}
                                   </div>
-                                  <div className="font-mono text-xs text-ink opacity-40">
+                                  <div className="font-mono text-xs text-ink opacity-55">
                                     LOT {order.lots[i]}
                                   </div>
                                 </div>
@@ -209,7 +209,7 @@ export default function AccountPage() {
                             </div>
 
                             <div className="flex items-center space-x-4 text-xs">
-                              <div className="font-mono text-ink opacity-40">
+                              <div className="font-mono text-ink opacity-55">
                                 TRACKING: {order.tracking}
                               </div>
                             </div>
@@ -218,7 +218,7 @@ export default function AccountPage() {
                           {/* Actions */}
                           <div className="md:col-span-5 flex flex-col justify-between">
                             <div className="text-right mb-4">
-                              <div className="font-mono text-xs text-ink opacity-40 mb-1">
+                              <div className="font-mono text-xs text-ink opacity-55 mb-1">
                                 TOTAL
                               </div>
                               <div
@@ -279,7 +279,7 @@ export default function AccountPage() {
                       border: "1px solid rgba(26,24,20,0.12)",
                     }}
                   >
-                    <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-40 mb-4">
+                    <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-55 mb-4">
                       CERTIFICATES AVAILABLE
                     </div>
                     <div

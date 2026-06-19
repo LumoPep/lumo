@@ -69,7 +69,7 @@ export default function CartDrawer() {
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <span className="text-clay text-4xl mb-4">●</span>
                 <p className="font-editorial text-ink opacity-60 mb-2">Your cart is empty</p>
-                <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-40">
+                <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-55">
                   Add compounds to get started
                 </p>
               </div>
@@ -96,7 +96,7 @@ export default function CartDrawer() {
                         onClick={() =>
                           removeItem(item.productId, item.variant)
                         }
-                        className="font-mono text-xs text-ink opacity-40 hover:text-clay hover:opacity-100 transition-all"
+                        className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all"
                       >
                         ✕
                       </button>

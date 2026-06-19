@@ -87,7 +87,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 20,
     slug: 'semaglutide',
-    name: 'Semaglutide',
+    name: 'Lumo-1 SMG',
     category: 'Metabolic Research',
     badge: undefined,
     purity: '98.50%',

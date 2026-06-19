@@ -112,7 +112,7 @@ export default function ContactPage() {
                   >
                     support@lumopeptides.com
                   </a>
-                  <p className="font-mono text-xs text-ink opacity-40 mt-2">
+                  <p className="font-mono text-xs text-ink opacity-55 mt-2">
                     Response within 24 hours
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export default function ContactPage() {
                 SEND MESSAGE
               </button>
 
-              <p className="font-mono text-xs text-ink opacity-40 text-center mt-4">
+              <p className="font-mono text-xs text-ink opacity-55 text-center mt-4">
                 By submitting this form, you agree to our research use policy and terms of service.
               </p>
             </form>

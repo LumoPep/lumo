@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import FooterDisclaimer from "@/components/FooterDisclaimer";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
+import FloatingCartButton from "@/components/FloatingCartButton";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
         <Footer />
         <FooterDisclaimer />
         <CartDrawer />
+        <FloatingCartButton />
         <Toast />
       </body>
     </html>

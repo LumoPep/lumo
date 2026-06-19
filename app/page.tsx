@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { PRODUCTS, getFeaturedProducts, CATEGORY_COLORS } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import LumoLogo from "@/components/LumoLogo";
 
 // Add hover effect for test chips
 const testChipStyles = `
@@ -221,7 +222,7 @@ export default function HomePage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="font-editorial text-xl mb-4 leading-relaxed max-w-lg italic"
-                style={{ fontSize: "22px", color: 'rgba(26,24,20,0.65)' }}
+                style={{ fontSize: "22px", color: 'rgba(26,24,20,0.75)' }}
               >
                 Light, made measurable.
               </motion.p>
@@ -232,7 +233,7 @@ export default function HomePage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
                 className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
-                style={{ color: 'rgba(26,24,20,0.65)' }}
+                style={{ color: 'rgba(26,24,20,0.75)' }}
               >
                 7× independently tested. Every batch verified by third-party accredited labs.
               </motion.p>
@@ -405,7 +406,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   HPLC PURITY
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   Independent lab
                 </div>
               </div>
@@ -415,7 +416,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   IDENTITY
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   Sequence confirmed
                 </div>
               </div>
@@ -425,7 +426,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   NET CONTENT
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   Exact mg verified
                 </div>
               </div>
@@ -435,7 +436,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   BATCH CONSISTENCY
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   Lot-to-lot stability
                 </div>
               </div>
@@ -445,7 +446,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   ENDOTOXINS
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   LAL tested
                 </div>
               </div>
@@ -455,7 +456,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   HEAVY METALS
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   ICP-MS screened
                 </div>
               </div>
@@ -465,7 +466,7 @@ export default function HomePage() {
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
                   STERILITY
                 </div>
-                <div className="text-[11px] text-[#1A1814]/50 mt-0.5">
+                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
                   Contamination-free
                 </div>
               </div>
@@ -474,7 +475,7 @@ export default function HomePage() {
         </section>
 
         {/* PRODUCT CAROUSEL - Now merged into unified section */}
-        <section ref={carouselSectionRef} className="pt-8 pb-24 px-6">
+        <section ref={carouselSectionRef} className="pt-8 pb-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
@@ -485,7 +486,7 @@ export default function HomePage() {
             <h2 className="font-display text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
               Our research compounds.
             </h2>
-            <p className="font-editorial text-xl text-ink opacity-60">
+            <p className="font-editorial text-xl text-ink opacity-70">
               Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
             </p>
           </motion.div>
@@ -524,8 +525,13 @@ export default function HomePage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   onClick={() => scroll("left")}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-ink text-cream hover:bg-clay transition-all hidden md:flex items-center justify-center"
-                  style={{ borderRadius: "0" }}
+                  className="absolute left-0 -translate-x-4 w-12 h-12 text-cream hover:bg-clay transition-all hidden md:flex items-center justify-center"
+                  style={{
+                    borderRadius: "0",
+                    backgroundColor: '#607A5C',
+                    top: '35%',
+                    transform: 'translateY(-50%) translateX(-16px)',
+                  }}
                 >
                   ←
                 </motion.button>
@@ -539,8 +545,13 @@ export default function HomePage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   onClick={() => scroll("right")}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-ink text-cream hover:bg-clay transition-all hidden md:flex items-center justify-center"
-                  style={{ borderRadius: "0" }}
+                  className="absolute right-0 translate-x-4 w-12 h-12 text-cream hover:bg-clay transition-all hidden md:flex items-center justify-center"
+                  style={{
+                    borderRadius: "0",
+                    backgroundColor: '#607A5C',
+                    top: '35%',
+                    transform: 'translateY(-50%) translateX(16px)',
+                  }}
                 >
                   →
                 </motion.button>
@@ -573,6 +584,113 @@ export default function HomePage() {
       </section>
       </div>
 
+      {/* CATEGORIES - Browse by Research Area */}
+      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '32px', paddingBottom: '64px' }}>
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            variants={headingVariants}
+            initial="hidden"
+            animate={categoriesInView ? "visible" : "hidden"}
+            className="text-center mb-10"
+          >
+            <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
+              Browse by research area.
+            </h2>
+            <p className="font-editorial text-lg" style={{ color: 'rgba(26,24,20,0.7)' }}>
+              Compounds organized by application.
+            </p>
+          </motion.div>
+
+          {/* Uniform 8-Card Grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '16px',
+            }}
+          >
+            {[
+              { name: 'Secretagogue Research', slug: 'secretagogue-research' },
+              { name: 'Tissue Repair Research', slug: 'tissue-repair-research' },
+              { name: 'Metabolic Research', slug: 'metabolic-research' },
+              { name: 'Dermal Research', slug: 'dermal-research' },
+              { name: 'Cellular Research', slug: 'cellular-research' },
+              { name: 'Neuro Research', slug: 'neuro-research' },
+              { name: 'Blends', slug: 'blends' },
+              { name: 'Ancillary', slug: 'ancillary' },
+            ].map((category, index) => {
+              const count = PRODUCTS.filter(p => p.category === category.name).length;
+              const categoryColors = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic Research'];
+              return (
+                <motion.div
+                  key={category.name}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate={categoriesInView ? "visible" : "hidden"}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <Link href={`/products?category=${category.slug}`}>
+                    <motion.div
+                      whileHover={{
+                        scale: 1.01,
+                        transition: { duration: 0.2 }
+                      }}
+                      style={{
+                        backgroundColor: '#EBE2CF',
+                        borderRadius: '10px',
+                        borderLeft: `3px solid ${categoryColors.accent}`,
+                        padding: '20px',
+                        height: '140px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <div>
+                        <div
+                          className="font-mono uppercase tracking-mono mb-2"
+                          style={{
+                            fontSize: '10px',
+                            letterSpacing: '1.5px',
+                            color: 'rgba(26,24,20,0.55)'
+                          }}
+                        >
+                          {count} {count === 1 ? 'COMPOUND' : 'COMPOUNDS'}
+                        </div>
+                        <h3
+                          className="font-display"
+                          style={{
+                            fontSize: '20px',
+                            fontStyle: 'italic',
+                            fontWeight: 300,
+                            color: '#1A1814',
+                            lineHeight: '1.2'
+                          }}
+                        >
+                          {category.name}
+                        </h3>
+                      </div>
+                      <div
+                        className="font-mono uppercase"
+                        style={{
+                          fontSize: '10px',
+                          letterSpacing: '1.2px',
+                          color: categoryColors.accent,
+                          fontWeight: 500
+                        }}
+                      >
+                        → EXPLORE
+                      </div>
+                    </motion.div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* PACKAGING SECTION - Split with Vial */}
       <section className="relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -596,7 +714,7 @@ export default function HomePage() {
                 mixBlendMode: 'multiply',
               }}
             />
-            <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-40 mt-8">
+            <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-55 mt-8">
               RESEARCH GRADE PACKAGING
             </p>
           </motion.div>
@@ -736,7 +854,7 @@ export default function HomePage() {
                 className="font-editorial"
                 style={{
                   fontSize: '15px',
-                  color: 'rgba(26,24,20,0.65)',
+                  color: 'rgba(26,24,20,0.75)',
                   lineHeight: 1.7,
                   marginBottom: '16px',
                 }}
@@ -798,7 +916,7 @@ export default function HomePage() {
             <h2 className="font-display text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
               How it works.
             </h2>
-            <p className="font-editorial text-xl text-ink opacity-60">
+            <p className="font-editorial text-xl text-ink opacity-70">
               Three steps to verified research compounds.
             </p>
           </motion.div>
@@ -865,37 +983,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* COA PROOF SECTION - Ink Background with Parallax Rotation */}
-      <section ref={coaRef} className="bg-ink py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left - COA Card with rotation effect */}
+      {/* COA PROOF SECTION - Split Background */}
+      <section ref={coaRef} className="relative overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Left Half - Bone Background with COA Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="bg-bone py-24 px-12 flex items-center justify-center"
+          >
             <motion.div
               initial={{ opacity: 0, rotate: -2 }}
               animate={coaInView ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -2 }}
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              className="w-full max-w-md"
             >
               <div
-                className="bg-cream p-8"
+                className="p-8"
                 style={{
                   borderRadius: "20px",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                  boxShadow: "0 8px 32px rgba(26,24,20,0.12)",
+                  background: '#EBE2CF',
                 }}
               >
                 <div className="flex items-start justify-between mb-8 pb-6 border-b hairline-border">
-                  <div className="relative">
-                    <span className="font-display text-xl text-ink" style={{ fontWeight: 300 }}>
-                      Lumo
-                    </span>
-                    <div
-                      className="absolute bg-clay rounded-full pulsing-dot"
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        top: "-1px",
-                        right: "-3px",
-                      }}
-                    />
+                  <div style={{ transform: 'scale(0.7)', transformOrigin: 'left center' }}>
+                    <LumoLogo size="nav" />
                   </div>
                   <div className="font-mono text-xs uppercase tracking-mono text-ink">
                     LOT PPL-2024-001
@@ -910,7 +1025,7 @@ export default function HomePage() {
                     { label: "TESTED BY", value: "Independent Lab" },
                   ].map((row, index) => (
                     <div key={index} className="flex items-baseline justify-between">
-                      <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
+                      <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70">
                         {row.label}
                       </span>
                       <div
@@ -942,153 +1057,48 @@ export default function HomePage() {
                 </motion.div>
               </div>
             </motion.div>
-
-            {/* Right - Content */}
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={coaInView ? "visible" : "hidden"}
-              transition={{ delay: 0.2 }}
-            >
-              <h2
-                className="font-display text-5xl text-cream mb-8 leading-tight"
-                style={{ fontWeight: 300 }}
-              >
-                Every lot. Its own paper trail.
-              </h2>
-              <ul className="space-y-4 mb-8">
-                {[
-                  "Third-party HPLC and mass spec verification",
-                  "Batch-specific purity and identity confirmation",
-                  "Full amino acid analysis included",
-                ].map((point, index) => (
-                  <li key={index} className="flex items-start space-x-3">
-                    <span className="text-clay text-2xl mt-1">●</span>
-                    <span className="font-editorial text-lg text-cream opacity-90">
-                      {point}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/coa"
-                className="font-mono text-sm uppercase tracking-mono text-clay hover:underline inline-flex items-center"
-              >
-                → READ A COA
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* CATEGORIES - Mosaic Layout by Compound Count */}
-      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '48px', paddingBottom: '48px' }}>
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            variants={headingVariants}
-            initial="hidden"
-            animate={categoriesInView ? "visible" : "hidden"}
-            className="text-center mb-10"
-          >
-            <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
-              Browse by research area.
-            </h2>
-            <p className="font-editorial text-lg" style={{ color: 'rgba(26,24,20,0.6)' }}>
-              Compounds organized by application.
-            </p>
           </motion.div>
 
-          {/* Uniform 8-Card Grid */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '16px',
-            }}
+          {/* Right Half - Ink Background with Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="bg-ink py-24 px-12 flex flex-col justify-center"
           >
-            {[
-              { name: 'Secretagogue Research', count: 4, slug: 'secretagogue-research' },
-              { name: 'Tissue Repair Research', count: 3, slug: 'tissue-repair-research' },
-              { name: 'Metabolic Research', count: 2, slug: 'metabolic-research' },
-              { name: 'Dermal Research', count: 1, slug: 'dermal-research' },
-              { name: 'Cellular Research', count: 1, slug: 'cellular-research' },
-              { name: 'Neuro Research', count: 2, slug: 'neuro-research' },
-              { name: 'Blends', count: 2, slug: 'blends' },
-              { name: 'Ancillary', count: 1, slug: 'ancillary' },
-            ].map((category, index) => {
-              const categoryColors = CATEGORY_COLORS[category.name] || CATEGORY_COLORS['Metabolic Research'];
-              return (
-                <motion.div
-                  key={category.name}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate={categoriesInView ? "visible" : "hidden"}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Link href={`/products?category=${category.slug}`}>
-                    <motion.div
-                      whileHover={{
-                        scale: 1.01,
-                        transition: { duration: 0.2 }
-                      }}
-                      style={{
-                        backgroundColor: '#EBE2CF',
-                        borderRadius: '10px',
-                        borderLeft: `3px solid ${categoryColors.accent}`,
-                        padding: '20px',
-                        height: '140px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <div>
-                        <div
-                          className="font-mono uppercase tracking-mono mb-2"
-                          style={{
-                            fontSize: '10px',
-                            letterSpacing: '1.5px',
-                            color: 'rgba(26,24,20,0.45)'
-                          }}
-                        >
-                          {category.count} {category.count === 1 ? 'COMPOUND' : 'COMPOUNDS'}
-                        </div>
-                        <h3
-                          className="font-display"
-                          style={{
-                            fontSize: '20px',
-                            fontStyle: 'italic',
-                            fontWeight: 300,
-                            color: '#1A1814',
-                            lineHeight: '1.2'
-                          }}
-                        >
-                          {category.name}
-                        </h3>
-                      </div>
-                      <div
-                        className="font-mono uppercase"
-                        style={{
-                          fontSize: '10px',
-                          letterSpacing: '1.2px',
-                          color: categoryColors.accent,
-                          fontWeight: 500
-                        }}
-                      >
-                        → EXPLORE
-                      </div>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
+            <h2
+              className="font-display text-5xl mb-8 leading-tight text-cream"
+              style={{ fontWeight: 300 }}
+            >
+              Every lot. Its own paper trail.
+            </h2>
+            <ul className="space-y-4 mb-8">
+              {[
+                "Third-party HPLC and mass spec verification",
+                "Batch-specific purity and identity confirmation",
+                "Full amino acid analysis included",
+              ].map((point, index) => (
+                <li key={index} className="flex items-start space-x-3">
+                  <span className="text-clay text-2xl mt-1">●</span>
+                  <span className="font-editorial text-lg text-cream" style={{ opacity: 0.8 }}>
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/coa"
+              className="font-mono text-sm uppercase tracking-mono text-clay hover:underline inline-flex items-center"
+            >
+              → READ A COA
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA BANNER - Ink Background */}
-      <section ref={ctaRef} className="bg-ink py-24 px-6">
+      {/* CTA BANNER - Light Background */}
+      <section ref={ctaRef} className="py-24 px-6" style={{ background: '#F5EFE4' }}>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -1097,14 +1107,15 @@ export default function HomePage() {
         >
           <motion.h2
             variants={headingVariants}
-            className="font-display text-5xl md:text-6xl text-cream mb-6 leading-tight"
-            style={{ fontWeight: 300 }}
+            className="font-display text-5xl md:text-6xl mb-6 leading-tight"
+            style={{ fontWeight: 300, color: '#1A1814' }}
           >
             Ready to start your research?
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="font-editorial text-xl text-cream opacity-90 mb-10"
+            className="font-editorial text-xl mb-10"
+            style={{ color: 'rgba(26,24,20,0.75)' }}
           >
             See current lots or contact us for custom inquiries.
           </motion.p>
@@ -1114,15 +1125,15 @@ export default function HomePage() {
           >
             <Link
               href="/products"
-              className="px-8 py-4 bg-cream text-ink font-mono text-xs uppercase tracking-mono hover:bg-bone hover:text-ink transition-colors active:scale-[0.97]"
-              style={{ borderRadius: "8px" }}
+              className="px-8 py-4 text-white font-mono text-xs uppercase tracking-mono hover:opacity-90 transition-opacity active:scale-[0.97]"
+              style={{ borderRadius: "8px", backgroundColor: '#B8624A' }}
             >
               → SEE CURRENT LOTS
             </Link>
             <Link
               href="/contact"
-              className="px-8 py-4 border-2 border-cream bg-transparent text-cream font-mono text-xs uppercase tracking-mono hover:bg-cream hover:text-ink transition-all active:scale-[0.97]"
-              style={{ borderRadius: "8px" }}
+              className="px-8 py-4 border-2 bg-transparent font-mono text-xs uppercase tracking-mono hover:bg-ink hover:text-cream transition-all active:scale-[0.97]"
+              style={{ borderRadius: "8px", borderColor: '#1A1814', color: '#1A1814' }}
             >
               CONTACT US
             </Link>

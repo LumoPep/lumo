@@ -208,7 +208,7 @@ export default function JournalPage() {
                       </p>
 
                       <div className="flex items-center justify-between mt-auto pt-4 border-t hairline-border">
-                        <div className="font-mono text-xs text-ink opacity-40">
+                        <div className="font-mono text-xs text-ink opacity-55">
                           BY LUMO RESEARCH · {article.date}
                         </div>
                         <div className="font-mono text-xs text-clay group-hover:underline">
@@ -277,7 +277,7 @@ export default function JournalPage() {
                     </p>
 
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono text-ink opacity-40">{article.readTime}</span>
+                      <span className="font-mono text-ink opacity-55">{article.readTime}</span>
                       <span className="font-mono text-clay group-hover:underline">READ →</span>
                     </div>
                   </motion.div>

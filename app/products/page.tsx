@@ -183,7 +183,7 @@ function ProductsPageContent() {
                 className="w-full px-6 py-4 bg-cream hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm transition-all"
                 style={{ borderRadius: "8px" }}
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-ink opacity-30">
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-ink opacity-55">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                   <circle cx="9" cy="9" r="6" strokeWidth="2" />
                   <path d="M14 14L18 18" strokeWidth="2" strokeLinecap="round" />

@@ -116,13 +116,13 @@ export default function Footer() {
             >
               <div className="flex items-start space-x-3 mb-4">
                 <span className="text-clay font-mono text-lg">●</span>
-                <h3 className="font-mono text-xs uppercase tracking-mono text-cream font-medium opacity-70">
+                <h3 className="font-mono text-xs uppercase tracking-mono text-cream font-medium opacity-80">
                   IMPORTANT RESEARCH USE DISCLAIMER
                 </h3>
               </div>
               <p
                 className="font-editorial text-sm text-cream leading-relaxed ml-7"
-                style={{ opacity: 0.65 }}
+                style={{ opacity: 0.8 }}
               >
                 All compounds sold by Lumo are intended strictly for{" "}
                 <span className="font-medium">in vitro research and laboratory use only</span>.
@@ -164,7 +164,7 @@ export default function Footer() {
                 </div>
                 <p
                   className="font-editorial text-cream max-w-[200px]"
-                  style={{ fontSize: "14px", opacity: 0.5, lineHeight: 1.6 }}
+                  style={{ fontSize: "14px", opacity: 0.75, lineHeight: 1.6 }}
                 >
                   Precision peptides for serious research.
                 </p>
@@ -178,7 +178,7 @@ export default function Footer() {
                 <motion.div variants={itemVariants}>
                   <h4
                     className="font-mono uppercase text-cream font-medium mb-4"
-                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.4 }}
+                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.7 }}
                   >
                     COMPANY
                   </h4>
@@ -187,9 +187,9 @@ export default function Footer() {
                       <Link
                         href="/about"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         About
                       </Link>
@@ -198,9 +198,9 @@ export default function Footer() {
                       <Link
                         href="/contact"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Contact
                       </Link>
@@ -209,9 +209,9 @@ export default function Footer() {
                       <Link
                         href="/journal"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Journal
                       </Link>
@@ -220,9 +220,9 @@ export default function Footer() {
                       <Link
                         href="/wholesale"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Wholesale
                       </Link>
@@ -234,7 +234,7 @@ export default function Footer() {
                 <motion.div variants={itemVariants}>
                   <h4
                     className="font-mono uppercase text-cream font-medium mb-4"
-                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.4 }}
+                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.7 }}
                   >
                     COMPOUNDS
                   </h4>
@@ -243,9 +243,9 @@ export default function Footer() {
                       <Link
                         href="/products/lumo-2-trz"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Lumo-2 TRZ
                       </Link>
@@ -254,9 +254,9 @@ export default function Footer() {
                       <Link
                         href="/products/lumo-3-rt"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Lumo-3 RT
                       </Link>
@@ -265,9 +265,9 @@ export default function Footer() {
                       <Link
                         href="/products/bpc-157"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         BPC-157
                       </Link>
@@ -276,9 +276,9 @@ export default function Footer() {
                       <Link
                         href="/products/tb-500"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         TB-500
                       </Link>
@@ -287,9 +287,9 @@ export default function Footer() {
                       <Link
                         href="/products/bpc-tb-blend"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         BPC+TB Blend
                       </Link>
@@ -298,9 +298,9 @@ export default function Footer() {
                       <Link
                         href="/products/ghk-cu"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         GHK-Cu
                       </Link>
@@ -312,7 +312,7 @@ export default function Footer() {
                 <motion.div variants={itemVariants}>
                   <h4
                     className="font-mono uppercase text-cream font-medium mb-4"
-                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.4 }}
+                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.7 }}
                   >
                     RESOURCES
                   </h4>
@@ -321,9 +321,9 @@ export default function Footer() {
                       <Link
                         href="/coa"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Certificates (CoA)
                       </Link>
@@ -332,9 +332,9 @@ export default function Footer() {
                       <Link
                         href="/faq"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         FAQ
                       </Link>
@@ -343,9 +343,9 @@ export default function Footer() {
                       <Link
                         href="/account"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Account
                       </Link>
@@ -354,9 +354,9 @@ export default function Footer() {
                       <a
                         href="mailto:support@lumopeptides.com"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Email Support
                       </a>
@@ -368,7 +368,7 @@ export default function Footer() {
                 <motion.div variants={itemVariants}>
                   <h4
                     className="font-mono uppercase text-cream font-medium mb-4"
-                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.4 }}
+                    style={{ fontSize: "10px", letterSpacing: "3px", opacity: 0.7 }}
                   >
                     LEGAL
                   </h4>
@@ -377,9 +377,9 @@ export default function Footer() {
                       <Link
                         href="/terms"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Terms of Service
                       </Link>
@@ -388,9 +388,9 @@ export default function Footer() {
                       <Link
                         href="/privacy"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Privacy Policy
                       </Link>
@@ -399,9 +399,9 @@ export default function Footer() {
                       <Link
                         href="/refunds"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Refund Policy
                       </Link>
@@ -410,9 +410,9 @@ export default function Footer() {
                       <Link
                         href="/shipping"
                         className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.65 }}
+                        style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.65")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
                         Shipping Policy
                       </Link>
@@ -434,27 +434,27 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div
                 className="font-mono text-cream text-center md:text-left"
-                style={{ fontSize: "10px", opacity: 0.35 }}
+                style={{ fontSize: "10px", opacity: 0.65 }}
               >
                 © {new Date().getFullYear()} Lumo Research Peptides
               </div>
               <div
                 className="font-mono text-cream text-center md:text-right"
-                style={{ fontSize: "10px", opacity: 0.35 }}
+                style={{ fontSize: "10px", opacity: 0.65 }}
               >
                 All products for research use only.
               </div>
             </div>
             <p
               className="font-editorial text-cream mt-6 text-center md:text-left italic"
-              style={{ fontSize: "14px", opacity: 0.4 }}
+              style={{ fontSize: "14px", opacity: 0.7 }}
             >
               A brand built the same way the molecules are.{" "}
               <span className="text-clay">Carefully. In sequence.</span>
             </p>
             <p
               className="font-mono text-cream mt-4 text-center"
-              style={{ fontSize: "9px", opacity: 0.5, letterSpacing: "0.5px" }}
+              style={{ fontSize: "9px", opacity: 0.6, letterSpacing: "0.5px" }}
             >
               ⚠ All compounds sold for in vitro research and laboratory use only. Not for human
               or veterinary use. Not a drug or supplement. Must be 21+.

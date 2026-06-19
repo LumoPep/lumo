@@ -47,7 +47,7 @@ export default function BundleSelector({ basePrice, productSlug, onSelect }: Bun
     <div className="mb-4">
       {/* Quantity Stepper */}
       <div className="mb-3">
-        <label className="text-[9px] font-medium tracking-widest uppercase text-[#1A1814]/40 mb-2 block">
+        <label className="text-[9px] font-medium tracking-widest uppercase text-\[#1A1814\]/65 mb-2 block">
           QUANTITY
         </label>
         <div className="flex items-center border border-[#1A1814]/15 rounded-lg overflow-hidden w-fit">
@@ -78,25 +78,37 @@ export default function BundleSelector({ basePrice, productSlug, onSelect }: Bun
               key={i}
               onClick={() => handleTierSelect(i)}
               className={[
-                'relative flex flex-col items-center justify-center py-3 px-2 rounded-lg border cursor-pointer transition-all duration-150 min-h-[80px]',
+                'relative flex flex-col items-center justify-center py-3 px-2 rounded-lg border cursor-pointer transition-all duration-150 min-h-[80px] overflow-visible',
                 isSelected
                   ? 'bg-[#F5EFE4] border-2 border-[#B8624A]'
                   : 'bg-[#EBE2CF] border-[#1A1814]/10',
               ].join(' ')}
             >
+              {/* Top Badge - MOST POPULAR or BEST VALUE */}
+              {i === 1 && (
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[7px] font-bold tracking-widest uppercase px-2 py-1 rounded-full whitespace-nowrap z-10 text-white" style={{ backgroundColor: '#B8624A' }}>
+                  MOST POPULAR
+                </div>
+              )}
+              {i === 3 && (
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[7px] font-bold tracking-widest uppercase px-2 py-1 rounded-full whitespace-nowrap z-10 text-white" style={{ backgroundColor: '#607A5C' }}>
+                  BEST VALUE
+                </div>
+              )}
+
               {/* Number */}
               <div className="text-2xl font-serif text-[#1A1814] leading-none">
                 {tier.qty}
               </div>
 
               {/* Vial Label */}
-              <div className="text-[8px] font-medium tracking-widest uppercase text-[#1A1814]/50 mt-1">
+              <div className="text-[8px] font-semibold tracking-widest uppercase text-[#1A1814] mt-1">
                 {tier.qty === 1 ? 'VIAL' : 'VIALS'}
               </div>
 
               {/* Discount Badge */}
               {tier.badge && (
-                <div className="text-[9px] font-medium text-[#B8624A] mt-1 uppercase">
+                <div className="text-[9px] font-semibold text-[#B8624A] mt-1 uppercase">
                   {tier.badge}
                 </div>
               )}

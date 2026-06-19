@@ -166,7 +166,7 @@ export default function CheckoutPage() {
                       className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
                       placeholder="your.email@institution.edu"
                     />
-                    <p className="font-mono text-xs text-ink opacity-40 mt-1">
+                    <p className="font-mono text-xs text-ink opacity-55 mt-1">
                       Order confirmation and tracking will be sent here
                     </p>
                   </div>
@@ -229,7 +229,7 @@ export default function CheckoutPage() {
                         <div className="font-mono text-xs uppercase tracking-mono text-ink font-medium">
                           {crypto.name}
                         </div>
-                        <div className="font-mono text-xs text-ink opacity-40">
+                        <div className="font-mono text-xs text-ink opacity-55">
                           {crypto.symbol}
                         </div>
                       </div>
@@ -352,7 +352,7 @@ export default function CheckoutPage() {
                         ${(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
-                    <div className="font-mono text-xs text-ink opacity-40">
+                    <div className="font-mono text-xs text-ink opacity-55">
                       {item.variant} × {item.quantity}
                     </div>
                   </div>
@@ -385,7 +385,7 @@ export default function CheckoutPage() {
                     ${total.toFixed(2)}
                   </span>
                 </div>
-                <p className="font-mono text-xs text-ink opacity-40 text-center mt-2">
+                <p className="font-mono text-xs text-ink opacity-55 text-center mt-2">
                   USD equivalent in selected cryptocurrency
                 </p>
               </div>

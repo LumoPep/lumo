@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { getProductBySlug, PRODUCTS, CATEGORY_COLORS } from "@/data/products";
 import { useCartStore } from "@/lib/store";
 import { showToast } from "@/components/Toast";
@@ -136,7 +137,7 @@ export default function ProductPage() {
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`relative px-6 py-3 font-mono text-xs uppercase tracking-mono transition-colors ${
-                        activeTab === tab.id ? "text-ink" : "text-ink opacity-40 hover:opacity-70"
+                        activeTab === tab.id ? "text-ink" : "text-ink opacity-60 hover:opacity-85"
                       }`}
                     >
                       {tab.label}
@@ -160,12 +161,12 @@ export default function ProductPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '12px' }}>
+                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '12px' }}>
                         CHEMICAL PROPERTIES
                       </h3>
                       <div className="grid grid-cols-2 gap-3 mb-4">
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', display: 'block', marginBottom: '6px' }}>
                             CAS NUMBER
                           </span>
                           <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -174,7 +175,7 @@ export default function ProductPage() {
                         </div>
 
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', display: 'block', marginBottom: '6px' }}>
                             MOLECULAR WEIGHT
                           </span>
                           <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -183,7 +184,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="col-span-2" style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', display: 'block', marginBottom: '6px' }}>
                             MOLECULAR FORMULA
                           </span>
                           <span style={{ fontSize: '13px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -192,12 +193,12 @@ export default function ProductPage() {
                         </div>
                       </div>
 
-                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '12px', marginTop: '16px' }}>
+                      <h3 style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '12px', marginTop: '16px' }}>
                         PHYSICAL PROPERTIES
                       </h3>
                       <div className="space-y-3">
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', display: 'block', marginBottom: '6px' }}>
                             APPEARANCE
                           </span>
                           <span style={{ fontFamily: 'inherit', fontStyle: 'normal', fontSize: '14px', color: '#1A1814' }}>
@@ -207,7 +208,7 @@ export default function ProductPage() {
 
                         {product.sequence && product.sequence !== 'N/A' && (
                           <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                            <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', display: 'block', marginBottom: '6px' }}>
+                            <span style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', display: 'block', marginBottom: '6px' }}>
                               SEQUENCE
                             </span>
                             <span style={{ fontSize: '13px', fontFamily: 'monospace', lineHeight: 1.6, color: '#1A1814', wordBreak: 'break-all', whiteSpace: 'normal' }}>
@@ -238,7 +239,7 @@ export default function ProductPage() {
                       transition={{ duration: 0.3 }}
                       className="space-y-6"
                     >
-                      <h3 className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]/40 mb-4">
+                      <h3 className="text-[10px] font-medium tracking-widest uppercase text-\[#1A1814\]/65 mb-4">
                         INDEPENDENT VERIFICATION — KOVERA LABS
                       </h3>
 
@@ -250,7 +251,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             HPLC PURITY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             Independent lab
                           </div>
                         </div>
@@ -261,7 +262,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             IDENTITY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             Sequence confirmed
                           </div>
                         </div>
@@ -272,7 +273,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             NET CONTENT
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             Exact mg verified
                           </div>
                         </div>
@@ -283,7 +284,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             BATCH CONSISTENCY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             Lot-to-lot stability
                           </div>
                         </div>
@@ -294,7 +295,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             ENDOTOXINS
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             LAL tested
                           </div>
                         </div>
@@ -305,7 +306,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             HEAVY METALS
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             ICP-MS screened
                           </div>
                         </div>
@@ -316,7 +317,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             STERILITY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/50 mt-1">
+                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
                             Contamination-free
                           </div>
                         </div>
@@ -419,18 +420,20 @@ export default function ProductPage() {
               <div className="lg:sticky lg:top-20">
                 {/* Category Badge + Product Badge */}
                 <div className="mb-3 flex items-center gap-2 flex-wrap">
-                  <span
-                    className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono"
-                    style={{
-                      borderRadius: "12px",
-                      backgroundColor: categoryColors.accent,
-                      color: 'white',
-                      fontWeight: 500,
-                      letterSpacing: '1px',
-                    }}
-                  >
-                    {product.category}
-                  </span>
+                  <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
+                    <span
+                      className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono hover:opacity-80 transition-opacity cursor-pointer"
+                      style={{
+                        borderRadius: "12px",
+                        backgroundColor: categoryColors.accent,
+                        color: 'white',
+                        fontWeight: 500,
+                        letterSpacing: '1px',
+                      }}
+                    >
+                      {product.category}
+                    </span>
+                  </Link>
                   {product.badge && (
                     <span
                       className="inline-block px-3 py-1 bg-clay text-cream font-mono text-xs uppercase tracking-mono"
@@ -450,14 +453,14 @@ export default function ProductPage() {
                 </h1>
 
                 {/* Description */}
-                <p className="font-editorial text-ink opacity-70 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
+                <p className="font-editorial text-ink opacity-80 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
                   {product.synopsis}
                 </p>
 
                 {/* Purity Display */}
                 <div className="bg-cream hairline-border p-5 mb-5" style={{ borderRadius: "12px" }}>
                   <div className="flex items-baseline justify-between mb-2">
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70">
                       HPLC PURITY
                     </span>
                     <span
@@ -481,13 +484,13 @@ export default function ProductPage() {
                 {/* Lot + Report Grid */}
                 <div className="grid grid-cols-2 gap-3 mb-5">
                   <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1" style={{ fontSize: "10px" }}>
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
                       LOT NUMBER
                     </span>
                     <span className="font-mono text-sm text-ink font-medium">{product.batch}</span>
                   </div>
                   <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1" style={{ fontSize: "10px" }}>
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
                       REPORT NO.
                     </span>
                     <span className="font-mono text-sm text-ink font-medium">{product.report}</span>
@@ -496,7 +499,7 @@ export default function ProductPage() {
 
                 {/* Size Selector */}
                 <div className="mb-4">
-                  <label className="font-mono uppercase tracking-mono text-ink opacity-60 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
+                  <label className="font-mono uppercase tracking-mono text-ink opacity-70 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
                     SELECT SIZE
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -543,7 +546,7 @@ export default function ProductPage() {
                     whileHover={{ scale: 1.01, opacity: 0.9 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAddToCart}
-                    className="w-full py-4 rounded-lg text-[11px] font-medium tracking-widest uppercase text-white transition-colors"
+                    className="w-full py-5 rounded-lg text-sm font-semibold tracking-widest uppercase text-white transition-colors shadow-lg"
                     style={{
                       backgroundColor: categoryColors.accent || '#B8624A',
                     }}
@@ -554,10 +557,10 @@ export default function ProductPage() {
 
                 {/* Independent Verification Strip */}
                 <div style={{ marginTop: '16px' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.55)', marginBottom: '10px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '10px' }}>
                     7× Independently Tested
                   </p>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                  <div className="grid grid-cols-4 gap-2">
                     {[
                       { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
                       { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
@@ -570,9 +573,18 @@ export default function ProductPage() {
                       <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
                         <span style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
-                        <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.55)', lineHeight: 1.3 }}>{chip.sub}</span>
+                        <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.65)', lineHeight: 1.3 }}>{chip.sub}</span>
                       </div>
                     ))}
+                    {/* 8th Accent Tile */}
+                    <div style={{ background: '#607A5C', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ fontSize: '28px', fontWeight: 500, color: '#F5EFE4', lineHeight: 1 }}>
+                        7×
+                      </div>
+                      <div style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F5EFE4', lineHeight: 1.3, marginTop: '4px' }}>
+                        TESTED
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -681,19 +693,19 @@ export default function ProductPage() {
 
               <div className="space-y-4 mb-6">
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1">
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
                     TESTING LAB
                   </span>
                   <span className="font-editorial text-sm text-ink">Independent Analytics LLC</span>
                 </div>
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1">
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
                     TEST DATE
                   </span>
                   <span className="font-editorial text-sm text-ink">January 2025</span>
                 </div>
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 block mb-1">
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
                     METHODS USED
                   </span>
                   <div className="flex gap-2 mt-2">
