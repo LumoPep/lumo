@@ -136,6 +136,20 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             </div>
 
+            {/* 7× Tested Badge */}
+            <div className="mb-3">
+              <span
+                className="text-[10px] tracking-wide uppercase bg-[#607A5C]/10 text-[#3B5438] rounded-full px-2 py-0.5 inline-block"
+                style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontWeight: 500,
+                  letterSpacing: '0.05em',
+                }}
+              >
+                7× Tested
+              </span>
+            </div>
+
             {/* Description - 2 lines max */}
             <p
               className="font-editorial mb-4 flex-1"

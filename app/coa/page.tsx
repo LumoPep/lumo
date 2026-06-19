@@ -75,7 +75,7 @@ export default function CoAPage() {
         </div>
       </section>
 
-      {/* 6-Point Testing Section */}
+      {/* 7-Point Testing Section */}
       <section className="bg-bone py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.div
@@ -85,46 +85,50 @@ export default function CoAPage() {
             className="text-center mb-12"
           >
             <h2 className="font-display text-4xl md:text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
-              Every Lumo batch is independently verified across 6 tests.
+              Every Lumo batch is independently verified across 7 tests.
             </h2>
             <p className="font-editorial text-lg text-ink opacity-60 max-w-3xl mx-auto">
-              Purity, identity, net content, batch consistency, endotoxins, and heavy metals.
+              Purity, identity, net content, sterility, batch consistency, endotoxins, and heavy metals.
             </p>
           </motion.div>
 
-          {/* 6 Test Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 7 Test Cards + Accent Tile (4+4 Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
               {
                 title: "Purity (HPLC)",
                 description: "High-performance liquid chromatography verifies compound purity to 98%+ specification.",
-                color: "#B8624A", // Clay
+                color: "#B8624A",
               },
               {
                 title: "Identity",
                 description: "Mass spectrometry confirms molecular weight and correct peptide identity.",
-                color: "#4A8A88", // Tissue Repair Research accent
+                color: "#4A8A88",
               },
               {
                 title: "Net Content",
                 description: "Mass accuracy testing verifies precise peptide content per vial.",
-                color: "#C89A3C", // Ochre
+                color: "#C89A3C",
               },
               {
                 title: "Batch Consistency",
                 description: "Conformity vials ensure uniform quality across the entire production lot.",
-                color: "#607A5C", // Sage
+                color: "#607A5C",
               },
               {
                 title: "Endotoxins",
                 description: "LAL testing detects bacterial endotoxins to ensure research safety.",
-                color: "#7A6898", // Neuro Research accent
+                color: "#A89020",
               },
               {
                 title: "Heavy Metals",
-                description: "Industry-leading heavy metal screening. No other supplier offers this level of verification.",
-                color: "#A89020", // Cellular Research accent
-                badge: "DIFFERENTIATOR",
+                description: "ICP-MS screening detects trace heavy metal contamination across all batches.",
+                color: "#8A7860",
+              },
+              {
+                title: "Sterility",
+                description: "Contamination-free verification ensures sample integrity for research applications.",
+                color: "#3A7888",
               },
             ].map((test, index) => (
               <motion.div
@@ -136,37 +140,64 @@ export default function CoAPage() {
                   backgroundColor: '#EBE2CF',
                   borderRadius: '12px',
                   borderTop: `4px solid ${test.color}`,
-                  padding: '24px',
+                  padding: '16px',
                   position: 'relative',
                 }}
               >
-                {test.badge && (
-                  <div
-                    className="font-mono uppercase mb-2"
-                    style={{
-                      fontSize: '9px',
-                      letterSpacing: '1.5px',
-                      color: test.color,
-                      fontWeight: 600,
-                    }}
-                  >
-                    ● {test.badge}
-                  </div>
-                )}
                 <h3
-                  className="font-display text-ink mb-3"
-                  style={{ fontSize: '22px', fontWeight: 300, fontStyle: 'italic' }}
+                  className="font-display text-ink mb-2"
+                  style={{ fontSize: '16px', fontWeight: 300, fontStyle: 'italic' }}
                 >
                   {test.title}
                 </h3>
                 <p
                   className="font-editorial text-ink"
-                  style={{ fontSize: '14px', opacity: 0.7, lineHeight: 1.6 }}
+                  style={{ fontSize: '13px', opacity: 0.7, lineHeight: 1.5 }}
                 >
                   {test.description}
                 </p>
               </motion.div>
             ))}
+
+            {/* 8th Slot - Accent Tile */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 + 7 * 0.1 }}
+              style={{
+                backgroundColor: '#607A5C',
+                borderRadius: '12px',
+                padding: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div
+                className="font-display"
+                style={{
+                  fontSize: '56px',
+                  fontWeight: 300,
+                  color: '#F5EFE4',
+                  lineHeight: 1,
+                  marginBottom: '8px',
+                }}
+              >
+                7×
+              </div>
+              <div
+                className="font-mono uppercase tracking-widest"
+                style={{
+                  fontSize: '11px',
+                  color: '#F5EFE4',
+                  opacity: 0.5,
+                  letterSpacing: '0.15em',
+                }}
+              >
+                TESTED
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

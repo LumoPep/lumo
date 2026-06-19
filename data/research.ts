@@ -309,29 +309,6 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
     },
   ],
 
-  'nad-plus': [
-    {
-      title: 'NAD+ Metabolism and Its Roles in Cellular Processes During Aging',
-      authors: 'Covarrubias AJ, Perrone R, Grozio A, Verdin E.',
-      journal: 'Nature Reviews Molecular Cell Biology',
-      year: 2021,
-      pmid: '33353981',
-      doi: '10.1038/s41580-020-00313-x',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/33353981/',
-      summary: 'Comprehensive review of NAD+ biosynthesis, consumption pathways (sirtuins, PARPs, CD38), and the consequences of age-related NAD+ decline across tissues.',
-    },
-    {
-      title: 'NAD+ and Sirtuins in Aging and Disease',
-      authors: 'Imai S, Guarente L.',
-      journal: 'Trends in Cell Biology',
-      year: 2014,
-      pmid: '24786309',
-      doi: '10.1016/j.tcb.2014.04.002',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/24786309/',
-      summary: 'Reviews the NAD-sirtuin axis as a central regulator of metabolism and ageing, providing the mechanistic basis for NAD+ repletion research.',
-    },
-  ],
-
   'epithalon': [
     {
       title: 'Epithalon Peptide Induces Telomerase Activity and Telomere Elongation in Human Somatic Cells',
