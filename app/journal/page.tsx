@@ -2,294 +2,260 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { RESEARCH_LIBRARY, LibraryStudy } from "@/data/research-library";
+import { CATEGORY_COLORS } from "@/data/products";
 
-export default function JournalPage() {
-  const [selectedTag, setSelectedTag] = useState("ALL");
+export default function ResearchLibraryPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const tags = ["ALL", "PEPTIDES", "DOSING SCIENCE", "COA EXPLAINERS", "LONGEVITY"];
+  // All unique categories from the research library
+  const allCategories = useMemo(() => {
+    const cats = new Set<string>();
+    RESEARCH_LIBRARY.forEach(study => {
+      study.categories.forEach(cat => cats.add(cat));
+    });
+    return ["All", ...Array.from(cats).sort()];
+  }, []);
 
-  const featuredArticles = [
-    {
-      number: "No.001",
-      title: "BPC-157: What the Research Actually Says",
-      excerpt:
-        "A comprehensive review of published studies on Body Protection Compound-157, separating established findings from speculative claims.",
-      readTime: "8 MIN",
-      date: "MARCH 2026",
-      tag: "PEPTIDES",
-    },
-    {
-      number: "No.002",
-      title: "Understanding HPLC Purity Testing",
-      excerpt:
-        "How High-Performance Liquid Chromatography works, what purity percentages mean, and why 98%+ matters for research applications.",
-      readTime: "6 MIN",
-      date: "MARCH 2026",
-      tag: "COA EXPLAINERS",
-    },
-    {
-      number: "No.003",
-      title: "Reconstitution: Getting It Right",
-      excerpt:
-        "Step-by-step protocols for proper peptide reconstitution, storage conditions, and stability considerations for research use.",
-      readTime: "5 MIN",
-      date: "FEBRUARY 2026",
-      tag: "DOSING SCIENCE",
-    },
-  ];
+  // Filter studies based on search and category
+  const filteredStudies = useMemo(() => {
+    let filtered = RESEARCH_LIBRARY;
 
-  const articles = [
-    {
-      number: "No.004",
-      title: "TB-500 vs. BPC-157: Different Mechanisms",
-      excerpt: "Comparing the molecular pathways and research applications of two commonly studied healing peptides.",
-      readTime: "7 MIN",
-      date: "FEBRUARY 2026",
-      tag: "PEPTIDES",
-    },
-    {
-      number: "No.005",
-      title: "Mass Spectrometry in Peptide Verification",
-      excerpt: "How MS confirms molecular structure and why it's essential alongside HPLC testing.",
-      readTime: "6 MIN",
-      date: "JANUARY 2026",
-      tag: "COA EXPLAINERS",
-    },
-    {
-      number: "No.006",
-      title: "GHRPs: Growth Hormone Release Peptides Explained",
-      excerpt: "Understanding how peptides like Ipamorelin and CJC-1295 work in research contexts.",
-      readTime: "9 MIN",
-      date: "JANUARY 2026",
-      tag: "PEPTIDES",
-    },
-    {
-      number: "No.007",
-      title: "NAD+ Precursors: NMN vs. NR",
-      excerpt: "Research comparing Nicotinamide Mononucleotide and Nicotinamide Riboside for cellular studies.",
-      readTime: "10 MIN",
-      date: "DECEMBER 2025",
-      tag: "LONGEVITY",
-    },
-    {
-      number: "No.008",
-      title: "Peptide Storage: Temperature & Stability",
-      excerpt: "Research-backed guidelines for maintaining peptide integrity during storage and transport.",
-      readTime: "5 MIN",
-      date: "DECEMBER 2025",
-      tag: "DOSING SCIENCE",
-    },
-    {
-      number: "No.009",
-      title: "What CoA Numbers Mean: A Practical Guide",
-      excerpt: "Interpreting amino acid analysis results, endotoxin levels, and mass spec data on certificates.",
-      readTime: "7 MIN",
-      date: "NOVEMBER 2025",
-      tag: "COA EXPLAINERS",
-    },
-  ];
+    // Apply category filter
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter(study =>
+        study.categories.includes(selectedCategory)
+      );
+    }
 
-  const filteredArticles = selectedTag === "ALL"
-    ? articles
-    : articles.filter(a => a.tag === selectedTag);
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(study =>
+        study.title.toLowerCase().includes(query) ||
+        study.authors.toLowerCase().includes(query) ||
+        study.summary.toLowerCase().includes(query) ||
+        study.journal.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [searchQuery, selectedCategory]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 },
+      transition: { staggerChildren: 0.05 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.4 },
     },
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Compliance Disclaimer Bar - Sticky */}
-      <div className="sticky top-16 z-30 bg-cream border-t border-clay border-opacity-30 py-3 px-6">
+    <div className="min-h-screen bg-bone">
+      {/* Hero Section */}
+      <section className="bg-clay py-16 md:py-20 px-6">
         <div className="container mx-auto max-w-7xl">
-          <p className="font-mono text-ink text-center" style={{ fontSize: "10px", letterSpacing: "0.05em" }}>
-            <span className="text-clay">●</span> EDITORIAL CONTENT — All journal articles describe in vitro research findings only. Nothing on this page constitutes medical advice or dosing guidance. For research use only.
-          </p>
-        </div>
-      </div>
-
-      {/* Hero - Clay Background */}
-      <section className="bg-clay py-16 md:py-24 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="font-mono text-xs uppercase tracking-mono text-cream opacity-80 mb-4"
-          >
-            05.1 — RESEARCH JOURNAL
-          </motion.div>
-
           <motion.h1
-            className="font-display text-5xl md:text-7xl text-cream mb-6 leading-tight"
+            className="font-display text-5xl md:text-7xl text-cream mb-4 leading-tight"
             style={{ fontWeight: 300 }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
           >
-            Field notes.
+            Research Library
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.9 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-editorial text-xl text-cream max-w-2xl"
+            animate={{ opacity: 0.85 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-editorial text-xl text-cream max-w-3xl"
           >
-            What's actually known. What's plausible. What's not.
+            Peer-reviewed studies referenced across Lumo's compound catalogue.
           </motion.p>
         </div>
       </section>
 
       {/* Main Content */}
-      <div className="py-16 px-6 bg-bone">
+      <div className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          {/* Featured Articles */}
+          {/* Search Bar */}
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6"
           >
-            <motion.h2
-              variants={itemVariants}
-              className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-8"
-            >
-              FEATURED
-            </motion.h2>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by compound, keyword, or author..."
+              className="w-full px-6 py-4 bg-cream border border-[#EBE2CF] rounded-xl text-ink placeholder-ink placeholder:opacity-40 focus:outline-none focus:border-clay transition-colors font-editorial"
+              style={{ fontSize: "15px" }}
+            />
+          </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featuredArticles.map((article, index) => (
-                <motion.div key={article.number} variants={itemVariants}>
-                  <Link href={`/journal/${article.number.toLowerCase().replace(".", "")}`}>
-                    <motion.div
-                      whileHover={{ y: -8, boxShadow: "0 12px 40px rgba(26,24,20,0.12)" }}
-                      transition={{ duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
-                      className="bg-cream p-8 h-full group"
+          {/* Category Filter Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-8 flex flex-wrap gap-2"
+          >
+            {allCategories.map((category) => {
+              const isSelected = selectedCategory === category;
+              const categoryColor = category === "All"
+                ? "#B8624A"
+                : (CATEGORY_COLORS[category]?.accent || "#B8624A");
+
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="px-4 py-2 font-mono text-xs uppercase tracking-mono transition-all"
+                  style={{
+                    borderRadius: "20px",
+                    backgroundColor: isSelected ? categoryColor : "transparent",
+                    color: isSelected ? "#F5EFE4" : "#1A1814",
+                    border: `1px solid ${isSelected ? categoryColor : "rgba(26,24,20,0.15)"}`,
+                  }}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </motion.div>
+
+          {/* Study Count */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-6 font-mono text-xs uppercase tracking-mono text-ink opacity-55"
+          >
+            Showing {filteredStudies.length} {filteredStudies.length === 1 ? "study" : "studies"}
+          </motion.div>
+
+          {/* Study Grid */}
+          {filteredStudies.length > 0 ? (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            >
+              {filteredStudies.map((study, index) => (
+                <motion.div key={study.url} variants={itemVariants}>
+                  <div
+                    className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-xl p-5 h-full flex flex-col"
+                  >
+                    {/* Top Row - Journal and Year */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#1A1814] opacity-55">
+                        {study.journal}
+                      </div>
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#1A1814] opacity-55">
+                        {study.year}
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <a
+                      href={study.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-[#1A1814] hover:text-[#B8624A] transition-colors mb-2 leading-snug"
+                    >
+                      {study.title}
+                    </a>
+
+                    {/* Authors */}
+                    <div className="text-[11px] text-[#1A1814] opacity-60 mb-2">
+                      {study.authors}
+                    </div>
+
+                    {/* Summary */}
+                    <p
+                      className="text-[12px] text-[#1A1814] opacity-70 leading-relaxed flex-1"
                       style={{
-                        borderRadius: "24px",
-                        boxShadow: "0 4px 24px rgba(26,24,20,0.06)",
-                        border: "1px solid transparent",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
                       }}
                     >
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="font-mono text-xs uppercase tracking-mono text-clay">
-                          {article.number}
-                        </div>
-                        <div className="px-3 py-1 bg-clay text-cream font-mono text-xs"
-                          style={{ borderRadius: "12px" }}>
-                          READ · {article.readTime}
-                        </div>
-                      </div>
-
-                      <h3
-                        className="font-display text-2xl text-ink mb-4 leading-tight"
-                        style={{ fontWeight: 300, fontStyle: "italic" }}
-                      >
-                        {article.title}
-                      </h3>
-
-                      <p className="font-editorial text-sm text-ink opacity-70 mb-6 leading-relaxed">
-                        {article.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between mt-auto pt-4 border-t hairline-border">
-                        <div className="font-mono text-xs text-ink opacity-55">
-                          BY LUMO RESEARCH · {article.date}
-                        </div>
-                        <div className="font-mono text-xs text-clay group-hover:underline">
-                          →
-                        </div>
-                      </div>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Tag Filter */}
-          <div className="mb-8 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <motion.button
-                key={tag}
-                onClick={() => setSelectedTag(tag)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 font-mono text-xs uppercase tracking-mono transition-all ${
-                  selectedTag === tag
-                    ? "bg-ink text-bone"
-                    : "hairline-border text-ink hover:border-clay"
-                }`}
-                style={{ borderRadius: "20px" }}
-              >
-                {tag}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* All Articles Grid */}
-          <motion.div
-            key={selectedTag}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredArticles.map((article) => (
-              <motion.div key={article.number} variants={itemVariants}>
-                <Link href={`/journal/${article.number.toLowerCase().replace(".", "")}`}>
-                  <motion.div
-                    whileHover={{ y: -4, boxShadow: "0 8px 32px rgba(26,24,20,0.1)" }}
-                    className="bg-white p-6 h-full hairline-border group hover:border-clay transition-colors"
-                    style={{
-                      borderRadius: "12px",
-                      boxShadow: "0 2px 12px rgba(26,24,20,0.04)",
-                    }}
-                  >
-                    <div className="font-mono text-xs uppercase tracking-mono text-clay mb-2">
-                      {article.number}
-                    </div>
-
-                    <h3
-                      className="font-display text-xl text-ink mb-3 leading-tight"
-                      style={{ fontWeight: 300, fontStyle: "italic" }}
-                    >
-                      {article.title}
-                    </h3>
-
-                    <p className="font-editorial text-sm text-ink opacity-70 mb-4">
-                      {article.excerpt}
+                      {study.summary}
                     </p>
 
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono text-ink opacity-55">{article.readTime}</span>
-                      <span className="font-mono text-clay group-hover:underline">READ →</span>
+                    {/* Divider */}
+                    <div className="border-t border-[#EBE2CF] mt-3 pt-3 flex items-center justify-between">
+                      {/* Left - PMID Badge */}
+                      <div>
+                        {study.pmid && (
+                          <a
+                            href={study.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[9px] bg-[#607A5C]/10 text-[#3B5438] px-2 py-0.5 rounded-full font-medium inline-block"
+                            style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                          >
+                            PMID {study.pmid}
+                          </a>
+                        )}
+                      </div>
+
+                      {/* Right - Product Tags */}
+                      <div className="flex flex-wrap gap-1 justify-end">
+                        {study.products.slice(0, 3).map((product) => (
+                          <Link
+                            key={product.slug}
+                            href={`/products/${product.slug}`}
+                            className="text-[9px] bg-[#1A1814]/5 text-[#1A1814] opacity-70 hover:opacity-100 px-2 py-0.5 rounded-full transition-opacity"
+                            style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                          >
+                            {product.name}
+                          </Link>
+                        ))}
+                        {study.products.length > 3 && (
+                          <span
+                            className="text-[9px] bg-[#1A1814]/5 text-[#1A1814] opacity-70 px-2 py-0.5 rounded-full"
+                            style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                          >
+                            +{study.products.length - 3}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center py-20"
+            >
+              <p className="font-editorial text-lg text-ink opacity-55">
+                No studies found matching your search.
+              </p>
+            </motion.div>
+          )}
         </div>
       </div>
-
-      {/* Page Code */}
-      <div className="fixed bottom-6 left-6 font-mono text-xs text-ink opacity-20">L-009</div>
     </div>
   );
 }

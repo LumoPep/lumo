@@ -213,7 +213,7 @@ export default function Footer() {
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
                         onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
-                        Journal
+                        Research
                       </Link>
                     </li>
                     <li>

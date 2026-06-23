@@ -41,7 +41,7 @@ export default function NavBar() {
     { href: "/products", label: "COMPOUNDS" },
     { href: "/coa", label: "COAS" },
     { href: "/about", label: "ABOUT" },
-    { href: "/journal", label: "JOURNAL" },
+    { href: "/journal", label: "RESEARCH" },
     { href: "/wholesale", label: "WHOLESALE" },
     { href: "/faq", label: "FAQ" },
     { href: "/account", label: "ACCOUNT" },
