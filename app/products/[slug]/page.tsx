@@ -89,19 +89,59 @@ export default function ProductPage() {
       {/* Main Product Section - Bone Background */}
       <section className="bg-bone py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[72px_minmax(0,2fr)_minmax(0,3fr)] gap-5 lg:gap-[24px]">
-            {/* Trust Stamps Column */}
-            <div className="hidden lg:block">
-              <TrustStamps accentColor={categoryColors.accent} />
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Left Column - 55% */}
+            <div className="lg:col-span-7">
+              {/* Image + Trust Stamps Grid */}
+              <div className="hidden lg:grid lg:grid-cols-[80px_1fr] gap-4 mb-6">
+                {/* Trust Stamps */}
+                <div className="flex items-center justify-center">
+                  <TrustStamps accentColor={categoryColors.accent} />
+                </div>
 
-            {/* Middle Column - Image + Tabs */}
-            <div>
-              {/* Product Image */}
+                {/* Product Image */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6 }}
+                  style={{
+                    position: 'relative',
+                    background: 'transparent',
+                    borderRadius: '16px',
+                    padding: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '320px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Image
+                    src='/images/vial-transparent.png'
+                    alt={product.name}
+                    width={419}
+                    height={493}
+                    className="hover:scale-110"
+                    style={{
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
+                      mixBlendMode: 'multiply',
+                      transition: 'transform 0.5s ease',
+                      cursor: 'default',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                    priority
+                  />
+                </motion.div>
+              </div>
+
+              {/* Mobile: Image only (no stamps) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
+                className="lg:hidden mb-6"
                 style={{
                   position: 'relative',
                   background: 'transparent',
@@ -111,7 +151,6 @@ export default function ProductPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   minHeight: '320px',
-                  marginBottom: '24px',
                   overflow: 'hidden',
                 }}
               >
@@ -402,8 +441,8 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Right Column - Product Info */}
-            <div>
+            {/* Right Column - 45% */}
+            <div className="lg:col-span-5">
               {/* Category Badge */}
               <div className="mb-3">
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
