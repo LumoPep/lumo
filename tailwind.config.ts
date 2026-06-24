@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         ink: "#1A1814",
-        bone: "#F5EFE4",
-        cream: "#EBE2CF",
+        bone: "#FFFFFF",
+        cream: "#F0EBE3",
         clay: "#B8624A",
         ochre: "#C89A3C",
         sage: "#607A5C",
