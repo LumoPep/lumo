@@ -364,6 +364,9 @@ function CoACard({ product, index }: { product: any; index: number }) {
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
+  // Get lot number (use first lot for products with multiple variants)
+  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[0] : '');
+
   return (
     <motion.div
       ref={cardRef}
@@ -419,7 +422,7 @@ function CoACard({ product, index }: { product: any; index: number }) {
                 {/* Data Rows */}
                 <div className="space-y-2">
                   {[
-                    { label: "LOT", value: product.batch },
+                    { label: "LOT", value: lotNumber },
                     { label: "REPORT", value: product.report },
                     { label: "CAS", value: product.casNumber },
                     { label: "IDENTITY", value: "CONFIRMED" },

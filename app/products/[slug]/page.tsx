@@ -48,6 +48,9 @@ export default function ProductPage() {
 
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
+  // Get lot number for current variant
+  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[selectedVariant] : '');
+
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
     const basePrice = product.prices[selectedVariant];
@@ -513,7 +516,7 @@ export default function ProductPage() {
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
                     LOT NUMBER
                   </span>
-                  <span className="font-mono text-sm text-ink font-medium">{product.batch}</span>
+                  <span className="font-mono text-sm text-ink font-medium">{lotNumber}</span>
                 </div>
                 <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
@@ -624,7 +627,7 @@ export default function ProductPage() {
                 className="px-3 py-1 bg-ochre text-cream font-mono text-xs"
                 style={{ borderRadius: "12px" }}
               >
-                LOT {product.batch} · CURRENT
+                LOT {lotNumber} · CURRENT
               </span>
             </div>
           </motion.div>

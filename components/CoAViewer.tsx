@@ -7,6 +7,8 @@ interface CoAViewerProps {
 }
 
 export default function CoAViewer({ product }: CoAViewerProps) {
+  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[0] : '');
+
   const dataRows = [
     { label: "COMPOUND", value: product.name },
     { label: "CAS", value: product.casNumber },
@@ -38,7 +40,7 @@ export default function CoAViewer({ product }: CoAViewerProps) {
           </div>
         </div>
         <div className="font-mono text-xs uppercase tracking-mono text-ink">
-          LOT {product.batch}
+          LOT {lotNumber}
         </div>
       </div>
 
@@ -79,7 +81,7 @@ export default function CoAViewer({ product }: CoAViewerProps) {
       {/* Footer */}
       <div className="flex items-center justify-between pt-6">
         <div className="font-mono text-xs text-ink opacity-60">
-          Verify · lumo.bio/coa/{product.batch.toLowerCase().replace(/\-/g, '')}
+          Verify · lumo.bio/coa/{lotNumber.toLowerCase().replace(/\-/g, '')}
         </div>
         <div className="flex items-center space-x-2">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

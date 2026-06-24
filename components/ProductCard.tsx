@@ -20,6 +20,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
   const categoryAccent = categoryColors.accent || '#B8624A';
 
+  // Get lot number (use first lot for products with multiple variants)
+  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[0] : '');
+
   // Special handling for BAC Water - it has 'USP Grade' instead of percentage
   const isUSPGrade = product.purity === 'USP Grade';
 
@@ -172,7 +175,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 letterSpacing: "0.05em",
               }}
             >
-              {firstSize} · LYOPHILIZED · LOT {product.batch} ·{" "}
+              {firstSize} · LYOPHILIZED · LOT {lotNumber} ·{" "}
               <span className="font-medium" style={{ color: '#C89A3C' }}>
                 {isUSPGrade ? 'USP GRADE' : product.purity}
               </span>
