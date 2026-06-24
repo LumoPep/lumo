@@ -54,8 +54,8 @@ export default function CoAPage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 divide-x-0 md:divide-x divide-cream divide-opacity-20">
             {[
-              "10 COMPOUNDS",
-              "100% BATCH TESTED",
+              `${PRODUCTS.filter(p => p.category !== 'Ancillary').length} COMPOUNDS`,
+              "7× INDEPENDENTLY TESTED",
               "HPLC + MASS SPEC",
               "INDEPENDENT LAB",
             ].map((stat, i) => (

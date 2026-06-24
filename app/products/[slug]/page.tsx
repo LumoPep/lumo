@@ -394,201 +394,204 @@ export default function ProductPage() {
                   )}
                 </div>
               </div>
-
-              {/* RUO Disclaimer - Below tabs in left column */}
-              <div className="bg-clay p-4 mt-4" style={{ borderRadius: "12px" }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-white text-base">⚠</span>
-                  <h4
-                    className="font-mono uppercase text-white font-medium"
-                    style={{ fontSize: "10px", letterSpacing: "1.5px" }}
-                  >
-                    RESEARCH USE ONLY
-                  </h4>
-                </div>
-                <p className="font-editorial text-cream italic" style={{ fontSize: "12px", lineHeight: 1.5 }}>
-                  This compound is sold strictly for in vitro research and laboratory use. Not for
-                  human or animal consumption. Not a drug, food, or supplement. By purchasing you
-                  confirm you are a qualified researcher and will use this compound in compliance
-                  with all applicable laws. Must be 21 or older.
-                </p>
-              </div>
             </div>
 
-            {/* Right Column - 45% Sticky */}
+            {/* Right Column - 45% */}
             <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-20">
-                {/* Category Badge + Product Badge */}
-                <div className="mb-3 flex items-center gap-2 flex-wrap">
-                  <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
-                    <span
-                      className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono hover:opacity-80 transition-opacity cursor-pointer"
-                      style={{
-                        borderRadius: "12px",
-                        backgroundColor: categoryColors.accent,
-                        color: 'white',
-                        fontWeight: 500,
-                        letterSpacing: '1px',
-                      }}
-                    >
-                      {product.category}
-                    </span>
-                  </Link>
-                  {product.badge && (
-                    <span
-                      className="inline-block px-3 py-1 bg-clay text-cream font-mono text-xs uppercase tracking-mono"
-                      style={{ borderRadius: "12px" }}
-                    >
-                      {product.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Product Name */}
-                <h1
-                  className="font-display text-ink mb-2"
-                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "42px", lineHeight: 1.1 }}
-                >
-                  {product.name}
-                </h1>
-
-                {/* Description */}
-                <p className="font-editorial text-ink opacity-80 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
-                  {product.synopsis}
-                </p>
-
-                {/* Purity Display */}
-                <div className="bg-cream hairline-border p-5 mb-5" style={{ borderRadius: "12px" }}>
-                  <div className="flex items-baseline justify-between mb-2">
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70">
-                      HPLC PURITY
-                    </span>
-                    <span
-                      className="font-display text-ochre"
-                      style={{ fontWeight: 300, fontSize: "36px", lineHeight: 1 }}
-                    >
-                      {product.purity}
-                    </span>
-                  </div>
-                  <div className="bg-bone h-2" style={{ borderRadius: "4px" }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${product.purity}` }}
-                      transition={{ duration: 1.2, delay: 0.3 }}
-                      className="h-full bg-ochre"
-                      style={{ borderRadius: "4px" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Lot + Report Grid */}
-                <div className="grid grid-cols-2 gap-3 mb-5">
-                  <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
-                      LOT NUMBER
-                    </span>
-                    <span className="font-mono text-sm text-ink font-medium">{product.batch}</span>
-                  </div>
-                  <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
-                      REPORT NO.
-                    </span>
-                    <span className="font-mono text-sm text-ink font-medium">{product.report}</span>
-                  </div>
-                </div>
-
-                {/* Size Selector */}
-                <div className="mb-4">
-                  <label className="font-mono uppercase tracking-mono text-ink opacity-70 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
-                    SELECT SIZE
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {product.sizes.map((size, index) => (
-                      <motion.button
-                        key={index}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setSelectedVariant(index)}
-                        className={`p-3 transition-all ${
-                          selectedVariant === index
-                            ? "border-0"
-                            : "bg-cream text-ink hairline-border hover:border-clay"
-                        }`}
-                        style={{
-                          borderRadius: "10px",
-                          transition: "all 150ms",
-                          backgroundColor: selectedVariant === index ? categoryColors.accent : undefined,
-                          color: selectedVariant === index ? 'white' : undefined,
-                        }}
-                      >
-                        <div className="font-mono text-sm font-medium">{size}</div>
-                        <div className="font-mono text-xs opacity-70">${product.prices[index].toFixed(2)}</div>
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bundle Selector + Add to Cart */}
-                <div className="mb-4">
-                  <BundleSelector
-                    key={selectedVariant}
-                    basePrice={product.prices[selectedVariant]}
-                    productSlug={product.slug}
-                    onSelect={(qty, bundle, price) => {
-                      setQuantity(qty);
-                      setBundleQty(bundle);
-                      setCartPrice(price);
-                    }}
-                  />
-
-                  {/* Add to Cart Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.01, opacity: 0.9 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleAddToCart}
-                    className="w-full py-5 rounded-lg text-sm font-semibold tracking-widest uppercase text-white transition-colors shadow-lg"
+              {/* Category Badge */}
+              <div className="mb-3">
+                <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
+                  <span
+                    className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-mono hover:opacity-80 transition-opacity cursor-pointer"
                     style={{
-                      backgroundColor: categoryColors.accent || '#B8624A',
+                      borderRadius: "12px",
+                      backgroundColor: categoryColors.accent,
+                      color: 'white',
+                      fontWeight: 500,
+                      letterSpacing: '1px',
                     }}
                   >
-                    ADD TO CART · ${cartPrice.toFixed(2)}
-                  </motion.button>
-                </div>
+                    {product.category}
+                  </span>
+                </Link>
+              </div>
 
-                {/* Independent Verification Strip */}
-                <div style={{ marginTop: '16px' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '10px' }}>
-                    7× Independently Tested
-                  </p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {[
-                      { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
-                      { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
-                      { icon: 'ti-weight', label: 'Net Content', sub: 'Exact mg verified' },
-                      { icon: 'ti-shield-check', label: 'Sterility', sub: 'Contamination-free' },
-                      { icon: 'ti-virus-off', label: 'Endotoxins', sub: 'LAL tested' },
-                      { icon: 'ti-leaf', label: 'Heavy Metals', sub: 'ICP-MS screened' },
-                      { icon: 'ti-stack-2', label: 'Batch Consistency', sub: 'Lot-to-lot stability' },
-                    ].map((chip, i) => (
-                      <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
-                        <span style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
-                        <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.65)', lineHeight: 1.3 }}>{chip.sub}</span>
-                      </div>
-                    ))}
-                    {/* 8th Accent Tile */}
-                    <div style={{ background: '#607A5C', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                      <div style={{ fontSize: '28px', fontWeight: 500, color: '#F5EFE4', lineHeight: 1 }}>
-                        7×
-                      </div>
-                      <div style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F5EFE4', lineHeight: 1.3, marginTop: '4px' }}>
-                        TESTED
-                      </div>
+              {/* Product Name */}
+              <h1
+                className="font-display text-ink mb-2"
+                style={{ fontWeight: 300, fontStyle: "italic", fontSize: "42px", lineHeight: 1.1 }}
+              >
+                {product.name}
+              </h1>
+
+              {/* Description */}
+              <p className="font-editorial text-ink opacity-80 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
+                {product.synopsis}
+              </p>
+
+              {/* Size Selector */}
+              <div className="mb-4">
+                <label className="font-mono uppercase tracking-mono text-ink opacity-70 block mb-2" style={{ fontSize: "10px", letterSpacing: "1.5px" }}>
+                  SELECT SIZE
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {product.sizes.map((size, index) => (
+                    <motion.button
+                      key={index}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedVariant(index)}
+                      className={`p-3 transition-all ${
+                        selectedVariant === index
+                          ? "border-0"
+                          : "bg-cream text-ink hairline-border hover:border-clay"
+                      }`}
+                      style={{
+                        borderRadius: "10px",
+                        transition: "all 150ms",
+                        backgroundColor: selectedVariant === index ? categoryColors.accent : undefined,
+                        color: selectedVariant === index ? 'white' : undefined,
+                      }}
+                    >
+                      <div className="font-mono text-sm font-medium">{size}</div>
+                      <div className="font-mono text-xs opacity-70">${product.prices[index].toFixed(2)}</div>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bundle Selector + Add to Cart */}
+              <div className="mb-4">
+                <BundleSelector
+                  key={selectedVariant}
+                  basePrice={product.prices[selectedVariant]}
+                  productSlug={product.slug}
+                  onSelect={(qty, bundle, price) => {
+                    setQuantity(qty);
+                    setBundleQty(bundle);
+                    setCartPrice(price);
+                  }}
+                />
+
+                {/* Add to Cart Button */}
+                <motion.button
+                  whileHover={{ scale: 1.01, opacity: 0.9 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleAddToCart}
+                  className="w-full py-5 rounded-lg text-sm font-semibold tracking-widest uppercase text-white transition-colors shadow-lg"
+                  style={{
+                    backgroundColor: categoryColors.accent || '#B8624A',
+                  }}
+                >
+                  ADD TO CART · ${cartPrice.toFixed(2)}
+                </motion.button>
+
+                {/* Shipping Info Strip */}
+                <div className="border-t border-[#EBE2CF] pt-3 mt-3 flex items-center justify-between text-[11px] text-[#1A1814]/65">
+                  <div className="flex items-center gap-1.5">
+                    <i className="ti ti-truck" style={{ fontSize: '14px' }}></i>
+                    <span>Free shipping on orders over $150</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <i className="ti ti-clock" style={{ fontSize: '14px' }}></i>
+                    <span>2-day delivery</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lot + Report Grid */}
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
+                    LOT NUMBER
+                  </span>
+                  <span className="font-mono text-sm text-ink font-medium">{product.batch}</span>
+                </div>
+                <div className="bg-cream hairline-border p-3" style={{ borderRadius: "12px" }}>
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
+                    REPORT NO.
+                  </span>
+                  <span className="font-mono text-sm text-ink font-medium">{product.report}</span>
+                </div>
+              </div>
+
+              {/* Purity Display */}
+              <div className="bg-cream hairline-border p-5 mb-5" style={{ borderRadius: "12px" }}>
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70">
+                    HPLC PURITY
+                  </span>
+                  <span
+                    className="font-display text-ochre"
+                    style={{ fontWeight: 300, fontSize: "36px", lineHeight: 1 }}
+                  >
+                    {product.purity}
+                  </span>
+                </div>
+                <div className="bg-bone h-2" style={{ borderRadius: "4px" }}>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${product.purity}` }}
+                    transition={{ duration: 1.2, delay: 0.3 }}
+                    className="h-full bg-ochre"
+                    style={{ borderRadius: "4px" }}
+                  />
+                </div>
+              </div>
+
+              {/* Independent Verification Strip */}
+              <div className="mb-5">
+                <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '10px' }}>
+                  7× Independently Tested
+                </p>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
+                    { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
+                    { icon: 'ti-weight', label: 'Net Content', sub: 'Exact mg verified' },
+                    { icon: 'ti-shield-check', label: 'Sterility', sub: 'Contamination-free' },
+                    { icon: 'ti-virus-off', label: 'Endotoxins', sub: 'LAL tested' },
+                    { icon: 'ti-leaf', label: 'Heavy Metals', sub: 'ICP-MS screened' },
+                    { icon: 'ti-stack-2', label: 'Batch Consistency', sub: 'Lot-to-lot stability' },
+                  ].map((chip, i) => (
+                    <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
+                      <span style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
+                      <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.65)', lineHeight: 1.3 }}>{chip.sub}</span>
+                    </div>
+                  ))}
+                  {/* 8th Accent Tile */}
+                  <div style={{ background: '#607A5C', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ fontSize: '28px', fontWeight: 500, color: '#F5EFE4', lineHeight: 1 }}>
+                      7×
+                    </div>
+                    <div style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F5EFE4', lineHeight: 1.3, marginTop: '4px' }}>
+                      TESTED
                     </div>
                   </div>
                 </div>
               </div>
+
             </div>
+          </div>
+
+          {/* RUO Disclaimer - Full Width Below Grid */}
+          <div className="bg-clay p-4 mt-6" style={{ borderRadius: "12px" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-bone text-base">⚠</span>
+              <h4
+                className="font-mono uppercase text-bone font-medium"
+                style={{ fontSize: "10px", letterSpacing: "1.5px" }}
+              >
+                RESEARCH USE ONLY
+              </h4>
+            </div>
+            <p className="font-editorial italic" style={{ fontSize: "12px", lineHeight: 1.5, color: 'rgba(245,239,228,0.90)' }}>
+              This compound is sold strictly for in vitro research and laboratory use. Not for
+              human or animal consumption. Not a drug, food, or supplement. By purchasing you
+              confirm you are a qualified researcher and will use this compound in compliance
+              with all applicable laws. Must be 21 or older.
+            </p>
           </div>
 
           {/* Research Section */}

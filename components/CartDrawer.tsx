@@ -12,6 +12,7 @@ export default function CartDrawer() {
     removeItem,
     updateQuantity,
     getTotal,
+    getProductDiscount,
   } = useCartStore();
 
   // Prevent body scroll when drawer is open
@@ -75,70 +76,90 @@ export default function CartDrawer() {
               </div>
             ) : (
               <div className="space-y-4">
-                {items.map((item) => (
-                  <div
-                    key={`${item.productId}-${item.variant}`}
-                    className="bg-cream hairline-border p-4"
-                  >
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="font-display text-lg text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
-                          {item.productName}
-                        </h3>
-                        <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                          {item.variant}
-                        </p>
-                        <p className="font-display text-sm text-ink mt-1">
-                          ${item.price.toFixed(2)}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() =>
-                          removeItem(item.productId, item.variant)
-                        }
-                        className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all"
-                      >
-                        ✕
-                      </button>
-                    </div>
+                {items.map((item) => {
+                  const { discount, savings } = getProductDiscount(item.productId);
+                  const discountedPrice = item.price * (1 - discount);
+                  const lineTotal = discountedPrice * item.quantity;
 
-                    {/* Quantity Controls */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
+                  return (
+                    <div
+                      key={`${item.productId}-${item.variant}`}
+                      className="bg-cream hairline-border p-4"
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="font-display text-lg text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
+                            {item.productName}
+                          </h3>
+                          <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
+                            {item.variant}
+                          </p>
+                          {discount > 0 ? (
+                            <div className="mt-1">
+                              <p className="font-display text-sm text-ink line-through opacity-50">
+                                ${item.price.toFixed(2)}
+                              </p>
+                              <p className="font-display text-sm text-ink">
+                                ${discountedPrice.toFixed(2)}{' '}
+                                <span className="text-[10px] font-mono text-[#607A5C]">
+                                  ({(discount * 100).toFixed(0)}% off)
+                                </span>
+                              </p>
+                            </div>
+                          ) : (
+                            <p className="font-display text-sm text-ink mt-1">
+                              ${item.price.toFixed(2)}
+                            </p>
+                          )}
+                        </div>
                         <button
                           onClick={() =>
-                            updateQuantity(
-                              item.productId,
-                              item.variant,
-                              item.quantity - 1
-                            )
+                            removeItem(item.productId, item.variant)
                           }
-                          className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                          className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all"
                         >
-                          −
-                        </button>
-                        <span className="font-mono text-sm text-ink font-medium w-8 text-center">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateQuantity(
-                              item.productId,
-                              item.variant,
-                              item.quantity + 1
-                            )
-                          }
-                          className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
-                        >
-                          +
+                          ✕
                         </button>
                       </div>
-                      <div className="font-display text-ink" style={{ fontWeight: 300 }}>
-                        ${(item.price * item.quantity).toFixed(2)}
+
+                      {/* Quantity Controls */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.productId,
+                                item.variant,
+                                item.quantity - 1
+                              )
+                            }
+                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                          >
+                            −
+                          </button>
+                          <span className="font-mono text-sm text-ink font-medium w-8 text-center">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() =>
+                              updateQuantity(
+                                item.productId,
+                                item.variant,
+                                item.quantity + 1
+                              )
+                            }
+                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div className="font-display text-ink" style={{ fontWeight: 300 }}>
+                          ${lineTotal.toFixed(2)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -146,6 +167,29 @@ export default function CartDrawer() {
           {/* Footer */}
           {items.length > 0 && (
             <div className="border-t hairline-border p-6 space-y-4 bg-cream">
+              {/* Shipping Info Strip */}
+              <div className="flex justify-between text-[10px] text-[#1A1814]/60 py-2 border-t border-[#EBE2CF]">
+                <div className="flex items-center gap-1">
+                  <i className="ti ti-truck" style={{ fontSize: '12px' }}></i>
+                  <span>Free shipping on orders over $150</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <i className="ti ti-clock" style={{ fontSize: '12px' }}></i>
+                  <span>2-day delivery</span>
+                </div>
+              </div>
+
+              {/* Free Shipping Threshold */}
+              <div className="text-[10px] text-center py-1">
+                {getTotal() < 150 ? (
+                  <span className="text-[#607A5C]">
+                    Add ${(150 - getTotal()).toFixed(2)} more for free shipping
+                  </span>
+                ) : (
+                  <span className="text-[#607A5C]">✓ Free shipping applied</span>
+                )}
+              </div>
+
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs uppercase tracking-mono text-ink">Subtotal</span>
                 <span className="font-display text-3xl text-ink" style={{ fontWeight: 300 }}>

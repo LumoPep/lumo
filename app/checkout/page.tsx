@@ -359,6 +359,18 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
+              {/* Shipping Info Strip */}
+              <div className="flex justify-between text-[10px] text-[#1A1814]/60 py-2 border-t border-[#EBE2CF]">
+                <div className="flex items-center gap-1">
+                  <i className="ti ti-truck" style={{ fontSize: '12px' }}></i>
+                  <span>Free shipping on orders over $150</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <i className="ti ti-clock" style={{ fontSize: '12px' }}></i>
+                  <span>2-day delivery</span>
+                </div>
+              </div>
+
               <div className="border-t hairline-border pt-4 space-y-3 mb-6">
                 <div className="flex justify-between items-center">
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
@@ -372,7 +384,9 @@ export default function CheckoutPage() {
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
                     Shipping
                   </span>
-                  <span className="font-mono text-sm text-ink">Calculated</span>
+                  <span className="font-mono text-sm text-ink">
+                    {total >= 150 ? "Free" : "Calculated"}
+                  </span>
                 </div>
               </div>
 

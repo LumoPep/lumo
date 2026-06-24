@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Product, CATEGORY_COLORS } from "@/data/products";
+import { useCartStore } from "@/lib/store";
+import { showToast } from "@/components/Toast";
 
 interface ProductCardProps {
   product: Product;
@@ -10,12 +12,49 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
+  const [sizeMenuOpen, setSizeMenuOpen] = useState(false);
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCartStore();
   const lowestPrice = Math.min(...product.prices);
   const firstSize = product.sizes[0];
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
+  const categoryAccent = categoryColors.accent || '#B8624A';
 
   // Special handling for BAC Water - it has 'USP Grade' instead of percentage
   const isUSPGrade = product.purity === 'USP Grade';
+
+  const handleQuickAdd = (sizeIndex: number = 0) => {
+    const size = product.sizes[sizeIndex];
+    const price = product.prices[sizeIndex];
+    const sku = product.skus[sizeIndex];
+
+    addItem({
+      productId: product.id.toString(),
+      productName: product.name,
+      variant: size,
+      price: price,
+      sku: sku,
+    });
+
+    showToast(`Added ${product.name} (${size}) to cart`);
+    setAdded(true);
+    setSizeMenuOpen(false);
+
+    setTimeout(() => {
+      setAdded(false);
+    }, 1500);
+  };
+
+  const handleQuickAddClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (product.sizes.length === 1) {
+      handleQuickAdd(0);
+    } else {
+      setSizeMenuOpen(!sizeMenuOpen);
+    }
+  };
 
   return (
     <Link href={`/products/${product.slug}`} className="block h-full">
@@ -72,7 +111,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   fontSize: '22px',
                   color: '#1A1814',
                   fontStyle: 'italic',
-                  fontWeight: 300,
+                  fontWeight: 500,
                 }}
               >
                 {product.name}
@@ -205,6 +244,58 @@ export default function ProductCard({ product }: ProductCardProps) {
                 → VIEW LOT
               </div>
             </div>
+
+            {/* Quick Add Button */}
+            <button
+              onClick={handleQuickAddClick}
+              className="w-full mt-3 py-2 border rounded-lg text-[9px] font-medium tracking-widest uppercase transition-all duration-150"
+              style={
+                added
+                  ? {
+                      background: categoryAccent,
+                      color: 'white',
+                      borderColor: categoryAccent,
+                    }
+                  : {
+                      borderColor: 'rgba(26,24,20,0.25)',
+                      color: 'rgba(26,24,20,0.80)',
+                      background: 'transparent',
+                    }
+              }
+              onMouseEnter={(e) => {
+                if (!added) {
+                  e.currentTarget.style.borderColor = categoryAccent;
+                  e.currentTarget.style.color = categoryAccent;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!added) {
+                  e.currentTarget.style.borderColor = 'rgba(26,24,20,0.25)';
+                  e.currentTarget.style.color = 'rgba(26,24,20,0.80)';
+                }
+              }}
+            >
+              {added ? 'ADDED ✓' : 'QUICK ADD'}
+            </button>
+
+            {/* Size Selector - Multi-size products only */}
+            {sizeMenuOpen && product.sizes.length > 1 && (
+              <div className="mt-2 flex flex-wrap gap-2" onClick={(e) => e.preventDefault()}>
+                {product.sizes.map((size, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleQuickAdd(index);
+                    }}
+                    className="text-[9px] px-3 py-1.5 border border-[#1A1814]/15 rounded-md hover:border-[#B8624A] hover:text-[#B8624A] cursor-pointer transition-all"
+                  >
+                    {size} · ${product.prices[index].toFixed(2)}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

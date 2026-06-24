@@ -22,6 +22,7 @@ interface CartStore {
   closeCart: () => void;
   getTotal: () => number;
   getItemCount: () => number;
+  getProductDiscount: (productId: string) => { discount: number; savings: number };
 }
 
 export const useCartStore = create<CartStore>()(
@@ -95,14 +96,62 @@ export const useCartStore = create<CartStore>()(
       },
 
       getTotal: () => {
-        return get().items.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
+        const items = get().items;
+
+        // Group items by productId to calculate bundle discounts
+        const productGroups: Record<string, CartItem[]> = {};
+        items.forEach((item) => {
+          if (!productGroups[item.productId]) {
+            productGroups[item.productId] = [];
+          }
+          productGroups[item.productId].push(item);
+        });
+
+        // Calculate total with bundle discounts per product
+        let total = 0;
+        Object.values(productGroups).forEach((group) => {
+          const totalQty = group.reduce((sum, item) => sum + item.quantity, 0);
+
+          // Determine discount tier
+          let discount = 0;
+          if (totalQty >= 10) discount = 0.20;
+          else if (totalQty >= 6) discount = 0.15;
+          else if (totalQty >= 3) discount = 0.10;
+
+          // Calculate group total with discount
+          const groupTotal = group.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          total += groupTotal * (1 - discount);
+        });
+
+        return total;
       },
 
       getItemCount: () => {
         return get().items.reduce((count, item) => count + item.quantity, 0);
+      },
+
+      getProductDiscount: (productId) => {
+        const items = get().items;
+        const productItems = items.filter((item) => item.productId === productId);
+        const totalQty = productItems.reduce((sum, item) => sum + item.quantity, 0);
+
+        // Determine discount tier
+        let discount = 0;
+        if (totalQty >= 10) discount = 0.20;
+        else if (totalQty >= 6) discount = 0.15;
+        else if (totalQty >= 3) discount = 0.10;
+
+        // Calculate savings
+        const subtotal = productItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        const savings = subtotal * discount;
+
+        return { discount, savings };
       },
     }),
     {
