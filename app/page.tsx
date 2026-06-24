@@ -371,19 +371,21 @@ export default function HomePage() {
       <div className="bg-ink py-4 overflow-hidden ticker-container">
         <div className="ticker-content">
           <div className="ticker-text">
-            <span className="text-ochre">· 7× TESTED ·</span>
+            <span className="text-ochre">· 7× INDEPENDENTLY TESTED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
                 {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+                {(index + 1) % 6 === 0 && <span className="text-ochre">·· 7× INDEPENDENTLY TESTED ··</span>}
               </span>
             ))}
             <span className="text-clay">··</span>
           </div>
           <div className="ticker-text" aria-hidden="true">
-            <span className="text-ochre">· 7× TESTED ·</span>
+            <span className="text-ochre">· 7× INDEPENDENTLY TESTED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
                 {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+                {(index + 1) % 6 === 0 && <span className="text-ochre">·· 7× INDEPENDENTLY TESTED ··</span>}
               </span>
             ))}
             <span className="text-clay">··</span>

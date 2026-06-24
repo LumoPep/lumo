@@ -134,7 +134,7 @@
 
 .ticker-content {
   display: flex;
-  animation: scroll 30s linear infinite;
+  animation: scroll 50s linear infinite;
   will-change: transform;
 }
 
