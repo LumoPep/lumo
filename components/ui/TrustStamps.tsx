@@ -30,83 +30,67 @@ const stamps = [
 
 export default function TrustStamps({ accentColor, className = "" }: TrustStampsProps) {
   return (
-    <div className={`flex flex-col items-center ${className}`} style={{ gap: 0 }}>
+    <div className={`flex flex-col items-center ${className}`} style={{ gap: "16px" }}>
       {stamps.map((stamp, index) => {
         const Icon = stamp.icon;
         return (
-          <div key={index}>
-            {/* Stamp Unit */}
+          <div key={index} className="flex flex-col items-center" style={{ gap: "4px" }}>
+            {/* Stamp Circle */}
             <div
-              className="flex flex-col items-center"
-              style={{ gap: "4px" }}
+              className="relative flex flex-col items-center justify-center"
+              style={{
+                width: "68px",
+                height: "68px",
+                borderRadius: "50%",
+                background: "#EBE2CF",
+                border: `1.5px solid ${accentColor}`,
+              }}
             >
-              {/* Stamp Circle */}
+              {/* Inner dashed ring */}
               <div
-                className="relative flex flex-col items-center justify-center"
                 style={{
-                  width: "68px",
-                  height: "68px",
+                  position: "absolute",
+                  inset: "8px",
                   borderRadius: "50%",
-                  background: "#EBE2CF",
-                  border: `1.5px solid ${accentColor}`,
+                  border: `1px dashed ${accentColor}`,
+                  opacity: 0.45,
+                  pointerEvents: "none",
                 }}
-              >
-                {/* Inner dashed ring */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: "8px",
-                    borderRadius: "50%",
-                    border: `1px dashed ${accentColor}`,
-                    opacity: 0.45,
-                    pointerEvents: "none",
-                  }}
-                />
+              />
 
-                {/* Icon */}
-                <Icon size={14} color={accentColor} strokeWidth={2} />
+              {/* Icon */}
+              <Icon size={14} color={accentColor} strokeWidth={2} />
 
-                {/* Stat */}
-                <div
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    color: "#1A1814",
-                    marginTop: "2px",
-                  }}
-                >
-                  {stamp.stat}
-                </div>
-              </div>
-
-              {/* Caption */}
+              {/* Stat */}
               <div
                 style={{
-                  fontSize: "7.5px",
-                  color: accentColor,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  textAlign: "center",
-                  lineHeight: 1.45,
-                  maxWidth: "72px",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  color: "#1A1814",
+                  marginTop: "2px",
                 }}
               >
-                {stamp.label[0]}
-                <br />
-                {stamp.label[1]}
+                {stamp.stat}
               </div>
             </div>
 
-            {/* Connector line (except after last stamp) */}
-            {index < stamps.length - 1 && (
-              <div
-                style={{
-                  width: "1px",
-                  height: "12px",
-                  background: "#c4b89e",
-                }}
-              />
-            )}
+            {/* Caption */}
+            <div
+              style={{
+                fontSize: "8px",
+                color: "#1A1814",
+                fontWeight: 600,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                textAlign: "center",
+                lineHeight: 1.5,
+                maxWidth: "72px",
+              }}
+            >
+              {stamp.label[0]}
+              <br />
+              {stamp.label[1]}
+            </div>
           </div>
         );
       })}

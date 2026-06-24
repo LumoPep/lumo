@@ -89,7 +89,7 @@ export default function ProductPage() {
       {/* Main Product Section - Bone Background */}
       <section className="bg-bone py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[72px_1fr_1fr] gap-5 lg:gap-[20px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[72px_minmax(0,2fr)_minmax(0,3fr)] gap-5 lg:gap-[24px]">
             {/* Trust Stamps Column */}
             <div className="hidden lg:block">
               <TrustStamps accentColor={categoryColors.accent} />
