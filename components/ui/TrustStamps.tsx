@@ -35,53 +35,60 @@ export default function TrustStamps({ accentColor, className = "" }: TrustStamps
         const Icon = stamp.icon;
         return (
           <div key={index}>
-            {/* Stamp Circle */}
+            {/* Stamp Unit */}
             <div
-              className="relative flex flex-col items-center justify-center"
-              style={{
-                width: "68px",
-                height: "68px",
-                borderRadius: "50%",
-                background: "#EBE2CF",
-                border: `1.5px solid ${accentColor}`,
-              }}
+              className="flex flex-col items-center"
+              style={{ gap: "4px" }}
             >
-              {/* Inner dashed ring */}
+              {/* Stamp Circle */}
               <div
+                className="relative flex flex-col items-center justify-center"
                 style={{
-                  position: "absolute",
-                  inset: "8px",
+                  width: "68px",
+                  height: "68px",
                   borderRadius: "50%",
-                  border: `1px dashed ${accentColor}`,
-                  opacity: 0.45,
-                  pointerEvents: "none",
-                }}
-              />
-
-              {/* Icon */}
-              <Icon size={14} color={accentColor} strokeWidth={2} />
-
-              {/* Stat */}
-              <div
-                style={{
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  color: "#1A1814",
-                  marginTop: "2px",
+                  background: "#EBE2CF",
+                  border: `1.5px solid ${accentColor}`,
                 }}
               >
-                {stamp.stat}
+                {/* Inner dashed ring */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: "8px",
+                    borderRadius: "50%",
+                    border: `1px dashed ${accentColor}`,
+                    opacity: 0.45,
+                    pointerEvents: "none",
+                  }}
+                />
+
+                {/* Icon */}
+                <Icon size={14} color={accentColor} strokeWidth={2} />
+
+                {/* Stat */}
+                <div
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    color: "#1A1814",
+                    marginTop: "2px",
+                  }}
+                >
+                  {stamp.stat}
+                </div>
               </div>
 
-              {/* Label */}
+              {/* Caption */}
               <div
                 style={{
-                  fontSize: "6.5px",
+                  fontSize: "7.5px",
                   color: accentColor,
+                  letterSpacing: "0.08em",
                   textTransform: "uppercase",
                   textAlign: "center",
-                  lineHeight: 1.2,
-                  marginTop: "1px",
+                  lineHeight: 1.45,
+                  maxWidth: "72px",
                 }}
               >
                 {stamp.label[0]}
