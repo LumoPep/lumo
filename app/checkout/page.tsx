@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useCartStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
+import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
+import { validatePromoCode } from "@/lib/validatePromoCode";
+import { isFirstOrder } from "@/lib/checkFirstOrder";
 
 const cryptoCurrencies = [
   { code: "btc", name: "Bitcoin", symbol: "BTC" },
@@ -29,11 +32,45 @@ export default function CheckoutPage() {
   const [selectedCrypto, setSelectedCrypto] = useState("btc");
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Promo code state
+  const [promoCodeInput, setPromoCodeInput] = useState("");
+  const [promoCode, setPromoCode] = useState<{ type: 'percent' | 'free_shipping'; value?: number } | null>(null);
+  const [promoCodeStatus, setPromoCodeStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [promoCodeError, setPromoCodeError] = useState("");
+  const [isApplyingPromo, setIsApplyingPromo] = useState(false);
+
+  // First order detection
+  const [isFirstOrderFlag, setIsFirstOrderFlag] = useState(false);
+  const [isCheckingFirstOrder, setIsCheckingFirstOrder] = useState(false);
+
   useEffect(() => {
     if (items.length === 0) {
       router.push("/products");
     }
   }, [items, router]);
+
+  // Debounced first order check
+  useEffect(() => {
+    if (!formData.email || formData.email.length < 5) {
+      setIsFirstOrderFlag(false);
+      return;
+    }
+
+    const timeoutId = setTimeout(async () => {
+      setIsCheckingFirstOrder(true);
+      try {
+        const result = await isFirstOrder(formData.email);
+        setIsFirstOrderFlag(result);
+      } catch (error) {
+        console.error("Error checking first order:", error);
+        setIsFirstOrderFlag(false);
+      } finally {
+        setIsCheckingFirstOrder(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [formData.email]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,6 +81,34 @@ export default function CheckoutPage() {
       setFormData((prev) => ({ ...prev, [name]: checked }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleApplyPromoCode = async () => {
+    if (!promoCodeInput.trim()) return;
+
+    setIsApplyingPromo(true);
+    setPromoCodeError("");
+    setPromoCodeStatus('idle');
+
+    try {
+      const result = await validatePromoCode(promoCodeInput.trim());
+
+      if (result.valid) {
+        setPromoCode(result.promo);
+        setPromoCodeStatus('success');
+      } else {
+        setPromoCodeError(result.error);
+        setPromoCodeStatus('error');
+        setPromoCode(null);
+      }
+    } catch (error) {
+      console.error("Error validating promo code:", error);
+      setPromoCodeError("Failed to validate code");
+      setPromoCodeStatus('error');
+      setPromoCode(null);
+    } finally {
+      setIsApplyingPromo(false);
     }
   };
 
@@ -116,7 +181,16 @@ export default function CheckoutPage() {
     return null;
   }
 
-  const total = getTotal();
+  const subtotal = getTotal();
+  const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Calculate best discount
+  const discountResult: DiscountResult = calculateBestDiscount(
+    subtotal,
+    totalQty,
+    promoCode,
+    isFirstOrderFlag
+  );
 
   return (
     <div className="py-16 px-6">
@@ -338,6 +412,42 @@ export default function CheckoutPage() {
                 ORDER SUMMARY
               </h2>
 
+              {/* Promo Code Section */}
+              <div className="mb-6 pb-6 border-b hairline-border">
+                <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                  Promo Code
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={promoCodeInput}
+                    onChange={(e) => setPromoCodeInput(e.target.value.toUpperCase())}
+                    placeholder="PROMO CODE"
+                    className="flex-1 px-3 py-2 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-ink font-mono text-xs uppercase"
+                    disabled={isApplyingPromo}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleApplyPromoCode}
+                    disabled={isApplyingPromo || !promoCodeInput.trim()}
+                    className="px-4 py-2 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isApplyingPromo ? "..." : "APPLY"}
+                  </button>
+                </div>
+                {promoCodeStatus === 'success' && (
+                  <div className="mt-2 flex items-center gap-2 text-xs font-mono text-[#607A5C]">
+                    <span>✓</span>
+                    <span>Code applied successfully</span>
+                  </div>
+                )}
+                {promoCodeStatus === 'error' && (
+                  <div className="mt-2 text-xs font-mono text-[#B8624A]">
+                    {promoCodeError}
+                  </div>
+                )}
+              </div>
+
               <div className="space-y-4 mb-6">
                 {items.map((item, index) => (
                   <div
@@ -377,15 +487,28 @@ export default function CheckoutPage() {
                     Subtotal
                   </span>
                   <span className="font-mono text-sm text-ink">
-                    ${total.toFixed(2)}
+                    ${subtotal.toFixed(2)}
                   </span>
                 </div>
+
+                {/* Discount Line Item */}
+                {discountResult.discountAmount > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="font-mono text-xs uppercase tracking-mono text-clay">
+                      {discountResult.label}
+                    </span>
+                    <span className="font-mono text-sm text-clay">
+                      -${discountResult.discountAmount.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+
                 <div className="flex justify-between items-center">
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
                     Shipping
                   </span>
                   <span className="font-mono text-sm text-ink">
-                    {total >= 150 ? "Free" : "Calculated"}
+                    {discountResult.shippingAmount === 0 ? "FREE" : `$${discountResult.shippingAmount.toFixed(2)}`}
                   </span>
                 </div>
               </div>
@@ -396,7 +519,7 @@ export default function CheckoutPage() {
                     Total
                   </span>
                   <span className="font-display text-3xl text-ink" style={{ fontWeight: 300 }}>
-                    ${total.toFixed(2)}
+                    ${discountResult.finalTotal.toFixed(2)}
                   </span>
                 </div>
                 <p className="font-mono text-xs text-ink opacity-55 text-center mt-2">
