@@ -11,6 +11,7 @@ import ProductCard from "@/components/ProductCard";
 import CoAViewer from "@/components/CoAViewer";
 import BundleSelector from "@/components/BundleSelector";
 import ResearchSection from "@/components/ResearchSection";
+import TrustStamps from "@/components/ui/TrustStamps";
 import { notFound } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 
@@ -88,9 +89,14 @@ export default function ProductPage() {
       {/* Main Product Section - Bone Background */}
       <section className="bg-bone py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Left Column - 55% */}
-            <div className="lg:col-span-7">
+          <div className="grid grid-cols-1 lg:grid-cols-[72px_1fr_1fr] gap-5 lg:gap-[20px]">
+            {/* Trust Stamps Column */}
+            <div className="hidden lg:block">
+              <TrustStamps accentColor={categoryColors.accent} />
+            </div>
+
+            {/* Middle Column - Image + Tabs */}
+            <div>
               {/* Product Image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -112,8 +118,8 @@ export default function ProductPage() {
                 <Image
                   src='/images/vial-transparent.png'
                   alt={product.name}
-                  width={364}
-                  height={429}
+                  width={419}
+                  height={493}
                   className="hover:scale-110"
                   style={{
                     objectFit: 'contain',
@@ -396,8 +402,8 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Right Column - 45% */}
-            <div className="lg:col-span-5">
+            {/* Right Column - Product Info */}
+            <div>
               {/* Category Badge */}
               <div className="mb-3">
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
