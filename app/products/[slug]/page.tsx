@@ -238,7 +238,7 @@ export default function ProductPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <CoAViewer product={product} />
+                      <CoAViewer product={product} selectedVariant={selectedVariant} />
                     </motion.div>
                   )}
 

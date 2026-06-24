@@ -1,3 +1,14 @@
+export interface COA {
+  lot: string
+  size: string
+  lab: string
+  reportNumber: string
+  accessCode: string
+  pdfUrl: string
+  analysisDate: string
+  active: boolean
+}
+
 export interface Product {
   id: number
   slug: string
@@ -7,6 +18,7 @@ export interface Product {
   purity: string
   batch?: string
   lotNumbers?: string[]
+  coas: COA[]
   report: string
   casNumber: string
   formula: string
@@ -35,6 +47,10 @@ export const PRODUCTS: Product[] = [
     badge: 'New',
     purity: '98.50%',
     lotNumbers: ['LMO-0626-TRZ-001', 'LMO-0626-TRZ-002'],
+    coas: [
+      { lot: 'LMO-0626-TRZ-001', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+      { lot: 'LMO-0626-TRZ-002', size: '20mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20001',
     casNumber: '2023788-19-2',
     formula: 'C₂₂₅H₃₄₈N₄₈O₆₈',
@@ -64,6 +80,10 @@ export const PRODUCTS: Product[] = [
     badge: 'New',
     purity: '98.20%',
     lotNumbers: ['LMO-0626-RT-003', 'LMO-0626-RT-004'],
+    coas: [
+      { lot: 'LMO-0626-RT-003', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+      { lot: 'LMO-0626-RT-004', size: '30mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20002',
     casNumber: '2381089-83-2',
     formula: 'C₂₄₃H₃₇₈N₅₆O₇₂',
@@ -93,6 +113,10 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     lotNumbers: ['LMO-DS-0626-SMG-001', 'LMO-DS-0626-SMG-002'],
+    coas: [
+      { lot: 'LMO-DS-0626-SMG-001', size: '5mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+      { lot: 'LMO-DS-0626-SMG-002', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20020',
     casNumber: '910463-68-2',
     formula: 'C₁₈₇H₂₉₁N₄₅O₅₉',
@@ -124,6 +148,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Best Seller',
     purity: '99.14%',
     batch: 'LMO-0626-BPC-005',
+    coas: [
+      { lot: 'LMO-0626-BPC-005', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20003', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20003',
     casNumber: '137525-51-0',
     formula: 'C₆₂H₉₈N₁₆O₂₂',
@@ -153,6 +180,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Popular',
     purity: '98.73%',
     batch: 'LMO-0626-TB-006',
+    coas: [
+      { lot: 'LMO-0626-TB-006', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20004', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20004',
     casNumber: '77591-33-4',
     formula: 'C₂₁₂H₃₅₀N₅₆O₇₈S',
@@ -182,6 +212,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Wolverine Stack',
     purity: '98.50%',
     batch: 'LMO-0626-BT-007',
+    coas: [
+      { lot: 'LMO-0626-BT-007', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20005', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20005',
     casNumber: 'N/A — Combination',
     formula: 'BPC-157 + TB-500',
@@ -211,6 +244,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-0626-KPV-008',
+    coas: [
+      { lot: 'LMO-0626-KPV-008', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20017', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20017',
     casNumber: '13588-25-1',
     formula: 'C₁₄H₂₂N₄O₅',
@@ -241,6 +277,9 @@ export const PRODUCTS: Product[] = [
     category: 'Secretagogue Research',
     purity: '98.81%',
     batch: 'LMO-0626-CJC-009',
+    coas: [
+      { lot: 'LMO-0626-CJC-009', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20006', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20006',
     casNumber: '863288-34-0',
     formula: 'C₁₅₂H₂₅₂N₄₂O₄₂',
@@ -270,6 +309,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Popular',
     purity: '98.60%',
     batch: 'LMO-0626-CI-010',
+    coas: [
+      { lot: 'LMO-0626-CI-010', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20007', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20007',
     casNumber: 'N/A — Combination',
     formula: 'CJC-1295 (No DAC) + Ipamorelin',
@@ -298,6 +340,9 @@ export const PRODUCTS: Product[] = [
     category: 'Secretagogue Research',
     purity: '99.12%',
     batch: 'LMO-0626-IPA-011',
+    coas: [
+      { lot: 'LMO-0626-IPA-011', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20008', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20008',
     casNumber: '170851-70-4',
     formula: 'C₃₈H₄₉N₉O₅',
@@ -326,6 +371,9 @@ export const PRODUCTS: Product[] = [
     category: 'Secretagogue Research',
     purity: '98.90%',
     batch: 'LMO-0626-TSM-012',
+    coas: [
+      { lot: 'LMO-0626-TSM-012', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20009', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20009',
     casNumber: '218949-48-9',
     formula: 'C₂₂₁H₃₆₆N₆₄O₆₅S',
@@ -355,6 +403,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-0626-SMG-013',
+    coas: [
+      { lot: 'LMO-0626-SMG-013', size: '1mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20018', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20018',
     casNumber: '946870-92-4',
     formula: 'C₄₀₀H₆₂₅N₁₁₁O₁₁₅S₉',
@@ -384,6 +435,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-DS-0626-SRM-003',
+    coas: [
+      { lot: 'LMO-DS-0626-SRM-003', size: '5mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20021', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20021',
     casNumber: '86168-78-7',
     formula: 'C₁₄₉H₂₄₆N₄₄O₄₂S',
@@ -414,6 +468,9 @@ export const PRODUCTS: Product[] = [
     category: 'Dermal Research',
     purity: '99.08%',
     batch: 'LMO-0626-GHK-014',
+    coas: [
+      { lot: 'LMO-0626-GHK-014', size: '100mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20010', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20010',
     casNumber: '89030-95-5',
     formula: 'C₁₄H₂₃CuN₆O₄',
@@ -443,6 +500,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-DS-0626-MT2-005',
+    coas: [
+      { lot: 'LMO-DS-0626-MT2-005', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20023', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20023',
     casNumber: '121062-08-6',
     formula: 'C₅₀H₆₉N₁₅O₉',
@@ -473,6 +533,9 @@ export const PRODUCTS: Product[] = [
     category: 'Cellular Research',
     purity: '98.00%',
     batch: 'LMO-0626-NAD-016',
+    coas: [
+      { lot: 'LMO-0626-NAD-016', size: '500mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20011', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20011',
     casNumber: '53-84-9',
     formula: 'C₂₁H₂₇N₇O₁₄P₂',
@@ -502,6 +565,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-0626-MTS-015',
+    coas: [
+      { lot: 'LMO-0626-MTS-015', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20019', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20019',
     casNumber: '1468720-74-2',
     formula: 'C₁₀₁H₁₇₄N₃₄O₃₂S₂',
@@ -531,6 +597,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-DS-0626-EPT-004',
+    coas: [
+      { lot: 'LMO-DS-0626-EPT-004', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20022', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20022',
     casNumber: '307297-39-8',
     formula: 'C₁₄H₂₂N₄O₉',
@@ -561,6 +630,9 @@ export const PRODUCTS: Product[] = [
     category: 'Neuro Research',
     purity: '98.55%',
     batch: 'LMO-0626-SEL-017',
+    coas: [
+      { lot: 'LMO-0626-SEL-017', size: '5mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20012', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20012',
     casNumber: '129954-34-3',
     formula: 'C₃₃H₅₇N₁₁O₉',
@@ -589,6 +661,9 @@ export const PRODUCTS: Product[] = [
     category: 'Neuro Research',
     purity: '98.40%',
     batch: 'LMO-0626-SMX-018',
+    coas: [
+      { lot: 'LMO-0626-SMX-018', size: '5mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20013', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20013',
     casNumber: '80714-61-0',
     formula: 'C₃₇H₅₁N₉O₁₀S',
@@ -618,6 +693,9 @@ export const PRODUCTS: Product[] = [
     badge: undefined,
     purity: '98.50%',
     batch: 'LMO-DS-0626-PT141-006',
+    coas: [
+      { lot: 'LMO-DS-0626-PT141-006', size: '10mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20024', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20024',
     casNumber: '189691-06-3',
     formula: 'C₅₀H₆₈N₁₄O₈',
@@ -649,6 +727,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Blend',
     purity: '98.00%',
     batch: 'LMO-0626-GLW-019',
+    coas: [
+      { lot: 'LMO-0626-GLW-019', size: '70mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20014', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20014',
     casNumber: 'N/A — Combination',
     formula: 'GHK-Cu 50mg + TB-500 10mg + BPC-157 10mg',
@@ -678,6 +759,9 @@ export const PRODUCTS: Product[] = [
     badge: 'Blend',
     purity: '98.00%',
     batch: 'LMO-0626-KLW-020',
+    coas: [
+      { lot: 'LMO-0626-KLW-020', size: '80mg', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20015', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20015',
     casNumber: 'N/A — Combination',
     formula: 'GHK-Cu 50mg + TB-500 10mg + BPC-157 10mg + KPV 10mg',
@@ -708,6 +792,9 @@ export const PRODUCTS: Product[] = [
     category: 'Ancillary',
     purity: 'USP Grade',
     batch: 'LMO-0626-BAC-021',
+    coas: [
+      { lot: 'LMO-0626-BAC-021', size: '10ml', lab: 'SteriGenix Analytical', reportNumber: 'RPT-20016', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Pending', active: true },
+    ],
     report: 'RPT-20016',
     casNumber: '7732-18-5',
     formula: 'H₂O + 0.9% Benzyl Alcohol',

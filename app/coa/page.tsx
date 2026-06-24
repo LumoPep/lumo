@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { PRODUCTS, CATEGORY_COLORS } from "@/data/products";
+import COAModal from "@/components/COAModal";
 
 export default function CoAPage() {
   return (
@@ -364,8 +365,11 @@ function CoACard({ product, index }: { product: any; index: number }) {
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
-  // Get lot number (use first lot for products with multiple variants)
-  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[0] : '');
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Derive active COA based on selected size
+  const activeCoa = product.coas?.find((c: any) => c.active && c.size === selectedSize) ?? product.coas?.[0];
 
   return (
     <motion.div
@@ -419,11 +423,37 @@ function CoACard({ product, index }: { product: any; index: number }) {
                   </p>
                 </div>
 
+                {/* Size Selector - if multiple sizes */}
+                {product.sizes.length > 1 && (
+                  <div className="mb-3">
+                    <div className="flex gap-2">
+                      {product.sizes.map((size: string) => (
+                        <button
+                          key={size}
+                          onClick={() => setSelectedSize(size)}
+                          className={`px-3 py-1.5 font-mono text-xs uppercase tracking-mono transition-all ${
+                            selectedSize === size
+                              ? "text-cream"
+                              : "bg-cream text-ink hairline-border hover:border-clay"
+                          }`}
+                          style={{
+                            borderRadius: "6px",
+                            backgroundColor: selectedSize === size ? categoryColors.accent : undefined,
+                            color: selectedSize === size ? 'white' : undefined,
+                          }}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Data Rows */}
                 <div className="space-y-2">
                   {[
-                    { label: "LOT", value: lotNumber },
-                    { label: "REPORT", value: product.report },
+                    { label: "LOT", value: activeCoa?.lot || 'N/A' },
+                    { label: "REPORT", value: activeCoa?.reportNumber || product.report },
                     { label: "CAS", value: product.casNumber },
                     { label: "IDENTITY", value: "CONFIRMED" },
                   ].map((row, i) => (
@@ -504,15 +534,19 @@ function CoACard({ product, index }: { product: any; index: number }) {
                 VIEW LOT
               </Link>
               <button
+                onClick={() => setIsModalOpen(true)}
                 className="px-3 py-1.5 bg-clay text-cream font-mono uppercase tracking-mono hover:bg-opacity-90 transition-all active:scale-[0.97] flex items-center gap-1.5"
                 style={{ borderRadius: "6px", fontSize: '10px' }}
               >
-                ↓ DOWNLOAD PDF
+                View COA
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {activeCoa && <COAModal coa={activeCoa} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
     </motion.div>
   );
 }
