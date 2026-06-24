@@ -371,10 +371,22 @@ export default function HomePage() {
       <div className="bg-ink py-4 overflow-hidden ticker-container">
         <div className="ticker-content">
           <div className="ticker-text">
-            <span className="text-ochre">· 7× TESTED ·</span> <span className="text-clay">··</span> BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
+            <span className="text-ochre">· 7× TESTED ·</span>
+            {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
+              <span key={index}>
+                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+              </span>
+            ))}
+            <span className="text-clay">··</span>
           </div>
           <div className="ticker-text" aria-hidden="true">
-            <span className="text-ochre">· 7× TESTED ·</span> <span className="text-clay">··</span> BPC-157 · <span className="text-ochre">99.14%</span> <span className="text-clay">··</span> TB-500 · <span className="text-ochre">98.73%</span> <span className="text-clay">··</span> IPAMORELIN · <span className="text-ochre">99.12%</span> <span className="text-clay">··</span> CJC-1295 · <span className="text-ochre">98.81%</span> <span className="text-clay">··</span> PT-141 · <span className="text-ochre">99.05%</span> <span className="text-clay">··</span> EPITHALON · <span className="text-ochre">99.31%</span> <span className="text-clay">··</span> SELANK · <span className="text-ochre">98.55%</span> <span className="text-clay">··</span> GHK-CU · <span className="text-ochre">99.08%</span> <span className="text-clay">··</span> HEXARELIN · <span className="text-ochre">98.92%</span> <span className="text-clay">··</span>
+            <span className="text-ochre">· 7× TESTED ·</span>
+            {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
+              <span key={index}>
+                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+              </span>
+            ))}
+            <span className="text-clay">··</span>
           </div>
         </div>
       </div>
