@@ -381,113 +381,132 @@ function CoACard({ product, index }: { product: any; index: number }) {
           borderTop: `3px solid ${categoryColors.accent}`,
         }}
       >
-        <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left Column - Header & Data */}
-            <div className="lg:col-span-8">
-              {/* Header */}
-              <div className="mb-4">
-                <h3
-                  className="font-display text-2xl text-ink mb-1"
-                  style={{ fontWeight: 300, fontStyle: "italic" }}
-                >
-                  {product.name}
-                </h3>
-                <p className="font-mono text-xs uppercase tracking-mono" style={{ color: '#607A5C' }}>
-                  {product.category}
-                </p>
+        <div className="p-6 flex flex-row items-center gap-6">
+          {/* Left Column - Product Image */}
+          <div className="flex-shrink-0 border-r border-[#EBE2CF] pr-6" style={{ width: '240px' }}>
+            <Link href={`/products/${product.slug}`} className="block">
+              <div className="flex items-center justify-center">
+                <Image
+                  src="/images/vial-transparent.png"
+                  alt={product.name}
+                  width={200}
+                  height={260}
+                  className="hover:scale-105 transition-transform duration-300"
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
-
-              {/* Data Rows */}
-              <div className="space-y-2">
-                {[
-                  { label: "LOT", value: product.batch },
-                  { label: "REPORT", value: product.report },
-                  { label: "CAS", value: product.casNumber },
-                  { label: "IDENTITY", value: "CONFIRMED" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-baseline justify-between">
-                    <span className="font-mono uppercase tracking-mono text-ink opacity-50" style={{ fontSize: '10px' }}>
-                      {row.label}
-                    </span>
-                    <div
-                      className="flex-1 mx-2 border-b border-dotted"
-                      style={{ borderColor: "rgba(26, 24, 20, 0.15)" }}
-                    />
-                    <span className="font-mono text-xs text-ink font-medium">{row.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column - Purity */}
-            <div className="lg:col-span-4 flex flex-col items-center justify-center">
-              {/* Large Purity Percentage */}
-              <div
-                className="text-center mb-2"
-                style={{ fontWeight: 300, fontSize: "40px", lineHeight: 1, color: '#C89A3C' }}
-              >
-                {product.purity}
-              </div>
-              <div className="font-mono uppercase tracking-mono text-ink opacity-50 mb-3 text-center" style={{ fontSize: '9px', letterSpacing: '1.5px' }}>
-                {product.purity === 'USP Grade' ? 'USP GRADE' : 'PURITY · HPLC'}
-              </div>
-
-              {/* Purity Bar */}
-              {product.purity !== 'USP Grade' && (
-                <div className="w-full bg-bone h-1.5 mb-4" style={{ borderRadius: "2px" }}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: product.purity } : { width: 0 }}
-                    transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                    className="h-full"
-                    style={{ borderRadius: "2px", backgroundColor: '#C89A3C' }}
-                  />
-                </div>
-              )}
-
-              {/* VERIFIED Badge - Compact */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="flex items-center gap-2"
-              >
-                <div
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    border: "2px solid #B8624A",
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#B8624A' }} />
-                </div>
-                <span className="font-mono uppercase tracking-mono text-clay font-medium" style={{ fontSize: '9px', letterSpacing: '1.2px' }}>
-                  VERIFIED
-                </span>
-              </motion.div>
-            </div>
+            </Link>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2 mt-5 pt-5 border-t border-ink border-opacity-10">
-            <Link
-              href={`/products/${product.slug}`}
-              className="px-3 py-1.5 hairline-border text-ink text-center font-mono uppercase tracking-mono hover:border-clay transition-colors active:scale-[0.97]"
-              style={{ borderRadius: "6px", fontSize: '10px' }}
-            >
-              VIEW LOT
-            </Link>
-            <button
-              className="px-3 py-1.5 bg-clay text-cream font-mono uppercase tracking-mono hover:bg-opacity-90 transition-all active:scale-[0.97] flex items-center gap-1.5"
-              style={{ borderRadius: "6px", fontSize: '10px' }}
-            >
-              ↓ DOWNLOAD PDF
-            </button>
+          {/* Right Column - All existing content */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Left Column - Header & Data */}
+              <div className="lg:col-span-8">
+                {/* Header */}
+                <div className="mb-4">
+                  <h3
+                    className="font-display text-2xl text-ink mb-1"
+                    style={{ fontWeight: 300, fontStyle: "italic" }}
+                  >
+                    {product.name}
+                  </h3>
+                  <p className="font-mono text-xs uppercase tracking-mono" style={{ color: '#607A5C' }}>
+                    {product.category}
+                  </p>
+                </div>
+
+                {/* Data Rows */}
+                <div className="space-y-2">
+                  {[
+                    { label: "LOT", value: product.batch },
+                    { label: "REPORT", value: product.report },
+                    { label: "CAS", value: product.casNumber },
+                    { label: "IDENTITY", value: "CONFIRMED" },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-baseline justify-between">
+                      <span className="font-mono uppercase tracking-mono text-ink opacity-50" style={{ fontSize: '10px' }}>
+                        {row.label}
+                      </span>
+                      <div
+                        className="flex-1 mx-2 border-b border-dotted"
+                        style={{ borderColor: "rgba(26, 24, 20, 0.15)" }}
+                      />
+                      <span className="font-mono text-xs text-ink font-medium">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column - Purity */}
+              <div className="lg:col-span-4 flex flex-col items-center justify-center">
+                {/* Large Purity Percentage */}
+                <div
+                  className="text-center mb-2"
+                  style={{ fontWeight: 300, fontSize: "40px", lineHeight: 1, color: '#C89A3C' }}
+                >
+                  {product.purity}
+                </div>
+                <div className="font-mono uppercase tracking-mono text-ink opacity-50 mb-3 text-center" style={{ fontSize: '9px', letterSpacing: '1.5px' }}>
+                  {product.purity === 'USP Grade' ? 'USP GRADE' : 'PURITY · HPLC'}
+                </div>
+
+                {/* Purity Bar */}
+                {product.purity !== 'USP Grade' && (
+                  <div className="w-full bg-bone h-1.5 mb-4" style={{ borderRadius: "2px" }}>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={isInView ? { width: product.purity } : { width: 0 }}
+                      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                      className="h-full"
+                      style={{ borderRadius: "2px", backgroundColor: '#C89A3C' }}
+                    />
+                  </div>
+                )}
+
+                {/* VERIFIED Badge - Compact */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  className="flex items-center gap-2"
+                >
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      border: "2px solid #B8624A",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#B8624A' }} />
+                  </div>
+                  <span className="font-mono uppercase tracking-mono text-clay font-medium" style={{ fontSize: '9px', letterSpacing: '1.2px' }}>
+                    VERIFIED
+                  </span>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2 mt-5 pt-5 border-t border-ink border-opacity-10">
+              <Link
+                href={`/products/${product.slug}`}
+                className="px-3 py-1.5 hairline-border text-ink text-center font-mono uppercase tracking-mono hover:border-clay transition-colors active:scale-[0.97]"
+                style={{ borderRadius: "6px", fontSize: '10px' }}
+              >
+                VIEW LOT
+              </Link>
+              <button
+                className="px-3 py-1.5 bg-clay text-cream font-mono uppercase tracking-mono hover:bg-opacity-90 transition-all active:scale-[0.97] flex items-center gap-1.5"
+                style={{ borderRadius: "6px", fontSize: '10px' }}
+              >
+                ↓ DOWNLOAD PDF
+              </button>
+            </div>
           </div>
         </div>
       </div>
