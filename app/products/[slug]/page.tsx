@@ -549,7 +549,7 @@ export default function ProductPage() {
 
               {/* Independent Verification Strip */}
               <div className="mb-5">
-                <p style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(26,24,20,0.65)', marginBottom: '10px' }}>
+                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#1A1814', marginBottom: '10px' }}>
                   7× Independently Tested
                 </p>
                 <div className="grid grid-cols-4 gap-2">
@@ -564,8 +564,8 @@ export default function ProductPage() {
                   ].map((chip, i) => (
                     <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
-                      <span style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
-                      <span style={{ fontSize: '9px', color: 'rgba(26,24,20,0.65)', lineHeight: 1.3 }}>{chip.sub}</span>
+                      <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1A1814', lineHeight: 1.3 }}>{chip.label}</span>
+                      <span style={{ fontSize: '10px', color: '#4a3f35', lineHeight: 1.3 }}>{chip.sub}</span>
                     </div>
                   ))}
                   {/* 8th Accent Tile */}
