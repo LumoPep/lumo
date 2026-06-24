@@ -93,9 +93,9 @@ export default function ProductPage() {
             {/* Left Column - 55% */}
             <div className="lg:col-span-7">
               {/* Image + Trust Stamps Grid */}
-              <div className="hidden lg:grid lg:grid-cols-[80px_1fr] gap-4 mb-6">
+              <div className="lg:grid lg:grid-cols-[80px_1fr] gap-4 mb-6">
                 {/* Trust Stamps */}
-                <div className="flex items-center justify-center">
+                <div className="hidden lg:flex items-center justify-center">
                   <TrustStamps accentColor={categoryColors.accent} />
                 </div>
 
@@ -135,43 +135,6 @@ export default function ProductPage() {
                   />
                 </motion.div>
               </div>
-
-              {/* Mobile: Image only (no stamps) */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="lg:hidden mb-6"
-                style={{
-                  position: 'relative',
-                  background: 'transparent',
-                  borderRadius: '16px',
-                  padding: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minHeight: '320px',
-                  overflow: 'hidden',
-                }}
-              >
-                <Image
-                  src='/images/vial-transparent.png'
-                  alt={product.name}
-                  width={419}
-                  height={493}
-                  className="hover:scale-110"
-                  style={{
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
-                    mixBlendMode: 'multiply',
-                    transition: 'transform 0.5s ease',
-                    cursor: 'default',
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-                  priority
-                />
-              </motion.div>
 
               {/* Tabbed Section */}
               <div className="bg-cream" style={{ borderRadius: "16px", padding: "32px" }}>
