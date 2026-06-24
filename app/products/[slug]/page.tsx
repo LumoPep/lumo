@@ -119,8 +119,8 @@ export default function ProductPage() {
                   <Image
                     src='/images/vial-transparent.png'
                     alt={product.name}
-                    width={419}
-                    height={493}
+                    width={482}
+                    height={567}
                     className="hover:scale-110"
                     style={{
                       objectFit: 'contain',
