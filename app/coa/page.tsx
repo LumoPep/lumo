@@ -390,14 +390,14 @@ function CoACard({ product, index }: { product: any; index: number }) {
       >
         <div className="p-6 flex flex-row items-center gap-6">
           {/* Left Column - Product Image */}
-          <div className="flex-shrink-0 border-r border-[#EBE2CF] pr-6" style={{ width: '240px' }}>
+          <div className="flex-shrink-0 border-r border-[#EBE2CF] pr-6" style={{ width: '288px' }}>
             <Link href={`/products/${product.slug}`} className="block">
               <div className="flex items-center justify-center">
                 <Image
                   src="/images/vial-transparent.png"
                   alt={product.name}
-                  width={200}
-                  height={260}
+                  width={240}
+                  height={312}
                   className="hover:scale-105 transition-transform duration-300"
                   style={{ objectFit: 'contain' }}
                 />

@@ -175,7 +175,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 letterSpacing: "0.05em",
               }}
             >
-              {firstSize} · LYOPHILIZED · LOT {lotNumber} ·{" "}
+              {firstSize} · LOT {lotNumber} ·{" "}
               <span className="font-medium" style={{ color: '#C89A3C' }}>
                 {isUSPGrade ? 'USP GRADE' : product.purity}
               </span>
