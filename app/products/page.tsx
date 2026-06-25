@@ -118,48 +118,65 @@ function ProductsPageContent() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Ink Background */}
-      <section className="bg-ink py-16 md:py-20 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="font-mono text-xs uppercase tracking-mono text-clay mb-4"
-          >
-            02.1 — COMPOUND CATALOG
-          </motion.div>
-
-          {/* Animated headline */}
-          <motion.h1
-            className="font-display text-5xl md:text-7xl text-cream mb-6 leading-tight"
-            style={{ fontWeight: 300 }}
-          >
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
+      <section className="bg-ink py-16 md:py-20">
+        <div className="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-0">
+          {/* Left Column - Text Content */}
+          <div className="px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-block mr-3"
+              transition={{ duration: 0.3 }}
+              className="font-mono text-xs uppercase tracking-mono text-clay mb-4"
             >
-              A peptide is a sentence
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-block text-clay italic"
-            >
-              written in amino acids.
-            </motion.span>
-          </motion.h1>
+              02.1 — COMPOUND CATALOG
+            </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-editorial text-xl text-cream max-w-2xl"
-          >
-            Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
-          </motion.p>
+            {/* Animated headline */}
+            <motion.h1
+              className="font-display text-5xl md:text-7xl text-cream mb-6 leading-tight"
+              style={{ fontWeight: 300 }}
+            >
+              <motion.span
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="inline-block mr-3"
+              >
+                A peptide is a sentence
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="inline-block text-clay italic"
+              >
+                written in amino acids.
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="font-editorial text-xl text-cream max-w-2xl"
+            >
+              Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
+            </motion.p>
+          </div>
+
+          {/* Right Column - Image (hidden on mobile) */}
+          <div className="hidden lg:block relative overflow-hidden">
+            <img
+              src="/images/group-shots/tissue-repair.jpg"
+              alt="Tissue Repair Research"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+          </div>
         </div>
       </section>
 
