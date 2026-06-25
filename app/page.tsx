@@ -643,7 +643,7 @@ export default function HomePage() {
                   animate={categoriesInView ? "visible" : "hidden"}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <Link href={`/products?category=${category.slug}`}>
+                  <Link href={`/products?category=${encodeURIComponent(category.name)}`}>
                     <motion.div
                       whileHover={{
                         scale: 1.01,
