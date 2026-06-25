@@ -167,7 +167,7 @@ function ProductsPageContent() {
           {/* Right Column - Image (hidden on mobile) */}
           <div className="hidden lg:block relative overflow-hidden">
             <img
-              src="/images/group-shots/tissue-repair.jpg"
+              src="/images/group shots/tissue-repair.jpg"
               alt="Tissue Repair Research"
               style={{
                 width: '100%',
