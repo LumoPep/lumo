@@ -509,18 +509,25 @@ export default function AboutPage() {
               </h2>
 
               {/* Large centrepiece vial */}
-              <img
-                src="/images/vial-transparent.png"
-                alt=""
-                style={{
-                  width: 'auto',
-                  height: '384px',
-                  filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
-                  display: 'block',
-                  margin: '0 auto',
-                  mixBlendMode: 'multiply',
-                }}
-              />
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <img
+                  src="/images/vial-transparent.png"
+                  alt=""
+                  style={{
+                    width: 'auto',
+                    height: '384px',
+                    filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
+                    display: 'block',
+                    margin: '0 auto',
+                    mixBlendMode: 'multiply',
+                  }}
+                />
+              </motion.div>
             </motion.div>
           </div>
 
