@@ -760,7 +760,7 @@ export default function HomePage() {
               ].map((item, i) => (
                 <li key={i} className="flex items-start space-x-3">
                   <span className="text-clay mt-1">●</span>
-                  <span className="font-editorial" style={{ color: '#C4B8A8' }}>
+                  <span className="font-editorial text-base font-medium" style={{ color: '#C4B8A8' }}>
                     {item}
                   </span>
                 </li>
@@ -1135,7 +1135,7 @@ export default function HomePage() {
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-3">
                   <span className="text-clay text-2xl mt-1">●</span>
-                  <span className="font-editorial text-lg" style={{ color: '#C4B8A8' }}>
+                  <span className="font-editorial text-xl font-medium" style={{ color: '#C4B8A8' }}>
                     {point}
                   </span>
                 </li>

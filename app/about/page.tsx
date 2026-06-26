@@ -578,7 +578,7 @@ export default function AboutPage() {
                       {value.title}
                     </h3>
                   </div>
-                  <p className="font-editorial text-sm leading-relaxed" style={{ color: '#C4B8A8' }}>
+                  <p className="font-editorial text-base font-medium leading-relaxed" style={{ color: '#C4B8A8' }}>
                     {value.description}
                   </p>
                 </motion.div>
@@ -665,7 +665,7 @@ export default function AboutPage() {
                   >
                     {step.title}
                   </h3>
-                  <p className="font-editorial text-sm leading-relaxed" style={{ color: '#C4B8A8' }}>
+                  <p className="font-editorial text-base font-medium leading-relaxed" style={{ color: '#C4B8A8' }}>
                     {step.description}
                   </p>
                 </motion.div>
