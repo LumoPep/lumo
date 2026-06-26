@@ -599,13 +599,13 @@ export default function HomePage() {
       </div>
 
       {/* CATEGORIES - Browse by Research Area */}
-      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '32px', paddingBottom: '64px' }}>
+      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '16px', paddingBottom: '32px' }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
-            className="text-center mb-10"
+            className="text-center mb-5"
           >
             <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
               Browse by research area.
@@ -620,13 +620,13 @@ export default function HomePage() {
             variants={itemVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
-            className="flex justify-center mb-10"
+            className="flex justify-center mb-5"
           >
             <img
               src="/images/vial-lineup-6-transparent.png"
               alt="Lumo peptide vials"
               style={{
-                maxWidth: '700px',
+                maxWidth: '550px',
                 width: '100%',
                 height: 'auto',
                 display: 'block',
