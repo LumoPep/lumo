@@ -599,7 +599,7 @@ export default function HomePage() {
       </div>
 
       {/* CATEGORIES - Browse by Research Area */}
-      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '16px', paddingBottom: '32px' }}>
+      <section ref={categoriesRef} className="px-6" style={{ background: '#F5EFE4', paddingTop: '16px', paddingBottom: '80px' }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
