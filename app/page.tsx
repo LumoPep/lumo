@@ -696,7 +696,7 @@ export default function HomePage() {
                           style={{
                             fontSize: '20px',
                             fontStyle: 'italic',
-                            fontWeight: 300,
+                            fontWeight: 700,
                             color: '#1A1814',
                             lineHeight: '1.2'
                           }}
