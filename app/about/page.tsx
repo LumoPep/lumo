@@ -516,7 +516,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.8 }}
               >
                 <img
-                  src="/images/vial-transparent.png"
+                  src="/images/vial-blend-glow-klow-transparent.png"
                   alt=""
                   style={{
                     width: 'auto',
@@ -524,7 +524,6 @@ export default function AboutPage() {
                     filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                     display: 'block',
                     margin: '0 auto',
-                    mixBlendMode: 'multiply',
                   }}
                 />
               </motion.div>

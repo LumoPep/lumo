@@ -615,6 +615,25 @@ export default function HomePage() {
             </p>
           </motion.div>
 
+          {/* Vial lineup image */}
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            animate={categoriesInView ? "visible" : "hidden"}
+            className="flex justify-center mb-10"
+          >
+            <img
+              src="/images/vial-lineup-6-transparent.png"
+              alt="Lumo peptide vials"
+              style={{
+                maxWidth: '700px',
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+              }}
+            />
+          </motion.div>
+
           {/* Uniform 8-Card Grid */}
           <div
             style={{
