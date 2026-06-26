@@ -605,7 +605,7 @@ export default function HomePage() {
             variants={headingVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
-            className="text-center mb-5"
+            className="text-center mb-3.5"
           >
             <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
               Browse by research area.
@@ -620,13 +620,13 @@ export default function HomePage() {
             variants={itemVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
-            className="flex justify-center mb-5"
+            className="flex justify-center mb-3.5"
           >
             <img
               src="/images/vial-lineup-6-transparent.png"
               alt="Lumo peptide vials"
               style={{
-                maxWidth: '550px',
+                maxWidth: '680px',
                 width: '100%',
                 height: 'auto',
                 display: 'block',
