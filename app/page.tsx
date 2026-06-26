@@ -760,7 +760,7 @@ export default function HomePage() {
               ].map((item, i) => (
                 <li key={i} className="flex items-start space-x-3">
                   <span className="text-clay mt-1">●</span>
-                  <span className="font-editorial text-cream" style={{ opacity: 0.8 }}>
+                  <span className="font-editorial" style={{ color: '#C4B8A8' }}>
                     {item}
                   </span>
                 </li>
@@ -778,7 +778,43 @@ export default function HomePage() {
       </section>
 
       {/* FEATURE BLOCKS SECTION */}
-      <section style={{ background: '#F5EFE4', padding: '80px 40px' }}>
+      <section style={{ background: '#F5EFE4', padding: '80px 40px', position: 'relative', overflow: 'visible' }}>
+        {/* Left floating vial */}
+        <img
+          src="/images/vial-transparent.png"
+          alt=""
+          className="hidden lg:block"
+          style={{
+            position: 'absolute',
+            left: '60px',
+            top: '50%',
+            width: '270px',
+            height: 'auto',
+            zIndex: 0,
+            opacity: 0.9,
+            filter: 'drop-shadow(-6px 12px 24px rgba(26,24,20,0.15))',
+            animation: 'floatLeft 4.5s ease-in-out infinite',
+          }}
+        />
+
+        {/* Right floating vial */}
+        <img
+          src="/images/vial-transparent.png"
+          alt=""
+          className="hidden lg:block"
+          style={{
+            position: 'absolute',
+            right: '60px',
+            top: '50%',
+            width: '270px',
+            height: 'auto',
+            zIndex: 0,
+            opacity: 0.9,
+            filter: 'drop-shadow(6px 12px 24px rgba(26,24,20,0.15))',
+            animation: 'floatRight 5s ease-in-out infinite',
+          }}
+        />
+
         <h2
           style={{
             fontFamily: 'Fraunces, serif',
@@ -789,6 +825,8 @@ export default function HomePage() {
             marginBottom: '56px',
             fontStyle: 'normal',
             letterSpacing: '-0.02em',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           Why researchers choose Lumo.
@@ -800,6 +838,8 @@ export default function HomePage() {
             gap: '48px 56px',
             maxWidth: '1000px',
             margin: '0 auto',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {[
@@ -1095,7 +1135,7 @@ export default function HomePage() {
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-3">
                   <span className="text-clay text-2xl mt-1">●</span>
-                  <span className="font-editorial text-lg text-cream" style={{ opacity: 0.8 }}>
+                  <span className="font-editorial text-lg" style={{ color: '#C4B8A8' }}>
                     {point}
                   </span>
                 </li>
