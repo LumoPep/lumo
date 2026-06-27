@@ -805,7 +805,7 @@ export default function HomePage() {
           className="hidden lg:block"
           style={{
             position: 'absolute',
-            left: '-80px',
+            left: '-40px',
             top: '50%',
             width: '270px',
             height: 'auto',
@@ -823,7 +823,7 @@ export default function HomePage() {
           className="hidden lg:block"
           style={{
             position: 'absolute',
-            right: '-80px',
+            right: '-40px',
             top: '50%',
             width: '270px',
             height: 'auto',
