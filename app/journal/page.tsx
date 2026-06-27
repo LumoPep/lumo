@@ -64,7 +64,7 @@ export default function ResearchLibraryPage() {
   return (
     <div className="min-h-screen bg-bone">
       {/* Hero Section */}
-      <section className="bg-clay py-10 md:py-12 px-6">
+      <section className="bg-clay py-16 md:py-20 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.h1
             className="font-display text-5xl md:text-7xl text-cream mb-4 leading-tight"
