@@ -88,8 +88,8 @@ export default function ResearchLibraryPage() {
       </section>
 
       {/* Main Content */}
-      <div className="py-12 px-6">
-        <div className="container mx-auto max-w-7xl">
+      <div className="py-12 px-6" style={{ position: 'relative', overflow: 'visible' }}>
+        <div className="container mx-auto max-w-7xl" style={{ position: 'relative', zIndex: 1 }}>
           {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -163,10 +163,10 @@ export default function ResearchLibraryPage() {
                   >
                     {/* Top Row - Journal and Year */}
                     <div className="flex items-center justify-between mb-3">
-                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#1A1814] opacity-55">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#B8624A]">
                         {study.journal}
                       </div>
-                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#1A1814] opacity-55">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-[#607A5C]">
                         {study.year}
                       </div>
                     </div>
@@ -188,7 +188,7 @@ export default function ResearchLibraryPage() {
 
                     {/* Summary */}
                     <p
-                      className="text-[12px] text-[#1A1814] opacity-70 leading-relaxed flex-1"
+                      className="text-[12px] text-[#1A1814] leading-relaxed flex-1"
                       style={{
                         display: "-webkit-box",
                         WebkitLineClamp: 3,
@@ -218,16 +218,23 @@ export default function ResearchLibraryPage() {
 
                       {/* Right - Product Tags */}
                       <div className="flex flex-wrap gap-1 justify-end">
-                        {study.products.slice(0, 3).map((product) => (
-                          <Link
-                            key={product.slug}
-                            href={`/products/${product.slug}`}
-                            className="text-[9px] bg-[#1A1814]/5 text-[#1A1814] opacity-70 hover:opacity-100 px-2 py-0.5 rounded-full transition-opacity"
-                            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-                          >
-                            {product.name}
-                          </Link>
-                        ))}
+                        {study.products.slice(0, 3).map((product) => {
+                          const categoryColor = CATEGORY_COLORS[product.category]?.accent || '#B8624A';
+                          return (
+                            <Link
+                              key={product.slug}
+                              href={`/products/${product.slug}`}
+                              className="text-[9px] hover:opacity-90 px-2 py-0.5 rounded-full transition-opacity"
+                              style={{
+                                fontFamily: 'JetBrains Mono, monospace',
+                                backgroundColor: `${categoryColor}20`,
+                                color: categoryColor,
+                              }}
+                            >
+                              {product.name}
+                            </Link>
+                          );
+                        })}
                         {study.products.length > 3 && (
                           <span
                             className="text-[9px] bg-[#1A1814]/5 text-[#1A1814] opacity-70 px-2 py-0.5 rounded-full"
