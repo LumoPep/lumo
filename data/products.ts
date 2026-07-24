@@ -147,7 +147,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 3,
     slug: 'bpc-157',
-    name: 'Lumo-4 BPC',
+    name: 'BPC-157',
     category: 'Tissue Repair Research',
     badge: 'Best Seller',
     purity: '99.14%',
@@ -180,7 +180,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 4,
     slug: 'tb-500',
-    name: 'Lumo-5 TB',
+    name: 'TB-500',
     category: 'Tissue Repair Research',
     badge: 'Popular',
     purity: '98.73%',
@@ -213,7 +213,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 5,
     slug: 'bpc-tb-blend',
-    name: 'Lumo-6 BT',
+    name: 'BPC+TB Blend',
     category: 'Tissue Repair Research',
     badge: 'Wolverine Stack',
     purity: '98.50%',
@@ -246,7 +246,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 17,
     slug: 'kpv',
-    name: 'Lumo-19 KPV',
+    name: 'KPV',
     category: 'Tissue Repair Research',
     badge: undefined,
     purity: '98.50%',
@@ -281,7 +281,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 6,
     slug: 'cjc-1295-no-dac',
-    name: 'Lumo-7 CJC',
+    name: 'CJC-1295 No DAC',
     category: 'Secretagogue Research',
     purity: '98.81%',
     batch: 'LMO-0626-CJC-009',
@@ -313,7 +313,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 7,
     slug: 'cjc-ipamorelin',
-    name: 'Lumo-8 CI',
+    name: 'CJC+Ipamorelin',
     category: 'Secretagogue Research',
     badge: 'Popular',
     purity: '98.60%',
@@ -346,7 +346,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 8,
     slug: 'ipamorelin',
-    name: 'Lumo-9 IPA',
+    name: 'Ipamorelin',
     category: 'Secretagogue Research',
     purity: '99.12%',
     batch: 'LMO-0626-IPA-011',
@@ -378,7 +378,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 9,
     slug: 'tesamorelin',
-    name: 'Lumo-11 TSM',
+    name: 'Tesamorelin',
     category: 'Secretagogue Research',
     purity: '98.90%',
     batch: 'LMO-0626-TSM-013',
@@ -410,7 +410,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 18,
     slug: 'igf-1-lr3',
-    name: 'Lumo-18 IGF',
+    name: 'IGF-1 LR3',
     category: 'Secretagogue Research',
     badge: undefined,
     purity: '98.50%',
@@ -443,7 +443,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 21,
     slug: 'sermorelin',
-    name: 'Lumo-21 SRM',
+    name: 'Sermorelin',
     category: 'Secretagogue Research',
     badge: undefined,
     purity: '98.50%',
@@ -478,7 +478,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 10,
     slug: 'ghk-cu',
-    name: 'Lumo-10 GHK',
+    name: 'GHK-Cu',
     category: 'Dermal Research',
     purity: '99.08%',
     batch: 'LMO-0626-GHK-012',
@@ -510,7 +510,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 23,
     slug: 'melanotan-2',
-    name: 'Lumo-23 MT2',
+    name: 'Melanotan 2',
     category: 'Dermal Research',
     badge: undefined,
     purity: '98.50%',
@@ -545,7 +545,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 11,
     slug: 'nad-plus',
-    name: 'Lumo-14 NAD',
+    name: 'NAD+',
     category: 'Cellular Research',
     purity: '98.00%',
     batch: 'LMO-0626-NAD-016',
@@ -577,7 +577,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 19,
     slug: 'mots-c',
-    name: 'Lumo-15 MTS',
+    name: 'MOTS-c',
     category: 'Cellular Research',
     badge: undefined,
     purity: '98.50%',
@@ -610,7 +610,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 22,
     slug: 'epithalon',
-    name: 'Lumo-22 EPT',
+    name: 'Epithalon',
     category: 'Cellular Research',
     badge: undefined,
     purity: '98.50%',
@@ -645,7 +645,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 12,
     slug: 'selank',
-    name: 'Lumo-16 SEL',
+    name: 'Selank',
     category: 'Neuro Research',
     purity: '98.55%',
     batch: 'LMO-0626-SEL-018',
@@ -677,7 +677,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 13,
     slug: 'semax',
-    name: 'Lumo-17 SMX',
+    name: 'Semax',
     category: 'Neuro Research',
     purity: '98.40%',
     batch: 'LMO-0626-SMX-019',
@@ -709,7 +709,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 24,
     slug: 'pt-141',
-    name: 'Lumo-24 PT1',
+    name: 'PT-141',
     category: 'Neuro Research',
     badge: undefined,
     purity: '98.50%',
@@ -744,7 +744,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 14,
     slug: 'glow-blend',
-    name: 'Lumo-12 GLW',
+    name: 'GLOW Blend',
     category: 'Blends',
     badge: 'Blend',
     purity: '98.00%',
@@ -777,7 +777,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 15,
     slug: 'klow-blend',
-    name: 'Lumo-13 KLW',
+    name: 'KLOW Blend',
     category: 'Blends',
     badge: 'Blend',
     purity: '98.00%',
@@ -812,7 +812,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 16,
     slug: 'bac-water',
-    name: 'Lumo-20 BAC',
+    name: 'BAC Water',
     category: 'Ancillary',
     purity: 'USP Grade',
     batch: 'LMO-0626-BAC-021',
