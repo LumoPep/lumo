@@ -20,7 +20,6 @@ const sections = [
     title: "How We Use Your Information",
     content: [
       "Your information is used exclusively for: Processing and fulfilling your orders; Sending order confirmations and shipping notifications; Responding to customer service inquiries; Improving our products and services; Complying with legal obligations.",
-      "We do not use your information for marketing purposes unless you explicitly opt in to receive research updates and product announcements via our newsletter subscription.",
     ],
   },
   {
@@ -274,7 +273,7 @@ export default function PrivacyPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="font-mono text-cream text-xs mb-8"
           >
-            Last updated: January 2025
+            Last updated: July 2026
           </motion.p>
 
           <motion.button

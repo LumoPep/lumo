@@ -38,7 +38,7 @@ const sections = [
     number: "04",
     title: "Payment Terms",
     content: [
-      "We accept cryptocurrency payments including Bitcoin (BTC), Ethereum (ETH), USDT, USDC, and Litecoin (LTC). All payments are processed through our secure payment provider.",
+      "We accept cryptocurrency payments including Bitcoin (BTC), Ethereum (ETH), USDT, and USDC. All payments are processed through our secure payment provider.",
       "Cryptocurrency payments are final and non-refundable once blockchain confirmation occurs. Prices are quoted in USD but paid in cryptocurrency at the current exchange rate at time of payment.",
       "You are responsible for any blockchain transaction fees. We are not responsible for payments sent to incorrect addresses or lost due to user error.",
     ],
@@ -77,7 +77,7 @@ const sections = [
     number: "08",
     title: "Governing Law",
     content: [
-      "These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to conflict of law provisions.",
+      "These Terms shall be governed by and construed in accordance with the laws of the State of Wyoming, without regard to conflict of law provisions.",
       "Any disputes arising from these Terms or use of our services shall be resolved through binding arbitration in accordance with the rules of the American Arbitration Association.",
     ],
   },
@@ -275,7 +275,7 @@ export default function TermsPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="font-mono text-cream text-xs mb-8"
           >
-            Last updated: January 2025
+            Last updated: July 2026
           </motion.p>
 
           <motion.button
