@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyIPNSignature } from "@/lib/nowpayments";
+import { getSupabase } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,44 +53,46 @@ export async function POST(request: NextRequest) {
     });
 
     // Handle different payment statuses
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const supabase = getSupabase() as any;
+    const now = new Date().toISOString();
+
     switch (payload.payment_status) {
-      case "finished":
-        // Payment completed successfully
-        // In production, you would:
-        // 1. Update order status in database
-        // 2. Send confirmation email to customer
-        // 3. Trigger fulfillment process
-        console.log(`Order ${payload.order_id} payment completed`);
+      case "finished": {
+        const { error } = await supabase
+          .from("orders")
+          .update({ status: "paid", updated_at: now })
+          .eq("order_id", payload.order_id);
+        if (error) console.error(`Failed to update order ${payload.order_id} to paid:`, error);
+        else console.log(`Order ${payload.order_id} marked as paid`);
         break;
+      }
+
+      case "failed":
+      case "expired": {
+        const { error } = await supabase
+          .from("orders")
+          .update({ status: "failed", updated_at: now })
+          .eq("order_id", payload.order_id);
+        if (error) console.error(`Failed to update order ${payload.order_id} to failed:`, error);
+        else console.log(`Order ${payload.order_id} marked as failed (${payload.payment_status})`);
+        break;
+      }
 
       case "partially_paid":
-        // Payment received but amount is less than expected
         console.log(`Order ${payload.order_id} partially paid`);
         break;
 
       case "confirmed":
-        // Payment confirmed on blockchain
-        console.log(`Order ${payload.order_id} payment confirmed`);
+        console.log(`Order ${payload.order_id} payment confirmed on blockchain`);
         break;
 
       case "sending":
-        // Payment is being processed
         console.log(`Order ${payload.order_id} payment sending`);
         break;
 
-      case "failed":
-        // Payment failed
-        console.log(`Order ${payload.order_id} payment failed`);
-        break;
-
       case "refunded":
-        // Payment was refunded
         console.log(`Order ${payload.order_id} payment refunded`);
-        break;
-
-      case "expired":
-        // Payment expired (customer didn't pay in time)
-        console.log(`Order ${payload.order_id} payment expired`);
         break;
 
       default:

@@ -11,17 +11,36 @@ CREATE TABLE promo_codes (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
--- Orders table (minimal, for first-order detection)
+-- Orders table
+-- NOTE: If migrating an existing table, run the ALTER TABLE statements below instead.
 CREATE TABLE orders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id TEXT UNIQUE NOT NULL,       -- NOWPayments order ID (e.g. LUMO-XXXXXXXXX)
+  payment_id TEXT,                      -- NOWPayments payment ID
   email TEXT NOT NULL,
+  customer_name TEXT,
+  items JSONB NOT NULL DEFAULT '[]',
   subtotal NUMERIC NOT NULL,
   discount_amount NUMERIC DEFAULT 0,
   discount_type TEXT,
   discount_code TEXT,
   shipping_amount NUMERIC DEFAULT 0,
   total NUMERIC NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now()
+  currency TEXT,                        -- crypto currency code (btc, eth, etc.)
+  status TEXT NOT NULL DEFAULT 'pending', -- pending | paid | failed
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE INDEX orders_email_idx ON orders(email);
+CREATE INDEX orders_order_id_idx ON orders(order_id);
+
+-- Migration: run these if the orders table already exists
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_id TEXT UNIQUE;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_id TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_name TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS items JSONB NOT NULL DEFAULT '[]';
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS currency TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'pending';
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now();
+-- CREATE INDEX IF NOT EXISTS orders_order_id_idx ON orders(order_id);

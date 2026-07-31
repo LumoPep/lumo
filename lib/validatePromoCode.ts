@@ -49,6 +49,16 @@ export async function validatePromoCode(
       return { valid: false, error: 'Code no longer available' };
     }
 
+    // Increment usage_count
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: updateError } = await (supabase as any)
+      .from('promo_codes')
+      .update({ usage_count: data.usage_count + 1 })
+      .eq('id', data.id);
+    if (updateError) {
+      console.error('Failed to increment promo code usage:', updateError);
+    }
+
     // Return valid promo
     return {
       valid: true,

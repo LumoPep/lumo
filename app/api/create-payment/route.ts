@@ -5,6 +5,7 @@ import {
   createOrderDescription,
 } from "@/lib/nowpayments";
 import { CartItem } from "@/lib/store";
+import { getSupabase } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -54,15 +55,28 @@ export async function POST(request: NextRequest) {
     // Create payment with NOWPayments
     const payment = await nowPayments.createPayment(paymentRequest);
 
-    // In a production app, you would store the order details in a database here
-    console.log("Payment created:", {
-      orderId,
-      paymentId: payment.payment_id,
-      amount,
-      currency,
-      email,
-      customerInfo,
-    });
+    // Write order record to database
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const supabase = getSupabase() as any;
+      const { error: dbError } = await supabase.from("orders").insert({
+        order_id: orderId,
+        payment_id: payment.payment_id,
+        email,
+        customer_name: customerInfo?.name || null,
+        items,
+        subtotal: parseFloat(amount.toFixed(2)),
+        total: parseFloat(amount.toFixed(2)),
+        currency,
+        status: "pending",
+      });
+      if (dbError) {
+        console.error("Failed to write order to database:", dbError);
+      }
+    } catch (dbError) {
+      // Log but do not fail the request — payment was already created
+      console.error("Database error on order write:", dbError);
+    }
 
     return NextResponse.json({
       success: true,
