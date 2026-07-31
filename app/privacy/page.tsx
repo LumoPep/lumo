@@ -59,7 +59,7 @@ const sections = [
     content: [
       "We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy or as required by law.",
       "Order information is retained for 7 years to comply with business record-keeping requirements. Account information is retained while your account is active or as needed to provide services.",
-      "You may request deletion of your personal information by contacting support@lumopeptides.com. Note that we may need to retain certain information to comply with legal obligations.",
+      "You may request deletion of your personal information by contacting support@lumopep.com. Note that we may need to retain certain information to comply with legal obligations.",
     ],
   },
   {
@@ -68,7 +68,7 @@ const sections = [
     title: "Your Privacy Rights",
     content: [
       "You have the right to: Access the personal information we hold about you; Request correction of inaccurate information; Request deletion of your personal information (subject to legal retention requirements); Opt out of marketing communications; Object to processing of your personal information.",
-      "To exercise these rights, contact us at support@lumopeptides.com with your request.",
+      "To exercise these rights, contact us at support@lumopep.com with your request.",
     ],
   },
   {
@@ -264,7 +264,7 @@ export default function PrivacyPage() {
             className="font-mono text-clay mb-6"
             style={{ fontSize: "14px" }}
           >
-            support@lumopeptides.com
+            support@lumopep.com
           </motion.p>
 
           <motion.p

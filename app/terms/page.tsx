@@ -265,7 +265,7 @@ export default function TermsPage() {
             className="font-mono text-clay mb-6"
             style={{ fontSize: "14px" }}
           >
-            support@lumopeptides.com
+            support@lumopep.com
           </motion.p>
 
           <motion.p

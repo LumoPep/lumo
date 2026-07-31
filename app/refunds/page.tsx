@@ -77,7 +77,7 @@ const sections = [
     number: "08",
     title: "How to Request a Refund",
     content: [
-      "For all refund requests or shipping issues, contact support@lumopeptides.com with: Your order number; Description of the issue; Photos (if applicable); Your preferred resolution.",
+      "For all refund requests or shipping issues, contact support@lumopep.com with: Your order number; Description of the issue; Photos (if applicable); Your preferred resolution.",
       "We typically respond within 24-48 hours. Most approved refund/reship requests are processed within 1-2 business days.",
     ],
   },
@@ -265,7 +265,7 @@ export default function RefundsPage() {
             className="font-mono text-clay mb-6"
             style={{ fontSize: "14px" }}
           >
-            support@lumopeptides.com
+            support@lumopep.com
           </motion.p>
 
           <motion.p

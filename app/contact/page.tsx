@@ -107,10 +107,10 @@ export default function ContactPage() {
                     EMAIL
                   </h3>
                   <a
-                    href="mailto:support@lumopeptides.com"
+                    href="mailto:support@lumopep.com"
                     className="font-editorial text-sm text-clay hover:underline"
                   >
-                    support@lumopeptides.com
+                    support@lumopep.com
                   </a>
                   <p className="font-mono text-xs text-ink opacity-55 mt-2">
                     Response within 24 hours

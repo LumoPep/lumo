@@ -94,7 +94,7 @@ const faqCategories: FAQCategory[] = [
       {
         question: "Do you offer bulk or institutional pricing?",
         answer:
-          "Yes, we offer volume discounts for bulk orders and can provide institutional accounts with NET payment terms for qualified organizations. Please contact support@lumopeptides.com with your institution details and research requirements for a custom quote.",
+          "Yes, we offer volume discounts for bulk orders and can provide institutional accounts with NET payment terms for qualified organizations. Please contact support@lumopep.com with your institution details and research requirements for a custom quote.",
       },
       {
         question: "What is your return or refund policy?",
@@ -121,12 +121,12 @@ const faqCategories: FAQCategory[] = [
       {
         question: "How can I track my order?",
         answer:
-          "Once your order ships, you'll receive an email with tracking information. You can monitor your shipment's progress through the carrier's website. If you have questions about your order status, contact support@lumopeptides.com with your order number.",
+          "Once your order ships, you'll receive an email with tracking information. You can monitor your shipment's progress through the carrier's website. If you have questions about your order status, contact support@lumopep.com with your order number.",
       },
       {
         question: "What if my package is delayed or damaged?",
         answer:
-          "If your tracking shows unexpected delays or if you receive a damaged package, contact us immediately at support@lumopeptides.com. We'll work with the carrier to resolve shipping issues and will reship your order if necessary. All shipments are fully insured.",
+          "If your tracking shows unexpected delays or if you receive a damaged package, contact us immediately at support@lumopep.com. We'll work with the carrier to resolve shipping issues and will reship your order if necessary. All shipments are fully insured.",
       },
     ],
   },
@@ -160,12 +160,12 @@ const faqCategories: FAQCategory[] = [
       {
         question: "Can you help me select the right peptide for my research?",
         answer:
-          "Yes. Our technical support team can provide guidance on peptide selection based on your research objectives. We can discuss properties, applications, and relevant published research. However, we cannot provide medical advice or recommendations for non-research uses. Contact support@lumopeptides.com with details about your research project.",
+          "Yes. Our technical support team can provide guidance on peptide selection based on your research objectives. We can discuss properties, applications, and relevant published research. However, we cannot provide medical advice or recommendations for non-research uses. Contact support@lumopep.com with details about your research project.",
       },
       {
         question: "Can I request a custom peptide synthesis?",
         answer:
-          "We specialize in our catalog products but can discuss custom synthesis projects for qualified research institutions. Custom synthesis requires detailed specifications, intended research use documentation, and typically has minimum order quantities. Contact support@lumopeptides.com to discuss custom projects.",
+          "We specialize in our catalog products but can discuss custom synthesis projects for qualified research institutions. Custom synthesis requires detailed specifications, intended research use documentation, and typically has minimum order quantities. Contact support@lumopep.com to discuss custom projects.",
       },
       {
         question: "Are your products FDA approved?",
@@ -387,7 +387,7 @@ export default function FAQPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <a
-              href="mailto:support@lumopeptides.com"
+              href="mailto:support@lumopep.com"
               className="inline-block px-8 py-4 bg-cream text-ink font-mono text-xs uppercase tracking-mono hover:bg-ochre hover:text-cream transition-colors"
               style={{ borderRadius: "8px" }}
             >
@@ -402,7 +402,7 @@ export default function FAQPage() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="font-mono text-xs text-cream opacity-60 mt-8"
           >
-            Response time: 24-48 hours · support@lumopeptides.com
+            Response time: 24-48 hours · support@lumopep.com
           </motion.p>
         </div>
       </section>

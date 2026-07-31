@@ -352,7 +352,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <a
-                        href="mailto:support@lumopeptides.com"
+                        href="mailto:support@lumopep.com"
                         className="font-editorial text-cream transition-opacity"
                         style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
