@@ -129,7 +129,7 @@ export function createOrderDescription(items: CartItem[]): string {
   const productNames = items
     .map((item) => `${item.productName} (${item.variant})`)
     .join(", ");
-  return `Lumo Peptides Order - ${itemCount} item${
+  return `Lumo Order - ${itemCount} item${
     itemCount !== 1 ? "s" : ""
   }: ${productNames}`;
 }

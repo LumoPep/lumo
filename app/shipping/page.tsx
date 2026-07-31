@@ -29,7 +29,7 @@ const sections = [
     title: "Discreet Packaging",
     content: [
       "All packages are shipped in plain, unmarked boxes with no external indication of contents.",
-      "The return address shows only 'Lumo Research' with no reference to peptides or research chemicals. Contents are not visible from outside the package.",
+      "The return address shows only 'LumoPep LLC' with no reference to peptides or research chemicals. Contents are not visible from outside the package.",
       "We respect your privacy and understand the need for discrete delivery of research materials.",
     ],
   },

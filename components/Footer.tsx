@@ -436,7 +436,7 @@ export default function Footer() {
                 className="font-mono text-cream text-center md:text-left"
                 style={{ fontSize: "10px", opacity: 0.65 }}
               >
-                © {new Date().getFullYear()} Lumo Research Peptides
+                © {new Date().getFullYear()} LumoPep LLC
               </div>
               <div
                 className="font-mono text-cream text-center md:text-right"
