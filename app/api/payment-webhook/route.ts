@@ -1,6 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyIPNSignature } from "@/lib/nowpayments";
 import { getSupabase } from "@/lib/supabase";
+import { submitOrderWithSession, type RapidOrder } from "@/lib/rapidfulfillment";
+import { mapOrderItems, type CartItemLike } from "@/lib/orderMapping";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function submitToRapid(order: any): Promise<void> {
+  try {
+    const prefix = process.env.RAPID_ORDER_PREFIX ?? '1';
+    const rapidOrderId = `${prefix}-${order.order_id}`;
+
+    const items: CartItemLike[] = Array.isArray(order.items) ? order.items : [];
+    const { mapped, unmapped } = mapOrderItems(items);
+
+    if (unmapped.length > 0) {
+      console.warn(
+        `Rapid: ${unmapped.length} item(s) missing supplier code mapping:`,
+        unmapped.map((i) => `${i.productId}:${i.variant}`)
+      );
+    }
+
+    if (mapped.length === 0) {
+      console.error(`Rapid: order ${order.order_id} has no mappable items — skipping submission`);
+      return;
+    }
+
+    // NOTE: Shipping/billing address is not currently collected at checkout.
+    // The checkout form captures email, name, and institution only.
+    // TODO: Add address fields to checkout and the orders table, then populate
+    //       order.address1, order.city, order.state, order.zip, order.country here.
+    const addressData: RapidOrder['shipping'] = {
+      name: order.customer_name || 'Research Customer',
+      address1: order.address1 || 'Address not collected',
+      city: order.city || '',
+      state: order.state || '',
+      zip: order.zip || '',
+      country: order.country || 'US',
+      email: order.email || undefined,
+    };
+
+    const rapidOrder: RapidOrder = {
+      orderId: rapidOrderId,
+      orderDate: new Date().toISOString().split('T')[0],
+      currency: 'USD',
+      source: 'lumo-web',
+      billing: addressData,
+      shipping: addressData,
+      items: mapped,
+    };
+
+    const result = await submitOrderWithSession(rapidOrder);
+    console.log(`Rapid: order ${rapidOrderId} submitted — response: ${result}`);
+  } catch (err) {
+    // Non-fatal: payment is already confirmed; log and continue
+    console.error(`Rapid: failed to submit order ${order?.order_id}:`, err);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -59,12 +114,20 @@ export async function POST(request: NextRequest) {
 
     switch (payload.payment_status) {
       case "finished": {
-        const { error } = await supabase
+        // Mark order paid and fetch the row for fulfillment submission
+        const { data: orderData, error } = await supabase
           .from("orders")
           .update({ status: "paid", updated_at: now })
-          .eq("order_id", payload.order_id);
-        if (error) console.error(`Failed to update order ${payload.order_id} to paid:`, error);
-        else console.log(`Order ${payload.order_id} marked as paid`);
+          .eq("order_id", payload.order_id)
+          .select()
+          .single();
+
+        if (error) {
+          console.error(`Failed to update order ${payload.order_id} to paid:`, error);
+        } else {
+          console.log(`Order ${payload.order_id} marked as paid`);
+          await submitToRapid(orderData);
+        }
         break;
       }
 
