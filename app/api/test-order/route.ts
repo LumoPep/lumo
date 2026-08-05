@@ -19,20 +19,21 @@ import { mapOrderItems, type CartItemLike } from "@/lib/orderMapping";
 
 // Test items: two valid mappings + one deliberately unmapped to verify reporting
 const TEST_ITEMS: CartItemLike[] = [
-  { productId: "bpc-157",   variant: "10mg",  price: 49.00, quantity: 1 },
-  { productId: "bac-water", variant: "10ml",  price: 12.00, quantity: 2 },
-  { productId: "unknown-x", variant: "999mg", price: 0.00,  quantity: 1 },
+  { productId: "bpc-157",   productName: "BPC-157",   variant: "10mg",  price: 49.00, quantity: 1 },
+  { productId: "bac-water", productName: "BAC Water", variant: "10ml",  price: 12.00, quantity: 2 },
+  { productId: "unknown-x", productName: "Unknown",   variant: "999mg", price: 0.00,  quantity: 1 },
 ];
 
-const TEST_ADDRESS = {
-  name:     "Test Researcher",
-  address1: "123 Lab Drive",
-  address2: "Suite 400",
-  city:     "Boston",
-  state:    "MA",
-  zip:      "02115",
-  country:  "US",
-  email:    "test@lumopep.com",
+const TEST_ADDRESS: RapidOrder['billing'] = {
+  customer_id: 0,
+  firstname:   "Test",
+  surname:     "Researcher",
+  address:     "123 Lab Drive, Suite 400",
+  town:        "Boston",
+  postcode:    "02115",
+  country:     "US",
+  phone:       "",
+  email:       "test@lumopep.com",
 };
 
 function isAuthorized(request: NextRequest): boolean {
@@ -58,15 +59,12 @@ export async function POST(request: NextRequest) {
   }
 
   const orderId = `TEST-${Date.now()}`;
-  const rapidOrderId = `${process.env.RAPID_ORDER_PREFIX ?? "1"}-${orderId}`;
-  const rapidEndpoint =
-    process.env.RAPID_USE_TEST === "true"
-      ? "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action"
-      : "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action";
+  const orderIdPrefix = process.env.RAPID_ORDER_PREFIX ?? "1";
+  const rapidEndpoint = "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action";
 
   const results: Record<string, unknown> = {
     orderId,
-    rapidOrderId,
+    rapidOrderId: `${orderIdPrefix}-${orderId}`,
     rapidEndpoint,
     timestamp: new Date().toISOString(),
   };
@@ -96,13 +94,13 @@ export async function POST(request: NextRequest) {
         order_id:      orderId,
         payment_id:    "TEST-PAYMENT",
         email:         TEST_ADDRESS.email,
-        customer_name: TEST_ADDRESS.name,
-        address1:      TEST_ADDRESS.address1,
-        address2:      TEST_ADDRESS.address2,
-        city:          TEST_ADDRESS.city,
-        state:         TEST_ADDRESS.state,
-        zip:           TEST_ADDRESS.zip,
-        country:       TEST_ADDRESS.country,
+        customer_name: `${TEST_ADDRESS.firstname} ${TEST_ADDRESS.surname}`.trim(),
+        address1:      "123 Lab Drive",
+        address2:      "Suite 400",
+        city:          "Boston",
+        state:         "MA",
+        zip:           "02115",
+        country:       "US",
         items:         TEST_ITEMS,
         subtotal:      73.00,
         total:         73.00,
@@ -125,13 +123,15 @@ export async function POST(request: NextRequest) {
   // ── 3. Submit to Rapid Fulfillment ───────────────────────────────────────────
   try {
     const rapidOrder: RapidOrder = {
-      orderId:   rapidOrderId,
-      orderDate: new Date().toISOString().split("T")[0],
-      currency:  "USD",
+      orderIdPrefix,
+      orderId:   orderId,
       source:    "lumo-web",
+      orderDate: new Date().toISOString().replace("T", " ").substring(0, 19),
+      currency:  "USD",
       billing:   TEST_ADDRESS,
       shipping:  TEST_ADDRESS,
       items:     mapped,
+      totalCost: 73.00,
     };
 
     const t0 = Date.now();

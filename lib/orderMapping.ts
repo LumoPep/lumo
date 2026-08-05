@@ -33,8 +33,9 @@ const SUPPLIER_CODES: Record<string, string> = {
 };
 
 export interface CartItemLike {
-  productId: string; // product slug
-  variant: string;   // e.g. "10mg", "5mg", "10ml"
+  productId: string;    // product slug
+  productName?: string; // display name — used as ordersProductsData.name
+  variant: string;      // e.g. "10mg", "5mg", "10ml"
   price: number;
   quantity: number;
 }
@@ -54,7 +55,11 @@ export function mapOrderItems(items: CartItemLike[]): {
   for (const item of items) {
     const supplierCode = getSupplierCode(item.productId, item.variant);
     if (supplierCode) {
-      mapped.push({ supplierCode, quantity: item.quantity, unitPrice: item.price });
+      mapped.push({
+        product_id: supplierCode,
+        name: item.productName ?? item.productId,
+        qty: item.quantity,
+      });
     } else {
       unmapped.push(item);
     }

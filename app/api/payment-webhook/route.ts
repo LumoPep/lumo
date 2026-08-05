@@ -7,8 +7,6 @@ import { mapOrderItems, type CartItemLike } from "@/lib/orderMapping";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function submitToRapid(order: any): Promise<void> {
   try {
-    const prefix = process.env.RAPID_ORDER_PREFIX ?? '1';
-    const rapidOrderId = `${prefix}-${order.order_id}`;
 
     const items: CartItemLike[] = Array.isArray(order.items) ? order.items : [];
     const { mapped, unmapped } = mapOrderItems(items);
@@ -25,29 +23,44 @@ async function submitToRapid(order: any): Promise<void> {
       return;
     }
 
+    // Split full name into firstname / surname for ordersAddressData
+    const fullName = (order.customer_name || 'Research Customer').trim();
+    const spaceIdx = fullName.lastIndexOf(' ');
+    const firstname = spaceIdx > 0 ? fullName.slice(0, spaceIdx) : fullName;
+    const surname   = spaceIdx > 0 ? fullName.slice(spaceIdx + 1) : '';
+
+    // Combine address lines for the single `address` field
+    const addressLine = [order.address1, order.address2].filter(Boolean).join(', ');
+
     const addressData: RapidOrder['shipping'] = {
-      name: order.customer_name || 'Research Customer',
-      address1: order.address1 || '',
-      address2: order.address2 || undefined,
-      city: order.city || '',
-      state: order.state || '',
-      zip: order.zip || '',
-      country: order.country || 'US',
-      email: order.email || undefined,
+      customer_id: 0,
+      firstname,
+      surname,
+      address:  addressLine || '',
+      town:     order.city    || '',
+      postcode: order.zip     || '',
+      country:  order.country || 'US',
+      phone:    order.phone   || '',
+      email:    order.email   || '',
     };
 
+    // order_date must be YYYY-MM-DD HH:MM:SS
+    const orderDate = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
     const rapidOrder: RapidOrder = {
-      orderId: rapidOrderId,
-      orderDate: new Date().toISOString().split('T')[0],
-      currency: 'USD',
-      source: 'lumo-web',
-      billing: addressData,
-      shipping: addressData,
-      items: mapped,
+      orderIdPrefix: process.env.RAPID_ORDER_PREFIX ?? '1',
+      orderId:       order.order_id,
+      source:        'lumo-web',
+      orderDate,
+      currency:      'USD',
+      billing:       addressData,
+      shipping:      addressData,
+      items:         mapped,
+      totalCost:     order.total ?? 0,
     };
 
     const result = await submitOrderWithSession(rapidOrder);
-    console.log(`Rapid: order ${rapidOrderId} submitted — response: ${result}`);
+    console.log(`Rapid: order ${rapidOrder.orderIdPrefix}-${rapidOrder.orderId} submitted — response: ${result}`);
   } catch (err) {
     // Non-fatal: payment is already confirmed; log and continue
     console.error(`Rapid: failed to submit order ${order?.order_id}:`, err);
