@@ -56,6 +56,11 @@ function soapRequest(body: string): Promise<string> {
         'Content-Length': bodyBuffer.length,
         'SOAPAction': '""',
       },
+      // Disable SSL verification for the test sandbox only — its certificate
+      // may be self-signed. Never set rejectUnauthorized: false in production.
+      ...(process.env.RAPID_USE_TEST === 'true' && {
+        agent: new https.Agent({ rejectUnauthorized: false }),
+      }),
     };
     const req = https.request(options, (res) => {
       let data = '';
