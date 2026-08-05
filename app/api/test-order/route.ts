@@ -58,13 +58,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const orderId = `TEST-${Date.now()}`;
-  const orderIdPrefix = process.env.RAPID_ORDER_PREFIX ?? "1";
+  // Rapid order_id is int(10) — use last 8 digits of timestamp for a numeric-only ID
+  const numericOrderId = Date.now() % 100000000;
+  const orderId = String(numericOrderId); // string for Supabase text column
+  const orderIdPrefix = parseInt(process.env.RAPID_ORDER_PREFIX ?? "1", 10);
   const rapidEndpoint = "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action";
 
   const results: Record<string, unknown> = {
     orderId,
-    rapidOrderId: `${orderIdPrefix}-${orderId}`,
+    rapidOrderId: `${orderIdPrefix}${numericOrderId}`,
     rapidEndpoint,
     timestamp: new Date().toISOString(),
   };
@@ -124,7 +126,7 @@ export async function POST(request: NextRequest) {
   try {
     const rapidOrder: RapidOrder = {
       orderIdPrefix,
-      orderId:   orderId,
+      orderId:   numericOrderId,
       source:    "lumo-web",
       orderDate: new Date().toISOString().replace("T", " ").substring(0, 19),
       currency:  "USD",

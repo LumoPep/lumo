@@ -35,8 +35,8 @@ export interface RapidOrderItem {
 
 // ordersData complex type fields
 export interface RapidOrder {
-  orderIdPrefix: string; // order_id_prefix
-  orderId: string;       // order_id
+  orderIdPrefix: number; // order_id_prefix — int(10) in Rapid schema
+  orderId: number;       // order_id        — int(10) in Rapid schema
   source: string;
   orderDate: string;     // YYYY-MM-DD HH:MM:SS
   billing: RapidAddress;
@@ -171,8 +171,8 @@ export async function submitOrder(sessionId: string, order: RapidOrder): Promise
   const envelope = soapEnvelope(`<urn:orders_new>
       <sessionId xsi:type="xsd:string">${xmlEscape(sessionId)}</sessionId>
       <ordersData xsi:type="urn:ordersData">
-        <order_id_prefix xsi:type="xsd:string">${xmlEscape(order.orderIdPrefix)}</order_id_prefix>
-        <order_id xsi:type="xsd:string">${xmlEscape(order.orderId)}</order_id>
+        <order_id_prefix xsi:type="xsd:integer">${order.orderIdPrefix}</order_id_prefix>
+        <order_id xsi:type="xsd:integer">${order.orderId}</order_id>
         <source xsi:type="xsd:string">${xmlEscape(order.source)}</source>
         <order_date xsi:type="xsd:string">${xmlEscape(order.orderDate)}</order_date>
         <billing_address xsi:type="urn:ordersAddressData">
