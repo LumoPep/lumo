@@ -1,10 +1,18 @@
 import https from 'https';
 
-// Toggle RAPID_USE_TEST=true in env to hit the sandbox endpoint
+// The WSDL soap:address location is ?action, but ?wsdl is used here per configuration.
+// If requests fail, try switching ENDPOINT to end with ?action instead.
 const ENDPOINT =
   process.env.RAPID_USE_TEST === 'true'
-    ? 'https://lumopep.rapidfulfillmentcrm.com/api/soap/'
-    : 'https://lumopep.rapidfulfillmentcrm.com/api/soap/';
+    ? 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?wsdl'
+    : 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?wsdl';
+
+// SOAPAction and namespace derived from WSDL:
+//   targetNamespace: urn:WF
+//   soapAction (all operations): urn:WF_Api_Soap_HandlerAction
+//   binding style: RPC / SOAP encoding
+const SOAP_ACTION = 'urn:WF_Api_Soap_HandlerAction';
+const NS = 'urn:WF';
 
 export interface RapidAddress {
   name: string;
@@ -49,14 +57,15 @@ function soapRequest(body: string): Promise<string> {
     const bodyBuffer = Buffer.from(body, 'utf-8');
     const options: https.RequestOptions = {
       hostname: url.hostname,
-      path: url.pathname,
+      // Include the query string (?wsdl / ?action) — pathname alone drops it
+      path: url.pathname + url.search,
       method: 'POST',
       headers: {
         'Content-Type': 'text/xml; charset=utf-8',
         'Content-Length': bodyBuffer.length,
-        'SOAPAction': '""',
+        'SOAPAction': SOAP_ACTION,
       },
-      // Disable SSL verification for the test sandbox only — its certificate
+      // Disable SSL verification when targeting the test endpoint — certificate
       // may be self-signed. Never set rejectUnauthorized: false in production.
       ...(process.env.RAPID_USE_TEST === 'true' && {
         agent: new https.Agent({ rejectUnauthorized: false }),
@@ -86,36 +95,40 @@ export async function login(): Promise<string> {
   }
 
   const envelope = `<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://lumopep.rapidfulfillmentcrm.com/api/soap/">
+<soapenv:Envelope
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:urn="${NS}">
   <soapenv:Header/>
-  <soapenv:Body>
-    <api:login>
+  <soapenv:Body soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <urn:login>
       <username>${xmlEscape(username)}</username>
       <password>${xmlEscape(password)}</password>
-    </api:login>
+    </urn:login>
   </soapenv:Body>
 </soapenv:Envelope>`;
 
   const response = await soapRequest(envelope);
-  const sessionKey =
-    extractTag(response, 'sessionKey') ??
-    extractTag(response, 'loginReturn') ??
+  // WSDL output parameter is named sessionId
+  const sessionId =
+    extractTag(response, 'sessionId') ??
     extractTag(response, 'return');
 
-  if (!sessionKey) {
+  if (!sessionId) {
     throw new Error(`Rapid login failed. Response: ${response.substring(0, 500)}`);
   }
-  return sessionKey;
+  return sessionId;
 }
 
-export async function logout(sessionKey: string): Promise<void> {
+export async function logout(sessionId: string): Promise<void> {
   const envelope = `<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://lumopep.rapidfulfillmentcrm.com/api/soap/">
+<soapenv:Envelope
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:urn="${NS}">
   <soapenv:Header/>
-  <soapenv:Body>
-    <api:logout>
-      <sessionKey>${xmlEscape(sessionKey)}</sessionKey>
-    </api:logout>
+  <soapenv:Body soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <urn:logout>
+      <sessionId>${xmlEscape(sessionId)}</sessionId>
+    </urn:logout>
   </soapenv:Body>
 </soapenv:Envelope>`;
 
@@ -137,79 +150,91 @@ function addressXml(addr: RapidAddress): string {
     addr.phone ? `<phone>${xmlEscape(addr.phone)}</phone>` : '',
   ]
     .filter(Boolean)
-    .join('\n      ');
+    .join('\n          ');
 }
 
-export async function submitOrder(sessionKey: string, order: RapidOrder): Promise<string> {
+// WSDL operation: orders_new
+// Input: sessionId (string), ordersData (ordersNewData complex type)
+// Output: result (boolean)
+export async function submitOrder(sessionId: string, order: RapidOrder): Promise<string> {
   const itemsXml = order.items
     .map(
       (item) =>
         `<item>
-          <supplierCode>${xmlEscape(item.supplierCode)}</supplierCode>
-          <quantity>${item.quantity}</quantity>
-          <unitPrice>${item.unitPrice.toFixed(2)}</unitPrice>
-        </item>`
+              <sku>${xmlEscape(item.supplierCode)}</sku>
+              <qty>${item.quantity}</qty>
+              <price>${item.unitPrice.toFixed(2)}</price>
+            </item>`
     )
-    .join('\n        ');
+    .join('\n            ');
 
   const envelope = `<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://lumopep.rapidfulfillmentcrm.com/api/soap/">
+<soapenv:Envelope
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:urn="${NS}">
   <soapenv:Header/>
-  <soapenv:Body>
-    <api:submitOrder>
-      <sessionKey>${xmlEscape(sessionKey)}</sessionKey>
-      <order>
-        <orderId>${xmlEscape(order.orderId)}</orderId>
-        <orderDate>${xmlEscape(order.orderDate)}</orderDate>
-        <currency>${xmlEscape(order.currency)}</currency>
+  <soapenv:Body soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <urn:orders_new>
+      <sessionId>${xmlEscape(sessionId)}</sessionId>
+      <ordersData>
+        <order_id>${xmlEscape(order.orderId)}</order_id>
         <source>${xmlEscape(order.source)}</source>
-        <billing>
+        <order_date>${xmlEscape(order.orderDate)}</order_date>
+        <currency>${xmlEscape(order.currency)}</currency>
+        <billing_address>
           ${addressXml(order.billing)}
-        </billing>
-        <shipping>
+        </billing_address>
+        <shipping_address>
           ${addressXml(order.shipping)}
-        </shipping>
-        <items>
-        ${itemsXml}
-        </items>
-      </order>
-    </api:submitOrder>
+        </shipping_address>
+        <products>
+            ${itemsXml}
+        </products>
+      </ordersData>
+    </urn:orders_new>
   </soapenv:Body>
 </soapenv:Envelope>`;
 
   const response = await soapRequest(envelope);
+  // WSDL output parameter is named result (boolean — "1"/"true" on success)
   const result =
-    extractTag(response, 'submitOrderReturn') ??
-    extractTag(response, 'return') ??
-    extractTag(response, 'status');
+    extractTag(response, 'result') ??
+    extractTag(response, 'return');
 
   if (!result) {
-    throw new Error(`Rapid submitOrder failed. Response: ${response.substring(0, 500)}`);
+    throw new Error(`Rapid orders_new failed. Response: ${response.substring(0, 500)}`);
   }
   return result;
 }
 
+// WSDL operation: products_stock
+// Input: sessionId (string), filters (filters complex type)
+// Output: products (productsStockDataArray)
 export async function getStock(
-  sessionKey: string,
+  sessionId: string,
   supplierCodes: string[]
 ): Promise<Record<string, number>> {
-  const codesXml = supplierCodes.map((c) => `<code>${xmlEscape(c)}</code>`).join('');
+  const codesXml = supplierCodes
+    .map((c) => `<filter><field>sku</field><value>${xmlEscape(c)}</value></filter>`)
+    .join('');
 
   const envelope = `<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://lumopep.rapidfulfillmentcrm.com/api/soap/">
+<soapenv:Envelope
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:urn="${NS}">
   <soapenv:Header/>
-  <soapenv:Body>
-    <api:getStock>
-      <sessionKey>${xmlEscape(sessionKey)}</sessionKey>
-      <codes>${codesXml}</codes>
-    </api:getStock>
+  <soapenv:Body soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <urn:products_stock>
+      <sessionId>${xmlEscape(sessionId)}</sessionId>
+      <filters>${codesXml}</filters>
+    </urn:products_stock>
   </soapenv:Body>
 </soapenv:Envelope>`;
 
   const response = await soapRequest(envelope);
   const stockMap: Record<string, number> = {};
   const itemMatches = response.matchAll(
-    /<item>[\s\S]*?<code[^>]*>([\s\S]*?)<\/code>[\s\S]*?<qty[^>]*>([\s\S]*?)<\/qty>[\s\S]*?<\/item>/gi
+    /<item>[\s\S]*?<sku[^>]*>([\s\S]*?)<\/sku>[\s\S]*?<qty[^>]*>([\s\S]*?)<\/qty>[\s\S]*?<\/item>/gi
   );
   for (const match of itemMatches) {
     stockMap[match[1].trim()] = parseInt(match[2].trim(), 10);
@@ -218,15 +243,15 @@ export async function getStock(
 }
 
 /**
- * Convenience wrapper: handles session lifecycle (login → submitOrder → logout).
+ * Convenience wrapper: handles session lifecycle (login → orders_new → logout).
  * Use this in the webhook handler.
  */
 export async function submitOrderWithSession(order: RapidOrder): Promise<string> {
-  const sessionKey = await login();
+  const sessionId = await login();
   try {
-    const result = await submitOrder(sessionKey, order);
+    const result = await submitOrder(sessionId, order);
     return result;
   } finally {
-    await logout(sessionKey);
+    await logout(sessionId);
   }
 }
