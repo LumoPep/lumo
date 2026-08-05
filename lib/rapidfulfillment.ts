@@ -3,7 +3,7 @@ import https from 'https';
 // Toggle RAPID_USE_TEST=true in env to hit the sandbox endpoint
 const ENDPOINT =
   process.env.RAPID_USE_TEST === 'true'
-    ? 'https://lumopep.test.rapidfulfillmentcrm.com/api/soap/'
+    ? 'https://lumopep.rapidfulfillmentcrm.com/api/soap/'
     : 'https://lumopep.rapidfulfillmentcrm.com/api/soap/';
 
 export interface RapidAddress {
