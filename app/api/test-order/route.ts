@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
   const rapidOrderId = `${process.env.RAPID_ORDER_PREFIX ?? "1"}-${orderId}`;
   const rapidEndpoint =
     process.env.RAPID_USE_TEST === "true"
-      ? "https://lumopep.rapidfulfillmentcrm.com/api/soap/"
-      : "https://lumopep.rapidfulfillmentcrm.com/api/soap/";
+      ? "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action"
+      : "https://lumopep.rapidfulfillmentcrm.com/api/soap/?action";
 
   const results: Record<string, unknown> = {
     orderId,

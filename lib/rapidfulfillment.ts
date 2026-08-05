@@ -1,11 +1,10 @@
 import https from 'https';
 
-// The WSDL soap:address location is ?action, but ?wsdl is used here per configuration.
-// If requests fail, try switching ENDPOINT to end with ?action instead.
+// Endpoint matches the soap:address location from the WSDL.
 const ENDPOINT =
   process.env.RAPID_USE_TEST === 'true'
-    ? 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?wsdl'
-    : 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?wsdl';
+    ? 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?action'
+    : 'https://lumopep.rapidfulfillmentcrm.com/api/soap/?action';
 
 // SOAPAction and namespace derived from WSDL:
 //   targetNamespace: urn:WF
