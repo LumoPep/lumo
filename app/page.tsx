@@ -266,8 +266,8 @@ export default function HomePage() {
             <div style={{ width: '50%', position: 'relative', height: '560px', minWidth: '400px', flex: '1 1 400px', paddingTop: '20px', background: 'transparent' }}>
               {/* Large front vial - 504px, absolute positioned */}
               <img
-                src='/images/vial-transparent.png'
-                alt='Research vial'
+                src='/images/products/ghk-cu-v2.png'
+                alt='GHK-Cu research vial'
                 style={{
                   position: 'absolute',
                   bottom: '20px',
@@ -298,8 +298,8 @@ export default function HomePage() {
 
               {/* Third vial - 454px, to the right of front vial */}
               <img
-                src='/images/vial-transparent.png'
-                alt='Research vial'
+                src='/images/products/bpc-157-v2.png'
+                alt='BPC-157 research vial'
                 style={{
                   position: 'absolute',
                   bottom: '40px',
@@ -331,8 +331,8 @@ export default function HomePage() {
 
               {/* Smaller back vial - 360px, absolute positioned */}
               <img
-                src='/images/vial-transparent.png'
-                alt='Research vial'
+                src='/images/products/cjc-ipamorelin-v2.png'
+                alt='CJC+Ipamorelin research vial'
                 style={{
                   position: 'absolute',
                   bottom: '70px',
@@ -736,8 +736,8 @@ export default function HomePage() {
             className="bg-bone py-24 px-12 flex flex-col items-center justify-center"
           >
             <img
-              src='/images/vial-transparent.png'
-              alt='Research Grade Packaging'
+              src='/images/products/lumo-3-rt-10mg-v2.png'
+              alt='Lumo-3 RT research vial'
               style={{
                 width: 'auto',
                 height: '480px',
@@ -800,7 +800,7 @@ export default function HomePage() {
       <section style={{ background: '#F5EFE4', padding: '80px 40px', position: 'relative', overflow: 'visible' }}>
         {/* Left floating vial */}
         <img
-          src="/images/vial-transparent.png"
+          src="/images/products/selank-v2.png"
           alt=""
           className="hidden lg:block"
           style={{
@@ -813,12 +813,13 @@ export default function HomePage() {
             opacity: 0.9,
             filter: 'drop-shadow(-6px 12px 24px rgba(26,24,20,0.15))',
             animation: 'floatLeft 4.5s ease-in-out infinite',
+            mixBlendMode: 'multiply',
           }}
         />
 
         {/* Right floating vial */}
         <img
-          src="/images/vial-transparent.png"
+          src="/images/products/tb-500-v2.png"
           alt=""
           className="hidden lg:block"
           style={{
@@ -831,6 +832,7 @@ export default function HomePage() {
             opacity: 0.9,
             filter: 'drop-shadow(6px 12px 24px rgba(26,24,20,0.15))',
             animation: 'floatRight 5s ease-in-out infinite',
+            mixBlendMode: 'multiply',
           }}
         />
 

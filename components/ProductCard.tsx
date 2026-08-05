@@ -142,7 +142,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
 
             <img
-              src='/images/vial-transparent.png'
+              src={product.images[0]}
               alt={product.name}
               style={{
                 width: '98%',

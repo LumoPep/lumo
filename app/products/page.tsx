@@ -210,7 +210,7 @@ function ProductsPageContent() {
                     '--category-color': categoryColors.accent,
                     borderRadius: '999px',
                     border: `1.5px solid ${isSelected ? categoryColors.accent : 'rgba(26,24,20,0.15)'}`,
-                    background: isSelected ? categoryColors.accent : 'white',
+                    background: isSelected ? categoryColors.accent : '#EBE2CF',
                     color: isSelected ? 'white' : '#1A1814',
                     padding: '6px 18px',
                     fontSize: '13px',

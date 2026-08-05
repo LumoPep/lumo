@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { PRODUCTS, CATEGORY_COLORS } from "@/data/products";
 import COAModal from "@/components/COAModal";
@@ -371,6 +370,10 @@ function CoACard({ product, index }: { product: any; index: number }) {
   // Derive active COA based on selected size
   const activeCoa = product.coas?.find((c: any) => c.active && c.size === selectedSize) ?? product.coas?.[0];
 
+  // Derive the vial image matching the selected size
+  const sizeIndex = product.sizes.indexOf(selectedSize);
+  const activeImage = product.images?.[sizeIndex] || product.images?.[0];
+
   return (
     <motion.div
       ref={cardRef}
@@ -393,13 +396,14 @@ function CoACard({ product, index }: { product: any; index: number }) {
           <div className="flex-shrink-0 border-r border-[#EBE2CF] pr-6" style={{ width: '288px' }}>
             <Link href={`/products/${product.slug}`} className="block">
               <div className="flex items-center justify-center">
-                <Image
-                  src="/images/vial-transparent.png"
+                <img
+                  key={activeImage}
+                  src={activeImage}
                   alt={product.name}
                   width={240}
                   height={312}
                   className="hover:scale-105 transition-transform duration-300"
-                  style={{ objectFit: 'contain' }}
+                  style={{ objectFit: 'contain', mixBlendMode: 'multiply' }}
                 />
               </div>
             </Link>

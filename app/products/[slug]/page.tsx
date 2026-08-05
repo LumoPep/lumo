@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getProductBySlug, PRODUCTS, CATEGORY_COLORS } from "@/data/products";
 import { useCartStore } from "@/lib/store";
@@ -119,8 +118,9 @@ export default function ProductPage() {
                     overflow: 'hidden',
                   }}
                 >
-                  <Image
-                    src='/images/vial-transparent.png'
+                  <img
+                    key={product.images[selectedVariant] || product.images[0]}
+                    src={product.images[selectedVariant] || product.images[0]}
                     alt={product.name}
                     width={482}
                     height={567}
@@ -134,7 +134,6 @@ export default function ProductPage() {
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-                    priority
                   />
                 </motion.div>
               </div>

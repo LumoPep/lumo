@@ -494,7 +494,7 @@ export default function AboutPage() {
       <section ref={valuesRef} className="py-0" style={{ position: 'relative', overflow: 'visible' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Column - Bone with Large Vial */}
-          <div className="bg-bone flex items-center justify-center py-16 px-6" style={{ position: 'relative' }}>
+          <div className="flex items-center justify-center py-16 px-6" style={{ position: 'relative', backgroundColor: '#EBE2CF' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -516,14 +516,15 @@ export default function AboutPage() {
                 transition={{ duration: 0.8 }}
               >
                 <img
-                  src="/images/vial-blend-glow-klow-transparent.png"
-                  alt=""
+                  src="/images/products/klow-blend-v3.png"
+                  alt="KLOW Blend research vial"
                   style={{
                     width: 'auto',
                     height: '384px',
                     filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                     display: 'block',
                     margin: '0 auto',
+                    mixBlendMode: 'multiply',
                   }}
                 />
               </motion.div>
@@ -747,8 +748,8 @@ export default function AboutPage() {
               className="flex items-center justify-center"
             >
               <img
-                src="/images/vial-transparent.png"
-                alt="Research vial"
+                src="/images/products/nad-plus-v2.png"
+                alt="NAD+ research vial"
                 style={{
                   width: 'auto',
                   height: '384px',
