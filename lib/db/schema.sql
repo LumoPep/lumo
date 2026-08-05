@@ -19,6 +19,12 @@ CREATE TABLE orders (
   payment_id TEXT,                      -- NOWPayments payment ID
   email TEXT NOT NULL,
   customer_name TEXT,
+  address1 TEXT,
+  address2 TEXT,
+  city TEXT,
+  state TEXT,
+  zip TEXT,
+  country TEXT DEFAULT 'US',
   items JSONB NOT NULL DEFAULT '[]',
   subtotal NUMERIC NOT NULL,
   discount_amount NUMERIC DEFAULT 0,
@@ -39,6 +45,12 @@ CREATE INDEX orders_order_id_idx ON orders(order_id);
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_id TEXT UNIQUE;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_id TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_name TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS address1 TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS address2 TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS city TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS state TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS zip TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS country TEXT DEFAULT 'US';
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS items JSONB NOT NULL DEFAULT '[]';
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS currency TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'pending';

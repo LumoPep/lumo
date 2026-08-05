@@ -25,13 +25,10 @@ async function submitToRapid(order: any): Promise<void> {
       return;
     }
 
-    // NOTE: Shipping/billing address is not currently collected at checkout.
-    // The checkout form captures email, name, and institution only.
-    // TODO: Add address fields to checkout and the orders table, then populate
-    //       order.address1, order.city, order.state, order.zip, order.country here.
     const addressData: RapidOrder['shipping'] = {
       name: order.customer_name || 'Research Customer',
-      address1: order.address1 || 'Address not collected',
+      address1: order.address1 || '',
+      address2: order.address2 || undefined,
       city: order.city || '',
       state: order.state || '',
       zip: order.zip || '',

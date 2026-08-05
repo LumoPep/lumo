@@ -10,7 +10,7 @@ import { getSupabase } from "@/lib/supabase";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { amount, currency, email, customerInfo, items } = body;
+    const { amount, currency, email, customerInfo, shippingAddress, items } = body;
 
     // Validate environment variables
     const apiKey = process.env.NOWPAYMENTS_API_KEY;
@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate request data
-    if (!amount || !currency || !email || !items || items.length === 0) {
+    if (!amount || !currency || !email || !items || items.length === 0 ||
+        !shippingAddress?.address1 || !shippingAddress?.city ||
+        !shippingAddress?.state || !shippingAddress?.zip || !shippingAddress?.country) {
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
         { status: 400 }
@@ -64,6 +66,12 @@ export async function POST(request: NextRequest) {
         payment_id: payment.payment_id,
         email,
         customer_name: customerInfo?.name || null,
+        address1: shippingAddress.address1,
+        address2: shippingAddress.address2 || null,
+        city: shippingAddress.city,
+        state: shippingAddress.state,
+        zip: shippingAddress.zip,
+        country: shippingAddress.country,
         items,
         subtotal: parseFloat(amount.toFixed(2)),
         total: parseFloat(amount.toFixed(2)),

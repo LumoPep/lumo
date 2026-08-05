@@ -24,6 +24,12 @@ export default function CheckoutPage() {
     email: "",
     name: "",
     institution: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "US",
     confirmResearch: false,
     confirmAge: false,
     confirmAccurate: false,
@@ -140,6 +146,14 @@ export default function CheckoutPage() {
           customerInfo: {
             name: formData.name,
             institution: formData.institution,
+          },
+          shippingAddress: {
+            address1: formData.address1,
+            address2: formData.address2 || undefined,
+            city: formData.city,
+            state: formData.state,
+            zip: formData.zip,
+            country: formData.country,
           },
           items: items,
         }),
@@ -273,6 +287,108 @@ export default function CheckoutPage() {
                       className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
                       placeholder="University Research Laboratory"
                     />
+                  </div>
+                </div>
+              </div>
+
+              {/* Shipping Address */}
+              <div className="bg-cream hairline-border p-8">
+                <h2 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-6">
+                  SHIPPING ADDRESS
+                </h2>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                      ADDRESS LINE 1 *
+                    </label>
+                    <input
+                      type="text"
+                      name="address1"
+                      value={formData.address1}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                      placeholder="123 Research Drive"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                      ADDRESS LINE 2
+                    </label>
+                    <input
+                      type="text"
+                      name="address2"
+                      value={formData.address2}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                      placeholder="Suite 400, Lab Building C (optional)"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                        CITY *
+                      </label>
+                      <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                        placeholder="Boston"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                        STATE / PROVINCE *
+                      </label>
+                      <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                        placeholder="MA"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                        ZIP / POSTAL CODE *
+                      </label>
+                      <input
+                        type="text"
+                        name="zip"
+                        value={formData.zip}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                        placeholder="02115"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-2">
+                        COUNTRY *
+                      </label>
+                      <input
+                        type="text"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-bone hairline-border text-ink placeholder-ink placeholder-opacity-40 focus:outline-none focus:border-clay font-functional text-sm"
+                        placeholder="US"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
