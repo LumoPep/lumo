@@ -3,8 +3,8 @@ import type { RapidOrderItem } from './rapidfulfillment';
 // Maps "slug:size" → Rapid Fulfillment supplier code
 // Keys are lowercase; variant strings are normalised to lowercase on lookup
 const SUPPLIER_CODES: Record<string, string> = {
-  'semaglutide:5mg':       'G1S5',
-  'semaglutide:10mg':      'G1S10',
+  'semaglutide:5mg':       'SM5',
+  'semaglutide:10mg':      'SM10',
   'lumo-2-trz:10mg':       'TR10',
   'lumo-2-trz:20mg':       'TR20',
   'lumo-3-rt:10mg':        'RT10',
