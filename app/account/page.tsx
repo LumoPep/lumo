@@ -9,71 +9,26 @@ export default function AccountPage() {
 
   const tabs = ["ORDERS", "COAS", "PROFILE"];
 
-  const orders = [
-    {
-      id: "ORD-2024-048",
-      date: "March 15, 2026",
-      compounds: ["BPC-157 (5mg)", "TB-500 (5mg)"],
-      lots: ["PPL-2024-001", "PPL-2024-008"],
-      total: "$84.98",
-      status: "SHIPPED",
-      tracking: "1Z999AA10123456784",
-    },
-    {
-      id: "ORD-2024-047",
-      date: "March 8, 2026",
-      compounds: ["Ipamorelin (5mg)"],
-      lots: ["PPL-2024-003"],
-      total: "$42.99",
-      status: "DELIVERED",
-      tracking: "1Z999AA10123456783",
-    },
-    {
-      id: "ORD-2024-046",
-      date: "February 28, 2026",
-      compounds: ["CJC-1295 (5mg)", "BPC-157 (5mg)"],
-      lots: ["PPL-2024-004", "PPL-2024-001"],
-      total: "$89.98",
-      status: "DELIVERED",
-      tracking: "1Z999AA10123456782",
-    },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4 },
-    },
-  };
-
   return (
-    <div className="min-h-screen bg-bone">
-      {/* Header */}
-      <section className="bg-ink py-12 px-6">
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
+
+      {/* ── HEADER ─────────────────────────────────────────────── */}
+      <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="font-mono text-xs uppercase tracking-mono text-clay mb-3"
+            className="font-mono uppercase"
+            style={{ fontSize: "10px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
           >
             07.1 — ACCOUNT DASHBOARD
           </motion.div>
 
           <motion.h1
-            className="font-display text-4xl md:text-5xl text-cream"
-            style={{ fontWeight: 300 }}
-            initial={{ opacity: 0, y: 20 }}
+            className="font-display"
+            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#EBE2CF", letterSpacing: "-0.02em" }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
@@ -82,294 +37,405 @@ export default function AccountPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <div className="py-12 px-6">
+      {/* ── MAIN ───────────────────────────────────────────────── */}
+      <div style={{ padding: "48px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Sidebar Navigation */}
+
+            {/* ── SIDEBAR ──────────────────────────────────────── */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="lg:col-span-3"
             >
               <div
-                className="bg-cream p-6 sticky top-24"
+                className="sticky top-24"
                 style={{
-                  borderRadius: "12px",
+                  backgroundColor: "#EBE2CF",
                   border: "1px solid rgba(26,24,20,0.12)",
+                  padding: "20px",
                 }}
               >
-                <nav className="space-y-2">
-                  {tabs.map((tab) => (
-                    <motion.button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      whileHover={{ x: 4 }}
-                      className={`w-full text-left px-4 py-3 font-mono text-xs uppercase tracking-mono transition-all ${
-                        activeTab === tab
-                          ? "bg-clay text-cream"
-                          : "text-ink hover:bg-bone"
-                      }`}
-                      style={{ borderRadius: "6px" }}
-                    >
-                      {activeTab === tab && <span className="mr-2">●</span>}
-                      {tab}
-                    </motion.button>
-                  ))}
+                <div
+                  className="font-mono uppercase mb-3"
+                  style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4 }}
+                >
+                  NAVIGATE
+                </div>
+
+                <nav style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                  {tabs.map((tab) => {
+                    const isActive = activeTab === tab;
+                    return (
+                      <motion.button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        whileHover={{ x: isActive ? 0 : 3 }}
+                        className="w-full text-left"
+                        style={{
+                          padding: "10px 14px",
+                          backgroundColor: isActive ? "#1A1814" : "transparent",
+                          border: "1px solid",
+                          borderColor: isActive ? "#1A1814" : "transparent",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                          transition: "all 0.15s",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "6px",
+                            color: isActive ? "#B8624A" : "transparent",
+                            flexShrink: 0,
+                          }}
+                        >
+                          ●
+                        </span>
+                        <span
+                          className="font-mono uppercase"
+                          style={{
+                            fontSize: "10px",
+                            letterSpacing: "1.5px",
+                            color: isActive ? "#EBE2CF" : "#1A1814",
+                            opacity: isActive ? 1 : 0.6,
+                          }}
+                        >
+                          {tab}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
                 </nav>
 
-                <div className="mt-8 pt-6 border-t hairline-border">
-                  <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-55 mb-2">
-                    ACCOUNT
-                  </div>
-                  <div className="font-editorial text-sm text-ink mb-1">
-                    research@example.com
-                  </div>
-                  <button className="font-mono text-xs text-clay hover:underline">
-                    Sign Out →
-                  </button>
+                {/* Info note */}
+                <div
+                  style={{
+                    borderTop: "1px solid rgba(26,24,20,0.1)",
+                    marginTop: "24px",
+                    paddingTop: "20px",
+                  }}
+                >
+                  <p
+                    className="font-editorial"
+                    style={{ fontSize: "12px", color: "#1A1814", opacity: 0.5, lineHeight: 1.5 }}
+                  >
+                    Questions about your order?
+                  </p>
+                  <a
+                    href="mailto:support@lumopep.com"
+                    className="font-mono uppercase"
+                    style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
+                  >
+                    → support@lumopep.com
+                  </a>
                 </div>
               </div>
             </motion.div>
 
-            {/* Main Content Area */}
+            {/* ── CONTENT AREA ─────────────────────────────────── */}
             <div className="lg:col-span-9">
+
+              {/* ORDERS TAB */}
               {activeTab === "ORDERS" && (
                 <motion.div
                   key="orders"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <motion.div variants={itemVariants} className="mb-6">
+                  <div style={{ marginBottom: "24px" }}>
                     <h2
-                      className="font-display text-3xl text-ink mb-2"
-                      style={{ fontWeight: 300 }}
+                      className="font-display"
+                      style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1.8rem", color: "#1A1814", letterSpacing: "-0.02em", marginBottom: "6px" }}
                     >
-                      Order History
+                      Order history
                     </h2>
-                    <p className="font-editorial text-ink opacity-60">
-                      Track your research peptide orders and download certificates.
+                    <p
+                      className="font-editorial"
+                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                    >
+                      Orders placed through your account will appear here.
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <div className="space-y-4">
-                    {orders.map((order, index) => (
-                      <motion.div
-                        key={order.id}
-                        variants={itemVariants}
-                        whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(26,24,20,0.08)" }}
-                        className="bg-white p-6"
+                  {/* Empty state */}
+                  <div
+                    style={{
+                      backgroundColor: "#EBE2CF",
+                      border: "1px solid rgba(26,24,20,0.12)",
+                      padding: "56px 40px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {/* Aperture mark */}
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      style={{ margin: "0 auto 20px", opacity: 0.25 }}
+                    >
+                      <circle cx="20" cy="20" r="18" stroke="#1A1814" strokeWidth="1" fill="none" />
+                      <line x1="20" y1="2" x2="20" y2="38" stroke="#1A1814" strokeWidth="1" opacity="0.5" />
+                      <line x1="2" y1="20" x2="38" y2="20" stroke="#1A1814" strokeWidth="1" opacity="0.5" />
+                      <circle cx="20" cy="20" r="5" fill="#1A1814" opacity="0.4" />
+                    </svg>
+
+                    <div
+                      className="font-mono uppercase"
+                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4, marginBottom: "12px" }}
+                    >
+                      NO ORDERS ON FILE
+                    </div>
+
+                    <p
+                      className="font-editorial"
+                      style={{
+                        fontSize: "14px",
+                        color: "#1A1814",
+                        opacity: 0.55,
+                        maxWidth: "360px",
+                        margin: "0 auto 28px",
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      Orders are confirmed by email after blockchain payment verification. Check your inbox for confirmation details.
+                    </p>
+
+                    <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+                      <Link
+                        href="/products"
+                        className="font-mono uppercase"
                         style={{
-                          borderRadius: "12px",
-                          border: "1px solid rgba(26,24,20,0.12)",
+                          padding: "11px 24px",
+                          backgroundColor: "#1A1814",
+                          color: "#EBE2CF",
+                          fontSize: "10px",
+                          letterSpacing: "2px",
+                          display: "inline-block",
                         }}
                       >
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                          {/* Order Info */}
-                          <div className="md:col-span-7">
-                            <div className="flex items-start justify-between mb-4">
-                              <div>
-                                <div className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-1">
-                                  {order.id}
-                                </div>
-                                <div className="font-mono text-xs text-ink opacity-55">
-                                  {order.date}
-                                </div>
-                              </div>
-                              <div>
-                                <span
-                                  className={`px-3 py-1 font-mono text-xs uppercase tracking-mono ${
-                                    order.status === "SHIPPED"
-                                      ? "bg-clay text-cream"
-                                      : "bg-ochre text-cream"
-                                  }`}
-                                  style={{ borderRadius: "12px" }}
-                                >
-                                  {order.status}
-                                </span>
-                              </div>
-                            </div>
+                        → Browse compounds
+                      </Link>
+                      <a
+                        href="mailto:support@lumopep.com"
+                        className="font-mono uppercase"
+                        style={{
+                          padding: "11px 24px",
+                          backgroundColor: "transparent",
+                          color: "#1A1814",
+                          fontSize: "10px",
+                          letterSpacing: "2px",
+                          border: "1px solid rgba(26,24,20,0.25)",
+                          display: "inline-block",
+                        }}
+                      >
+                        Order support
+                      </a>
+                    </div>
+                  </div>
 
-                            <div className="space-y-2 mb-4">
-                              {order.compounds.map((compound, i) => (
-                                <div
-                                  key={i}
-                                  className="flex items-start justify-between"
-                                >
-                                  <div className="font-editorial text-sm text-ink">
-                                    {compound}
-                                  </div>
-                                  <div className="font-mono text-xs text-ink opacity-55">
-                                    LOT {order.lots[i]}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-
-                            <div className="flex items-center space-x-4 text-xs">
-                              <div className="font-mono text-ink opacity-55">
-                                TRACKING: {order.tracking}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Actions */}
-                          <div className="md:col-span-5 flex flex-col justify-between">
-                            <div className="text-right mb-4">
-                              <div className="font-mono text-xs text-ink opacity-55 mb-1">
-                                TOTAL
-                              </div>
-                              <div
-                                className="font-display text-2xl text-ink"
-                                style={{ fontWeight: 300 }}
-                              >
-                                {order.total}
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col space-y-2">
-                              {order.lots.map((lot, i) => (
-                                <button
-                                  key={i}
-                                  className="px-4 py-2 hairline-border text-ink font-mono text-xs uppercase tracking-mono hover:border-clay transition-colors text-left"
-                                  style={{ borderRadius: "6px" }}
-                                >
-                                  Download CoA · LOT {lot}
-                                </button>
-                              ))}
-                              <button
-                                className="px-4 py-2 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors"
-                                style={{ borderRadius: "6px" }}
-                              >
-                                Track Shipment →
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
+                  {/* Reassurance strip */}
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      backgroundColor: "#F5EFE4",
+                      border: "1px solid rgba(26,24,20,0.08)",
+                      padding: "14px 20px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <span style={{ color: "#607A5C", fontSize: "7px" }}>●</span>
+                    <p
+                      className="font-mono"
+                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814", opacity: 0.5 }}
+                    >
+                      Order confirmations and CoA downloads are delivered by email after each shipment.
+                    </p>
                   </div>
                 </motion.div>
               )}
 
+              {/* COAS TAB */}
               {activeTab === "COAS" && (
                 <motion.div
                   key="coas"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <div className="mb-6">
+                  <div style={{ marginBottom: "24px" }}>
                     <h2
-                      className="font-display text-3xl text-ink mb-2"
-                      style={{ fontWeight: 300 }}
+                      className="font-display"
+                      style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1.8rem", color: "#1A1814", letterSpacing: "-0.02em", marginBottom: "6px" }}
                     >
-                      Your Certificates
+                      Certificates of analysis
                     </h2>
-                    <p className="font-editorial text-ink opacity-60">
-                      All CoAs from your purchased lots, available for download.
+                    <p
+                      className="font-editorial"
+                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                    >
+                      Third-party CoAs for every compound we carry. Lot-traceable to the synthesis run.
                     </p>
                   </div>
 
+                  {/* CoA library link panel */}
                   <div
-                    className="bg-white p-12 text-center"
                     style={{
-                      borderRadius: "12px",
+                      backgroundColor: "#EBE2CF",
                       border: "1px solid rgba(26,24,20,0.12)",
+                      borderLeft: "4px solid #C89A3C",
+                      padding: "32px",
+                      marginBottom: "12px",
                     }}
                   >
-                    <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-55 mb-4">
-                      CERTIFICATES AVAILABLE
-                    </div>
                     <div
-                      className="font-display text-5xl text-clay mb-4"
-                      style={{ fontWeight: 300 }}
+                      className="font-mono uppercase"
+                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#C89A3C", marginBottom: "10px" }}
                     >
-                      6
+                      ● VERIFIED · THIRD-PARTY TESTED
                     </div>
-                    <p className="font-editorial text-ink opacity-60 mb-6">
-                      CoAs from your order history
+                    <h3
+                      className="font-display"
+                      style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1.4rem", color: "#1A1814", letterSpacing: "-0.02em", marginBottom: "12px" }}
+                    >
+                      Public CoA library
+                    </h3>
+                    <p
+                      className="font-editorial"
+                      style={{ fontSize: "13px", color: "#1A1814", opacity: 0.65, maxWidth: "480px", lineHeight: 1.6, marginBottom: "24px" }}
+                    >
+                      Every active lot has a published Certificate of Analysis showing HPLC purity, mass spec confirmation, and lot traceability. No account required.
                     </p>
                     <Link
                       href="/coa"
-                      className="inline-block px-6 py-3 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors"
-                      style={{ borderRadius: "6px" }}
+                      className="font-mono uppercase"
+                      style={{
+                        padding: "12px 28px",
+                        backgroundColor: "#1A1814",
+                        color: "#EBE2CF",
+                        fontSize: "10px",
+                        letterSpacing: "2px",
+                        display: "inline-block",
+                      }}
                     >
-                      View All CoAs →
+                      → View CoA library
                     </Link>
+                  </div>
+
+                  {/* Note about order-specific CoAs */}
+                  <div
+                    style={{
+                      backgroundColor: "#F5EFE4",
+                      border: "1px solid rgba(26,24,20,0.08)",
+                      padding: "14px 20px",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "10px",
+                    }}
+                  >
+                    <span style={{ color: "#B8624A", fontSize: "7px", marginTop: "3px", flexShrink: 0 }}>●</span>
+                    <p
+                      className="font-mono"
+                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814", opacity: 0.5, lineHeight: 1.5 }}
+                    >
+                      Order-specific CoA links are included in your email confirmation. Each lot PDF is also accessible directly from the CoA library above.
+                    </p>
                   </div>
                 </motion.div>
               )}
 
+              {/* PROFILE TAB */}
               {activeTab === "PROFILE" && (
                 <motion.div
                   key="profile"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <div className="mb-6">
+                  <div style={{ marginBottom: "24px" }}>
                     <h2
-                      className="font-display text-3xl text-ink mb-2"
-                      style={{ fontWeight: 300 }}
+                      className="font-display"
+                      style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1.8rem", color: "#1A1814", letterSpacing: "-0.02em", marginBottom: "6px" }}
                     >
-                      Account Settings
+                      Account settings
                     </h2>
-                    <p className="font-editorial text-ink opacity-60">
-                      Manage your account details and preferences.
+                    <p
+                      className="font-editorial"
+                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                    >
+                      Researcher profile and preferences.
                     </p>
                   </div>
 
+                  {/* Coming soon */}
                   <div
-                    className="bg-white p-8"
                     style={{
-                      borderRadius: "12px",
+                      backgroundColor: "#EBE2CF",
                       border: "1px solid rgba(26,24,20,0.12)",
+                      padding: "56px 40px",
+                      textAlign: "center",
                     }}
                   >
-                    <div className="space-y-6">
-                      <div>
-                        <label className="font-mono text-xs uppercase tracking-mono text-ink mb-2 block">
-                          Email Address
-                        </label>
-                        <input
-                          type="email"
-                          defaultValue="research@example.com"
-                          className="w-full px-4 py-3 bg-bone hairline-border text-ink focus:outline-none focus:border-clay font-functional text-sm"
-                          style={{ borderRadius: "6px" }}
-                        />
-                      </div>
+                    {/* Solar mark */}
+                    <svg
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      style={{ margin: "0 auto 20px", opacity: 0.2 }}
+                    >
+                      <circle cx="18" cy="18" r="16" stroke="#1A1814" strokeWidth="1" fill="none" />
+                      <circle cx="18" cy="18" r="7" stroke="#1A1814" strokeWidth="1" fill="none" />
+                      <circle cx="18" cy="18" r="2.5" fill="#1A1814" />
+                    </svg>
 
-                      <div>
-                        <label className="font-mono text-xs uppercase tracking-mono text-ink mb-2 block">
-                          Institution Name
-                        </label>
-                        <input
-                          type="text"
-                          defaultValue="Research Institute"
-                          className="w-full px-4 py-3 bg-bone hairline-border text-ink focus:outline-none focus:border-clay font-functional text-sm"
-                          style={{ borderRadius: "6px" }}
-                        />
-                      </div>
-
-                      <button
-                        className="px-6 py-3 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors"
-                        style={{ borderRadius: "6px" }}
-                      >
-                        Save Changes
-                      </button>
+                    <div
+                      className="font-mono uppercase"
+                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.35, marginBottom: "12px" }}
+                    >
+                      COMING SOON
                     </div>
+
+                    <p
+                      className="font-editorial"
+                      style={{
+                        fontSize: "14px",
+                        color: "#1A1814",
+                        opacity: 0.5,
+                        maxWidth: "340px",
+                        margin: "0 auto 28px",
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      Account management is in development. To update your details or institution information, contact us directly.
+                    </p>
+
+                    <a
+                      href="mailto:support@lumopep.com"
+                      className="font-mono uppercase"
+                      style={{
+                        padding: "11px 24px",
+                        backgroundColor: "#1A1814",
+                        color: "#EBE2CF",
+                        fontSize: "10px",
+                        letterSpacing: "2px",
+                        display: "inline-block",
+                      }}
+                    >
+                      → Contact support
+                    </a>
                   </div>
                 </motion.div>
               )}
-
 
             </div>
           </div>
         </div>
       </div>
 
-      {/* Page Code */}
       <div className="fixed bottom-6 left-6 font-mono text-xs text-ink opacity-20">L-011</div>
     </div>
   );
