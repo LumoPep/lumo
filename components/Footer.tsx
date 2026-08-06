@@ -216,17 +216,7 @@ export default function Footer() {
                         Research
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        href="/wholesale"
-                        className="font-editorial text-cream transition-opacity"
-                        style={{ fontSize: "14px", opacity: 0.85 }}
-                        onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
-                      >
-                        Wholesale
-                      </Link>
-                    </li>
+
                   </ul>
                 </motion.div>
 

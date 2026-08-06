@@ -22,7 +22,7 @@ The entire Lumo website has been **completely redesigned** to match your brand d
 --cream:  #EBE2CF   /* card backgrounds, secondary surfaces */
 --clay:   #B8624A   /* primary accent — CTAs, dots, emphasis */
 --ochre:  #C89A3C   /* verified status, COA seals */
---sage:   #6D7A5C   /* wholesale/lab sub-brand */
+--sage:   #6D7A5C   /* lab sub-brand */
 ```
 
 **Ratio Implementation:**
@@ -155,7 +155,7 @@ With thin vertical rule separator
 **AFTER:**
 - ✅ Bone #F5EFE4 background, hairline bottom border
 - ✅ Fraunces logo with Clay dot mark
-- ✅ Nav links: "COMPOUNDS · COAS · JOURNAL · WHOLESALE" (JetBrains Mono, 11px, 3px spacing, uppercase)
+- ✅ Nav links: "COMPOUNDS · COAS · JOURNAL " (JetBrains Mono, 11px, 3px spacing, uppercase)
 - ✅ Cart pill: "● CART · [n]" with Clay dot, mono text, Ink border
 - ✅ Top banner: Cream background, mono text, Clay dot prefix
 
@@ -293,7 +293,7 @@ Route Size:
 - ✅ Cream #EBE2CF — Card backgrounds
 - ✅ Clay #B8624A — CTAs, dots, accents (10% usage)
 - ✅ Ochre #C89A3C — Verified badges, purity % (5% usage)
-- ✅ Sage #6D7A5C — Reserved for wholesale (not overused)
+- ✅ Sage #6D7A5C — Reserved for lab sub-brand accents (not overused)
 - ✅ Forbidden combinations avoided
 
 ### Typography

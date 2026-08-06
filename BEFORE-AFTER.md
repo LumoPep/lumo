@@ -192,7 +192,7 @@ Lumo● | RESEARCH PEPTIDES
 Fraunces  JetBrains Mono
 Clay dot
 
-COMPOUNDS · COAS · JOURNAL · WHOLESALE
+COMPOUNDS · COAS · JOURNAL
 ↑ JetBrains Mono, 11px, 3px tracking, uppercase
 
                     [● CART · 2]  ← Ink border pill

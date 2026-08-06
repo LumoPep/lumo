@@ -264,7 +264,6 @@ Route                  Size      First Load JS
 /coa                  6.57 kB    142 kB  (+ split hero)
 /about                141 B      87.3 kB (+ slogans)
 /journal              2.73 kB    138 kB  (+ disclaimer)
-/wholesale            2.88 kB    132 kB
 /account              2.53 kB    138 kB
 
 Total: 15 pages

@@ -171,44 +171,6 @@ animation: rotateBadge 20s linear infinite;
 
 ---
 
-## 4. Wholesale Page (/wholesale) — L-010 ✨ NEW
-
-**Page Hero:**
-- ✅ Sage #6D7A5C full-bleed background
-- ✅ Fraunces headline: "For clinics that need paperwork they can defend."
-- ✅ Newsreader subtext about wholesale accounts
-
-**Tier Cards:**
-- ✅ 3 tiers: STARTER, CLINIC (recommended), WHOLESALE
-- ✅ 20px border-radius
-- ✅ Recommended tier: Clay background, Cream text, Ochre badge
-- ✅ Other tiers: Cream background, Ink text
-- ✅ Features listed with Clay dot bullets
-- ✅ `whileHover={{ y: -8 }}` with spring easing
-
-**How It Works:**
-- ✅ 4-step section on Bone background
-- ✅ Large numbered cards (01, 02, 03, 04)
-- ✅ Clay step numbers in 5xl Fraunces
-- ✅ 16px border-radius
-- ✅ Stagger animation
-
-**Trust Elements:**
-- ✅ Cream banner with Clay dots
-- ✅ "Net-30 available · White-label CoA · Dedicated account manager"
-
-**Application Form:**
-- ✅ Clean form on white background
-- ✅ Inter Tight inputs, JetBrains Mono labels
-- ✅ Bone input backgrounds
-- ✅ 6px border-radius on inputs
-- ✅ RUO checkbox confirmation
-- ✅ Submit button with `whileHover`, `whileTap` animations
-
-**Build Size:** 2.88 kB (132 kB First Load JS)
-
----
-
 ## 5. Account Page (/account) — L-011 ✨ NEW
 
 **Page Hero:**
@@ -217,7 +179,7 @@ animation: rotateBadge 20s linear infinite;
 
 **Layout:**
 - ✅ Sidebar navigation (sticky, Cream background)
-- ✅ 4 tabs: ORDERS · COAS · PROFILE · WHOLESALE
+- ✅ 4 tabs: ORDERS · COAS · PROFILE
 - ✅ Active tab: Clay background, Cream text with dot indicator
 - ✅ `whileHover={{ x: 4 }}` on nav items
 
@@ -234,7 +196,7 @@ animation: rotateBadge 20s linear infinite;
 **Other Tabs:**
 - ✅ CoAs: Display count with link to /coa
 - ✅ Profile: Account settings form
-- ✅ Wholesale: CTA to apply for wholesale
+- ✅ 
 
 **Build Size:** 2.53 kB (138 kB First Load JS)
 
@@ -247,7 +209,7 @@ animation: rotateBadge 20s linear infinite;
 - ✅ Animation: scale 1→1.15→1, 2s infinite, ease-in-out
 
 **Navigation Links:**
-- ✅ Updated to: COMPOUNDS · COAS · JOURNAL · WHOLESALE · ACCOUNT
+- ✅ Updated to: COMPOUNDS · COAS · JOURNAL · ACCOUNT
 - ✅ Active page indicator: Clay underline (2px)
 - ✅ Sliding underline with Framer Motion `layoutId`
 - ✅ Transition: spring (stiffness: 380, damping: 30)
@@ -280,7 +242,7 @@ animation: rotateBadge 20s linear infinite;
 **Footer Links:**
 - ✅ Stagger animation on scroll into view
 - ✅ 4 columns: COMPANY, COMPOUNDS, RESOURCES, LEGAL
-- ✅ Added Journal and Wholesale links
+- ✅ Added Journal link
 - ✅ Added Account link under Resources
 - ✅ Framer Motion `useInView` for scroll trigger
 
@@ -332,7 +294,6 @@ Route (app)                              Size     First Load JS
 ├ ○ /journal                             2.54 kB         138 kB  ← NEW
 ├ ○ /products                            2.4 kB          146 kB
 ├ ƒ /products/[slug]                     5.16 kB         103 kB
-└ ○ /wholesale                           2.88 kB         132 kB  ← NEW
 
 First Load JS shared by all: 87.2 kB
 ```
@@ -408,7 +369,6 @@ First Load JS shared by all: 87.2 kB
 
 ### New Pages Created:
 7. `app/journal/page.tsx` — Editorial content hub
-8. `app/wholesale/page.tsx` — Wholesale accounts page
 9. `app/account/page.tsx` — Account dashboard
 
 ### Documentation:
@@ -438,9 +398,6 @@ First Load JS shared by all: 87.2 kB
 - [x] Journal: page created from scratch
 - [x] Journal: featured articles layout
 - [x] Journal: tag filtering
-- [x] Wholesale: page created from scratch
-- [x] Wholesale: tier cards with pricing
-- [x] Wholesale: application form
 - [x] Account: page created from scratch
 - [x] Account: sidebar navigation
 - [x] Account: order history table

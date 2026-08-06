@@ -42,7 +42,6 @@ export default function NavBar() {
     { href: "/coa", label: "COAS" },
     { href: "/about", label: "ABOUT" },
     { href: "/journal", label: "RESEARCH" },
-    { href: "/wholesale", label: "WHOLESALE" },
     { href: "/faq", label: "FAQ" },
     { href: "/account", label: "ACCOUNT" },
   ];

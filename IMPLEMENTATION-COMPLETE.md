@@ -90,21 +90,10 @@ Implemented comprehensive scroll-driven animations and motion across the entire 
 - [x] Stagger animations
 - [x] Build size: 2.54 kB ✓
 
-### Wholesale Page (/wholesale) — NEW
-- [x] Page created from scratch
-- [x] Sage hero background
-- [x] 3 tier pricing cards (20px radius)
-- [x] Recommended tier: Clay bg, Ochre badge
-- [x] 4-step How It Works section
-- [x] Trust elements bar
-- [x] Application form with RUO checkbox
-- [x] Form inputs: Bone bg, 6px radius
-- [x] Build size: 2.88 kB ✓
-
 ### Account Page (/account) — NEW
 - [x] Page created from scratch
 - [x] Sidebar navigation (sticky)
-- [x] 4 tabs: ORDERS, COAS, PROFILE, WHOLESALE
+- [x] 4 tabs: ORDERS, COAS, PROFILE
 - [x] Active tab: Clay bg, dot indicator
 - [x] Order cards with status pills
 - [x] Download CoA buttons per lot
@@ -118,7 +107,7 @@ Implemented comprehensive scroll-driven animations and motion across the entire 
 
 ### NavBar
 - [x] Pulsing Clay dot in logo
-- [x] Updated links: COMPOUNDS, COAS, JOURNAL, WHOLESALE, ACCOUNT
+- [x] Updated links: COMPOUNDS, COAS, JOURNAL, ACCOUNT
 - [x] Active page: Clay underline (sliding with layoutId)
 - [x] Scroll past 80px: shadow-md appears
 - [x] Mobile hamburger menu
@@ -134,7 +123,7 @@ Implemented comprehensive scroll-driven animations and motion across the entire 
 - [x] Success state: "✓ SUBSCRIBED"
 - [x] Stagger animation on footer links
 - [x] useInView scroll trigger
-- [x] Updated links (added Journal, Wholesale, Account)
+- [x] Updated links (added Journal, Account)
 - [x] Bottom bar: "Lumo · Research Peptides · lumo.bio · 2026"
 
 ---
@@ -194,7 +183,6 @@ Build Warnings: 0
 - [x] /contact — 2.71 kB
 - [x] /checkout — 4.95 kB
 - [x] /journal — 2.54 kB ← NEW
-- [x] /wholesale — 2.88 kB ← NEW
 - [x] /account — 2.53 kB ← NEW
 
 **Total Pages:** 15 (12 before + 3 new)
@@ -213,7 +201,6 @@ Build Warnings: 0
 - [x] CoA stamp effect triggers on scroll
 - [x] Purity bars animate fill
 - [x] Journal tag filter works
-- [x] Wholesale form accepts input
 - [x] Account tabs switch correctly
 - [x] NavBar mobile menu opens/closes
 - [x] Active page indicator slides
@@ -304,7 +291,6 @@ npm start      # Production server
 
 ### Created (3):
 7. `app/journal/page.tsx` — Editorial content hub
-8. `app/wholesale/page.tsx` — Wholesale accounts
 9. `app/account/page.tsx` — Account dashboard
 
 ### Documentation (2):
@@ -353,7 +339,7 @@ npm start      # Production server
 
 6. **Newsletter Signup:** Clay banner with success state
 
-7. **3 New Pages:** Journal, Wholesale, Account dashboards
+7. **3 New Pages:** Journal, Account dashboards
 
 8. **Counter Animations:** Smooth number count-ups on filter changes
 
@@ -372,7 +358,7 @@ npm start      # Production server
 - [x] Category cards have enhanced hover states
 - [x] Navigation shows active page with sliding indicator
 - [x] Mobile menu works smoothly
-- [x] 3 new pages created (Journal, Wholesale, Account)
+- [x] 2 new pages created (Journal, Account)
 - [x] Newsletter section added to footer
 - [x] All buttons have active states
 - [x] Build succeeds with 0 errors

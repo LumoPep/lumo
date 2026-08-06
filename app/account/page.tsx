@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("ORDERS");
 
-  const tabs = ["ORDERS", "COAS", "PROFILE", "WHOLESALE"];
+  const tabs = ["ORDERS", "COAS", "PROFILE"];
 
   const orders = [
     {
@@ -363,57 +363,7 @@ export default function AccountPage() {
                 </motion.div>
               )}
 
-              {activeTab === "WHOLESALE" && (
-                <motion.div
-                  key="wholesale"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <div className="mb-6">
-                    <h2
-                      className="font-display text-3xl text-ink mb-2"
-                      style={{ fontWeight: 300 }}
-                    >
-                      Wholesale Access
-                    </h2>
-                    <p className="font-editorial text-ink opacity-60">
-                      Volume pricing and white-label CoAs for qualified accounts.
-                    </p>
-                  </div>
 
-                  <div
-                    className="bg-cream p-8"
-                    style={{
-                      borderRadius: "12px",
-                      border: "1px solid rgba(26,24,20,0.12)",
-                    }}
-                  >
-                    <div className="text-center">
-                      <svg width="60" height="60" viewBox="0 0 60 60" className="mx-auto mb-4">
-                        <circle cx="30" cy="30" r="28" stroke="#B8624A" strokeWidth="2" fill="none" />
-                        <circle cx="30" cy="30" r="8" fill="#B8624A" />
-                      </svg>
-
-                      <h3
-                        className="font-display text-2xl text-ink mb-3"
-                        style={{ fontWeight: 300 }}
-                      >
-                        Not a wholesale member yet?
-                      </h3>
-                      <p className="font-editorial text-ink opacity-70 mb-6 max-w-md mx-auto">
-                        Apply for volume pricing, Net-30 terms, and dedicated account management.
-                      </p>
-                      <Link
-                        href="/wholesale"
-                        className="inline-block px-8 py-4 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all"
-                        style={{ borderRadius: "8px" }}
-                      >
-                        Apply for Wholesale →
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
             </div>
           </div>
         </div>
