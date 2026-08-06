@@ -16,6 +16,16 @@ interface FAQCategory {
   faqs: FAQ[];
 }
 
+// Accent colors per category — avoids any bg-cream/text-cream contrast collapse
+const categoryAccent: Record<string, string> = {
+  "research-use":    "#B8624A",
+  "quality-testing": "#C89A3C",
+  "ordering":        "#B8624A",
+  "shipping":        "#607A5C",
+  "storage":         "#C89A3C",
+  "products":        "#607A5C",
+};
+
 const faqCategories: FAQCategory[] = [
   {
     id: "research-use",
@@ -189,155 +199,317 @@ export default function FAQPage() {
 
   const currentCategory =
     faqCategories.find((cat) => cat.id === activeCategory) || faqCategories[0];
+  const accent = categoryAccent[activeCategory] || "#B8624A";
 
   return (
-    <div className="min-h-screen">
-      {/* HERO SECTION - Clay Background */}
-      <section ref={heroRef} className="bg-clay py-24 md:py-32 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
+    <div style={{ minHeight: "100vh" }}>
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section ref={heroRef} style={{ backgroundColor: "#B8624A", padding: "96px 24px 80px" }}>
+        <div className="container mx-auto max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
-            className="font-mono text-xs uppercase tracking-mono text-cream opacity-80 mb-6"
+            initial={{ opacity: 0, y: 24 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55 }}
+            className="font-mono uppercase"
+            style={{ fontSize: "10px", letterSpacing: "3px", color: "#EBE2CF", opacity: 0.7, marginBottom: "20px" }}
           >
             05.1 — FAQ
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-display text-5xl md:text-6xl text-cream mb-8 leading-tight"
-            style={{ fontWeight: 300, fontStyle: "italic" }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="font-display"
+            style={{
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "clamp(2.4rem, 5vw, 4rem)",
+              color: "#EBE2CF",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.1,
+              marginBottom: "20px",
+            }}
           >
             Questions, answered plainly.
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
-            animate={heroInView ? { opacity: 0.9 } : { opacity: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-editorial text-lg text-cream max-w-2xl mx-auto"
+            animate={heroInView ? { opacity: 0.8 } : {}}
+            transition={{ duration: 0.55, delay: 0.3 }}
+            className="font-editorial"
+            style={{ fontSize: "1.05rem", color: "#EBE2CF", maxWidth: "480px" }}
           >
             Clear answers about our compounds, quality standards, and research protocols.
           </motion.p>
         </div>
       </section>
 
-      {/* TWO-COLUMN LAYOUT */}
-      <section className="bg-bone py-16 px-6">
+      {/* ── MAIN CONTENT ─────────────────────────────────────── */}
+      <section style={{ backgroundColor: "#F5EFE4", padding: "64px 24px 96px" }}>
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* LEFT SIDEBAR - Sticky Category Navigation */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+            {/* ── SIDEBAR ──────────────────────────────────── */}
             <div className="lg:col-span-3">
               <div className="lg:sticky lg:top-24">
-                <h2 className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-6">
+
+                <div
+                  className="font-mono uppercase"
+                  style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4, marginBottom: "12px" }}
+                >
                   CATEGORIES
-                </h2>
-                <nav className="space-y-2">
-                  {faqCategories.map((category, index) => (
-                    <motion.button
-                      key={category.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      onClick={() => {
-                        setActiveCategory(category.id);
-                        setOpenIndex(0);
-                      }}
-                      className={`w-full text-left px-4 py-3 font-mono text-xs uppercase tracking-mono transition-all ${
-                        activeCategory === category.id
-                          ? "bg-ink text-cream"
-                          : "text-ink opacity-60 hover:opacity-100 hover:bg-white"
-                      }`}
-                      style={{ borderRadius: "8px" }}
-                    >
-                      {activeCategory === category.id && (
-                        <span className="text-ochre mr-2">●</span>
-                      )}
-                      {category.title}
-                    </motion.button>
-                  ))}
+                </div>
+
+                <nav style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                  {faqCategories.map((category, index) => {
+                    const isActive = activeCategory === category.id;
+                    const catAccent = categoryAccent[category.id] || "#B8624A";
+                    return (
+                      <motion.button
+                        key={category.id}
+                        initial={{ opacity: 0, x: -12 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.07 }}
+                        onClick={() => {
+                          setActiveCategory(category.id);
+                          setOpenIndex(0);
+                        }}
+                        className="w-full text-left"
+                        style={{
+                          padding: "11px 14px",
+                          backgroundColor: isActive ? "#1A1814" : "transparent",
+                          border: "1px solid",
+                          borderColor: isActive ? "#1A1814" : "rgba(26,24,20,0.12)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                          transition: "all 0.15s",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "6px",
+                            color: isActive ? catAccent : "transparent",
+                            flexShrink: 0,
+                          }}
+                        >
+                          ●
+                        </span>
+                        <span
+                          className="font-mono uppercase flex-1 text-left"
+                          style={{
+                            fontSize: "10px",
+                            letterSpacing: "1.5px",
+                            color: isActive ? "#EBE2CF" : "#1A1814",
+                            opacity: isActive ? 1 : 0.6,
+                          }}
+                        >
+                          {category.title}
+                        </span>
+                        <span
+                          className="font-mono"
+                          style={{
+                            fontSize: "9px",
+                            color: isActive ? "rgba(235,226,207,0.4)" : "rgba(26,24,20,0.3)",
+                          }}
+                        >
+                          {category.faqs.length}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
                 </nav>
+
+                {/* Contact note */}
+                <div
+                  style={{
+                    borderTop: "1px solid rgba(26,24,20,0.1)",
+                    marginTop: "28px",
+                    paddingTop: "22px",
+                  }}
+                >
+                  <p
+                    className="font-editorial"
+                    style={{ fontSize: "12px", color: "#1A1814", opacity: 0.5, marginBottom: "6px", lineHeight: 1.5 }}
+                  >
+                    Can't find what you need?
+                  </p>
+                  <a
+                    href="mailto:support@lumopep.com"
+                    className="font-mono uppercase"
+                    style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
+                  >
+                    → Contact support
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* RIGHT MAIN - Accordion Questions */}
+            {/* ── ACCORDION PANEL ──────────────────────────── */}
             <div className="lg:col-span-9">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCategory}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ opacity: 0, y: -14 }}
+                  transition={{ duration: 0.22 }}
                 >
-                  {/* Category Header with Color */}
+                  {/* Category header — always Ink bg, accent left border */}
                   <div
-                    className={`${currentCategory.color} p-8 mb-8`}
-                    style={{ borderRadius: "16px" }}
+                    style={{
+                      backgroundColor: "#1A1814",
+                      borderLeft: `4px solid ${accent}`,
+                      padding: "28px 32px",
+                      marginBottom: "20px",
+                    }}
                   >
+                    <div
+                      className="font-mono uppercase"
+                      style={{
+                        fontSize: "9px",
+                        letterSpacing: "3px",
+                        color: accent,
+                        marginBottom: "10px",
+                      }}
+                    >
+                      ● {currentCategory.faqs.length}{" "}
+                      {currentCategory.faqs.length === 1 ? "QUESTION" : "QUESTIONS"}
+                    </div>
                     <h2
-                      className="font-display text-4xl md:text-5xl text-cream mb-3 leading-tight"
-                      style={{ fontWeight: 300, fontStyle: "italic" }}
+                      className="font-display"
+                      style={{
+                        fontWeight: 300,
+                        fontStyle: "italic",
+                        fontSize: "clamp(1.8rem, 3vw, 2.75rem)",
+                        color: "#EBE2CF",
+                        letterSpacing: "-0.02em",
+                        lineHeight: 1.1,
+                      }}
                     >
                       {currentCategory.title}
                     </h2>
-                    <p className="font-mono text-xs uppercase tracking-mono text-cream opacity-80">
-                      {currentCategory.faqs.length} questions
-                    </p>
                   </div>
 
-                  {/* Accordion Questions */}
-                  <div className="space-y-4">
-                    {currentCategory.faqs.map((faq, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        className="bg-white hairline-border overflow-hidden hover:border-clay transition-all"
-                        style={{ borderRadius: "12px" }}
-                      >
-                        <button
-                          onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                          className="w-full flex items-start justify-between p-6 text-left group"
+                  {/* Accordion items */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                    {currentCategory.faqs.map((faq, index) => {
+                      const isOpen = openIndex === index;
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.04 }}
+                          style={{
+                            backgroundColor: isOpen ? "#F5EFE4" : "#EBE2CF",
+                            borderTop: "1px solid rgba(26,24,20,0.1)",
+                            borderRight: "1px solid rgba(26,24,20,0.1)",
+                            borderBottom: "1px solid rgba(26,24,20,0.1)",
+                            borderLeft: isOpen
+                              ? `3px solid ${accent}`
+                              : "1px solid rgba(26,24,20,0.1)",
+                            overflow: "hidden",
+                          }}
                         >
-                          <span className="font-mono text-xs uppercase tracking-mono text-ink font-medium pr-6 flex-1">
-                            {faq.question}
-                          </span>
-                          <motion.span
-                            animate={{ rotate: openIndex === index ? 45 : 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="text-clay text-2xl flex-shrink-0 group-hover:text-ochre transition-colors"
+                          <button
+                            onClick={() => setOpenIndex(isOpen ? null : index)}
+                            className="w-full text-left"
+                            style={{
+                              padding: "20px 24px",
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: "16px",
+                            }}
                           >
-                            +
-                          </motion.span>
-                        </button>
-
-                        <AnimatePresence>
-                          {openIndex === index && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="overflow-hidden"
+                            {/* Question number */}
+                            <span
+                              className="font-mono flex-shrink-0"
+                              style={{
+                                fontSize: "9px",
+                                letterSpacing: "1px",
+                                color: isOpen ? accent : "rgba(26,24,20,0.3)",
+                                marginTop: "3px",
+                                minWidth: "22px",
+                              }}
                             >
-                              <div className="px-6 pb-6">
-                                <div className="border-t hairline-border pt-4">
-                                  <p className="font-editorial text-sm text-ink opacity-80 leading-relaxed">
-                                    {faq.answer}
-                                  </p>
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+
+                            {/* Question text */}
+                            <span
+                              className="font-editorial flex-1"
+                              style={{
+                                fontSize: "15px",
+                                color: "#1A1814",
+                                lineHeight: 1.35,
+                                fontWeight: isOpen ? 400 : 300,
+                              }}
+                            >
+                              {faq.question}
+                            </span>
+
+                            {/* Expand icon */}
+                            <motion.span
+                              animate={{ rotate: isOpen ? 45 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              style={{
+                                fontSize: "22px",
+                                color: isOpen ? accent : "rgba(26,24,20,0.35)",
+                                flexShrink: 0,
+                                lineHeight: 1,
+                                fontWeight: 300,
+                                marginTop: "-1px",
+                              }}
+                            >
+                              +
+                            </motion.span>
+                          </button>
+
+                          <AnimatePresence>
+                            {isOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.28 }}
+                                style={{ overflow: "hidden" }}
+                              >
+                                <div
+                                  style={{
+                                    padding: "0 24px 24px",
+                                    paddingLeft: "62px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      borderTop: "1px solid rgba(26,24,20,0.1)",
+                                      paddingTop: "16px",
+                                    }}
+                                  >
+                                    <p
+                                      className="font-editorial leading-relaxed"
+                                      style={{
+                                        fontSize: "14px",
+                                        color: "#1A1814",
+                                        opacity: 0.72,
+                                        lineHeight: 1.65,
+                                      }}
+                                    >
+                                      {faq.answer}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -346,50 +518,70 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* TRUST FOOTER - Ink Background */}
-      <section className="bg-ink py-20 px-6">
+      {/* ── TRUST FOOTER ─────────────────────────────────────── */}
+      <section style={{ backgroundColor: "#1A1814", padding: "80px 24px" }}>
         <div className="container mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-clay text-4xl mb-6"
+            transition={{ duration: 0.5 }}
+            style={{ color: "#B8624A", fontSize: "1.6rem", marginBottom: "24px" }}
           >
             ●
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="font-display text-4xl md:text-5xl text-cream mb-6 leading-tight"
-            style={{ fontWeight: 300, fontStyle: "italic" }}
+            transition={{ duration: 0.55 }}
+            className="font-display"
+            style={{
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "clamp(1.8rem, 4vw, 3rem)",
+              color: "#EBE2CF",
+              letterSpacing: "-0.02em",
+              marginBottom: "18px",
+            }}
           >
             Still have questions?
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.9 }}
+            whileInView={{ opacity: 0.75 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-editorial text-lg text-cream mb-8 max-w-2xl mx-auto"
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="font-editorial"
+            style={{
+              fontSize: "1.05rem",
+              color: "#EBE2CF",
+              maxWidth: "480px",
+              margin: "0 auto 36px",
+              lineHeight: 1.6,
+            }}
           >
             Our technical support team is here to help with your research requirements.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.55, delay: 0.3 }}
           >
             <a
               href="mailto:support@lumopep.com"
-              className="inline-block px-8 py-4 bg-cream text-ink font-mono text-xs uppercase tracking-mono hover:bg-ochre hover:text-cream transition-colors"
-              style={{ borderRadius: "8px" }}
+              className="inline-block font-mono uppercase transition-all"
+              style={{
+                padding: "14px 36px",
+                backgroundColor: "#EBE2CF",
+                color: "#1A1814",
+                fontSize: "10px",
+                letterSpacing: "3px",
+              }}
             >
               CONTACT SUPPORT
             </a>
@@ -397,17 +589,22 @@ export default function FAQPage() {
 
           <motion.p
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.6 }}
+            whileInView={{ opacity: 0.4 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="font-mono text-xs text-cream opacity-60 mt-8"
+            transition={{ duration: 0.55, delay: 0.5 }}
+            className="font-mono"
+            style={{
+              fontSize: "10px",
+              letterSpacing: "1px",
+              color: "#EBE2CF",
+              marginTop: "28px",
+            }}
           >
-            Response time: 24-48 hours · support@lumopep.com
+            Response time: 24–48 hours · support@lumopep.com
           </motion.p>
         </div>
       </section>
 
-      {/* Page Code */}
       <div className="fixed bottom-6 left-6 font-mono text-xs text-ink opacity-20">L-006</div>
     </div>
   );
