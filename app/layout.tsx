@@ -8,6 +8,7 @@ import FooterDisclaimer from "@/components/FooterDisclaimer";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import FloatingCartButton from "@/components/FloatingCartButton";
+import ResearchGate from "@/components/ResearchGate";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -61,6 +62,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
       </head>
       <body className="font-editorial">
+        <ResearchGate />
         <AnnouncementBanner />
         <NavBar />
         <main className="min-h-screen pt-16">{children}</main>
