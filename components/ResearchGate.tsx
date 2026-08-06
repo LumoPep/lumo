@@ -7,12 +7,12 @@ const GATE_KEY = "lumo_age_research_verified";
 // Six vials: different images, speeds, delays, opacities, and horizontal positions
 // Negative delays seed them at different heights on first render
 const FALLING_VIALS = [
-  { src: "/images/products/bpc-157-v2.png",        left: "5%",  width: 112, anim: "vialFall1", dur: "9s",  delay: "0s",   opacity: 0.88 },
-  { src: "/images/products/semaglutide-5mg-v2.png", left: "26%", width: 132, anim: "vialFall2", dur: "12s", delay: "-5s",  opacity: 0.72 },
-  { src: "/images/products/tb-500-v2.png",          left: "50%", width: 106, anim: "vialFall3", dur: "8s",  delay: "-2s",  opacity: 0.92 },
-  { src: "/images/products/ipamorelin-v2.png",      left: "70%", width: 120, anim: "vialFall4", dur: "11s", delay: "-7s",  opacity: 0.68 },
-  { src: "/images/products/lumo-2-trz-10mg-v2.png", left: "15%", width: 98,  anim: "vialFall5", dur: "14s", delay: "-10s", opacity: 0.78 },
-  { src: "/images/products/epithalon-v2.png",       left: "40%", width: 92,  anim: "vialFall3", dur: "10s", delay: "-1s",  opacity: 0.62 },
+  { src: "/images/products/bpc-157-v2.png",        left: "5%",  width: 168, anim: "vialFall1", dur: "9s",  delay: "0s",   opacity: 0.88 },
+  { src: "/images/products/semaglutide-5mg-v2.png", left: "26%", width: 198, anim: "vialFall2", dur: "12s", delay: "-5s",  opacity: 0.72 },
+  { src: "/images/products/tb-500-v2.png",          left: "50%", width: 159, anim: "vialFall3", dur: "8s",  delay: "-2s",  opacity: 0.92 },
+  { src: "/images/products/ipamorelin-v2.png",      left: "70%", width: 180, anim: "vialFall4", dur: "11s", delay: "-7s",  opacity: 0.68 },
+  { src: "/images/products/lumo-2-trz-10mg-v2.png", left: "15%", width: 147, anim: "vialFall5", dur: "14s", delay: "-10s", opacity: 0.78 },
+  { src: "/images/products/epithalon-v2.png",       left: "40%", width: 138, anim: "vialFall3", dur: "10s", delay: "-1s",  opacity: 0.62 },
 ];
 
 const TESTS = [
@@ -135,6 +135,22 @@ export default function ResearchGate() {
             />
           ))}
 
+          {/* Cream radial gradient — subtle depth in center of panel */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "80%",
+              height: "60%",
+              background:
+                "radial-gradient(ellipse at center, rgba(235,226,207,0.45) 0%, transparent 70%)",
+              zIndex: 1,
+              pointerEvents: "none",
+            }}
+          />
+
           {/* Gradient overlay — solid Bone at the bottom so text is fully legible */}
           <div
             style={{
@@ -167,7 +183,7 @@ export default function ResearchGate() {
               src="/logos/lumo_logo_ink.png"
               alt="Lumo"
               style={{
-                width: 96,
+                width: 134,
                 objectFit: "contain",
                 marginBottom: "28px",
               }}
@@ -193,6 +209,15 @@ export default function ResearchGate() {
 
             {/* 7× Testing section */}
             <div style={{ marginBottom: "24px" }}>
+              {/* Ochre accent line */}
+              <div
+                style={{
+                  height: "1px",
+                  backgroundColor: "#C89A3C",
+                  marginBottom: "14px",
+                  width: "48px",
+                }}
+              />
               <div
                 style={{
                   display: "flex",
@@ -247,7 +272,7 @@ export default function ResearchGate() {
                         width: "3px",
                         height: "3px",
                         borderRadius: "50%",
-                        backgroundColor: "#B8624A",
+                        backgroundColor: "#607A5C",
                         flexShrink: 0,
                       }}
                     />
@@ -286,9 +311,9 @@ export default function ResearchGate() {
               }}
             >
               {[
-                { value: "7×", label: "Independent Testing" },
-                { value: "24", label: "Compounds" },
-                { value: "US", label: "Lab Verified" },
+                { value: "7×", label: "Independent Testing", color: "#B8624A" },
+                { value: "24", label: "Compounds",           color: "#C89A3C" },
+                { value: "US", label: "Lab Verified",        color: "#B8624A" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div
@@ -296,7 +321,7 @@ export default function ResearchGate() {
                       fontFamily: "var(--font-fraunces), serif",
                       fontWeight: 300,
                       fontSize: "1.45rem",
-                      color: "#B8624A",
+                      color: stat.color,
                       letterSpacing: "-0.02em",
                       lineHeight: 1,
                       marginBottom: "4px",
@@ -319,40 +344,6 @@ export default function ResearchGate() {
               ))}
             </div>
 
-            {/* Lot traceability example */}
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                backgroundColor: "rgba(26,24,20,0.06)",
-                padding: "6px 12px",
-                alignSelf: "flex-start",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-jetbrains), monospace",
-                  fontSize: "8px",
-                  letterSpacing: "2px",
-                  textTransform: "uppercase",
-                  color: "#1A1814",
-                  opacity: 0.45,
-                }}
-              >
-                LOT
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-jetbrains), monospace",
-                  fontSize: "9px",
-                  letterSpacing: "1.5px",
-                  color: "#1A1814",
-                }}
-              >
-                LMO-0626-BPC-005
-              </span>
-            </div>
           </div>
         </div>
 
@@ -375,7 +366,7 @@ export default function ResearchGate() {
               src="/logos/lumo_logo_cream.png"
               alt="Lumo"
               style={{
-                width: 118,
+                width: 165,
                 objectFit: "contain",
                 marginBottom: "44px",
               }}
@@ -394,6 +385,15 @@ export default function ResearchGate() {
             >
               00.1 — RESEARCH VERIFICATION
             </div>
+
+            {/* Ochre rule above heading */}
+            <div
+              style={{
+                height: "1px",
+                backgroundColor: "#C89A3C",
+                marginBottom: "20px",
+              }}
+            />
 
             {/* Heading */}
             <h1
@@ -461,7 +461,7 @@ export default function ResearchGate() {
                     height: "19px",
                     marginTop: "3px",
                     flexShrink: 0,
-                    accentColor: "#B8624A",
+                    accentColor: "#C89A3C",
                     cursor: "pointer",
                   }}
                 />
@@ -494,7 +494,7 @@ export default function ResearchGate() {
                     height: "19px",
                     marginTop: "3px",
                     flexShrink: 0,
-                    accentColor: "#B8624A",
+                    accentColor: "#C89A3C",
                     cursor: "pointer",
                   }}
                 />
@@ -519,9 +519,9 @@ export default function ResearchGate() {
               style={{
                 width: "100%",
                 padding: "18px 28px",
-                backgroundColor: canEnter ? "#B8624A" : "transparent",
-                border: `1px solid ${canEnter ? "#B8624A" : "rgba(245,239,228,0.14)"}`,
-                color: canEnter ? "#F5EFE4" : "rgba(245,239,228,0.18)",
+                backgroundColor: canEnter ? "#C89A3C" : "transparent",
+                border: `1px solid ${canEnter ? "#C89A3C" : "rgba(245,239,228,0.14)"}`,
+                color: canEnter ? "#1A1814" : "rgba(245,239,228,0.18)",
                 fontFamily: "var(--font-jetbrains), monospace",
                 fontSize: "11px",
                 letterSpacing: "3px",
