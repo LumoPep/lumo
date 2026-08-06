@@ -461,7 +461,7 @@ export default function ResearchGate() {
                     height: "19px",
                     marginTop: "3px",
                     flexShrink: 0,
-                    accentColor: "#C89A3C",
+                    accentColor: "#B8624A",
                     cursor: "pointer",
                   }}
                 />
@@ -494,7 +494,7 @@ export default function ResearchGate() {
                     height: "19px",
                     marginTop: "3px",
                     flexShrink: 0,
-                    accentColor: "#C89A3C",
+                    accentColor: "#B8624A",
                     cursor: "pointer",
                   }}
                 />
@@ -519,9 +519,9 @@ export default function ResearchGate() {
               style={{
                 width: "100%",
                 padding: "18px 28px",
-                backgroundColor: canEnter ? "#C89A3C" : "transparent",
-                border: `1px solid ${canEnter ? "#C89A3C" : "rgba(245,239,228,0.14)"}`,
-                color: canEnter ? "#1A1814" : "rgba(245,239,228,0.18)",
+                backgroundColor: canEnter ? "#B8624A" : "transparent",
+                border: `1px solid ${canEnter ? "#B8624A" : "rgba(245,239,228,0.14)"}`,
+                color: canEnter ? "#F5EFE4" : "rgba(245,239,228,0.18)",
                 fontFamily: "var(--font-jetbrains), monospace",
                 fontSize: "11px",
                 letterSpacing: "3px",
