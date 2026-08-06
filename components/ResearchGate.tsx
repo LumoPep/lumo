@@ -4,31 +4,31 @@ import { useState, useEffect } from "react";
 
 const GATE_KEY = "lumo_age_research_verified";
 
-// Four vials to scatter across the left panel
-const VIALS = [
-  {
-    src: "/images/products/semaglutide-5mg-v2.png",
-    style: { top: "4%", right: "6%", width: 170, rotate: "rotate(9deg)" },
-  },
-  {
-    src: "/images/products/bpc-157-v2.png",
-    style: { top: "20%", left: "2%", width: 150, rotate: "rotate(-14deg)" },
-  },
-  {
-    src: "/images/products/tb-500-v2.png",
-    style: { top: "42%", right: "14%", width: 140, rotate: "rotate(-7deg)" },
-  },
-  {
-    src: "/images/products/lumo-2-trz-10mg-v2.png",
-    style: { top: "8%", left: "32%", width: 125, rotate: "rotate(5deg)" },
-  },
+// Six vials: different images, speeds, delays, opacities, and horizontal positions
+// Negative delays seed them at different heights on first render
+const FALLING_VIALS = [
+  { src: "/images/products/bpc-157-v2.png",        left: "5%",  width: 112, anim: "vialFall1", dur: "9s",  delay: "0s",   opacity: 0.88 },
+  { src: "/images/products/semaglutide-5mg-v2.png", left: "26%", width: 132, anim: "vialFall2", dur: "12s", delay: "-5s",  opacity: 0.72 },
+  { src: "/images/products/tb-500-v2.png",          left: "50%", width: 106, anim: "vialFall3", dur: "8s",  delay: "-2s",  opacity: 0.92 },
+  { src: "/images/products/ipamorelin-v2.png",      left: "70%", width: 120, anim: "vialFall4", dur: "11s", delay: "-7s",  opacity: 0.68 },
+  { src: "/images/products/lumo-2-trz-10mg-v2.png", left: "15%", width: 98,  anim: "vialFall5", dur: "14s", delay: "-10s", opacity: 0.78 },
+  { src: "/images/products/epithalon-v2.png",       left: "40%", width: 92,  anim: "vialFall3", dur: "10s", delay: "-1s",  opacity: 0.62 },
+];
+
+const TESTS = [
+  "HPLC Purity",
+  "Identity / LCMS",
+  "Net Content Assay",
+  "Batch Consistency",
+  "Endotoxins",
+  "Heavy Metals",
+  "Sterility",
 ];
 
 export default function ResearchGate() {
   const [visible, setVisible] = useState(false);
   const [age, setAge] = useState(false);
   const [researcher, setResearcher] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem(GATE_KEY)) {
@@ -45,535 +45,541 @@ export default function ResearchGate() {
     setVisible(false);
   };
 
-  const handleGoogle = async () => {
-    setGoogleLoading(true);
-    localStorage.setItem(GATE_KEY, "1");
-    try {
-      const { getSupabase } = await import("@/lib/supabase");
-      const supabase = getSupabase();
-      await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: { redirectTo: `${window.location.origin}/auth/callback` },
-      });
-    } catch {
-      // Supabase not configured — just close the gate
-      document.body.style.overflow = "";
-      setVisible(false);
-    }
-  };
-
   if (!visible) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        display: "flex",
-      }}
-    >
-      {/* ── 3px CLAY TOP ACCENT ─────────────────────────────── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "3px",
-          backgroundColor: "#B8624A",
-          zIndex: 10,
-        }}
-      />
+    <>
+      {/* Self-contained keyframe definitions — gate only */}
+      <style>{`
+        @keyframes vialFall1 {
+          0%   { transform: translateY(-160px) rotate(7deg);  opacity: 0; }
+          8%   { opacity: 0.88; }
+          86%  { opacity: 0.88; }
+          100% { transform: translateY(105vh)  rotate(10deg); opacity: 0; }
+        }
+        @keyframes vialFall2 {
+          0%   { transform: translateY(-160px) rotate(-11deg); opacity: 0; }
+          8%   { opacity: 0.72; }
+          86%  { opacity: 0.72; }
+          100% { transform: translateY(105vh)  rotate(-8deg);  opacity: 0; }
+        }
+        @keyframes vialFall3 {
+          0%   { transform: translateY(-160px) rotate(4deg);  opacity: 0; }
+          8%   { opacity: 0.92; }
+          86%  { opacity: 0.92; }
+          100% { transform: translateY(105vh)  rotate(7deg);  opacity: 0; }
+        }
+        @keyframes vialFall4 {
+          0%   { transform: translateY(-160px) rotate(-6deg); opacity: 0; }
+          8%   { opacity: 0.68; }
+          86%  { opacity: 0.68; }
+          100% { transform: translateY(105vh)  rotate(-9deg); opacity: 0; }
+        }
+        @keyframes vialFall5 {
+          0%   { transform: translateY(-160px) rotate(13deg); opacity: 0; }
+          8%   { opacity: 0.78; }
+          86%  { opacity: 0.78; }
+          100% { transform: translateY(105vh)  rotate(11deg); opacity: 0; }
+        }
+      `}</style>
 
-      {/* ── LEFT PANEL ──────────────────────────────────────── */}
       <div
-        className="hidden lg:flex"
         style={{
-          width: "45%",
-          position: "relative",
-          backgroundColor: "#F5EFE4",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          overflow: "hidden",
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          display: "flex",
         }}
       >
-        {/* Scattered vial images */}
-        {VIALS.map((vial, i) => (
-          <img
-            key={i}
-            src={vial.src}
-            alt=""
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              width: vial.style.width,
-              top: vial.style.top,
-              right: ("right" in vial.style) ? vial.style.right : undefined,
-              left: ("left" in vial.style) ? vial.style.left : undefined,
-              objectFit: "contain",
-              transform: vial.style.rotate,
-              filter: "drop-shadow(0 16px 32px rgba(26,24,20,0.12))",
-              zIndex: 1,
-            }}
-          />
-        ))}
-
-        {/* Gradient overlay — fades to Bone at bottom for text legibility */}
+        {/* Clay top accent — spans full width across both panels */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to top, #F5EFE4 0%, rgba(245,239,228,0.85) 30%, rgba(245,239,228,0.25) 65%, rgba(245,239,228,0.05) 100%)",
-            zIndex: 2,
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "3px",
+            backgroundColor: "#B8624A",
+            zIndex: 10,
           }}
         />
 
-        {/* Bottom brand content */}
+        {/* ── LEFT PANEL (Bone, desktop only) ─────────────── */}
         <div
+          className="hidden lg:flex"
           style={{
+            width: "45%",
             position: "relative",
-            zIndex: 3,
-            padding: "36px 40px",
+            backgroundColor: "#F5EFE4",
+            flexDirection: "column",
+            overflow: "hidden",
           }}
         >
-          {/* Brand statement */}
-          <p
-            style={{
-              fontFamily: "var(--font-fraunces), serif",
-              fontWeight: 300,
-              fontStyle: "italic",
-              fontSize: "clamp(1.3rem, 2vw, 1.7rem)",
-              color: "#1A1814",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.2,
-              marginBottom: "28px",
-              maxWidth: "340px",
-            }}
-          >
-            Research-grade peptides.
-            <br />
-            Independently verified.
-          </p>
+          {/* Falling vials — looping infinitely */}
+          {FALLING_VIALS.map((vial, i) => (
+            <img
+              key={i}
+              src={vial.src}
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                left: vial.left,
+                top: 0,
+                width: vial.width,
+                objectFit: "contain",
+                zIndex: 1,
+                animation: `${vial.anim} ${vial.dur} linear ${vial.delay} infinite`,
+                filter: "drop-shadow(0 14px 24px rgba(26,24,20,0.14))",
+              }}
+            />
+          ))}
 
-          {/* Hairline divider */}
+          {/* Gradient overlay — solid Bone at the bottom so text is fully legible */}
           <div
             style={{
-              height: "1px",
-              backgroundColor: "rgba(26,24,20,0.12)",
-              marginBottom: "20px",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "65%",
+              background:
+                "linear-gradient(to top, #F5EFE4 55%, rgba(245,239,228,0.92) 72%, transparent 100%)",
+              zIndex: 2,
+              pointerEvents: "none",
             }}
           />
 
-          {/* Trust stats */}
+          {/* Text content — pinned to bottom of panel */}
           <div
             style={{
+              position: "relative",
+              zIndex: 3,
+              height: "100%",
               display: "flex",
-              gap: "24px",
-              marginBottom: "20px",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "36px 40px",
             }}
           >
-            {[
-              { value: "7×", label: "Independent Testing" },
-              { value: "24", label: "Compounds" },
-              { value: "US-Lab", label: "Third-Party Verified" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-fraunces), serif",
-                    fontWeight: 300,
-                    fontSize: "1.1rem",
-                    color: "#B8624A",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1,
-                    marginBottom: "3px",
-                  }}
-                >
-                  {stat.value}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-jetbrains), monospace",
-                    fontSize: "8px",
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-                    color: "#1A1814",
-                    opacity: 0.5,
-                  }}
-                >
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Lot traceability example */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              backgroundColor: "rgba(26,24,20,0.06)",
-              padding: "6px 10px",
-            }}
-          >
-            <span
+            {/* Lumo Ink logo */}
+            <img
+              src="/logos/lumo_logo_ink.png"
+              alt="Lumo"
               style={{
-                fontFamily: "var(--font-jetbrains), monospace",
-                fontSize: "8px",
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                color: "#1A1814",
-                opacity: 0.4,
+                width: 96,
+                objectFit: "contain",
+                marginBottom: "28px",
               }}
-            >
-              LOT TRACE
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-jetbrains), monospace",
-                fontSize: "9px",
-                letterSpacing: "1.5px",
-                color: "#1A1814",
-                opacity: 0.65,
-              }}
-            >
-              LMO-0626-BPC-005
-            </span>
-          </div>
-        </div>
-      </div>
+            />
 
-      {/* ── RIGHT PANEL ─────────────────────────────────────── */}
-      <div
-        className="w-full lg:w-[55%]"
-        style={{
-          backgroundColor: "#1A1814",
-          overflowY: "auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "48px 40px",
-        }}
-      >
-        <div style={{ maxWidth: "420px", width: "100%" }}>
-
-          {/* Wordmark */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "40px",
-            }}
-          >
-            <span
+            {/* Brand statement */}
+            <p
               style={{
                 fontFamily: "var(--font-fraunces), serif",
                 fontWeight: 300,
-                fontSize: "1.4rem",
-                color: "#F5EFE4",
-                letterSpacing: "-0.02em",
+                fontStyle: "italic",
+                fontSize: "clamp(1.55rem, 2.1vw, 2.1rem)",
+                color: "#1A1814",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.18,
+                marginBottom: "28px",
               }}
             >
-              Lumo
-            </span>
+              Research-grade peptides.
+              <br />
+              Independently verified.
+            </p>
+
+            {/* 7× Testing section */}
+            <div style={{ marginBottom: "24px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  marginBottom: "12px",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-fraunces), serif",
+                    fontWeight: 300,
+                    fontSize: "1.05rem",
+                    color: "#B8624A",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  7×
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-jetbrains), monospace",
+                    fontSize: "9px",
+                    letterSpacing: "2.5px",
+                    textTransform: "uppercase",
+                    color: "#1A1814",
+                  }}
+                >
+                  Independent Testing
+                </span>
+              </div>
+
+              {/* 2-column test grid */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "5px 20px",
+                }}
+              >
+                {TESTS.map((test) => (
+                  <div
+                    key={test}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "7px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "3px",
+                        height: "3px",
+                        borderRadius: "50%",
+                        backgroundColor: "#B8624A",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--font-jetbrains), monospace",
+                        fontSize: "9px",
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                        color: "#1A1814",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {test}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider */}
             <div
               style={{
-                width: "1px",
-                height: "14px",
-                backgroundColor: "rgba(245,239,228,0.2)",
+                height: "1px",
+                backgroundColor: "rgba(26,24,20,0.12)",
+                marginBottom: "20px",
               }}
             />
-            <span
+
+            {/* Stat blocks */}
+            <div
+              style={{
+                display: "flex",
+                gap: "28px",
+                marginBottom: "18px",
+              }}
+            >
+              {[
+                { value: "7×", label: "Independent Testing" },
+                { value: "24", label: "Compounds" },
+                { value: "US", label: "Lab Verified" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontWeight: 300,
+                      fontSize: "1.45rem",
+                      color: "#B8624A",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1,
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-jetbrains), monospace",
+                      fontSize: "8px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "#1A1814",
+                    }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Lot traceability example */}
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                backgroundColor: "rgba(26,24,20,0.06)",
+                padding: "6px 12px",
+                alignSelf: "flex-start",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontSize: "8px",
+                  letterSpacing: "2px",
+                  textTransform: "uppercase",
+                  color: "#1A1814",
+                  opacity: 0.45,
+                }}
+              >
+                LOT
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontSize: "9px",
+                  letterSpacing: "1.5px",
+                  color: "#1A1814",
+                }}
+              >
+                LMO-0626-BPC-005
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── RIGHT PANEL (Ink) ────────────────────────────── */}
+        <div
+          className="w-full lg:w-[55%]"
+          style={{
+            backgroundColor: "#1A1814",
+            overflowY: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "48px 32px",
+          }}
+        >
+          <div style={{ maxWidth: "460px", width: "100%" }}>
+
+            {/* Cream logo */}
+            <img
+              src="/logos/lumo_logo_cream.png"
+              alt="Lumo"
+              style={{
+                width: 118,
+                objectFit: "contain",
+                marginBottom: "44px",
+              }}
+            />
+
+            {/* Section label */}
+            <div
               style={{
                 fontFamily: "var(--font-jetbrains), monospace",
-                fontSize: "9px",
+                fontSize: "10px",
                 letterSpacing: "3px",
                 textTransform: "uppercase",
+                color: "#B8624A",
+                marginBottom: "16px",
+              }}
+            >
+              00.1 — RESEARCH VERIFICATION
+            </div>
+
+            {/* Heading */}
+            <h1
+              style={{
+                fontFamily: "var(--font-fraunces), serif",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
                 color: "#F5EFE4",
-                opacity: 0.4,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.08,
+                marginBottom: "20px",
               }}
             >
-              Research Peptides
-            </span>
-            {/* Pulsing Clay dot */}
-            <span
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: "#B8624A",
-                flexShrink: 0,
-                animation: "pulseDot 2s ease-in-out infinite",
-              }}
-            />
-          </div>
+              Before you enter.
+            </h1>
 
-          {/* Section label */}
-          <div
-            style={{
-              fontFamily: "var(--font-jetbrains), monospace",
-              fontSize: "9px",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "#B8624A",
-              marginBottom: "14px",
-            }}
-          >
-            00.1 — RESEARCH VERIFICATION
-          </div>
-
-          {/* Heading */}
-          <h1
-            style={{
-              fontFamily: "var(--font-fraunces), serif",
-              fontWeight: 300,
-              fontStyle: "italic",
-              fontSize: "clamp(1.9rem, 4vw, 2.6rem)",
-              color: "#F5EFE4",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.1,
-              marginBottom: "16px",
-            }}
-          >
-            Before you enter.
-          </h1>
-
-          {/* Description */}
-          <p
-            style={{
-              fontFamily: "var(--font-newsreader), serif",
-              fontSize: "14px",
-              color: "#F5EFE4",
-              opacity: 0.9,
-              lineHeight: 1.65,
-              marginBottom: "28px",
-            }}
-          >
-            Lumo compounds are research-grade chemicals sold exclusively for
-            qualified in vitro research. Please confirm the following before
-            continuing.
-          </p>
-
-          {/* Hairline divider */}
-          <div
-            style={{
-              height: "1px",
-              backgroundColor: "rgba(245,239,228,0.12)",
-              marginBottom: "24px",
-            }}
-          />
-
-          {/* Checkboxes */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "18px",
-              marginBottom: "28px",
-            }}
-          >
-            {/* Age */}
-            <label
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "13px",
-                cursor: "pointer",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={age}
-                onChange={(e) => setAge(e.target.checked)}
-                style={{
-                  width: "17px",
-                  height: "17px",
-                  marginTop: "2px",
-                  flexShrink: 0,
-                  accentColor: "#B8624A",
-                  cursor: "pointer",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
-                  fontSize: "13px",
-                  color: "#F5EFE4",
-                  opacity: age ? 1 : 0.8,
-                  lineHeight: 1.5,
-                  transition: "opacity 0.15s",
-                }}
-              >
-                I am at least 21 years of age
-              </span>
-            </label>
-
-            {/* Researcher */}
-            <label
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "13px",
-                cursor: "pointer",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={researcher}
-                onChange={(e) => setResearcher(e.target.checked)}
-                style={{
-                  width: "17px",
-                  height: "17px",
-                  marginTop: "2px",
-                  flexShrink: 0,
-                  accentColor: "#B8624A",
-                  cursor: "pointer",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
-                  fontSize: "13px",
-                  color: "#F5EFE4",
-                  opacity: researcher ? 1 : 0.8,
-                  lineHeight: 1.5,
-                  transition: "opacity 0.15s",
-                }}
-              >
-                I confirm I am a qualified researcher purchasing for in vitro /
-                laboratory research only — not for human or veterinary use
-              </span>
-            </label>
-          </div>
-
-          {/* Enter Lumo CTA */}
-          <button
-            onClick={handleEnter}
-            disabled={!canEnter}
-            style={{
-              width: "100%",
-              padding: "15px 24px",
-              backgroundColor: canEnter ? "#B8624A" : "transparent",
-              border: `1px solid ${canEnter ? "#B8624A" : "rgba(245,239,228,0.15)"}`,
-              color: canEnter ? "#F5EFE4" : "rgba(245,239,228,0.2)",
-              fontFamily: "var(--font-jetbrains), monospace",
-              fontSize: "10px",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              cursor: canEnter ? "pointer" : "not-allowed",
-              transition: "all 0.2s",
-              display: "block",
-              marginBottom: "10px",
-              textAlign: "center",
-            }}
-          >
-            {canEnter ? "→ Enter Lumo" : "Enter Lumo"}
-          </button>
-
-          {/* Continue with Google */}
-          <button
-            onClick={handleGoogle}
-            disabled={googleLoading}
-            style={{
-              width: "100%",
-              padding: "14px 24px",
-              backgroundColor: "#F5EFE4",
-              border: "1px solid #F5EFE4",
-              color: "#1A1814",
-              fontFamily: "var(--font-jetbrains), monospace",
-              fontSize: "10px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              cursor: googleLoading ? "wait" : "pointer",
-              opacity: googleLoading ? 0.6 : 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "10px",
-              transition: "opacity 0.15s",
-              marginBottom: "20px",
-            }}
-          >
-            {/* Google G icon */}
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              style={{ flexShrink: 0 }}
-            >
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              />
-            </svg>
-            {googleLoading ? "Redirecting..." : "Continue with Google"}
-          </button>
-
-          {/* Exit link */}
-          <div
-            style={{
-              textAlign: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <a
-              href="https://www.google.com"
-              style={{
-                fontFamily: "var(--font-jetbrains), monospace",
-                fontSize: "9px",
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                color: "#F5EFE4",
-                opacity: 0.35,
-                textDecoration: "none",
-              }}
-            >
-              Not a researcher? Exit
-            </a>
-          </div>
-
-          {/* Legal disclaimer */}
-          <div
-            style={{
-              borderTop: "1px solid rgba(245,239,228,0.08)",
-              paddingTop: "16px",
-            }}
-          >
+            {/* Description */}
             <p
               style={{
-                fontFamily: "var(--font-jetbrains), monospace",
-                fontSize: "9px",
-                letterSpacing: "0.5px",
+                fontFamily: "var(--font-newsreader), serif",
+                fontSize: "17px",
                 color: "#F5EFE4",
-                opacity: 0.55,
-                lineHeight: 1.7,
-                textAlign: "center",
+                lineHeight: 1.65,
+                marginBottom: "32px",
               }}
             >
-              By proceeding you affirm the statements above are true. Products
-              are not for human or veterinary use and have not been evaluated by
-              the FDA.
+              Lumo compounds are research-grade chemicals sold exclusively for
+              qualified in vitro research. Please confirm the following before
+              continuing.
             </p>
-          </div>
 
+            {/* Hairline divider */}
+            <div
+              style={{
+                height: "1px",
+                backgroundColor: "rgba(245,239,228,0.14)",
+                marginBottom: "30px",
+              }}
+            />
+
+            {/* Checkboxes */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+                marginBottom: "36px",
+              }}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "14px",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={age}
+                  onChange={(e) => setAge(e.target.checked)}
+                  style={{
+                    width: "19px",
+                    height: "19px",
+                    marginTop: "3px",
+                    flexShrink: 0,
+                    accentColor: "#B8624A",
+                    cursor: "pointer",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-inter-tight), sans-serif",
+                    fontSize: "16px",
+                    color: "#F5EFE4",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  I am at least 21 years of age
+                </span>
+              </label>
+
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "14px",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={researcher}
+                  onChange={(e) => setResearcher(e.target.checked)}
+                  style={{
+                    width: "19px",
+                    height: "19px",
+                    marginTop: "3px",
+                    flexShrink: 0,
+                    accentColor: "#B8624A",
+                    cursor: "pointer",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-inter-tight), sans-serif",
+                    fontSize: "16px",
+                    color: "#F5EFE4",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  I confirm I am a qualified researcher purchasing for in vitro
+                  / laboratory research only — not for human or veterinary use
+                </span>
+              </label>
+            </div>
+
+            {/* Enter Lumo CTA */}
+            <button
+              onClick={handleEnter}
+              disabled={!canEnter}
+              style={{
+                width: "100%",
+                padding: "18px 28px",
+                backgroundColor: canEnter ? "#B8624A" : "transparent",
+                border: `1px solid ${canEnter ? "#B8624A" : "rgba(245,239,228,0.14)"}`,
+                color: canEnter ? "#F5EFE4" : "rgba(245,239,228,0.18)",
+                fontFamily: "var(--font-jetbrains), monospace",
+                fontSize: "11px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                cursor: canEnter ? "pointer" : "not-allowed",
+                transition: "background-color 0.2s, border-color 0.2s, color 0.2s",
+                textAlign: "center",
+                marginBottom: "20px",
+              }}
+            >
+              {canEnter ? "→ Enter Lumo" : "Enter Lumo"}
+            </button>
+
+            {/* Exit link */}
+            <div style={{ textAlign: "center", marginBottom: "24px" }}>
+              <a
+                href="https://www.google.com"
+                style={{
+                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontSize: "10px",
+                  letterSpacing: "1.5px",
+                  textTransform: "uppercase",
+                  color: "#F5EFE4",
+                  opacity: 0.32,
+                  textDecoration: "none",
+                }}
+              >
+                Not a researcher? Exit
+              </a>
+            </div>
+
+            {/* Legal disclaimer */}
+            <div
+              style={{
+                borderTop: "1px solid rgba(245,239,228,0.08)",
+                paddingTop: "18px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontSize: "10px",
+                  letterSpacing: "0.5px",
+                  color: "#F5EFE4",
+                  opacity: 0.55,
+                  lineHeight: 1.7,
+                  textAlign: "center",
+                }}
+              >
+                By proceeding you affirm the statements above are true. Products
+                are not for human or veterinary use and have not been evaluated
+                by the FDA.
+              </p>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
