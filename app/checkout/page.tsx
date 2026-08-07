@@ -207,10 +207,12 @@ export default function CheckoutPage() {
   const subtotal = getTotal();
   const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Calculate best discount
+  // Bundle discount is already applied in item prices via the cart store.
+  // Pass 0 for quantity so calculateBestDiscount does not apply a bundle tier on top.
+  // Promo codes and first-order discounts still evaluate against the subtotal.
   const discountResult: DiscountResult = calculateBestDiscount(
     subtotal,
-    totalQty,
+    0,
     promoCode,
     isFirstOrderFlag
   );
