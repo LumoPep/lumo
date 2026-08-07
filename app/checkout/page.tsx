@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useCartStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
+import { PRODUCTS } from "@/data/products";
 import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
@@ -194,6 +195,14 @@ export default function CheckoutPage() {
     return null;
   }
 
+  // Build id → first image lookup from product catalog
+  const productImageMap: Record<string, string> = {};
+  PRODUCTS.forEach((p) => {
+    if (p.images && p.images.length > 0) {
+      productImageMap[p.id.toString()] = p.images[0];
+    }
+  });
+
   const subtotal = getTotal();
   const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -231,7 +240,7 @@ export default function CheckoutPage() {
         <div className="mb-10">
           <div
             className="font-mono uppercase mb-2"
-            style={{ fontSize: "10px", letterSpacing: "3px", color: "#1A1814", opacity: 0.45 }}
+            style={{ fontSize: "11px", letterSpacing: "3px", color: "#1A1814" }}
           >
             07.1 — SECURE CHECKOUT
           </div>
@@ -274,7 +283,7 @@ export default function CheckoutPage() {
                   <div>
                     <label
                       className="block font-functional uppercase mb-1.5"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
                       Email address *
                     </label>
@@ -295,7 +304,7 @@ export default function CheckoutPage() {
                     />
                     <p
                       className="font-mono mt-1"
-                      style={{ fontSize: "10px", color: "#1A1814", opacity: 0.45 }}
+                      style={{ fontSize: "11px", color: "#1A1814", opacity: 0.8 }}
                     >
                       Order confirmation and tracking sent here
                     </p>
@@ -304,7 +313,7 @@ export default function CheckoutPage() {
                   <div>
                     <label
                       className="block font-functional uppercase mb-1.5"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
                       Full name *
                     </label>
@@ -325,29 +334,6 @@ export default function CheckoutPage() {
                     />
                   </div>
 
-                  <div>
-                    <label
-                      className="block font-functional uppercase mb-1.5"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
-                    >
-                      Research institution / organization *
-                    </label>
-                    <input
-                      type="text"
-                      name="institution"
-                      value={formData.institution}
-                      onChange={handleChange}
-                      required
-                      className="w-full focus:outline-none font-functional text-sm"
-                      style={{
-                        backgroundColor: "#F5EFE4",
-                        border: "1px solid rgba(26,24,20,0.15)",
-                        padding: "11px 14px",
-                        color: "#1A1814",
-                      }}
-                      placeholder="University Research Laboratory"
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -376,7 +362,7 @@ export default function CheckoutPage() {
                   <div>
                     <label
                       className="block font-functional uppercase mb-1.5"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
                       Address line 1 *
                     </label>
@@ -400,7 +386,7 @@ export default function CheckoutPage() {
                   <div>
                     <label
                       className="block font-functional uppercase mb-1.5"
-                      style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
                       Address line 2
                     </label>
@@ -424,7 +410,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         className="block font-functional uppercase mb-1.5"
-                        style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                        style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                       >
                         City *
                       </label>
@@ -447,7 +433,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         className="block font-functional uppercase mb-1.5"
-                        style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                        style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                       >
                         State / Province *
                       </label>
@@ -473,7 +459,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         className="block font-functional uppercase mb-1.5"
-                        style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                        style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                       >
                         ZIP / Postal code *
                       </label>
@@ -496,7 +482,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         className="block font-functional uppercase mb-1.5"
-                        style={{ fontSize: "10px", letterSpacing: "1.5px", color: "#1A1814", opacity: 0.55 }}
+                        style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                       >
                         Country *
                       </label>
@@ -542,7 +528,7 @@ export default function CheckoutPage() {
                 </h2>
                 <p
                   className="font-editorial mb-6"
-                  style={{ fontSize: "13px", color: "#1A1814", opacity: 0.5 }}
+                  style={{ fontSize: "14px", color: "#1A1814" }}
                 >
                   Select your preferred cryptocurrency
                 </p>
@@ -616,7 +602,7 @@ export default function CheckoutPage() {
                     </p>
                     <p
                       className="font-editorial"
-                      style={{ fontSize: "12px", color: "#1A1814", opacity: 0.55, lineHeight: 1.5 }}
+                      style={{ fontSize: "13px", color: "#1A1814", lineHeight: 1.5 }}
                     >
                       Processed securely through NOWPayments. Confirmed automatically via blockchain.
                     </p>
@@ -677,7 +663,7 @@ export default function CheckoutPage() {
                       />
                       <span
                         className="font-editorial leading-relaxed"
-                        style={{ fontSize: "13px", color: "#1A1814", opacity: 0.75 }}
+                        style={{ fontSize: "14px", color: "#1A1814" }}
                       >
                         {item.text}
                       </span>
@@ -765,7 +751,7 @@ export default function CheckoutPage() {
                 >
                   <label
                     className="block font-mono uppercase mb-2"
-                    style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814", opacity: 0.5 }}
+                    style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
                   >
                     Promo code
                   </label>
@@ -836,50 +822,112 @@ export default function CheckoutPage() {
                     <div
                       key={index}
                       style={{
-                        paddingBottom: index < items.length - 1 ? "12px" : 0,
-                        marginBottom: index < items.length - 1 ? "12px" : 0,
+                        paddingBottom: index < items.length - 1 ? "14px" : 0,
+                        marginBottom: index < items.length - 1 ? "14px" : 0,
                         borderBottom: index < items.length - 1 ? "1px solid rgba(26,24,20,0.07)" : "none",
                       }}
                     >
-                      <div className="flex items-start justify-between gap-2">
-                        <span
-                          className="font-display"
-                          style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1rem", color: "#1A1814", lineHeight: 1.2 }}
-                        >
-                          {item.productName}
-                        </span>
-                        <span
-                          className="font-display flex-shrink-0"
-                          style={{ fontWeight: 300, fontSize: "1rem", color: "#1A1814" }}
-                        >
-                          ${(item.price * item.quantity).toFixed(2)}
-                        </span>
-                      </div>
-                      <div
-                        className="font-mono mt-0.5"
-                        style={{ fontSize: "10px", color: "#1A1814", opacity: 0.45 }}
-                      >
-                        {item.variant} · qty {item.quantity}
+                      <div className="flex items-start gap-3">
+                        {/* Product vial image */}
+                        {productImageMap[item.productId] && (
+                          <img
+                            src={productImageMap[item.productId]}
+                            alt=""
+                            aria-hidden="true"
+                            style={{
+                              width: 52,
+                              height: 66,
+                              objectFit: "contain",
+                              flexShrink: 0,
+                              filter: "drop-shadow(0 4px 8px rgba(26,24,20,0.12))",
+                            }}
+                          />
+                        )}
+                        <div style={{ flex: 1 }}>
+                          <div className="flex items-start justify-between gap-2">
+                            <span
+                              className="font-display"
+                              style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1rem", color: "#1A1814", lineHeight: 1.2 }}
+                            >
+                              {item.productName}
+                            </span>
+                            <span
+                              className="font-display flex-shrink-0"
+                              style={{ fontWeight: 300, fontSize: "1rem", color: "#1A1814" }}
+                            >
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </span>
+                          </div>
+                          <div
+                            className="font-mono mt-0.5"
+                            style={{ fontSize: "11px", color: "#1A1814" }}
+                          >
+                            {item.variant} · qty {item.quantity}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Shipping note */}
+                {/* Shipping callouts */}
                 <div
-                  className="flex items-center justify-between font-mono"
                   style={{
-                    fontSize: "9px",
-                    letterSpacing: "1px",
-                    color: "#1A1814",
-                    opacity: 0.45,
                     marginBottom: "16px",
                     paddingBottom: "16px",
                     borderBottom: "1px solid rgba(26,24,20,0.1)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
                   }}
                 >
-                  <span>Free shipping on orders over $150</span>
-                  <span>2-day delivery</span>
+                  {/* Free shipping */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      backgroundColor: "rgba(200,154,60,0.08)",
+                      border: "1px solid rgba(200,154,60,0.3)",
+                      padding: "10px 14px",
+                    }}
+                  >
+                    {/* Truck icon */}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                      <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z" stroke="#C89A3C" strokeWidth="1.5" strokeLinejoin="round" />
+                      <circle cx="5.5" cy="18.5" r="2" stroke="#C89A3C" strokeWidth="1.5" />
+                      <circle cx="18.5" cy="18.5" r="2" stroke="#C89A3C" strokeWidth="1.5" />
+                    </svg>
+                    <span
+                      className="font-mono uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#C89A3C", fontWeight: 500 }}
+                    >
+                      Free shipping on orders over $150
+                    </span>
+                  </div>
+                  {/* 2-day delivery */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      backgroundColor: "rgba(184,98,74,0.07)",
+                      border: "1px solid rgba(184,98,74,0.25)",
+                      padding: "10px 14px",
+                    }}
+                  >
+                    {/* Calendar/clock icon */}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                      <circle cx="12" cy="12" r="9" stroke="#B8624A" strokeWidth="1.5" />
+                      <path d="M12 7v5l3 3" stroke="#B8624A" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                    <span
+                      className="font-mono uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#B8624A", fontWeight: 500 }}
+                    >
+                      2-Day Delivery
+                    </span>
+                  </div>
                 </div>
 
                 {/* Price Rows */}
@@ -887,7 +935,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between items-center">
                     <span
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814", opacity: 0.5 }}
+                      style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
                     >
                       Subtotal
                     </span>
@@ -919,7 +967,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between items-center">
                     <span
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814", opacity: 0.5 }}
+                      style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
                     >
                       Shipping
                     </span>
@@ -952,7 +1000,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between items-end">
                     <span
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814", opacity: 0.5 }}
+                      style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
                     >
                       Total
                     </span>
@@ -977,12 +1025,11 @@ export default function CheckoutPage() {
                       width: "64px",
                       marginLeft: "auto",
                       marginTop: "6px",
-                      opacity: 0.7,
                     }}
                   />
                   <p
                     className="font-mono text-right mt-2"
-                    style={{ fontSize: "9px", letterSpacing: "1px", color: "#1A1814", opacity: 0.4 }}
+                    style={{ fontSize: "10px", letterSpacing: "1px", color: "#1A1814", opacity: 0.8 }}
                   >
                     USD equivalent in {selectedCrypto.toUpperCase()}
                   </p>
@@ -1004,7 +1051,7 @@ export default function CheckoutPage() {
                     <div
                       key={item.text}
                       className="flex items-center gap-2 font-mono mb-2"
-                      style={{ fontSize: "10px", color: "#1A1814", opacity: 0.6 }}
+                      style={{ fontSize: "11px", color: "#1A1814" }}
                     >
                       <span style={{ color: item.color, fontSize: "7px" }}>●</span>
                       {item.text}
@@ -1031,7 +1078,7 @@ export default function CheckoutPage() {
                       </p>
                       <p
                         className="font-editorial leading-snug"
-                        style={{ fontSize: "11px", color: "#1A1814", opacity: 0.65 }}
+                        style={{ fontSize: "12px", color: "#1A1814", opacity: 0.8 }}
                       >
                         For in vitro laboratory use only. Not for human consumption, clinical, therapeutic, or veterinary use. Qualified researchers only.
                       </p>
