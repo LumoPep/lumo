@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import Link from "next/link";
 
 interface FAQ {
   question: string;
@@ -15,16 +14,6 @@ interface FAQCategory {
   color: string;
   faqs: FAQ[];
 }
-
-// Accent colors per category — avoids any bg-cream/text-cream contrast collapse
-const categoryAccent: Record<string, string> = {
-  "research-use":    "#B8624A",
-  "quality-testing": "#C89A3C",
-  "ordering":        "#B8624A",
-  "shipping":        "#607A5C",
-  "storage":         "#C89A3C",
-  "products":        "#607A5C",
-};
 
 const faqCategories: FAQCategory[] = [
   {
@@ -199,7 +188,7 @@ export default function FAQPage() {
 
   const currentCategory =
     faqCategories.find((cat) => cat.id === activeCategory) || faqCategories[0];
-  const accent = categoryAccent[activeCategory] || "#B8624A";
+  const activeCategoryIndex = faqCategories.findIndex((c) => c.id === activeCategory);
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -212,7 +201,7 @@ export default function FAQPage() {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55 }}
             className="font-mono uppercase"
-            style={{ fontSize: "10px", letterSpacing: "3px", color: "#EBE2CF", opacity: 0.7, marginBottom: "20px" }}
+            style={{ fontSize: "10px", letterSpacing: "3px", color: "#EBE2CF", marginBottom: "20px" }}
           >
             05.1 — FAQ
           </motion.div>
@@ -236,8 +225,8 @@ export default function FAQPage() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={heroInView ? { opacity: 0.8 } : {}}
+            initial={{ opacity: 0, y: 12 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.3 }}
             className="font-editorial"
             style={{ fontSize: "1.05rem", color: "#EBE2CF", maxWidth: "480px" }}
@@ -252,104 +241,86 @@ export default function FAQPage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
-            {/* ── SIDEBAR ──────────────────────────────────── */}
+            {/* ── SIDEBAR ──────────────────────────────────────── */}
             <div className="lg:col-span-3">
               <div className="lg:sticky lg:top-24">
+                <div style={{ backgroundColor: "#EBE2CF", padding: "24px" }}>
 
-                <div
-                  className="font-mono uppercase"
-                  style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4, marginBottom: "12px" }}
-                >
-                  CATEGORIES
-                </div>
-
-                <nav style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-                  {faqCategories.map((category, index) => {
-                    const isActive = activeCategory === category.id;
-                    const catAccent = categoryAccent[category.id] || "#B8624A";
-                    return (
-                      <motion.button
-                        key={category.id}
-                        initial={{ opacity: 0, x: -12 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.07 }}
-                        onClick={() => {
-                          setActiveCategory(category.id);
-                          setOpenIndex(0);
-                        }}
-                        className="w-full text-left"
-                        style={{
-                          padding: "11px 14px",
-                          backgroundColor: isActive ? "#1A1814" : "transparent",
-                          border: "1px solid",
-                          borderColor: isActive ? "#1A1814" : "rgba(26,24,20,0.12)",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                          transition: "all 0.15s",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: "6px",
-                            color: isActive ? catAccent : "transparent",
-                            flexShrink: 0,
-                          }}
-                        >
-                          ●
-                        </span>
-                        <span
-                          className="font-mono uppercase flex-1 text-left"
-                          style={{
-                            fontSize: "10px",
-                            letterSpacing: "1.5px",
-                            color: isActive ? "#EBE2CF" : "#1A1814",
-                            opacity: isActive ? 1 : 0.6,
-                          }}
-                        >
-                          {category.title}
-                        </span>
-                        <span
-                          className="font-mono"
-                          style={{
-                            fontSize: "9px",
-                            color: isActive ? "rgba(235,226,207,0.4)" : "rgba(26,24,20,0.3)",
-                          }}
-                        >
-                          {category.faqs.length}
-                        </span>
-                      </motion.button>
-                    );
-                  })}
-                </nav>
-
-                {/* Contact note */}
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(26,24,20,0.1)",
-                    marginTop: "28px",
-                    paddingTop: "22px",
-                  }}
-                >
-                  <p
-                    className="font-editorial"
-                    style={{ fontSize: "12px", color: "#1A1814", opacity: 0.5, marginBottom: "6px", lineHeight: 1.5 }}
-                  >
-                    Can't find what you need?
-                  </p>
-                  <a
-                    href="mailto:support@lumopep.com"
+                  <div
                     className="font-mono uppercase"
-                    style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
+                    style={{
+                      fontSize: "9px",
+                      letterSpacing: "3px",
+                      color: "#1A1814",
+                      opacity: 0.6,
+                      marginBottom: "16px",
+                    }}
                   >
-                    → Contact support
-                  </a>
+                    CATEGORIES
+                  </div>
+
+                  <nav style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                    {faqCategories.map((category, index) => {
+                      const isActive = activeCategory === category.id;
+                      return (
+                        <button
+                          key={category.id}
+                          onClick={() => {
+                            setActiveCategory(category.id);
+                            setOpenIndex(0);
+                          }}
+                          className="w-full text-left transition-all"
+                          style={{
+                            padding: "9px 12px",
+                            backgroundColor: "transparent",
+                            borderLeft: isActive
+                              ? "2px solid #B8624A"
+                              : "2px solid transparent",
+                          }}
+                        >
+                          <span
+                            className="font-mono"
+                            style={{
+                              fontSize: "10px",
+                              letterSpacing: "1px",
+                              color: isActive ? "#B8624A" : "#1A1814",
+                              opacity: isActive ? 1 : 0.6,
+                            }}
+                          >
+                            {String(index + 1).padStart(2, "0")} — {category.title}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </nav>
+
+                  {/* Contact note */}
+                  <div
+                    style={{
+                      borderTop: "1px solid rgba(26,24,20,0.12)",
+                      marginTop: "24px",
+                      paddingTop: "20px",
+                    }}
+                  >
+                    <p
+                      className="font-editorial"
+                      style={{ fontSize: "12px", color: "#1A1814", marginBottom: "6px", lineHeight: 1.5 }}
+                    >
+                      Can't find what you need?
+                    </p>
+                    <a
+                      href="mailto:support@lumopep.com"
+                      className="font-mono uppercase"
+                      style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
+                    >
+                      → Contact support
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* ── ACCORDION PANEL ──────────────────────────── */}
+            {/* ── ACCORDION PANEL ──────────────────────────────── */}
             <div className="lg:col-span-9">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -359,40 +330,38 @@ export default function FAQPage() {
                   exit={{ opacity: 0, y: -14 }}
                   transition={{ duration: 0.22 }}
                 >
-                  {/* Category header — always Ink bg, accent left border */}
-                  <div
-                    style={{
-                      backgroundColor: "#1A1814",
-                      borderLeft: `4px solid ${accent}`,
-                      padding: "28px 32px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                  {/* Category header — light treatment, ToS numbered label style */}
+                  <div style={{ marginBottom: "28px" }}>
                     <div
                       className="font-mono uppercase"
                       style={{
-                        fontSize: "9px",
+                        fontSize: "10px",
                         letterSpacing: "3px",
-                        color: accent,
-                        marginBottom: "10px",
+                        color: "#B8624A",
+                        marginBottom: "12px",
                       }}
                     >
-                      ● {currentCategory.faqs.length}{" "}
-                      {currentCategory.faqs.length === 1 ? "QUESTION" : "QUESTIONS"}
+                      {String(activeCategoryIndex + 1).padStart(2, "0")} —
                     </div>
                     <h2
                       className="font-display"
                       style={{
                         fontWeight: 300,
-                        fontStyle: "italic",
-                        fontSize: "clamp(1.8rem, 3vw, 2.75rem)",
-                        color: "#EBE2CF",
+                        fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                        color: "#1A1814",
                         letterSpacing: "-0.02em",
                         lineHeight: 1.1,
+                        marginBottom: "20px",
                       }}
                     >
                       {currentCategory.title}
                     </h2>
+                    <div
+                      style={{
+                        height: "1px",
+                        backgroundColor: "rgba(26,24,20,0.12)",
+                      }}
+                    />
                   </div>
 
                   {/* Accordion items */}
@@ -411,7 +380,7 @@ export default function FAQPage() {
                             borderRight: "1px solid rgba(26,24,20,0.1)",
                             borderBottom: "1px solid rgba(26,24,20,0.1)",
                             borderLeft: isOpen
-                              ? `3px solid ${accent}`
+                              ? "3px solid #B8624A"
                               : "1px solid rgba(26,24,20,0.1)",
                             overflow: "hidden",
                           }}
@@ -432,7 +401,7 @@ export default function FAQPage() {
                               style={{
                                 fontSize: "9px",
                                 letterSpacing: "1px",
-                                color: isOpen ? accent : "rgba(26,24,20,0.3)",
+                                color: isOpen ? "#B8624A" : "rgba(26,24,20,0.4)",
                                 marginTop: "3px",
                                 minWidth: "22px",
                               }}
@@ -459,7 +428,7 @@ export default function FAQPage() {
                               transition={{ duration: 0.2 }}
                               style={{
                                 fontSize: "22px",
-                                color: isOpen ? accent : "rgba(26,24,20,0.35)",
+                                color: isOpen ? "#B8624A" : "rgba(26,24,20,0.35)",
                                 flexShrink: 0,
                                 lineHeight: 1,
                                 fontWeight: 300,
@@ -494,10 +463,9 @@ export default function FAQPage() {
                                     <p
                                       className="font-editorial leading-relaxed"
                                       style={{
-                                        fontSize: "14px",
+                                        fontSize: "16px",
                                         color: "#1A1814",
-                                        opacity: 0.72,
-                                        lineHeight: 1.65,
+                                        lineHeight: 1.7,
                                       }}
                                     >
                                       {faq.answer}
@@ -514,12 +482,19 @@ export default function FAQPage() {
                 </motion.div>
               </AnimatePresence>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── TRUST FOOTER ─────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1A1814", padding: "80px 24px" }}>
+      {/* ── CONTACT FOOTER — Cream bg, no Ink fill ───────────── */}
+      <section
+        style={{
+          backgroundColor: "#EBE2CF",
+          padding: "80px 24px",
+          borderTop: "1px solid rgba(26,24,20,0.1)",
+        }}
+      >
         <div className="container mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -541,7 +516,7 @@ export default function FAQPage() {
               fontWeight: 300,
               fontStyle: "italic",
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
-              color: "#EBE2CF",
+              color: "#1A1814",
               letterSpacing: "-0.02em",
               marginBottom: "18px",
             }}
@@ -550,14 +525,14 @@ export default function FAQPage() {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.75 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.15 }}
             className="font-editorial"
             style={{
               fontSize: "1.05rem",
-              color: "#EBE2CF",
+              color: "#1A1814",
               maxWidth: "480px",
               margin: "0 auto 36px",
               lineHeight: 1.6,
@@ -577,26 +552,27 @@ export default function FAQPage() {
               className="inline-block font-mono uppercase transition-all"
               style={{
                 padding: "14px 36px",
-                backgroundColor: "#EBE2CF",
-                color: "#1A1814",
+                backgroundColor: "#1A1814",
+                color: "#EBE2CF",
                 fontSize: "10px",
                 letterSpacing: "3px",
               }}
             >
-              CONTACT SUPPORT
+              → CONTACT SUPPORT
             </a>
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.4 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.5 }}
             className="font-mono"
             style={{
               fontSize: "10px",
               letterSpacing: "1px",
-              color: "#EBE2CF",
+              color: "#1A1814",
+              opacity: 0.5,
               marginTop: "28px",
             }}
           >
