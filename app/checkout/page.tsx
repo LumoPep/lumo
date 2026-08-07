@@ -36,6 +36,7 @@ export default function CheckoutPage() {
   });
 
   const [selectedCrypto, setSelectedCrypto] = useState("btc");
+  const [hoveredCrypto, setHoveredCrypto] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Promo code state
@@ -539,19 +540,34 @@ export default function CheckoutPage() {
                       key={crypto.code}
                       type="button"
                       onClick={() => setSelectedCrypto(crypto.code)}
+                      onMouseEnter={() => setHoveredCrypto(crypto.code)}
+                      onMouseLeave={() => setHoveredCrypto(null)}
                       className="flex items-center gap-3 transition-all"
                       style={{
                         padding: "14px 16px",
-                        backgroundColor: selectedCrypto === crypto.code ? "#1A1814" : "#F5EFE4",
-                        border: selectedCrypto === crypto.code
-                          ? "1px solid #1A1814"
-                          : "1px solid rgba(26,24,20,0.18)",
+                        backgroundColor:
+                          selectedCrypto === crypto.code
+                            ? "#B8624A"
+                            : hoveredCrypto === crypto.code
+                              ? "#C89A3C"
+                              : "#EBE2CF",
+                        border:
+                          selectedCrypto === crypto.code
+                            ? "1px solid #B8624A"
+                            : hoveredCrypto === crypto.code
+                              ? "1px solid #C89A3C"
+                              : "1px solid rgba(26,24,20,0.18)",
                       }}
                     >
                       <span
                         style={{
                           fontSize: "8px",
-                          color: selectedCrypto === crypto.code ? "#B8624A" : "rgba(26,24,20,0.3)",
+                          color:
+                            selectedCrypto === crypto.code
+                              ? "#F5EFE4"
+                              : hoveredCrypto === crypto.code
+                                ? "#1A1814"
+                                : "rgba(26,24,20,0.3)",
                         }}
                       >
                         ●
@@ -562,7 +578,10 @@ export default function CheckoutPage() {
                           style={{
                             fontSize: "10px",
                             letterSpacing: "1.5px",
-                            color: selectedCrypto === crypto.code ? "#EBE2CF" : "#1A1814",
+                            color:
+                              selectedCrypto === crypto.code
+                                ? "#F5EFE4"
+                                : "#1A1814",
                           }}
                         >
                           {crypto.name}
@@ -571,7 +590,10 @@ export default function CheckoutPage() {
                           className="font-mono"
                           style={{
                             fontSize: "10px",
-                            color: selectedCrypto === crypto.code ? "rgba(235,226,207,0.5)" : "rgba(26,24,20,0.4)",
+                            color:
+                              selectedCrypto === crypto.code
+                                ? "rgba(245,239,228,0.75)"
+                                : "rgba(26,24,20,0.55)",
                           }}
                         >
                           {crypto.symbol}
@@ -835,8 +857,8 @@ export default function CheckoutPage() {
                             alt=""
                             aria-hidden="true"
                             style={{
-                              width: 65,
-                              height: 83,
+                              width: 91,
+                              height: 116,
                               objectFit: "contain",
                               flexShrink: 0,
                               filter: "drop-shadow(0 4px 8px rgba(26,24,20,0.12))",
