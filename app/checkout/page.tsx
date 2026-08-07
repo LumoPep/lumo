@@ -546,17 +546,15 @@ export default function CheckoutPage() {
                       style={{
                         padding: "14px 16px",
                         backgroundColor:
-                          selectedCrypto === crypto.code
-                            ? "#B8624A"
-                            : hoveredCrypto === crypto.code
-                              ? "#C89A3C"
-                              : "#EBE2CF",
+                          selectedCrypto === crypto.code ? "#B8624A" : "#EBE2CF",
                         border:
                           selectedCrypto === crypto.code
                             ? "1px solid #B8624A"
-                            : hoveredCrypto === crypto.code
-                              ? "1px solid #C89A3C"
-                              : "1px solid rgba(26,24,20,0.18)",
+                            : "1px solid rgba(26,24,20,0.18)",
+                        outline:
+                          selectedCrypto !== crypto.code && hoveredCrypto === crypto.code
+                            ? "2px solid #B8624A"
+                            : "2px solid transparent",
                       }}
                     >
                       <span
@@ -565,9 +563,7 @@ export default function CheckoutPage() {
                           color:
                             selectedCrypto === crypto.code
                               ? "#F5EFE4"
-                              : hoveredCrypto === crypto.code
-                                ? "#1A1814"
-                                : "rgba(26,24,20,0.3)",
+                              : "rgba(26,24,20,0.3)",
                         }}
                       >
                         ●
@@ -850,20 +846,31 @@ export default function CheckoutPage() {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        {/* Product vial image */}
+                        {/* Product vial image — overflow:hidden clips transparent top/bottom padding */}
                         {productImageMap[item.productId] && (
-                          <img
-                            src={productImageMap[item.productId]}
-                            alt=""
-                            aria-hidden="true"
+                          <div
                             style={{
                               width: 91,
-                              height: 116,
-                              objectFit: "contain",
+                              height: 80,
+                              overflow: "hidden",
                               flexShrink: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                               filter: "drop-shadow(0 4px 8px rgba(26,24,20,0.12))",
                             }}
-                          />
+                          >
+                            <img
+                              src={productImageMap[item.productId]}
+                              alt=""
+                              aria-hidden="true"
+                              style={{
+                                width: 91,
+                                height: 116,
+                                objectFit: "contain",
+                              }}
+                            />
+                          </div>
                         )}
                         <div style={{ flex: 1 }}>
                           <div className="flex items-start justify-between gap-2">
