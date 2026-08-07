@@ -204,8 +204,11 @@ export default function CheckoutPage() {
     }
   });
 
-  const subtotal = getTotal();
+  const subtotal = getTotal(); // already bundle-discounted
   const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
+  const originalSubtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const bundleRate = totalQty >= 10 ? 0.20 : totalQty >= 6 ? 0.15 : totalQty >= 3 ? 0.10 : 0;
+  const bundleSavings = originalSubtotal - subtotal;
 
   // Bundle discount is already applied in item prices via the cart store.
   // Pass 0 for quantity so calculateBestDiscount does not apply a bundle tier on top.
@@ -963,6 +966,23 @@ export default function CheckoutPage() {
 
                 {/* Price Rows */}
                 <div className="space-y-3" style={{ marginBottom: "16px" }}>
+                  {bundleSavings > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span
+                        className="font-mono uppercase"
+                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#B8624A" }}
+                      >
+                        Bundle discount — {(bundleRate * 100).toFixed(0)}% off
+                      </span>
+                      <span
+                        className="font-mono"
+                        style={{ fontSize: "13px", color: "#B8624A" }}
+                      >
+                        −${bundleSavings.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex justify-between items-center">
                     <span
                       className="font-mono uppercase"
