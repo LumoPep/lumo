@@ -189,7 +189,6 @@ export default function FAQPage() {
   const currentCategory =
     faqCategories.find((cat) => cat.id === activeCategory) || faqCategories[0];
   const activeCategoryIndex = faqCategories.findIndex((c) => c.id === activeCategory);
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -244,86 +243,54 @@ export default function FAQPage() {
 
             {/* ── SIDEBAR ──────────────────────────────────────── */}
             <div className="lg:col-span-3">
-              <div className="lg:sticky lg:top-24">
-                <div style={{ backgroundColor: "#E3D9C6", padding: "24px", border: "1px solid rgba(26,24,20,0.15)" }}>
+              <div className="lg:sticky lg:top-24 bg-cream p-6" style={{ borderRadius: "12px" }}>
+                <h2 className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-4">
+                  CATEGORIES
+                </h2>
 
-                  <div
+                <nav className="space-y-2">
+                  {faqCategories.map((category, index) => {
+                    const isActive = activeCategory === category.id;
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={() => {
+                          setActiveCategory(category.id);
+                          setOpenIndex(0);
+                        }}
+                        className={`w-full text-left font-mono text-xs transition-colors ${
+                          isActive
+                            ? "text-clay"
+                            : "text-ink opacity-60 hover:opacity-100"
+                        }`}
+                      >
+                        {String(index + 1).padStart(2, "0")} — {category.title}
+                      </button>
+                    );
+                  })}
+                </nav>
+
+                {/* Contact note */}
+                <div
+                  style={{
+                    borderTop: "1px solid rgba(26,24,20,0.12)",
+                    marginTop: "24px",
+                    paddingTop: "20px",
+                  }}
+                >
+                  <p
+                    className="font-editorial"
+                    style={{ fontSize: "12px", color: "#1A1814", marginBottom: "6px", lineHeight: 1.5 }}
+                  >
+                    Can't find what you need?
+                  </p>
+                  <a
+                    href="mailto:support@lumopep.com"
                     className="font-mono uppercase"
-                    style={{
-                      fontSize: "9px",
-                      letterSpacing: "3px",
-                      color: "#1A1814",
-                      marginBottom: "16px",
-                    }}
+                    style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
                   >
-                    CATEGORIES
-                  </div>
-
-                  <nav style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                    {faqCategories.map((category, index) => {
-                      const isActive = activeCategory === category.id;
-                      const isHovered = hoveredCategory === category.id;
-                      return (
-                        <button
-                          key={category.id}
-                          onClick={() => {
-                            setActiveCategory(category.id);
-                            setOpenIndex(0);
-                          }}
-                          onMouseEnter={() => setHoveredCategory(category.id)}
-                          onMouseLeave={() => setHoveredCategory(null)}
-                          className="w-full text-left transition-all"
-                          style={{
-                            padding: "9px 12px",
-                            backgroundColor:
-                              isActive
-                                ? "transparent"
-                                : isHovered
-                                  ? "rgba(184,98,74,0.06)"
-                                  : "transparent",
-                            borderLeft: isActive
-                              ? "3px solid #B8624A"
-                              : "3px solid transparent",
-                          }}
-                        >
-                          <span
-                            className="font-mono"
-                            style={{
-                              fontSize: "10px",
-                              letterSpacing: "1px",
-                              color: isActive ? "#B8624A" : "#1A1814",
-                              fontWeight: isActive ? 400 : 500,
-                            }}
-                          >
-                            {String(index + 1).padStart(2, "0")} — {category.title}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </nav>
-
-                  {/* Contact note */}
-                  <div
-                    style={{
-                      borderTop: "1px solid rgba(26,24,20,0.12)",
-                      marginTop: "24px",
-                      paddingTop: "20px",
-                    }}
-                  >
-                    <p
-                      className="font-editorial"
-                      style={{ fontSize: "12px", color: "#1A1814", marginBottom: "6px", lineHeight: 1.5 }}
-                    >
-                      Can't find what you need?
-                    </p>
-                    <a
-                      href="mailto:support@lumopep.com"
-                      className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
-                    >
-                      → Contact support
-                    </a>
-                  </div>
+                    → Contact support
+                  </a>
                 </div>
               </div>
             </div>
