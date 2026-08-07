@@ -13,7 +13,7 @@ export default function AccountPage() {
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
+      <section style={{ backgroundColor: "#F5EFE4", padding: "48px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -27,7 +27,7 @@ export default function AccountPage() {
 
           <motion.h1
             className="font-display"
-            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#EBE2CF", letterSpacing: "-0.02em" }}
+            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1A1814", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
@@ -49,62 +49,24 @@ export default function AccountPage() {
               transition={{ duration: 0.4 }}
               className="lg:col-span-3"
             >
-              <div
-                className="sticky top-24"
-                style={{
-                  backgroundColor: "#EBE2CF",
-                  border: "1px solid rgba(26,24,20,0.12)",
-                  padding: "20px",
-                }}
-              >
-                <div
-                  className="font-mono uppercase mb-3"
-                  style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4 }}
-                >
+              <div className="sticky top-24 bg-cream p-6" style={{ borderRadius: "12px" }}>
+                <div className="font-mono text-xs uppercase tracking-mono text-ink mb-4">
                   NAVIGATE
                 </div>
 
-                <nav style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                <nav className="space-y-2">
                   {tabs.map((tab) => {
                     const isActive = activeTab === tab;
                     return (
-                      <motion.button
+                      <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        whileHover={{ x: isActive ? 0 : 3 }}
-                        className="w-full text-left"
-                        style={{
-                          padding: "10px 14px",
-                          backgroundColor: isActive ? "#1A1814" : "transparent",
-                          border: "1px solid",
-                          borderColor: isActive ? "#1A1814" : "transparent",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                          transition: "all 0.15s",
-                        }}
+                        className={`w-full text-left font-mono text-xs transition-colors ${
+                          isActive ? "text-clay" : "text-ink opacity-60 hover:opacity-100"
+                        }`}
                       >
-                        <span
-                          style={{
-                            fontSize: "6px",
-                            color: isActive ? "#B8624A" : "transparent",
-                            flexShrink: 0,
-                          }}
-                        >
-                          ●
-                        </span>
-                        <span
-                          className="font-mono uppercase"
-                          style={{
-                            fontSize: "10px",
-                            letterSpacing: "1.5px",
-                            color: isActive ? "#EBE2CF" : "#1A1814",
-                            opacity: isActive ? 1 : 0.6,
-                          }}
-                        >
-                          {tab}
-                        </span>
-                      </motion.button>
+                        {tab}
+                      </button>
                     );
                   })}
                 </nav>
@@ -119,7 +81,7 @@ export default function AccountPage() {
                 >
                   <p
                     className="font-editorial"
-                    style={{ fontSize: "12px", color: "#1A1814", opacity: 0.5, lineHeight: 1.5 }}
+                    style={{ fontSize: "12px", color: "#1A1814", lineHeight: 1.5 }}
                   >
                     Questions about your order?
                   </p>
@@ -154,7 +116,7 @@ export default function AccountPage() {
                     </h2>
                     <p
                       className="font-editorial"
-                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "14px", color: "#1A1814" }}
                     >
                       Orders placed through your account will appear here.
                     </p>
@@ -164,7 +126,7 @@ export default function AccountPage() {
                   <div
                     style={{
                       backgroundColor: "#EBE2CF",
-                      border: "1px solid rgba(26,24,20,0.12)",
+                      borderLeft: "2px solid #B8624A",
                       padding: "56px 40px",
                       textAlign: "center",
                     }}
@@ -174,17 +136,17 @@ export default function AccountPage() {
                       width="40"
                       height="40"
                       viewBox="0 0 40 40"
-                      style={{ margin: "0 auto 20px", opacity: 0.25 }}
+                      style={{ margin: "0 auto 20px" }}
                     >
-                      <circle cx="20" cy="20" r="18" stroke="#1A1814" strokeWidth="1" fill="none" />
-                      <line x1="20" y1="2" x2="20" y2="38" stroke="#1A1814" strokeWidth="1" opacity="0.5" />
-                      <line x1="2" y1="20" x2="38" y2="20" stroke="#1A1814" strokeWidth="1" opacity="0.5" />
-                      <circle cx="20" cy="20" r="5" fill="#1A1814" opacity="0.4" />
+                      <circle cx="20" cy="20" r="18" stroke="#B8624A" strokeWidth="1" fill="none" />
+                      <line x1="20" y1="2" x2="20" y2="38" stroke="#B8624A" strokeWidth="1" />
+                      <line x1="2" y1="20" x2="38" y2="20" stroke="#B8624A" strokeWidth="1" />
+                      <circle cx="20" cy="20" r="5" fill="#B8624A" />
                     </svg>
 
                     <div
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.4, marginBottom: "12px" }}
+                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
                     >
                       NO ORDERS ON FILE
                     </div>
@@ -194,7 +156,6 @@ export default function AccountPage() {
                       style={{
                         fontSize: "14px",
                         color: "#1A1814",
-                        opacity: 0.55,
                         maxWidth: "360px",
                         margin: "0 auto 28px",
                         lineHeight: 1.6,
@@ -209,8 +170,8 @@ export default function AccountPage() {
                         className="font-mono uppercase"
                         style={{
                           padding: "11px 24px",
-                          backgroundColor: "#1A1814",
-                          color: "#EBE2CF",
+                          backgroundColor: "#B8624A",
+                          color: "#F5EFE4",
                           fontSize: "10px",
                           letterSpacing: "2px",
                           display: "inline-block",
@@ -227,7 +188,7 @@ export default function AccountPage() {
                           color: "#1A1814",
                           fontSize: "10px",
                           letterSpacing: "2px",
-                          border: "1px solid rgba(26,24,20,0.25)",
+                          border: "1px solid #B8624A",
                           display: "inline-block",
                         }}
                       >
@@ -240,7 +201,7 @@ export default function AccountPage() {
                   <div
                     style={{
                       marginTop: "12px",
-                      backgroundColor: "#F5EFE4",
+                      backgroundColor: "#EBE2CF",
                       border: "1px solid rgba(26,24,20,0.08)",
                       padding: "14px 20px",
                       display: "flex",
@@ -248,10 +209,10 @@ export default function AccountPage() {
                       gap: "10px",
                     }}
                   >
-                    <span style={{ color: "#607A5C", fontSize: "7px" }}>●</span>
+                    <span style={{ color: "#B8624A", fontSize: "7px" }}>●</span>
                     <p
                       className="font-mono"
-                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814", opacity: 0.5 }}
+                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814" }}
                     >
                       Order confirmations and CoA downloads are delivered by email after each shipment.
                     </p>
@@ -276,7 +237,7 @@ export default function AccountPage() {
                     </h2>
                     <p
                       className="font-editorial"
-                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "14px", color: "#1A1814" }}
                     >
                       Third-party CoAs for every compound we carry. Lot-traceable to the synthesis run.
                     </p>
@@ -306,7 +267,7 @@ export default function AccountPage() {
                     </h3>
                     <p
                       className="font-editorial"
-                      style={{ fontSize: "13px", color: "#1A1814", opacity: 0.65, maxWidth: "480px", lineHeight: 1.6, marginBottom: "24px" }}
+                      style={{ fontSize: "13px", color: "#1A1814", maxWidth: "480px", lineHeight: 1.6, marginBottom: "24px" }}
                     >
                       Every active lot has a published Certificate of Analysis showing HPLC purity, mass spec confirmation, and lot traceability. No account required.
                     </p>
@@ -315,8 +276,8 @@ export default function AccountPage() {
                       className="font-mono uppercase"
                       style={{
                         padding: "12px 28px",
-                        backgroundColor: "#1A1814",
-                        color: "#EBE2CF",
+                        backgroundColor: "#B8624A",
+                        color: "#F5EFE4",
                         fontSize: "10px",
                         letterSpacing: "2px",
                         display: "inline-block",
@@ -329,7 +290,7 @@ export default function AccountPage() {
                   {/* Note about order-specific CoAs */}
                   <div
                     style={{
-                      backgroundColor: "#F5EFE4",
+                      backgroundColor: "#EBE2CF",
                       border: "1px solid rgba(26,24,20,0.08)",
                       padding: "14px 20px",
                       display: "flex",
@@ -340,7 +301,7 @@ export default function AccountPage() {
                     <span style={{ color: "#B8624A", fontSize: "7px", marginTop: "3px", flexShrink: 0 }}>●</span>
                     <p
                       className="font-mono"
-                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814", opacity: 0.5, lineHeight: 1.5 }}
+                      style={{ fontSize: "10px", letterSpacing: "0.5px", color: "#1A1814", lineHeight: 1.5 }}
                     >
                       Order-specific CoA links are included in your email confirmation. Each lot PDF is also accessible directly from the CoA library above.
                     </p>
@@ -365,7 +326,7 @@ export default function AccountPage() {
                     </h2>
                     <p
                       className="font-editorial"
-                      style={{ fontSize: "14px", color: "#1A1814", opacity: 0.55 }}
+                      style={{ fontSize: "14px", color: "#1A1814" }}
                     >
                       Researcher profile and preferences.
                     </p>
@@ -385,16 +346,16 @@ export default function AccountPage() {
                       width="36"
                       height="36"
                       viewBox="0 0 36 36"
-                      style={{ margin: "0 auto 20px", opacity: 0.2 }}
+                      style={{ margin: "0 auto 20px" }}
                     >
-                      <circle cx="18" cy="18" r="16" stroke="#1A1814" strokeWidth="1" fill="none" />
-                      <circle cx="18" cy="18" r="7" stroke="#1A1814" strokeWidth="1" fill="none" />
-                      <circle cx="18" cy="18" r="2.5" fill="#1A1814" />
+                      <circle cx="18" cy="18" r="16" stroke="#B8624A" strokeWidth="1" fill="none" />
+                      <circle cx="18" cy="18" r="7" stroke="#B8624A" strokeWidth="1" fill="none" />
+                      <circle cx="18" cy="18" r="2.5" fill="#B8624A" />
                     </svg>
 
                     <div
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#1A1814", opacity: 0.35, marginBottom: "12px" }}
+                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
                     >
                       COMING SOON
                     </div>
@@ -404,7 +365,6 @@ export default function AccountPage() {
                       style={{
                         fontSize: "14px",
                         color: "#1A1814",
-                        opacity: 0.5,
                         maxWidth: "340px",
                         margin: "0 auto 28px",
                         lineHeight: 1.6,
@@ -418,8 +378,8 @@ export default function AccountPage() {
                       className="font-mono uppercase"
                       style={{
                         padding: "11px 24px",
-                        backgroundColor: "#1A1814",
-                        color: "#EBE2CF",
+                        backgroundColor: "#B8624A",
+                        color: "#F5EFE4",
                         fontSize: "10px",
                         letterSpacing: "2px",
                         display: "inline-block",
