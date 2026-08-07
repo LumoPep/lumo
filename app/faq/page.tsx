@@ -189,6 +189,7 @@ export default function FAQPage() {
   const currentCategory =
     faqCategories.find((cat) => cat.id === activeCategory) || faqCategories[0];
   const activeCategoryIndex = faqCategories.findIndex((c) => c.id === activeCategory);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -244,7 +245,7 @@ export default function FAQPage() {
             {/* ── SIDEBAR ──────────────────────────────────────── */}
             <div className="lg:col-span-3">
               <div className="lg:sticky lg:top-24">
-                <div style={{ backgroundColor: "#EBE2CF", padding: "24px" }}>
+                <div style={{ backgroundColor: "#EBE2CF", padding: "24px", border: "1px solid rgba(26,24,20,0.15)" }}>
 
                   <div
                     className="font-mono uppercase"
@@ -252,7 +253,6 @@ export default function FAQPage() {
                       fontSize: "9px",
                       letterSpacing: "3px",
                       color: "#1A1814",
-                      opacity: 0.6,
                       marginBottom: "16px",
                     }}
                   >
@@ -262,6 +262,7 @@ export default function FAQPage() {
                   <nav style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
                     {faqCategories.map((category, index) => {
                       const isActive = activeCategory === category.id;
+                      const isHovered = hoveredCategory === category.id;
                       return (
                         <button
                           key={category.id}
@@ -269,13 +270,20 @@ export default function FAQPage() {
                             setActiveCategory(category.id);
                             setOpenIndex(0);
                           }}
+                          onMouseEnter={() => setHoveredCategory(category.id)}
+                          onMouseLeave={() => setHoveredCategory(null)}
                           className="w-full text-left transition-all"
                           style={{
                             padding: "9px 12px",
-                            backgroundColor: "transparent",
+                            backgroundColor:
+                              isActive
+                                ? "transparent"
+                                : isHovered
+                                  ? "rgba(184,98,74,0.06)"
+                                  : "transparent",
                             borderLeft: isActive
-                              ? "2px solid #B8624A"
-                              : "2px solid transparent",
+                              ? "3px solid #B8624A"
+                              : "3px solid transparent",
                           }}
                         >
                           <span
@@ -284,7 +292,6 @@ export default function FAQPage() {
                               fontSize: "10px",
                               letterSpacing: "1px",
                               color: isActive ? "#B8624A" : "#1A1814",
-                              opacity: isActive ? 1 : 0.6,
                             }}
                           >
                             {String(index + 1).padStart(2, "0")} — {category.title}
@@ -347,15 +354,24 @@ export default function FAQPage() {
                       className="font-display"
                       style={{
                         fontWeight: 300,
-                        fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                        fontSize: "clamp(2rem, 3.2vw, 2.8rem)",
                         color: "#1A1814",
                         letterSpacing: "-0.02em",
                         lineHeight: 1.1,
-                        marginBottom: "20px",
+                        marginBottom: "14px",
                       }}
                     >
                       {currentCategory.title}
                     </h2>
+                    {/* Clay underline accent */}
+                    <div
+                      style={{
+                        height: "2px",
+                        width: "60px",
+                        backgroundColor: "#B8624A",
+                        marginBottom: "18px",
+                      }}
+                    />
                     <div
                       style={{
                         height: "1px",
@@ -375,7 +391,11 @@ export default function FAQPage() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.04 }}
                           style={{
-                            backgroundColor: isOpen ? "#F5EFE4" : "#EBE2CF",
+                            backgroundColor: isOpen
+                              ? "#F5EFE4"
+                              : index % 2 === 1
+                                ? "rgba(200,154,60,0.04)"
+                                : "#EBE2CF",
                             borderTop: "1px solid rgba(26,24,20,0.1)",
                             borderRight: "1px solid rgba(26,24,20,0.1)",
                             borderBottom: "1px solid rgba(26,24,20,0.1)",
@@ -399,11 +419,11 @@ export default function FAQPage() {
                             <span
                               className="font-mono flex-shrink-0"
                               style={{
-                                fontSize: "9px",
+                                fontSize: "14px",
                                 letterSpacing: "1px",
-                                color: isOpen ? "#B8624A" : "rgba(26,24,20,0.4)",
-                                marginTop: "3px",
-                                minWidth: "22px",
+                                color: "#B8624A",
+                                marginTop: "1px",
+                                minWidth: "26px",
                               }}
                             >
                               {String(index + 1).padStart(2, "0")}
@@ -413,10 +433,10 @@ export default function FAQPage() {
                             <span
                               className="font-editorial flex-1"
                               style={{
-                                fontSize: "15px",
+                                fontSize: "17px",
                                 color: "#1A1814",
                                 lineHeight: 1.35,
-                                fontWeight: isOpen ? 400 : 300,
+                                fontWeight: 500,
                               }}
                             >
                               {faq.question}
@@ -427,12 +447,12 @@ export default function FAQPage() {
                               animate={{ rotate: isOpen ? 45 : 0 }}
                               transition={{ duration: 0.2 }}
                               style={{
-                                fontSize: "22px",
-                                color: isOpen ? "#B8624A" : "rgba(26,24,20,0.35)",
+                                fontSize: "20px",
+                                color: "#B8624A",
                                 flexShrink: 0,
                                 lineHeight: 1,
                                 fontWeight: 300,
-                                marginTop: "-1px",
+                                marginTop: "0px",
                               }}
                             >
                               +
