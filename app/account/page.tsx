@@ -13,7 +13,7 @@ export default function AccountPage() {
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#F5EFE4", padding: "48px 24px" }}>
+      <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -27,7 +27,7 @@ export default function AccountPage() {
 
           <motion.h1
             className="font-display"
-            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1A1814", letterSpacing: "-0.02em" }}
+            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#F5EFE4", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
@@ -370,7 +370,7 @@ export default function AccountPage() {
                         lineHeight: 1.6,
                       }}
                     >
-                      Account management is in development. To update your details or institution information, contact us directly.
+                      Account management is in development. To update your details or contact information, contact us directly.
                     </p>
 
                     <a
