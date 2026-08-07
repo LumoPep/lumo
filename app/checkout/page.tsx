@@ -222,18 +222,18 @@ export default function CheckoutPage() {
         <div
           className="mb-10 flex items-center justify-center gap-3"
           style={{
-            backgroundColor: "#1A1814",
+            backgroundColor: "#607A5C",
             padding: "12px 24px",
           }}
         >
-          <span style={{ color: "#B8624A", fontSize: "8px" }}>●</span>
+          <span style={{ color: "#F5EFE4", fontSize: "8px" }}>●</span>
           <span
             className="font-mono uppercase"
-            style={{ fontSize: "10px", letterSpacing: "2px", color: "#EBE2CF" }}
+            style={{ fontSize: "10px", letterSpacing: "2px", color: "#F5EFE4" }}
           >
             For lawful in vitro research only · Not for human use · RUO
           </span>
-          <span style={{ color: "#B8624A", fontSize: "8px" }}>●</span>
+          <span style={{ color: "#F5EFE4", fontSize: "8px" }}>●</span>
         </div>
 
         {/* Header */}
@@ -300,7 +300,7 @@ export default function CheckoutPage() {
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
-                      placeholder="your.email@institution.edu"
+                      placeholder="your@email.com"
                     />
                     <p
                       className="font-mono mt-1"
@@ -835,8 +835,8 @@ export default function CheckoutPage() {
                             alt=""
                             aria-hidden="true"
                             style={{
-                              width: 52,
-                              height: 66,
+                              width: 65,
+                              height: 83,
                               objectFit: "contain",
                               flexShrink: 0,
                               filter: "drop-shadow(0 4px 8px rgba(26,24,20,0.12))",
