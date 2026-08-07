@@ -245,7 +245,7 @@ export default function FAQPage() {
             {/* ── SIDEBAR ──────────────────────────────────────── */}
             <div className="lg:col-span-3">
               <div className="lg:sticky lg:top-24">
-                <div style={{ backgroundColor: "#EBE2CF", padding: "24px", border: "1px solid rgba(26,24,20,0.15)" }}>
+                <div style={{ backgroundColor: "#E3D9C6", padding: "24px", border: "1px solid rgba(26,24,20,0.15)" }}>
 
                   <div
                     className="font-mono uppercase"
@@ -292,6 +292,7 @@ export default function FAQPage() {
                               fontSize: "10px",
                               letterSpacing: "1px",
                               color: isActive ? "#B8624A" : "#1A1814",
+                              fontWeight: isActive ? 400 : 500,
                             }}
                           >
                             {String(index + 1).padStart(2, "0")} — {category.title}
