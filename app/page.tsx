@@ -394,9 +394,9 @@ export default function HomePage() {
       </div>
 
       {/* UNIFIED SECTION: 7× Testing + Product Carousel - Clay Left Border */}
-      <div style={{ borderLeft: '4px solid #B8624A', background: '#F5EFE4' }}>
+      <div className="flex flex-col md:block" style={{ borderLeft: '4px solid #B8624A', background: '#F5EFE4' }}>
         {/* 7× TESTING FRAMEWORK */}
-        <section ref={trustRef} className="pt-16 pb-0 px-8">
+        <section ref={trustRef} className="pt-16 pb-0 px-8 order-2 md:order-none">
           <motion.div
             className="container mx-auto max-w-7xl"
             variants={containerVariants}
@@ -489,7 +489,7 @@ export default function HomePage() {
         </section>
 
         {/* PRODUCT CAROUSEL - Now merged into unified section */}
-        <section ref={carouselSectionRef} className="pt-8 pb-12 px-6">
+        <section ref={carouselSectionRef} className="pt-8 pb-12 px-6 order-1 md:order-none">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             variants={headingVariants}
@@ -723,14 +723,16 @@ export default function HomePage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-bone py-24 px-12 flex flex-col items-center justify-center"
+            className="bg-bone py-12 px-8 lg:py-24 lg:px-12 flex flex-col items-center justify-center"
           >
             <img
               src='/images/products/lumo-3-rt-10mg-v2.png'
               alt='Lumo-3 RT research vial'
               style={{
                 width: 'auto',
-                height: '480px',
+                height: 'auto',
+                maxHeight: '320px',
+                maxWidth: '100%',
                 filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                 display: 'block',
                 margin: '0 auto',
