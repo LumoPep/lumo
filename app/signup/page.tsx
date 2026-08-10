@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase-browser";
 
 export default function SignupPage() {
@@ -87,7 +88,7 @@ export default function SignupPage() {
   if (success) {
     return (
       <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
-        <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
+        <section style={{ backgroundColor: "#1A1814", padding: "28px 24px" }}>
           <div className="container mx-auto max-w-7xl">
             <div className="font-mono uppercase" style={{ fontSize: "10px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}>
               07.3 — ACCOUNT CREATION
@@ -123,7 +124,7 @@ export default function SignupPage() {
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
 
       {/* ── HEADER BANNER ──────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
+      <section style={{ backgroundColor: "#1A1814", padding: "28px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -152,21 +153,16 @@ export default function SignupPage() {
         {/* ── LEFT: BRAND PANEL ────────────────────────────────── */}
         <div
           className="lg:col-span-2 hidden lg:flex flex-col justify-between"
-          style={{ backgroundColor: "#1A1814", padding: "56px 48px" }}
+          style={{ backgroundColor: "#1A1814", borderTop: "3px solid #C89A3C", padding: "56px 48px" }}
         >
           <div>
-            <div
-              className="font-display"
-              style={{ fontWeight: 300, fontSize: "2.4rem", color: "#EBE2CF", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "6px" }}
-            >
-              Lumo
-            </div>
-            <div
-              className="font-mono uppercase"
-              style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A" }}
-            >
-              Research Peptides
-            </div>
+            <Image
+              src="/logos/lumo_logo_nav@2x.png"
+              alt="Lumo"
+              width={120}
+              height={30}
+              style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }}
+            />
           </div>
 
           <div>
