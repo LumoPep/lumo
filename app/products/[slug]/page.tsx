@@ -92,10 +92,10 @@ export default function ProductPage() {
       <section className="bg-bone py-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Left Column - 55% */}
-            <div className="lg:col-span-7 order-2 lg:order-1">
+            {/* Image + Trust Stamps — order 1 mobile, col 1-7 row 1 desktop */}
+            <div className="order-1 lg:col-span-7 lg:row-start-1">
               {/* Image + Trust Stamps Grid */}
-              <div className="lg:grid lg:grid-cols-[80px_1fr] gap-4 mb-6">
+              <div className="lg:grid lg:grid-cols-[80px_1fr] gap-4">
                 {/* Trust Stamps */}
                 <div className="hidden lg:flex items-center justify-center">
                   <TrustStamps accentColor={categoryColors.accent} />
@@ -106,7 +106,6 @@ export default function ProductPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="max-h-72 sm:max-h-none"
                   style={{
                     position: 'relative',
                     background: 'transparent',
@@ -115,7 +114,6 @@ export default function ProductPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    minHeight: '320px',
                     overflow: 'hidden',
                   }}
                 >
@@ -123,23 +121,22 @@ export default function ProductPage() {
                     key={product.images[selectedVariant] || product.images[0]}
                     src={product.images[selectedVariant] || product.images[0]}
                     alt={product.name}
-                    width={482}
-                    height={567}
-                    className="hover:scale-110"
+                    className="w-full h-auto object-contain hover:scale-110"
                     style={{
-                      objectFit: 'contain',
                       filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
                       mixBlendMode: 'multiply',
                       transition: 'transform 0.5s ease',
                       cursor: 'default',
-                      maxWidth: '100%',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
                   />
                 </motion.div>
               </div>
+            </div>
 
+            {/* Tabs — order 3 mobile, col 1-7 row 2 desktop */}
+            <div className="order-3 lg:col-span-7 lg:row-start-2">
               {/* Tabbed Section */}
               <div className="bg-cream" style={{ borderRadius: "16px", padding: "32px" }}>
                 {/* Tab Navigation */}
@@ -408,8 +405,8 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Right Column - 45% */}
-            <div className="lg:col-span-5 order-1 lg:order-2">
+            {/* Right Column — order 2 mobile, col 8-12 rows 1-2 desktop */}
+            <div className="order-2 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2">
               {/* Category Badge */}
               <div className="mb-3">
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`}>

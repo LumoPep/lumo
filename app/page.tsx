@@ -264,7 +264,7 @@ export default function HomePage() {
             </div>
 
             {/* Right Side - 3 Floating Vials */}
-            <div style={{ width: '50%', position: 'relative', height: '560px', minWidth: '400px', flex: '1 1 400px', paddingTop: '20px', background: 'transparent' }}>
+            <div className="hidden md:block" style={{ width: '50%', position: 'relative', height: '560px', minWidth: '400px', flex: '1 1 400px', paddingTop: '20px', background: 'transparent' }}>
               {/* Large front vial - 504px, absolute positioned */}
               <img
                 src='/images/products/ghk-cu-v2.png'
@@ -508,13 +508,10 @@ export default function HomePage() {
 
           <div className="relative">
             {/* Carousel with drag */}
-            <motion.div
+            <div
               ref={carouselRef}
-              className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-4 cursor-grab active:cursor-grabbing"
+              className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-4"
               onScroll={updateScrollButtons}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.1}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
               onTouchEnd={(e) => {
@@ -535,7 +532,7 @@ export default function HomePage() {
                   <ProductCard product={product} />
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
 
             {/* Navigation Arrows with animation */}
             <AnimatePresence>
