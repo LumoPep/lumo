@@ -408,8 +408,8 @@ function CoACard({ product, index }: { product: any; index: number }) {
           </div>
 
           {/* Right Column - All existing content */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="flex-1 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
               {/* Left Column - Header & Data */}
               <div className="lg:col-span-8">
                 {/* Header */}
@@ -452,7 +452,7 @@ function CoACard({ product, index }: { product: any; index: number }) {
                 )}
 
                 {/* Data Rows */}
-                <div className="space-y-2">
+                <div className="space-y-2 w-full">
                   {[
                     { label: "LOT", value: activeCoa?.lot || 'N/A' },
                     { label: "REPORT", value: activeCoa?.reportNumber || product.report },
@@ -474,15 +474,15 @@ function CoACard({ product, index }: { product: any; index: number }) {
               </div>
 
               {/* Right Column - Purity */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center">
+              <div className="lg:col-span-4 w-full flex flex-col items-start lg:items-center justify-center">
                 {/* Large Purity Percentage */}
                 <div
-                  className="text-center mb-2"
+                  className="text-left lg:text-center mb-2"
                   style={{ fontWeight: 300, fontSize: "40px", lineHeight: 1, color: '#C89A3C' }}
                 >
                   {product.purity}
                 </div>
-                <div className="font-mono uppercase tracking-mono text-ink opacity-50 mb-3 text-center" style={{ fontSize: '9px', letterSpacing: '1.5px' }}>
+                <div className="font-mono uppercase tracking-mono text-ink opacity-50 mb-3 text-left lg:text-center" style={{ fontSize: '9px', letterSpacing: '1.5px' }}>
                   {product.purity === 'USP Grade' ? 'USP GRADE' : 'PURITY · HPLC'}
                 </div>
 
