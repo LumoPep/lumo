@@ -93,7 +93,7 @@ export default function ProductPage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Left Column - 55% */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7 order-2 lg:order-1">
               {/* Image + Trust Stamps Grid */}
               <div className="lg:grid lg:grid-cols-[80px_1fr] gap-4 mb-6">
                 {/* Trust Stamps */}
@@ -106,6 +106,7 @@ export default function ProductPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6 }}
+                  className="max-h-72 sm:max-h-none"
                   style={{
                     position: 'relative',
                     background: 'transparent',
@@ -131,6 +132,7 @@ export default function ProductPage() {
                       mixBlendMode: 'multiply',
                       transition: 'transform 0.5s ease',
                       cursor: 'default',
+                      maxWidth: '100%',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
@@ -141,7 +143,7 @@ export default function ProductPage() {
               {/* Tabbed Section */}
               <div className="bg-cream" style={{ borderRadius: "16px", padding: "32px" }}>
                 {/* Tab Navigation */}
-                <div className="flex space-x-1 border-b hairline-border mb-8">
+                <div className="flex space-x-1 border-b hairline-border mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
@@ -254,7 +256,7 @@ export default function ProductPage() {
                       </h3>
 
                       {/* 7× Testing Grid - 4+4 Layout */}
-                      <div className="grid grid-cols-4 gap-3">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {/* Test 1 - HPLC Purity */}
                         <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><rect width="5" height="5.5" x="9.5" y="16.5" rx="1"/></svg>
@@ -407,7 +409,7 @@ export default function ProductPage() {
             </div>
 
             {/* Right Column - 45% */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 order-1 lg:order-2">
               {/* Category Badge */}
               <div className="mb-3">
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`}>
@@ -554,7 +556,7 @@ export default function ProductPage() {
                 <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#1A1814', marginBottom: '10px' }}>
                   7× Independently Tested
                 </p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
                     { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
@@ -801,7 +803,7 @@ export default function ProductPage() {
 
       {/* Related Compounds Section - Bone Background */}
       {relatedProducts.length > 0 && (
-        <section ref={relatedRef} className="bg-bone py-16 px-6">
+        <section ref={relatedRef} className="bg-bone py-16 px-6 hidden md:block">
           <div className="container mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

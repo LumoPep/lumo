@@ -726,7 +726,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* ── RIGHT: ORDER SUMMARY ────────────────────────── */}
-          <div className="lg:col-span-1 lg:sticky lg:top-28">
+          <div className="lg:col-span-1 lg:sticky lg:top-28 order-first lg:order-last">
 
             {/* Summary Panel */}
             <div style={{ border: "1px solid rgba(26,24,20,0.15)", overflow: "hidden" }}>

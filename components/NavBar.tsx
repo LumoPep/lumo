@@ -82,8 +82,8 @@ export default function NavBar() {
             <Link href="/">
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <LumoLogo size="nav" />
-                <span style={{ width: "1px", height: "18px", backgroundColor: "#1A1814", opacity: 0.25 }} />
-                <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "#1A1814", opacity: 0.6 }}>Research Peptides</span>
+                <span className="hidden sm:inline-block" style={{ width: "1px", height: "18px", backgroundColor: "#1A1814", opacity: 0.25 }} />
+                <span className="hidden sm:inline" style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "#1A1814", opacity: 0.6 }}>Research Peptides</span>
               </div>
             </Link>
 

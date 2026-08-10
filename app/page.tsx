@@ -28,6 +28,7 @@ export default function HomePage() {
   const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
   const [heroProductIndex, setHeroProductIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(0);
   const heroRef = useRef(null);
 
   // Parallax scroll for hero
@@ -515,6 +516,11 @@ export default function HomePage() {
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.1}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+              onTouchEnd={(e) => {
+                const delta = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(delta) > 50) scroll(delta < 0 ? "right" : "left");
+              }}
             >
               {PRODUCTS.map((product, index) => (
                 <motion.div
@@ -635,13 +641,7 @@ export default function HomePage() {
           </motion.div>
 
           {/* Uniform 8-Card Grid */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '16px',
-            }}
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { name: 'Secretagogue Research', slug: 'secretagogue-research' },
               { name: 'Tissue Repair Research', slug: 'tissue-repair-research' },

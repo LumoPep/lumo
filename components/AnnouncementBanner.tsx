@@ -11,8 +11,9 @@ export default function AnnouncementBanner() {
         className="font-mono uppercase text-cream text-center px-4"
         style={{ fontSize: "11px", letterSpacing: "2px" }}
       >
-        <span style={{ color: "rgba(245,239,228,0.9)" }}>⚠</span> FOR RESEARCH USE ONLY — NOT
-        FOR HUMAN OR VETERINARY USE — MUST BE 21+ — NOT A DRUG OR SUPPLEMENT
+        <span style={{ color: "rgba(245,239,228,0.9)" }}>⚠</span>
+        <span className="sm:hidden"> FOR RESEARCH USE ONLY</span>
+        <span className="hidden sm:inline"> FOR RESEARCH USE ONLY — NOT FOR HUMAN OR VETERINARY USE — MUST BE 21+ — NOT A DRUG OR SUPPLEMENT</span>
       </span>
     </div>
   );
