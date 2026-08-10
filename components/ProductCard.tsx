@@ -89,7 +89,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             style={{
               position: 'relative',
               background: 'transparent',
-              minHeight: '300px',
+              minHeight: '220px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -147,7 +147,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               style={{
                 width: '98%',
                 height: 'auto',
-                maxHeight: '385px',
+                maxHeight: '220px',
                 objectFit: 'contain',
                 filter: 'drop-shadow(-6px 12px 24px rgba(26,24,20,0.25))',
                 display: 'block',

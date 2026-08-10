@@ -106,31 +106,33 @@ export default function ProductPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6 }}
+                  className="p-4 lg:p-8"
                   style={{
                     position: 'relative',
                     background: 'transparent',
                     borderRadius: '16px',
-                    padding: '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
                   }}
                 >
-                  <img
-                    key={product.images[selectedVariant] || product.images[0]}
-                    src={product.images[selectedVariant] || product.images[0]}
-                    alt={product.name}
-                    className="w-full h-auto object-contain hover:scale-110"
-                    style={{
-                      filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
-                      mixBlendMode: 'multiply',
-                      transition: 'transform 0.5s ease',
-                      cursor: 'default',
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-                  />
+                  <div className="max-h-[380px] lg:max-h-none w-full flex items-center justify-center">
+                    <img
+                      key={product.images[selectedVariant] || product.images[0]}
+                      src={product.images[selectedVariant] || product.images[0]}
+                      alt={product.name}
+                      className="w-full h-auto object-contain max-h-full hover:scale-110"
+                      style={{
+                        filter: 'drop-shadow(-8px 16px 32px rgba(26,24,20,0.18))',
+                        mixBlendMode: 'multiply',
+                        transition: 'transform 0.5s ease',
+                        cursor: 'default',
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                    />
+                  </div>
                 </motion.div>
               </div>
             </div>

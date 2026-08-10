@@ -28,7 +28,6 @@ export default function HomePage() {
   const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
   const [heroProductIndex, setHeroProductIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [touchStartX, setTouchStartX] = useState(0);
   const heroRef = useRef(null);
 
   // Parallax scroll for hero
@@ -513,11 +512,6 @@ export default function HomePage() {
               className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-4"
               onScroll={updateScrollButtons}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
-              onTouchEnd={(e) => {
-                const delta = e.changedTouches[0].clientX - touchStartX;
-                if (Math.abs(delta) > 50) scroll(delta < 0 ? "right" : "left");
-              }}
             >
               {PRODUCTS.map((product, index) => (
                 <motion.div
@@ -526,8 +520,7 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 40 }}
                   animate={carouselInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                   transition={{ duration: 0.6, delay: index * 0.08 }}
-                  className="flex-shrink-0 snap-start"
-                  style={{ minWidth: '300px', flex: '0 0 300px' }}
+                  className="flex-shrink-0 snap-start w-[calc(100vw-48px)] md:w-[300px]"
                 >
                   <ProductCard product={product} />
                 </motion.div>
