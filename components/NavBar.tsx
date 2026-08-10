@@ -2,40 +2,58 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/store";
 import LumoLogo from "@/components/LumoLogo";
+import { createClient } from "@/lib/supabase-browser";
+import type { User } from "@supabase/supabase-js";
 
 export default function NavBar() {
   const { getItemCount, toggleCart } = useCartStore();
   const itemCount = getItemCount();
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [navTop, setNavTop] = useState(36); // Default banner height
+  const [navTop, setNavTop] = useState(36);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const bannerHeight = 36; // Fixed banner height
+      const bannerHeight = 36;
       const scrollY = window.scrollY;
-
       setScrolled(scrollY > 80);
-
-      // Adjust nav top position based on scroll
       if (scrollY >= bannerHeight) {
-        setNavTop(0); // Nav sits at top after banner scrolled away
+        setNavTop(0);
       } else {
-        setNavTop(bannerHeight - scrollY); // Nav follows banner
+        setNavTop(bannerHeight - scrollY);
       }
     };
-
-    // Initial call
     handleScroll();
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setUser(null);
+    setMobileMenuOpen(false);
+    router.push("/");
+    router.refresh();
+  };
 
   const navLinks = [
     { href: "/products", label: "COMPOUNDS" },
@@ -43,7 +61,6 @@ export default function NavBar() {
     { href: "/about", label: "ABOUT" },
     { href: "/journal", label: "RESEARCH" },
     { href: "/faq", label: "FAQ" },
-    { href: "/account", label: "ACCOUNT" },
   ];
 
   const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
@@ -63,10 +80,10 @@ export default function NavBar() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <LumoLogo size='nav' />
-                <span style={{ width: '1px', height: '18px', backgroundColor: '#1A1814', opacity: 0.25 }} />
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', letterSpacing: '3px', textTransform: 'uppercase', color: '#1A1814', opacity: 0.6 }}>Research Peptides</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <LumoLogo size="nav" />
+                <span style={{ width: "1px", height: "18px", backgroundColor: "#1A1814", opacity: 0.25 }} />
+                <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "#1A1814", opacity: 0.6 }}>Research Peptides</span>
               </div>
             </Link>
 
@@ -92,8 +109,31 @@ export default function NavBar() {
               ))}
             </div>
 
-            {/* Right Side - Cart + Mobile Menu */}
-            <div className="flex items-center gap-4">
+            {/* Right Side — Account icon + Cart + Mobile Menu */}
+            <div className="flex items-center gap-3">
+
+              {/* Account icon */}
+              <Link
+                href={user ? "/account" : "/login"}
+                className={`hidden md:flex items-center justify-center p-2 transition-colors ${
+                  isActive("/account") || isActive("/login") ? "text-clay" : "text-ink hover:text-clay"
+                }`}
+                aria-label={user ? "Your account" : "Sign in"}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                >
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-3.5 3.6-6.5 8-6.5s8 3 8 6.5" />
+                </svg>
+              </Link>
+
               {/* Cart Button */}
               <motion.button
                 whileTap={{ scale: 0.97 }}
@@ -118,13 +158,9 @@ export default function NavBar() {
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   {mobileMenuOpen ? (
-                    <>
-                      <path d="M6 6L18 18M6 18L18 6" strokeWidth="2" strokeLinecap="round" />
-                    </>
+                    <path d="M6 6L18 18M6 18L18 6" strokeWidth="2" strokeLinecap="round" />
                   ) : (
-                    <>
-                      <path d="M3 12H21M3 6H21M3 18H21" strokeWidth="2" strokeLinecap="round" />
-                    </>
+                    <path d="M3 12H21M3 6H21M3 18H21" strokeWidth="2" strokeLinecap="round" />
                   )}
                 </svg>
               </button>
@@ -137,7 +173,6 @@ export default function NavBar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
@@ -146,7 +181,6 @@ export default function NavBar() {
               className="fixed inset-0 bg-ink z-40 md:hidden"
             />
 
-            {/* Drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -167,32 +201,28 @@ export default function NavBar() {
 
                 {/* Logo */}
                 <div className="mb-12">
-                  <span style={{
-                    position: 'relative',
-                    display: 'inline-block',
-                    color: '#EBE2CF'
-                  }}>
+                  <span style={{ position: "relative", display: "inline-block", color: "#EBE2CF" }}>
                     <span style={{
-                      fontFamily: 'Fraunces, Georgia, serif',
-                      fontSize: '32px',
+                      fontFamily: "Fraunces, Georgia, serif",
+                      fontSize: "32px",
                       fontWeight: 300,
                       lineHeight: 1,
-                      letterSpacing: '-0.02em',
+                      letterSpacing: "-0.02em",
                       fontVariationSettings: '"WONK" 1, "opsz" 144',
-                      WebkitFontSmoothing: 'antialiased',
-                      display: 'inline-block',
+                      WebkitFontSmoothing: "antialiased",
+                      display: "inline-block",
                     }}>
                       Lumo
                     </span>
                     <span style={{
-                      position: 'absolute',
-                      top: '2px',
-                      right: '-6px',
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      backgroundColor: '#B8624A',
-                      display: 'block',
+                      position: "absolute",
+                      top: "2px",
+                      right: "-6px",
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      backgroundColor: "#B8624A",
+                      display: "block",
                     }} />
                   </span>
                 </div>
@@ -218,17 +248,43 @@ export default function NavBar() {
                       </Link>
                     </motion.div>
                   ))}
+
+                  {/* Account link */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navLinks.length * 0.1 }}
+                  >
+                    <Link
+                      href={user ? "/account" : "/login"}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block font-mono text-sm uppercase tracking-mono transition-colors ${
+                        isActive("/account") ? "text-clay" : "text-cream hover:text-clay"
+                      }`}
+                    >
+                      {isActive("/account") && <span className="text-clay mr-2">●</span>}
+                      {user ? "ACCOUNT" : "SIGN IN"}
+                    </Link>
+                  </motion.div>
                 </nav>
 
-                {/* Mobile Contact */}
-                <div className="mt-12 pt-12 border-t border-cream border-opacity-20">
+                {/* Mobile footer */}
+                <div className="mt-12 pt-12 border-t border-cream border-opacity-20 space-y-4">
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="font-mono text-sm uppercase tracking-mono text-clay hover:underline"
+                    className="block font-mono text-sm uppercase tracking-mono text-clay hover:underline"
                   >
                     → CONTACT US
                   </Link>
+                  {user && (
+                    <button
+                      onClick={handleSignOut}
+                      className="block font-mono text-sm uppercase tracking-mono text-cream opacity-60 hover:opacity-100 hover:text-clay transition-all"
+                    >
+                      → SIGN OUT
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>

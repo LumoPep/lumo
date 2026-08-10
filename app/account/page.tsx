@@ -2,10 +2,29 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase-browser";
 
 export default function AccountPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("ORDERS");
+  const [sessionChecked, setSessionChecked] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        router.push("/login");
+      } else {
+        setSessionChecked(true);
+      }
+    });
+  }, [router]);
+
+  if (!sessionChecked) {
+    return <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }} />;
+  }
 
   const tabs = ["ORDERS", "COAS", "PROFILE"];
 
