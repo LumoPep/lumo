@@ -11,6 +11,7 @@ import CoAViewer from "@/components/CoAViewer";
 import BundleSelector from "@/components/BundleSelector";
 import ResearchSection from "@/components/ResearchSection";
 import TrustStamps from "@/components/ui/TrustStamps";
+import LowStockBanner from "@/components/popups/LowStockBanner";
 import { notFound } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 
@@ -481,6 +482,9 @@ export default function ProductPage() {
                     setCartPrice(price);
                   }}
                 />
+
+                {/* Low Stock Banner */}
+                <LowStockBanner slug={params.slug as string} lotNumber={lotNumber} />
 
                 {/* Add to Cart Button */}
                 <motion.button

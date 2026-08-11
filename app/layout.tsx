@@ -9,6 +9,7 @@ import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import FloatingCartButton from "@/components/FloatingCartButton";
 import ResearchGate from "@/components/ResearchGate";
+import PopupManager from "@/components/popups/PopupManager";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -71,6 +72,7 @@ export default function RootLayout({
         <CartDrawer />
         <FloatingCartButton />
         <Toast />
+        <PopupManager />
       </body>
     </html>
   );
