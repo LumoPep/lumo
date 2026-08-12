@@ -73,16 +73,6 @@ export default function COAModal({ coa, isOpen, onClose }: COAModalProps) {
             >
               ↓ Download
             </a>
-            {coa.accessCode && (
-              <a
-                href="https://sterigenixanalytical.com/verify"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs text-ink opacity-60 hover:opacity-100 transition-opacity"
-              >
-                Verify at sterigenixanalytical.com/verify
-              </a>
-            )}
           </div>
         </div>
       </div>
