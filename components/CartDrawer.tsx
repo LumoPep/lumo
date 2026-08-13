@@ -49,9 +49,9 @@ export default function CartDrawer() {
           className="hidden md:flex md:flex-col"
           style={{
             position: "fixed",
-            top: 0,
+            top: "100px",
             right: CART_W,
-            height: "100%",
+            height: "calc(100% - 100px)",
             width: 220,
             zIndex: 49,
             backgroundColor: "#F5EFE4",
@@ -80,7 +80,6 @@ export default function CartDrawer() {
             >
               · FREQUENTLY BOUGHT TOGETHER
             </span>
-            {/* Ochre underline */}
             <div
               style={{
                 width: 24,
@@ -218,16 +217,24 @@ export default function CartDrawer() {
         style={{
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 300ms ease-in-out",
+          borderTop: "2px solid #C89A3C",
         }}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b hairline-border">
-          <h2 className="font-display text-2xl text-ink" style={{ fontWeight: 300 }}>
+        {/* Header — Ink background */}
+        <div
+          className="flex items-center justify-between p-6"
+          style={{ backgroundColor: "#1A1814", borderBottom: "3px solid #B8624A" }}
+        >
+          <h2
+            className="font-display text-2xl"
+            style={{ fontWeight: 300, color: "#EBE2CF" }}
+          >
             Your Cart
           </h2>
           <button
             onClick={closeCart}
-            className="font-mono text-xs uppercase tracking-mono text-ink hover:text-clay transition-colors"
+            className="font-mono text-xs uppercase tracking-mono hover:text-clay transition-colors"
+            style={{ color: "#F5EFE4", opacity: 0.6 }}
           >
             ✕ CLOSE
           </button>
@@ -264,7 +271,8 @@ export default function CartDrawer() {
                   return (
                     <div
                       key={`${item.productId}-${item.variant}`}
-                      className="bg-cream hairline-border p-4"
+                      className="bg-bone p-4"
+                      style={{ borderLeft: "3px solid #B8624A" }}
                     >
                       {/* Top row: image + details + remove */}
                       <div className="flex gap-3 mb-3">
@@ -300,7 +308,11 @@ export default function CartDrawer() {
                               >
                                 {item.productName}
                               </h3>
-                              <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
+                              {/* Variant — Ochre, opacity-80 */}
+                              <p
+                                className="font-mono text-xs uppercase tracking-mono opacity-80"
+                                style={{ color: "#C89A3C" }}
+                              >
                                 {item.variant}
                               </p>
                               {discount > 0 ? (
@@ -308,7 +320,7 @@ export default function CartDrawer() {
                                   <p className="font-display text-sm text-ink line-through opacity-50">
                                     ${item.price.toFixed(2)}
                                   </p>
-                                  <p className="font-display text-sm text-ink">
+                                  <p className="font-display text-base text-ink">
                                     ${discountedPrice.toFixed(2)}{" "}
                                     <span className="text-[10px] font-mono text-[#607A5C]">
                                       ({(discount * 100).toFixed(0)}% off)
@@ -316,14 +328,14 @@ export default function CartDrawer() {
                                   </p>
                                 </div>
                               ) : (
-                                <p className="font-display text-sm text-ink mt-1">
+                                <p className="font-display text-base text-ink mt-1">
                                   ${item.price.toFixed(2)}
                                 </p>
                               )}
                             </div>
                             <button
                               onClick={() => removeItem(item.productId, item.variant)}
-                              className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all flex-shrink-0"
+                              className="font-mono text-xs text-ink opacity-70 hover:text-clay hover:opacity-100 transition-all flex-shrink-0"
                             >
                               ✕
                             </button>
@@ -408,11 +420,7 @@ export default function CartDrawer() {
                             </div>
                             <div
                               className="font-mono"
-                              style={{
-                                fontSize: "10px",
-                                color: "#C89A3C",
-                                marginTop: "2px",
-                              }}
+                              style={{ fontSize: "10px", color: "#C89A3C", marginTop: "2px" }}
                             >
                               ${product.prices[0]}
                             </div>
@@ -475,42 +483,83 @@ export default function CartDrawer() {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t hairline-border p-6 space-y-4 bg-cream">
-            {/* Shipping Info Strip */}
-            <div className="flex justify-between text-[10px] text-[#1A1814]/60 py-2 border-t border-[#EBE2CF]">
-              <div className="flex items-center gap-1">
-                <i className="ti ti-truck" style={{ fontSize: "12px" }}></i>
-                <span>Free shipping on orders over $150</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <i className="ti ti-clock" style={{ fontSize: "12px" }}></i>
-                <span>2-day delivery</span>
-              </div>
+            {/* Shipping pills */}
+            <div
+              style={{
+                borderTop: "1px solid #EBE2CF",
+                paddingTop: "10px",
+                paddingBottom: "4px",
+                display: "flex",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <span
+                className="font-mono uppercase"
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "1px",
+                  color: "#F5EFE4",
+                  backgroundColor: "#607A5C",
+                  padding: "4px 10px",
+                }}
+              >
+                🚚 FREE SHIPPING $150+
+              </span>
+              <span
+                className="font-mono uppercase"
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "1px",
+                  color: "#F5EFE4",
+                  backgroundColor: "#607A5C",
+                  padding: "4px 10px",
+                }}
+              >
+                ⚡ 2-DAY DELIVERY
+              </span>
             </div>
 
-            {/* Free Shipping Threshold */}
-            <div className="text-[10px] text-center py-1">
+            {/* Free shipping threshold */}
+            <div className="text-center" style={{ paddingTop: "2px", paddingBottom: "2px" }}>
               {getTotal() < 150 ? (
-                <span className="text-[#607A5C]">
-                  Add ${(150 - getTotal()).toFixed(2)} more for free shipping
+                <span
+                  className="font-mono"
+                  style={{ fontSize: "11px", fontWeight: 700, color: "#607A5C" }}
+                >
+                  → Add ${(150 - getTotal()).toFixed(2)} more for free shipping
                 </span>
               ) : (
-                <span className="text-[#607A5C]">✓ Free shipping applied</span>
+                <span
+                  className="font-mono"
+                  style={{ fontSize: "11px", fontWeight: 700, color: "#B8624A" }}
+                >
+                  ✓ Free shipping unlocked
+                </span>
               )}
             </div>
 
+            {/* Subtotal — Clay amount */}
             <div className="flex items-center justify-between">
               <span className="font-mono text-xs uppercase tracking-mono text-ink">Subtotal</span>
-              <span className="font-display text-3xl text-ink" style={{ fontWeight: 300 }}>
+              <span
+                className="font-display text-4xl"
+                style={{ fontWeight: 300, color: "#B8624A" }}
+              >
                 ${getTotal().toFixed(2)}
               </span>
             </div>
+
+            {/* Checkout button — Clay left border 4px */}
             <Link
               href="/checkout"
               onClick={closeCart}
               className="block w-full bg-ink text-bone font-mono text-xs uppercase tracking-mono py-4 text-center hover:bg-clay transition-colors"
+              style={{ borderLeft: "4px solid #B8624A" }}
             >
               → PROCEED TO CHECKOUT
             </Link>
+
             <button
               onClick={closeCart}
               className="block w-full font-mono text-xs uppercase tracking-mono text-ink opacity-60 hover:opacity-100 text-center transition-opacity"
