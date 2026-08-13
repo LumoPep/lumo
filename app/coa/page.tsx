@@ -55,7 +55,7 @@ export default function CoAPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 divide-x-0 md:divide-x divide-cream divide-opacity-20">
             {[
               `${PRODUCTS.filter(p => p.category !== 'Ancillary').length} COMPOUNDS`,
-              "7× INDEPENDENTLY TESTED",
+              "THIRD-PARTY VERIFIED",
               "HPLC + MASS SPEC",
               "INDEPENDENT LAB",
             ].map((stat, i) => (
@@ -85,14 +85,14 @@ export default function CoAPage() {
             className="text-center mb-12"
           >
             <h2 className="font-display text-4xl md:text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
-              Every Lumo batch is independently verified across 7 tests.
+              Every Lumo batch is independently verified.
             </h2>
             <p className="font-editorial text-lg text-ink opacity-60 max-w-3xl mx-auto">
-              Purity, identity, net content, sterility, batch consistency, endotoxins, and heavy metals.
+              Purity, identity, and potency — confirmed before every lot ships.
             </p>
           </motion.div>
 
-          {/* 7 Test Cards + Accent Tile (4+4 Grid) */}
+          {/* 3 Test Cards + VERIFIED Accent Tile */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {[
               {
@@ -106,29 +106,9 @@ export default function CoAPage() {
                 color: "#4A8A88",
               },
               {
-                title: "Net Content",
-                description: "Mass accuracy testing verifies precise peptide content per vial.",
+                title: "Potency",
+                description: "Third-party laboratory confirms active strength before every lot ships.",
                 color: "#C89A3C",
-              },
-              {
-                title: "Batch Consistency",
-                description: "Conformity vials ensure uniform quality across the entire production lot.",
-                color: "#607A5C",
-              },
-              {
-                title: "Endotoxins",
-                description: "LAL testing detects bacterial endotoxins to ensure research safety.",
-                color: "#A89020",
-              },
-              {
-                title: "Heavy Metals",
-                description: "ICP-MS screening detects trace heavy metal contamination across all batches.",
-                color: "#8A7860",
-              },
-              {
-                title: "Sterility",
-                description: "Contamination-free verification ensures sample integrity for research applications.",
-                color: "#3A7888",
               },
             ].map((test, index) => (
               <motion.div
@@ -159,11 +139,11 @@ export default function CoAPage() {
               </motion.div>
             ))}
 
-            {/* 8th Slot - Accent Tile */}
+            {/* Accent Tile - VERIFIED */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 + 7 * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.9 + 3 * 0.1 }}
               style={{
                 backgroundColor: '#607A5C',
                 borderRadius: '12px',
@@ -184,7 +164,7 @@ export default function CoAPage() {
                   marginBottom: '8px',
                 }}
               >
-                7×
+                ✓
               </div>
               <div
                 className="font-mono uppercase tracking-widest"
@@ -195,7 +175,7 @@ export default function CoAPage() {
                   letterSpacing: '0.15em',
                 }}
               >
-                TESTED
+                VERIFIED
               </div>
             </motion.div>
           </div>

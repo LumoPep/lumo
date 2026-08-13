@@ -127,7 +127,7 @@ export default function ExitIntentPopup({ onClose }: Props) {
                 marginBottom: "28px",
               }}
             >
-              Every Lumo lot ships with 7 independent test results. Purity, identity, content, endotoxins, heavy metals, sterility, and batch consistency.
+              Every Lumo lot is independently tested by a third-party laboratory — purity, identity, and potency verified before it ships.
             </p>
 
             {/* Form */}

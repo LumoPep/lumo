@@ -191,7 +191,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   letterSpacing: '0.05em',
                 }}
               >
-                7× Tested
+                VERIFIED
               </span>
             </div>
 

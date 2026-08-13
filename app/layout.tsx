@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   description:
     "Precision peptides for serious research. Synthesized to spec. Verified by an independent lab. Lot-traceable, documented, footnoted.",
   keywords:
-    "research peptides, BPC-157, TB-500, peptide research, laboratory peptides, HPLC tested",
+    "research peptides, BPC-157, TB-500, peptide research, laboratory peptides, third-party tested, independently verified, COA verified",
 };
 
 export default function RootLayout({

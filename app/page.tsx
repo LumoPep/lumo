@@ -235,7 +235,7 @@ export default function HomePage() {
                 className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
                 style={{ color: 'rgba(26,24,20,0.75)' }}
               >
-                7× independently tested. Every batch verified by third-party accredited labs.
+                Independently tested. Every batch. Results published.
               </motion.p>
 
               {/* CTA buttons - slide up together */}
@@ -371,21 +371,21 @@ export default function HomePage() {
       <div className="bg-ink py-4 overflow-hidden ticker-container">
         <div className="ticker-content">
           <div className="ticker-text">
-            <span className="text-ochre">· 7× INDEPENDENTLY TESTED ·</span>
+            <span className="text-ochre">· THIRD-PARTY VERIFIED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
                 {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
-                {(index + 1) % 6 === 0 && <span className="text-ochre">·· 7× INDEPENDENTLY TESTED ··</span>}
+                {(index + 1) % 6 === 0 && <span className="text-ochre">·· THIRD-PARTY VERIFIED ··</span>}
               </span>
             ))}
             <span className="text-clay">··</span>
           </div>
           <div className="ticker-text" aria-hidden="true">
-            <span className="text-ochre">· 7× INDEPENDENTLY TESTED ·</span>
+            <span className="text-ochre">· THIRD-PARTY VERIFIED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
                 {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
-                {(index + 1) % 6 === 0 && <span className="text-ochre">·· 7× INDEPENDENTLY TESTED ··</span>}
+                {(index + 1) % 6 === 0 && <span className="text-ochre">·· THIRD-PARTY VERIFIED ··</span>}
               </span>
             ))}
             <span className="text-clay">··</span>
@@ -406,10 +406,10 @@ export default function HomePage() {
             {/* Header - Left aligned */}
             <motion.div variants={itemVariants} className="mb-10">
               <h2 className="text-[10px] font-medium tracking-widest uppercase text-[#B8624A] mb-3">
-                7× INDEPENDENTLY TESTED
+                INDEPENDENTLY VERIFIED
               </h2>
               <p className="text-2xl font-serif italic text-[#1A1814]">
-                Every batch. Every lot. No exceptions.
+                EVERY BATCH · RESULTS PUBLISHED
               </p>
             </motion.div>
 
@@ -436,53 +436,18 @@ export default function HomePage() {
               </div>
 
               <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  NET CONTENT
+                  POTENCY
                 </div>
                 <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  Exact mg verified
+                  Strength confirmed
                 </div>
               </div>
 
-              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
-                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  BATCH CONSISTENCY
-                </div>
-                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  Lot-to-lot stability
-                </div>
-              </div>
-
-              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
-                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  ENDOTOXINS
-                </div>
-                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  LAL tested
-                </div>
-              </div>
-
-              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
-                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  HEAVY METALS
-                </div>
-                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  ICP-MS screened
-                </div>
-              </div>
-
-              <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-                <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  STERILITY
-                </div>
-                <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  Contamination-free
-                </div>
+              <div className="test-chip bg-[#607A5C] rounded-lg px-4 py-3 flex flex-col items-center justify-center text-center" style={{ cursor: 'default' }}>
+                <div className="text-[18px] font-medium text-white leading-none mt-1">✓</div>
+                <div className="text-[10px] text-[#d4e8d0] tracking-widest uppercase mt-1">VERIFIED</div>
               </div>
             </motion.div>
           </motion.div>
@@ -501,7 +466,7 @@ export default function HomePage() {
               Our research compounds.
             </h2>
             <p className="font-editorial text-xl text-ink opacity-70">
-              Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
+              Every compound independently tested — purity, identity, and potency verified on every lot.
             </p>
           </motion.div>
 

@@ -158,7 +158,7 @@ function ProductsPageContent() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="font-editorial text-xl text-cream max-w-2xl"
           >
-            Every compound 7× independently tested — purity, identity, content, consistency, endotoxins, heavy metals, and sterility.
+            Every compound independently tested — purity, identity, and potency verified on every lot.
           </motion.p>
         </div>
       </section>

@@ -249,7 +249,7 @@ export default function ProductPage() {
                       className="space-y-6"
                     >
                       <h3 className="text-[10px] font-medium tracking-widest uppercase text-\[#1A1814\]/65 mb-4">
-                        INDEPENDENT VERIFICATION — KOVERA LABS
+                        INDEPENDENT VERIFICATION — THIRD-PARTY LAB
                       </h3>
 
                       {/* 7× Testing Grid - 4+4 Layout */}
@@ -276,68 +276,24 @@ export default function ProductPage() {
                           </div>
                         </div>
 
-                        {/* Test 3 - Net Content */}
+                        {/* Test 3 - Potency */}
                         <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            NET CONTENT
+                            POTENCY
                           </div>
                           <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
-                            Exact mg verified
+                            Strength confirmed
                           </div>
                         </div>
 
-                        {/* Test 4 - Batch Consistency */}
-                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M16 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.1.9-2 2-2h2"/><path d="M11 4h10v10"/><path d="M15 10l5-5"/></svg>
-                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            BATCH CONSISTENCY
-                          </div>
-                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
-                            Lot-to-lot stability
-                          </div>
-                        </div>
-
-                        {/* Test 5 - Endotoxins */}
-                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M3 12h3"/><path d="M18 12h3"/><path d="M7.8 7.8 5.6 5.6"/><path d="M18.4 18.4l-2.2-2.2"/><path d="M7.8 16.2l-2.2 2.2"/><path d="M18.4 5.6l-2.2 2.2"/><circle cx="12" cy="12" r="7"/><path d="M12 9v6"/><path d="M9 12h6"/><path d="M12 3v1"/><path d="M12 20v1"/></svg>
-                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            ENDOTOXINS
-                          </div>
-                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
-                            LAL tested
-                          </div>
-                        </div>
-
-                        {/* Test 6 - Heavy Metals */}
-                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M7 16a4 4 0 0 0 8 0M7 8v8M15 8v8M12 12h.01M5 5h14"/></svg>
-                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            HEAVY METALS
-                          </div>
-                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
-                            ICP-MS screened
-                          </div>
-                        </div>
-
-                        {/* Test 7 - Sterility */}
-                        <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-                          <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            STERILITY
-                          </div>
-                          <div className="text-[12px] text-\[#1A1814\]/65 mt-1">
-                            Contamination-free
-                          </div>
-                        </div>
-
-                        {/* Accent Tile - 7× TESTED */}
+                        {/* Accent Tile - VERIFIED */}
                         <div className="bg-[#607A5C] rounded-lg p-4 flex flex-col items-center justify-center text-center">
                           <div className="text-3xl font-medium text-white leading-none">
-                            7×
+                            ✓
                           </div>
                           <div className="text-[11px] text-[#d4e8d0] tracking-widest uppercase mt-1">
-                            TESTED
+                            VERIFIED
                           </div>
                         </div>
                       </div>
@@ -551,17 +507,13 @@ export default function ProductPage() {
               {/* Independent Verification Strip */}
               <div className="mb-5">
                 <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#1A1814', marginBottom: '10px' }}>
-                  7× Independently Tested
+                  Third-Party Verified
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
                     { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
-                    { icon: 'ti-weight', label: 'Net Content', sub: 'Exact mg verified' },
-                    { icon: 'ti-shield-check', label: 'Sterility', sub: 'Contamination-free' },
-                    { icon: 'ti-virus-off', label: 'Endotoxins', sub: 'LAL tested' },
-                    { icon: 'ti-leaf', label: 'Heavy Metals', sub: 'ICP-MS screened' },
-                    { icon: 'ti-stack-2', label: 'Batch Consistency', sub: 'Lot-to-lot stability' },
+                    { icon: 'ti-activity', label: 'Potency', sub: 'Strength confirmed' },
                   ].map((chip, i) => (
                     <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />
@@ -569,13 +521,13 @@ export default function ProductPage() {
                       <span style={{ fontSize: '10px', color: '#4a3f35', lineHeight: 1.3 }}>{chip.sub}</span>
                     </div>
                   ))}
-                  {/* 8th Accent Tile */}
+                  {/* Accent Tile */}
                   <div style={{ background: '#607A5C', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ fontSize: '28px', fontWeight: 500, color: '#F5EFE4', lineHeight: 1 }}>
-                      7×
+                    <div style={{ fontSize: '22px', fontWeight: 500, color: '#F5EFE4', lineHeight: 1 }}>
+                      ✓
                     </div>
                     <div style={{ fontSize: '9px', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F5EFE4', lineHeight: 1.3, marginTop: '4px' }}>
-                      TESTED
+                      VERIFIED
                     </div>
                   </div>
                 </div>

@@ -17,12 +17,10 @@ const FALLING_VIALS = [
 
 const TESTS = [
   "HPLC Purity",
-  "Identity / LCMS",
-  "Net Content Assay",
-  "Batch Consistency",
-  "Endotoxins",
-  "Heavy Metals",
-  "Sterility",
+  "UV/MS Identity",
+  "Potency Verified",
+  "Lot Traceable",
+  "COA Published",
 ];
 
 export default function ResearchGate() {
@@ -235,7 +233,7 @@ export default function ResearchGate() {
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  7×
+                  ✓
                 </span>
                 <span
                   style={{
@@ -246,7 +244,7 @@ export default function ResearchGate() {
                     color: "#1A1814",
                   }}
                 >
-                  Independent Testing
+                  Third-Party Verified
                 </span>
               </div>
 
@@ -311,7 +309,7 @@ export default function ResearchGate() {
               }}
             >
               {[
-                { value: "7×", label: "Independent Testing", color: "#B8624A" },
+                { value: "✓", label: "Verified", color: "#B8624A" },
                 { value: "24", label: "Compounds",           color: "#C89A3C" },
                 { value: "US", label: "Lab Verified",        color: "#B8624A" },
               ].map((stat) => (

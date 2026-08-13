@@ -143,7 +143,7 @@ export default function LoginPage() {
 
             <div style={{ display: "flex", gap: "32px" }}>
               {[
-                { num: "7×", label: "Tests per lot" },
+                { num: "✓", label: "Third-party verified" },
                 { num: "99%", label: "Purity avg." },
               ].map((stat) => (
                 <div key={stat.label}>

@@ -18,7 +18,7 @@ const TESTS = [
     ),
   },
   {
-    name: "Identity / LCMS",
+    name: "UV/MS Identity",
     description: "Sequence and molecular confirmation",
     accent: "#607A5C",
     tint: "#EEF3ED",
@@ -34,73 +34,13 @@ const TESTS = [
     ),
   },
   {
-    name: "Net Content",
-    description: "Exact mg verified gravimetrically",
+    name: "Potency",
+    description: "Strength confirmed by third-party lab",
     accent: "#C89A3C",
     tint: "#FBF5E8",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width={28} height={28}>
-        <line x1="12" y1="4" x2="12" y2="20" />
-        <line x1="8" y1="20" x2="16" y2="20" />
-        <path d="M5 8L12 6L19 8" />
-        <path d="M2 15C2 16.7 3.3 18 5 18C6.7 18 8 16.7 8 15L5 8L2 15Z" />
-        <path d="M16 15C16 16.7 17.3 18 19 18C20.7 18 22 16.7 22 15L19 8L16 15Z" />
-      </svg>
-    ),
-  },
-  {
-    name: "Batch Consistency",
-    description: "Lot-to-lot stability testing",
-    accent: "#B8624A",
-    tint: "#FAF0EB",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width={28} height={28}>
-        <rect x="3" y="3" width="10" height="10" rx="1" />
-        <rect x="11" y="11" width="10" height="10" rx="1" />
-        <path d="M11 7h2" />
-        <path d="M7 11v2" />
-      </svg>
-    ),
-  },
-  {
-    name: "Endotoxins / LAL",
-    description: "Bacterial endotoxin screening",
-    accent: "#607A5C",
-    tint: "#EEF3ED",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width={28} height={28}>
-        <circle cx="12" cy="12" r="5" />
-        <line x1="12" y1="7" x2="12" y2="4" />
-        <line x1="12" y1="17" x2="12" y2="20" />
-        <line x1="7" y1="12" x2="4" y2="12" />
-        <line x1="17" y1="12" x2="20" y2="12" />
-        <line x1="3" y1="3" x2="21" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    name: "Heavy Metals / ICP-MS",
-    description: "Multi-element trace analysis",
-    accent: "#C89A3C",
-    tint: "#FBF5E8",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width={28} height={28}>
-        <circle cx="12" cy="12" r="1.5" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)" />
-      </svg>
-    ),
-  },
-  {
-    name: "Sterility",
-    description: "Contamination-free verification",
-    accent: "#B8624A",
-    tint: "#FAF0EB",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width={28} height={28}>
-        <path d="M12 3L4 7V12C4 16.4 7.4 20.5 12 21.5C16.6 20.5 20 16.4 20 12V7L12 3Z" />
-        <path d="M9 12L11 14L15 10" />
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
   },
@@ -111,8 +51,6 @@ function TestingSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const topRow = TESTS.slice(0, 4);
-  const bottomRow = TESTS.slice(4);
 
   return (
     <section ref={ref} className="bg-bone py-16 px-6">
@@ -135,7 +73,7 @@ function TestingSection() {
           className="font-display text-4xl md:text-5xl text-ink mb-4 leading-tight"
           style={{ fontWeight: 300 }}
         >
-          Every batch. 7× tested.
+          Every batch. Third-party verified.
         </motion.h2>
 
         {/* Subtext */}
@@ -146,17 +84,17 @@ function TestingSection() {
           className="font-editorial mb-12 max-w-xl"
           style={{ color: "#4a4540", fontSize: "14px" }}
         >
-          Every compound independently verified across seven analytical dimensions before it ships. No exceptions.
+          Every compound independently verified by a third-party laboratory before it ships. No exceptions.
         </motion.p>
 
-        {/* Top row — 4 cards */}
+        {/* 3 Test Cards + VERIFIED accent tile */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
         >
-          {topRow.map((test, i) => (
+          {TESTS.map((test, i) => (
             <div
               key={test.name}
               onMouseEnter={() => setHovered(i)}
@@ -190,53 +128,28 @@ function TestingSection() {
               </div>
             </div>
           ))}
-        </motion.div>
 
-        {/* Bottom row — 3 cards centred */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.5, delay: 0.22 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12"
-          style={{ maxWidth: "75%", margin: "0 auto 48px" }}
-        >
-          {bottomRow.map((test, i) => {
-            const idx = i + 4;
-            return (
-              <div
-                key={test.name}
-                onMouseEnter={() => setHovered(idx)}
-                onMouseLeave={() => setHovered(null)}
-                style={{
-                  backgroundColor: hovered === idx ? test.tint : "#EBE2CF",
-                  border: `0.5px solid ${hovered === idx ? test.accent : "#C8BFAE"}`,
-                  borderRadius: "10px",
-                  padding: "16px",
-                  transition: "all 0.25s ease",
-                  cursor: "default",
-                }}
-              >
-                <div style={{ color: test.accent, marginBottom: "10px" }}>
-                  {test.icon}
-                </div>
-                <div
-                  className="font-mono uppercase"
-                  style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
-                    color: hovered === idx ? test.accent : "#1A1814",
-                    marginBottom: "6px",
-                    transition: "color 0.25s ease",
-                  }}
-                >
-                  {test.name}
-                </div>
-                <div style={{ fontSize: "13px", color: "#4a4540", fontFamily: "var(--font-editorial, serif)", lineHeight: 1.5 }}>
-                  {test.description}
-                </div>
-              </div>
-            );
-          })}
+          {/* VERIFIED accent tile */}
+          <div
+            style={{
+              backgroundColor: "#607A5C",
+              borderRadius: "10px",
+              padding: "16px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "default",
+            }}
+          >
+            <div style={{ fontSize: "32px", fontWeight: 500, color: "#F5EFE4", lineHeight: 1 }}>✓</div>
+            <div
+              className="font-mono uppercase"
+              style={{ fontSize: "11px", letterSpacing: "0.08em", color: "#d4e8d0", marginTop: "8px" }}
+            >
+              VERIFIED
+            </div>
+          </div>
         </motion.div>
 
         {/* CTA */}
@@ -542,8 +455,8 @@ export default function AboutPage() {
               {[
                 {
                   number: "01",
-                  title: "7× Independent Testing",
-                  description: "Every batch tested by third-party laboratories for purity, identity, content, consistency, endotoxins, heavy metals, and sterility.",
+                  title: "Independent Verification",
+                  description: "Every batch tested by a third-party laboratory for purity, identity, and potency before it ships.",
                 },
                 {
                   number: "02",
@@ -637,8 +550,8 @@ export default function AboutPage() {
                 },
                 {
                   number: "02",
-                  title: "7× Testing",
-                  description: "Independent lab verification: purity, identity, content, consistency, endotoxins, heavy metals, sterility.",
+                  title: "Independent Verification",
+                  description: "Third-party laboratory verification: purity, identity, and potency confirmed before release.",
                 },
                 {
                   number: "03",
@@ -723,7 +636,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-wrap gap-3"
               >
-                {["7× INDEPENDENTLY TESTED", "LOT TRACEABLE"].map((badge, index) => (
+                {["THIRD-PARTY VERIFIED", "LOT TRACEABLE"].map((badge, index) => (
                   <div
                     key={index}
                     className="px-4 py-2 font-mono text-xs uppercase tracking-mono"

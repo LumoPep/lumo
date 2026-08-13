@@ -8,8 +8,8 @@ interface TrustStampsProps {
 const stamps = [
   {
     icon: FlaskConical,
-    stat: "7×",
-    label: ["Independently", "tested"],
+    stat: "✓",
+    label: ["Third-Party", "Verified"],
   },
   {
     icon: MapPin,
