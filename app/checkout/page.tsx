@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useCartStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { PRODUCTS } from "@/data/products";
+import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
 import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
@@ -18,7 +19,7 @@ const cryptoCurrencies = [
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotal, clearCart } = useCartStore();
+  const { items, getTotal, clearCart, addItem } = useCartStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -219,6 +220,8 @@ export default function CheckoutPage() {
     promoCode,
     isFirstOrderFlag
   );
+
+  const suggestions = getSuggestions(items);
 
   return (
     <div style={{ backgroundColor: "#F5EFE4", minHeight: "100vh" }} className="py-16 px-6">
@@ -1139,6 +1142,133 @@ export default function CheckoutPage() {
 
               </div>
             </div>
+
+            {/* ── OTHERS ARE ALSO RESEARCHING ── */}
+            {suggestions.length > 0 && (
+              <div
+                style={{
+                  marginTop: "12px",
+                  border: "1px solid rgba(26,24,20,0.15)",
+                  borderLeft: "2px solid #B8624A",
+                  backgroundColor: "#EBE2CF",
+                  overflow: "hidden",
+                }}
+              >
+                {/* Header */}
+                <div
+                  style={{
+                    padding: "12px 20px",
+                    borderBottom: "1px solid rgba(26,24,20,0.1)",
+                  }}
+                >
+                  <span
+                    className="font-mono uppercase"
+                    style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A" }}
+                  >
+                    OTHERS ARE ALSO RESEARCHING
+                  </span>
+                </div>
+
+                {/* Product rows */}
+                <div>
+                  {suggestions.map((product, idx) => (
+                    <div
+                      key={product.slug}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        padding: "12px 20px",
+                        borderBottom: idx < suggestions.length - 1 ? "1px solid rgba(26,24,20,0.08)" : "none",
+                      }}
+                    >
+                      {/* Vial image */}
+                      {product.images[0] && (
+                        <div
+                          style={{
+                            width: 64,
+                            height: 72,
+                            flexShrink: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <img
+                            src={product.images[0]}
+                            alt=""
+                            aria-hidden="true"
+                            style={{
+                              width: 64,
+                              height: 82,
+                              objectFit: "contain",
+                              filter: "drop-shadow(0 2px 6px rgba(26,24,20,0.12))",
+                            }}
+                          />
+                        </div>
+                      )}
+
+                      {/* Info */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div
+                          className="font-display"
+                          style={{
+                            fontWeight: 300,
+                            fontStyle: "italic",
+                            fontSize: "0.95rem",
+                            color: "#1A1814",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {product.name}
+                        </div>
+                        <div
+                          className="font-mono"
+                          style={{ fontSize: "10px", color: "#C89A3C", marginTop: "3px" }}
+                        >
+                          {product.purity}
+                        </div>
+                        <div
+                          className="font-mono"
+                          style={{ fontSize: "11px", color: "#1A1814", marginTop: "2px" }}
+                        >
+                          ${product.prices[0]}
+                        </div>
+                      </div>
+
+                      {/* Add to order button */}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          addItem({
+                            productId: product.id.toString(),
+                            productName: product.name,
+                            variant: product.sizes[0],
+                            price: product.prices[0],
+                            sku: product.skus[0],
+                          })
+                        }
+                        style={{
+                          backgroundColor: "#B8624A",
+                          border: "none",
+                          cursor: "pointer",
+                          padding: "9px 12px",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span
+                          className="font-mono uppercase"
+                          style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#F5EFE4" }}
+                        >
+                          ADD TO ORDER
+                        </span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
         </div>

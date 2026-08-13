@@ -2,12 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useCartStore } from "@/lib/store";
+import { PRODUCTS } from "@/data/products";
 import EmailCapturePopup from "./EmailCapturePopup";
 import ExitIntentPopup from "./ExitIntentPopup";
 import CartExitPopup from "./CartExitPopup";
 import CartIdlePopup from "./CartIdlePopup";
+import BacWaterPopup from "./BacWaterPopup";
 
-type ActivePopup = "email" | "exit" | "cartExit" | "cartIdle" | null;
+type ActivePopup = "email" | "exit" | "cartExit" | "cartIdle" | "bacWater" | null;
+
+// Slugs that do NOT require BAC water (non-injectables)
+const noBAC = new Set(["nad-plus", "bac-water", "glow-blend", "klow-blend"]);
 
 export default function PopupManager() {
   const [mounted, setMounted] = useState(false);
@@ -93,6 +98,31 @@ export default function PopupManager() {
     };
   }, [mounted, items.length]);
 
+  // ── POP-UP 5: BAC water reminder — 30s after injectable in cart ─────
+  useEffect(() => {
+    if (!mounted) return;
+    if (items.length === 0) return;
+    if (sessionStorage.getItem("lumo_bac_shown") === "true") return;
+
+    // Resolve slugs for all cart items
+    const cartSlugs = items.map((item) => {
+      const product = PRODUCTS.find((p) => p.id.toString() === item.productId);
+      return product?.slug ?? "";
+    });
+
+    const hasBacWater = cartSlugs.includes("bac-water");
+    const hasInjectable = cartSlugs.some((slug) => slug && !noBAC.has(slug));
+
+    if (hasBacWater || !hasInjectable) return;
+
+    const t = setTimeout(() => {
+      if (window.location.pathname === "/checkout") return;
+      tryShow("bacWater");
+    }, 30000);
+
+    return () => clearTimeout(t);
+  }, [mounted, items.length]);
+
   if (!mounted) return null;
 
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
@@ -103,6 +133,7 @@ export default function PopupManager() {
       {activePopup === "exit" && <ExitIntentPopup onClose={close} />}
       {activePopup === "cartExit" && <CartExitPopup onClose={close} items={items} />}
       {activePopup === "cartIdle" && <CartIdlePopup onClose={close} itemCount={itemCount} />}
+      {activePopup === "bacWater" && <BacWaterPopup onClose={close} />}
     </>
   );
 }

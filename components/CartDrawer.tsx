@@ -1,6 +1,8 @@
 "use client";
 
 import { useCartStore } from "@/lib/store";
+import { PRODUCTS } from "@/data/products";
+import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
 import Link from "next/link";
 import { useEffect } from "react";
 
@@ -13,7 +15,10 @@ export default function CartDrawer() {
     updateQuantity,
     getTotal,
     getProductDiscount,
+    addItem,
   } = useCartStore();
+
+  const suggestions = getSuggestions(items);
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -75,92 +80,216 @@ export default function CartDrawer() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {items.map((item) => {
-                  const { discount, savings } = getProductDiscount(item.productId);
-                  const discountedPrice = item.price * (1 - discount);
-                  const lineTotal = discountedPrice * item.quantity;
+              <>
+                <div className="space-y-4">
+                  {items.map((item) => {
+                    const { discount, savings } = getProductDiscount(item.productId);
+                    const discountedPrice = item.price * (1 - discount);
+                    const lineTotal = discountedPrice * item.quantity;
 
-                  return (
-                    <div
-                      key={`${item.productId}-${item.variant}`}
-                      className="bg-cream hairline-border p-4"
-                    >
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h3 className="font-display text-lg text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
-                            {item.productName}
-                          </h3>
-                          <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
-                            {item.variant}
-                          </p>
-                          {discount > 0 ? (
-                            <div className="mt-1">
-                              <p className="font-display text-sm text-ink line-through opacity-50">
+                    return (
+                      <div
+                        key={`${item.productId}-${item.variant}`}
+                        className="bg-cream hairline-border p-4"
+                      >
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-display text-lg text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
+                              {item.productName}
+                            </h3>
+                            <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60">
+                              {item.variant}
+                            </p>
+                            {discount > 0 ? (
+                              <div className="mt-1">
+                                <p className="font-display text-sm text-ink line-through opacity-50">
+                                  ${item.price.toFixed(2)}
+                                </p>
+                                <p className="font-display text-sm text-ink">
+                                  ${discountedPrice.toFixed(2)}{' '}
+                                  <span className="text-[10px] font-mono text-[#607A5C]">
+                                    ({(discount * 100).toFixed(0)}% off)
+                                  </span>
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="font-display text-sm text-ink mt-1">
                                 ${item.price.toFixed(2)}
                               </p>
-                              <p className="font-display text-sm text-ink">
-                                ${discountedPrice.toFixed(2)}{' '}
-                                <span className="text-[10px] font-mono text-[#607A5C]">
-                                  ({(discount * 100).toFixed(0)}% off)
-                                </span>
-                              </p>
-                            </div>
-                          ) : (
-                            <p className="font-display text-sm text-ink mt-1">
-                              ${item.price.toFixed(2)}
-                            </p>
-                          )}
+                            )}
+                          </div>
+                          <button
+                            onClick={() =>
+                              removeItem(item.productId, item.variant)
+                            }
+                            className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all"
+                          >
+                            ✕
+                          </button>
                         </div>
-                        <button
-                          onClick={() =>
-                            removeItem(item.productId, item.variant)
-                          }
-                          className="font-mono text-xs text-ink opacity-55 hover:text-clay hover:opacity-100 transition-all"
-                        >
-                          ✕
-                        </button>
-                      </div>
 
-                      {/* Quantity Controls */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <button
-                            onClick={() =>
-                              updateQuantity(
-                                item.productId,
-                                item.variant,
-                                item.quantity - 1
-                              )
-                            }
-                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
-                          >
-                            −
-                          </button>
-                          <span className="font-mono text-sm text-ink font-medium w-8 text-center">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(
-                                item.productId,
-                                item.variant,
-                                item.quantity + 1
-                              )
-                            }
-                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className="font-display text-ink" style={{ fontWeight: 300 }}>
-                          ${lineTotal.toFixed(2)}
+                        {/* Quantity Controls */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  item.productId,
+                                  item.variant,
+                                  item.quantity - 1
+                                )
+                              }
+                              className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                            >
+                              −
+                            </button>
+                            <span className="font-mono text-sm text-ink font-medium w-8 text-center">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(
+                                  item.productId,
+                                  item.variant,
+                                  item.quantity + 1
+                                )
+                              }
+                              className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <div className="font-display text-ink" style={{ fontWeight: 300 }}>
+                            ${lineTotal.toFixed(2)}
+                          </div>
                         </div>
                       </div>
+                    );
+                  })}
+                </div>
+
+                {/* ── FREQUENTLY BOUGHT TOGETHER ── */}
+                {suggestions.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: "20px",
+                      borderTop: "1px solid #EBE2CF",
+                      backgroundColor: "#F5EFE4",
+                    }}
+                  >
+                    {/* Header */}
+                    <div
+                      style={{
+                        borderLeft: "2px solid #C89A3C",
+                        padding: "12px 14px",
+                        marginBottom: "2px",
+                      }}
+                    >
+                      <span
+                        className="font-mono uppercase"
+                        style={{ fontSize: "9px", letterSpacing: "3px", color: "#C89A3C" }}
+                      >
+                        FREQUENTLY BOUGHT TOGETHER
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
+
+                    {/* Suggestion rows */}
+                    <div>
+                      {suggestions.map((product) => (
+                        <div
+                          key={product.slug}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            padding: "10px 14px",
+                            borderBottom: "1px solid rgba(26,24,20,0.07)",
+                          }}
+                        >
+                          {/* Vial image */}
+                          {product.images[0] && (
+                            <div
+                              style={{
+                                width: 48,
+                                height: 60,
+                                flexShrink: 0,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                overflow: "hidden",
+                              }}
+                            >
+                              <img
+                                src={product.images[0]}
+                                alt=""
+                                aria-hidden="true"
+                                style={{
+                                  width: 48,
+                                  height: 62,
+                                  objectFit: "contain",
+                                  filter: "drop-shadow(0 2px 4px rgba(26,24,20,0.1))",
+                                }}
+                              />
+                            </div>
+                          )}
+
+                          {/* Info */}
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div
+                              className="font-display"
+                              style={{
+                                fontWeight: 300,
+                                fontStyle: "italic",
+                                fontSize: "0.9rem",
+                                color: "#1A1814",
+                                lineHeight: 1.2,
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              {product.name}
+                            </div>
+                            <div
+                              className="font-mono"
+                              style={{ fontSize: "10px", color: "#1A1814", opacity: 0.55, marginTop: "2px" }}
+                            >
+                              ${product.prices[0]}
+                            </div>
+                          </div>
+
+                          {/* Add button */}
+                          <button
+                            onClick={() =>
+                              addItem({
+                                productId: product.id.toString(),
+                                productName: product.name,
+                                variant: product.sizes[0],
+                                price: product.prices[0],
+                                sku: product.skus[0],
+                              })
+                            }
+                            style={{
+                              backgroundColor: "#B8624A",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: "7px 12px",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <span
+                              className="font-mono uppercase"
+                              style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#F5EFE4" }}
+                            >
+                              ADD
+                            </span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
