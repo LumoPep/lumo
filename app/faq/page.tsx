@@ -135,19 +135,9 @@ const faqCategories: FAQCategory[] = [
     color: "bg-cream",
     faqs: [
       {
-        question: "What is the shelf life of your products?",
+        question: "How should I store my peptide vials?",
         answer:
-          "When stored properly in lyophilized (powder) form at -20°C to -80°C, most peptides remain stable for 2-3 years. Once reconstituted, peptides should be used within 28 days when stored at 2-8°C, or can be aliquoted and frozen at -20°C for extended storage. Specific storage guidelines are provided with each product and on the CoA.",
-      },
-      {
-        question: "How should I reconstitute lyophilized peptides?",
-        answer:
-          "Use sterile bacteriostatic water or sterile water for injection. Calculate the desired concentration based on your research protocol. Add the solvent slowly down the side of the vial, then gently swirl (do not shake vigorously) until fully dissolved. Some peptides may require brief refrigeration to fully dissolve. Specific reconstitution guidelines are provided with each product.",
-      },
-      {
-        question: "What storage conditions are required?",
-        answer:
-          "Lyophilized peptides should be stored at -20°C to -80°C in the original sealed vial, protected from light and moisture. Reconstituted peptides should be stored at 2-8°C for short-term use (up to 28 days) or frozen at -20°C in aliquots for long-term storage. Avoid repeated freeze-thaw cycles. Detailed storage requirements are included on each product's CoA.",
+          "All peptide reference standards should be stored at −20°C in a sealed, dry environment away from light. Do not open vials outside of a controlled laboratory setting. These products are supplied for research use only and are not intended for use in any living organism.",
       },
     ],
   },
