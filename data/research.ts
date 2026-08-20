@@ -355,50 +355,9 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
     },
   ],
 
-  'lumo-2-trz': [
-    {
-      title: 'Tirzepatide Once Weekly for the Treatment of Obesity (SURMOUNT-1)',
-      authors: 'Jastreboff AM, Aronne LJ, Ahmad NN, et al.',
-      journal: 'New England Journal of Medicine',
-      year: 2022,
-      pmid: '35658024',
-      doi: '10.1056/NEJMoa2206038',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/35658024/',
-      summary: 'Phase III RCT demonstrating up to 20.9% mean body weight reduction with Tirzepatide 15mg vs placebo across 72 weeks in adults with obesity — the pivotal SURMOUNT-1 trial.',
-    },
-    {
-      title: 'Dual GIP and GLP-1 Receptor Agonist Tirzepatide: A Review of Preclinical and Clinical Data',
-      authors: 'Min T, Bain SC.',
-      journal: 'Diabetes Therapy',
-      year: 2021,
-      pmid: '34105078',
-      doi: '10.1007/s13300-021-01053-9',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/34105078/',
-      summary: 'Reviews the dual GIP/GLP-1 receptor agonism mechanism of Tirzepatide, preclinical metabolic data, and Phase I/II clinical results demonstrating superior glycaemic and weight outcomes vs GLP-1 monotherapy.',
-    },
-  ],
+  'lp-tz': [],
 
-  'lumo-3-rt': [
-    {
-      title: 'A Phase 2 Trial of Retatrutide for Obesity',
-      authors: 'Jastreboff AM, Kaplan LM, Frías JP, et al.',
-      journal: 'New England Journal of Medicine',
-      year: 2023,
-      pmid: '37366315',
-      doi: '10.1056/NEJMoa2301972',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/37366315/',
-      summary: 'Phase II dose-ranging RCT reporting up to 24.2% mean body weight reduction with Retatrutide 12mg — establishing triple GIP/GLP-1/glucagon receptor agonism as a next-generation metabolic research target.',
-    },
-    {
-      title: 'Efficacy of GLP-1 Analog Peptides — Semaglutide, Tirzepatide, and Retatrutide — on MC4R-Deficient Obesity and Their Comparison',
-      authors: 'Kim J, et al.',
-      journal: 'PubMed (Epub)',
-      year: 2025,
-      pmid: '41723268',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/41723268/',
-      summary: 'Comparative study in MC4R knockout mice showing Retatrutide, Tirzepatide, and Semaglutide all produce significant fat mass reduction, metabolic improvement, and favourable lipid profiles via GLP-1 receptor pathways.',
-    },
-  ],
+  'lp-rt': [],
 
   'glow-blend': [
     {
@@ -509,37 +468,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
     },
   ],
 
-  'semaglutide': [
-    {
-      title: 'Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes (SUSTAIN-6)',
-      authors: 'Marso SP, Bain SC, Consoli A, et al.',
-      journal: 'New England Journal of Medicine',
-      year: 2016,
-      pmid: '27633186',
-      doi: '10.1056/NEJMoa1607141',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/27633186/',
-      summary: 'Pivotal cardiovascular outcomes trial demonstrating once-weekly semaglutide significantly reduced major adverse cardiovascular events by 26% versus placebo in patients with type 2 diabetes at high cardiovascular risk.',
-    },
-    {
-      title: 'Comparative Efficacy, Safety, and Cardiovascular Outcomes With Once-Weekly Subcutaneous Semaglutide: Insights From the SUSTAIN 1-7 Trials',
-      authors: 'Aroda VR, Ahmann A, Cariou B, et al.',
-      journal: 'Diabetes & Metabolism',
-      year: 2019,
-      pmid: '30615985',
-      doi: '10.1016/j.diabet.2018.12.001',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/30615985/',
-      summary: 'Comprehensive review of the SUSTAIN 1-7 trial programme showing semaglutide consistently demonstrated superior glycaemic control and weight loss versus all comparators, with significant cardiovascular event reduction in high-risk patients.',
-    },
-    {
-      title: 'Cardiometabolic Risk Factors Efficacy of Semaglutide in the STEP Program',
-      authors: 'Multiple authors',
-      journal: 'Diabetes, Obesity and Metabolism',
-      year: 2023,
-      pmid: '36691308',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/36691308/',
-      summary: 'Reports semaglutide 2.4mg produced significant improvements in body weight, waist circumference, blood pressure, and lipid profile across the STEP 1-5 obesity trial programme compared to placebo.',
-    },
-  ],
+  'lp-sm': [],
 
   'sermorelin': [
     {

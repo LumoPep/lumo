@@ -231,24 +231,24 @@ export default function Footer() {
                   <ul className="space-y-2">
                     <li>
                       <Link
-                        href="/products/lumo-2-trz"
+                        href="/products/lp-tz"
                         className="font-editorial text-cream transition-opacity"
                         style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
                         onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
-                        Lumo-2 TRZ
+                        LP-Tz
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href="/products/lumo-3-rt"
+                        href="/products/lp-rt"
                         className="font-editorial text-cream transition-opacity"
                         style={{ fontSize: "14px", opacity: 0.85 }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
                         onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                       >
-                        Lumo-3 RT
+                        LP-Rt
                       </Link>
                     </li>
                     <li>

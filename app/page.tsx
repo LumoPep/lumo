@@ -692,7 +692,7 @@ export default function HomePage() {
           >
             <img
               src='/images/products/lumo-3-rt-10mg-v2.png'
-              alt='Lumo-3 RT research vial'
+              alt='LP-Rt research vial'
               style={{
                 width: 'auto',
                 height: 'auto',

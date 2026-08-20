@@ -63,6 +63,22 @@ const nextConfig = {
         destination: '/products?category=neuro-research',
         permanent: true,
       },
+      // Product renames (permanent 301)
+      {
+        source: '/products/semaglutide',
+        destination: '/products/lp-sm',
+        permanent: true,
+      },
+      {
+        source: '/products/lumo-2-trz',
+        destination: '/products/lp-tz',
+        permanent: true,
+      },
+      {
+        source: '/products/lumo-3-rt',
+        destination: '/products/lp-rt',
+        permanent: true,
+      },
       // Path-based redirects (if they exist)
       {
         source: '/compounds/healing-recovery',

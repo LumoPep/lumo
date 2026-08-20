@@ -3,10 +3,9 @@ import { CartItem } from "@/lib/store";
 
 const pairings: Record<string, string[]> = {
   // GLP-1s / Metabolic
-  "lumo-1-smg":   ["bac-water", "lumo-2-trz", "glow-blend"],
-  "semaglutide":  ["bac-water", "lumo-2-trz", "glow-blend"],
-  "lumo-2-trz":   ["bac-water", "lumo-1-smg", "lumo-3-rt"],
-  "lumo-3-rt":    ["bac-water", "lumo-2-trz", "lumo-1-smg"],
+  "lp-sm":  ["bac-water", "lp-tz", "glow-blend"],
+  "lp-tz":  ["bac-water", "lp-sm", "lp-rt"],
+  "lp-rt":  ["bac-water", "lp-tz", "lp-sm"],
   // Secretagogues
   "cjc-ipamorelin":   ["bac-water", "ipamorelin", "sermorelin"],
   "ipamorelin":       ["bac-water", "cjc-ipamorelin", "sermorelin"],

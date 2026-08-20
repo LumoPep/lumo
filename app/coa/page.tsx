@@ -436,7 +436,7 @@ function CoACard({ product, index }: { product: any; index: number }) {
                   {[
                     { label: "LOT", value: activeCoa?.lot || 'N/A' },
                     { label: "REPORT", value: activeCoa?.reportNumber || product.report },
-                    { label: "CAS", value: product.casNumber },
+                    ...(product.casNumber ? [{ label: "CAS", value: product.casNumber }] : []),
                     { label: "IDENTITY", value: "CONFIRMED" },
                   ].map((row, i) => (
                     <div key={i} className="flex items-baseline justify-between">

@@ -20,12 +20,12 @@ export interface Product {
   lotNumbers?: string[]
   coas: COA[]
   report: string
-  casNumber: string
+  casNumber?: string
   formula: string
   mw: string
   synopsis: string
   application: string
-  sequence: string
+  sequence?: string
   storage: string
   appearance: string
   sizes: string[]
@@ -42,8 +42,8 @@ export const PRODUCTS: Product[] = [
   // ── METABOLIC / GLP-1 ──────────────────────────────────────
   {
     id: 20,
-    slug: 'semaglutide',
-    name: 'Lumo-1 SMG',
+    slug: 'lp-sm',
+    name: 'LP-Sm',
     category: 'Metabolic Research',
     badge: undefined,
     purity: '98.50%',
@@ -53,12 +53,10 @@ export const PRODUCTS: Product[] = [
       { lot: 'LMO-DS-0626-SMG-002', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20020',
-    casNumber: '910463-68-2',
     formula: 'C₁₈₇H₂₉₁N₄₅O₅₉',
     mw: '4113.58 g/mol',
-    synopsis: 'Semaglutide is a GLP-1 receptor agonist analogue of human glucagon-like peptide-1. Extensively studied in clinical trials for metabolic regulation, appetite suppression, and cardiovascular risk reduction.',
-    application: 'In vitro and clinical research into GLP-1 receptor activation, glucose-dependent insulin secretion, appetite regulation, and cardiometabolic risk factor modification.',
-    sequence: 'His-Aib-Glu-Gly-Thr-Phe-Thr-Ser-Asp-Val-Ser-Ser-Tyr-Leu-Glu-Gly-Gln-Ala-Ala-Lys-Glu-Phe-Ile-Ala-Trp-Leu-Val-Arg-Gly-Arg',
+    synopsis: 'LP-Sm is a 31-amino-acid synthetic peptide supplied as a lyophilized research reference standard, 98.50% by HPLC. Supplied for in-vitro receptor binding assays, selectivity profiling and analytical method development. Not for use in any living organism.',
+    application: 'In vitro receptor binding assays, selectivity profiling and analytical method development.',
     storage: 'Lyophilized: −20°C or below. Short-term: 2–8°C. Reconstituted: 2–8°C, use within 14 days.',
     appearance: 'White lyophilized powder in sealed borosilicate glass vial.',
     sizes: ['5mg', '10mg'],
@@ -76,8 +74,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 1,
-    slug: 'lumo-2-trz',
-    name: 'Lumo-2 TRZ',
+    slug: 'lp-tz',
+    name: 'LP-Tz',
     category: 'Metabolic Research',
     badge: 'New',
     purity: '98.50%',
@@ -87,12 +85,10 @@ export const PRODUCTS: Product[] = [
       { lot: 'LMO-0626-TRZ-002', size: '20mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20001',
-    casNumber: '2023788-19-2',
     formula: 'C₂₂₅H₃₄₈N₄₈O₆₈',
     mw: '4813.46 g/mol',
-    synopsis: 'Lumo-2 TRZ is a synthetic dual GIP and GLP-1 receptor agonist peptide studied in metabolic research. It binds both glucose-dependent insulinotropic polypeptide receptor (GIPR) and glucagon-like peptide-1 receptor (GLP-1R), making it a subject of significant interest in incretin biology research.',
-    application: 'In vitro research into dual GIP/GLP-1 receptor activation, incretin pathway signaling, glucose metabolism modeling, and metabolic hormone receptor pharmacology.',
-    sequence: 'Tyr-Aib-Glu-Gly-Thr-Phe-Thr-Ser-Asp-Tyr-Ser-Ile-Aib-Leu-Asp-Lys-Ile-Ala-Gln-Lys-Ala-Phe-Val-Gln-Trp-Leu-Ile-Ala-Gly-Gly-Pro-Ser-Ser-Gly-Ala-Pro-Pro-Pro-Ser-NH₂',
+    synopsis: 'LP-Tz is a 39-amino-acid synthetic peptide reference standard, 98.50% by HPLC, supplied lyophilized. Supplied for in-vitro dual-receptor binding characterisation and analytical method development. Not for use in any living organism.',
+    application: 'In vitro dual-receptor binding characterisation and analytical method development.',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days. Protect from light.',
     appearance: 'White to off-white lyophilized powder in sealed borosilicate glass vial.',
     sizes: ['10mg', '20mg'],
@@ -110,8 +106,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 2,
-    slug: 'lumo-3-rt',
-    name: 'Lumo-3 RT',
+    slug: 'lp-rt',
+    name: 'LP-Rt',
     category: 'Metabolic Research',
     badge: 'New',
     purity: '98.20%',
@@ -121,12 +117,10 @@ export const PRODUCTS: Product[] = [
       { lot: 'LMO-0626-RT-004', size: '30mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20002',
-    casNumber: '2381089-83-2',
     formula: 'C₂₄₃H₃₇₈N₅₆O₇₂',
     mw: '5382.06 g/mol',
-    synopsis: 'Lumo-3 RT is a synthetic triple agonist peptide targeting GIP, GLP-1, and glucagon receptors simultaneously. Studied in preclinical research for its triagonist receptor activation profile, it represents one of the more complex receptor pharmacology subjects in current metabolic peptide research.',
-    application: 'Triple receptor agonism research (GIPR/GLP-1R/GCGR), triagonist pharmacology studies, comparative metabolic signaling pathway research.',
-    sequence: 'Tyr-Aib-Glu-Gly-Thr-Phe-Thr-Ser-Asp-Leu-Ser-Lys-Gln-Met-Glu-Glu-Glu-Ala-Val-Arg-Leu-Phe-Ile-Glu-Trp-Leu-Lys-Asn-Gly-Gly-Pro-Ser-Ser-Gly-Ala-Pro-Pro-Pro-Ser-NH₂',
+    synopsis: 'LP-Rt is a 39-amino-acid synthetic peptide reference standard, 98.20% by HPLC, supplied lyophilized. Supplied for in-vitro multi-receptor binding characterisation. Not for use in any living organism.',
+    application: 'In vitro multi-receptor binding characterisation.',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days. Protect from light.',
     appearance: 'White to off-white lyophilized powder in sealed borosilicate glass vial.',
     sizes: ['10mg', '30mg'],
