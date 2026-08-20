@@ -324,7 +324,6 @@ export default function ProductPage() {
                         <ul className="space-y-2 font-editorial text-sm text-ink opacity-80">
                           <li>· Handle with appropriate laboratory safety equipment</li>
                           <li>· Minimize exposure to air, light, and moisture during use</li>
-                          <li>· Use immediately after reconstitution or store as directed</li>
                           <li>· Dispose of according to institutional waste protocols</li>
                         </ul>
                       </div>

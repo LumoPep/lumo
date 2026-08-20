@@ -11,7 +11,7 @@ import BacWaterPopup from "./BacWaterPopup";
 
 type ActivePopup = "email" | "exit" | "cartExit" | "cartIdle" | "bacWater" | null;
 
-// Slugs that do NOT require BAC water (non-injectables)
+// Slugs excluded from LP-BW upsell popup
 const noBAC = new Set(["nad-plus", "bac-water", "glow-blend", "klow-blend"]);
 
 export default function PopupManager() {
@@ -98,7 +98,7 @@ export default function PopupManager() {
     };
   }, [mounted, items.length]);
 
-  // ── POP-UP 5: BAC water reminder — 30s after injectable in cart ─────
+  // ── POP-UP 5: LP-BW upsell reminder — 30s after eligible product in cart
   useEffect(() => {
     if (!mounted) return;
     if (items.length === 0) return;

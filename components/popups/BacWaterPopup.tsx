@@ -81,7 +81,7 @@ export default function BacWaterPopup({ onClose }: Props) {
           className="font-mono uppercase"
           style={{ fontSize: "9px", letterSpacing: "3px", color: "#C89A3C", marginBottom: "10px" }}
         >
-          RECONSTITUTION REQUIRED
+          LABORATORY SOLVENT
         </div>
 
         {/* Heading */}
@@ -96,7 +96,7 @@ export default function BacWaterPopup({ onClose }: Props) {
             marginBottom: "12px",
           }}
         >
-          Don&apos;t forget BAC Water.
+          Add LP-BW Laboratory Solvent.
         </h3>
 
         {/* Body */}
@@ -110,7 +110,7 @@ export default function BacWaterPopup({ onClose }: Props) {
             marginBottom: "16px",
           }}
         >
-          Most peptides require bacteriostatic water for reconstitution. Add a vial to your order.
+          LP-BW Laboratory Solvent is a 0.9% benzyl alcohol aqueous solution supplied for analytical and laboratory use only.
         </p>
 
         {/* Product row */}

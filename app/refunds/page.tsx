@@ -18,7 +18,7 @@ const sections = [
     number: "02",
     title: "No Refunds on Research Compounds",
     content: [
-      "All sales of research peptides and compounds are final. We cannot accept returns or issue refunds for: Products that have been opened or unsealed; Products that have been used or reconstituted; Products that have left our facility, unless damaged in transit; Change of mind purchases; Products stored improperly after delivery.",
+      "All sales of research peptides and compounds are final. We cannot accept returns or issue refunds for: Products that have been opened or unsealed; Products that have been opened or tampered with; Products that have left our facility, unless damaged in transit; Change of mind purchases; Products stored improperly after delivery.",
       "By completing a purchase, you acknowledge and accept this no-refund policy for research chemical compounds.",
     ],
   },
