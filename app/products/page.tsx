@@ -40,7 +40,7 @@ function ProductsPageContent() {
         (p) =>
           p.name.toLowerCase().includes(query) ||
           p.category.toLowerCase().includes(query) ||
-          p.casNumber.toLowerCase().includes(query)
+          (p.casNumber ?? "").toLowerCase().includes(query)
       );
     }
 
