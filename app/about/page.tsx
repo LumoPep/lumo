@@ -471,7 +471,7 @@ export default function AboutPage() {
                 {
                   number: "04",
                   title: "Secure Payments",
-                  description: "Card, bank transfer, and cryptocurrency accepted. Privacy-focused payments.",
+                  description: "Cryptocurrency accepted, processed through a third-party blockchain payment provider.",
                 },
                 {
                   number: "05",
