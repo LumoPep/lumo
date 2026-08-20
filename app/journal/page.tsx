@@ -73,7 +73,7 @@ export default function ResearchLibraryPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Research Library
+            Analytical References
           </motion.h1>
 
           <motion.p
@@ -82,7 +82,7 @@ export default function ResearchLibraryPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="font-editorial text-xl text-cream max-w-3xl"
           >
-            Peer-reviewed studies referenced across Lumo's compound catalogue.
+            A reference index of published analytical and in-vitro characterisation studies for peptide compounds supplied by Lumo. For research use only.
           </motion.p>
         </div>
       </section>

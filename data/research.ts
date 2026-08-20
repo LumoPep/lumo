@@ -19,7 +19,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '34276386',
       doi: '10.3389/fphar.2021.627533',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34276386/',
-      summary: 'Reviews BPC-157 wound-healing activity across skin, fistula, burn and diabetic ulcer models, demonstrating equipotent efficacy across multiple routes of administration.',
+      summary: 'Reviews BPC-157 mechanistic activity across multiple preclinical tissue models, characterising route-of-administration pharmacology and fibroblast signalling responses.',
     },
     {
       title: 'Regeneration or Risk? A Narrative Review of BPC-157 for Musculoskeletal Healing',
@@ -38,7 +38,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '40184576',
       doi: '10.1177/15563316251355551',
       url: 'https://pubmed.ncbi.nlm.nih.gov/40184576/',
-      summary: 'Systematic review of 36 studies (1993–2024) reporting improved healing outcomes in fracture, tendon rupture, ligament tear, and muscle injury models through growth factor upregulation and anti-inflammatory action.',
+      summary: 'Systematic review of 36 preclinical studies (1993–2024) characterising BPC-157 mechanisms including growth factor upregulation and anti-inflammatory signalling across musculoskeletal tissue models.',
     },
   ],
 
@@ -51,7 +51,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '38237358',
       doi: '10.1016/j.jchromb.2024.124033',
       url: 'https://pubmed.ncbi.nlm.nih.gov/38237358/',
-      summary: 'Characterises TB-500 and metabolite pharmacokinetics while confirming wound-healing bioactivity of the LKKTETQ core fragment in vitro.',
+      summary: 'Characterises TB-500 and metabolite pharmacokinetics via chromatographic separation, identifying the LKKTETQ core fragment as the bioactive component in vitro.',
     },
     {
       title: 'Utilizing Developmentally Essential Secreted Peptides Such as Thymosin Beta-4 to Remind the Adult Organs of Their Embryonic State — New Directions in Anti-Aging Regenerative Therapies',
@@ -61,7 +61,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '34071596',
       doi: '10.3390/cells10061343',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34071596/',
-      summary: 'Reviews Thymosin Beta-4 regenerative mechanisms including actin sequestration, cell migration, angiogenesis, and anti-apoptotic signalling across cardiac, neural, and connective tissue models.',
+      summary: 'Reviews Thymosin Beta-4 mechanisms including actin sequestration, cell migration, angiogenesis, and anti-apoptotic signalling across cardiac, neural, and connective tissue models.',
     },
     {
       title: 'Thymosin Beta 4 Accelerates Wound Healing',
@@ -71,7 +71,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '10469325',
       doi: '10.1046/j.1523-1747.1999.00708.x',
       url: 'https://pubmed.ncbi.nlm.nih.gov/10469325/',
-      summary: 'Foundational study demonstrating that systemic Thymosin Beta-4 accelerates dermal wound closure, collagen deposition, and angiogenesis in rodent models.',
+      summary: 'Foundational rodent study characterising Thymosin Beta-4 effects on dermal collagen deposition, angiogenesis, and fibroblast activity following topical and systemic administration.',
     },
   ],
 
@@ -84,7 +84,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '34276386',
       doi: '10.3389/fphar.2021.627533',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34276386/',
-      summary: 'Reviews BPC-157 wound-healing activity across skin, fistula, burn and diabetic ulcer models.',
+      summary: 'Reviews BPC-157 mechanistic activity across multiple preclinical tissue models, characterising route-of-administration pharmacology.',
     },
     {
       title: 'Utilizing Developmentally Essential Secreted Peptides Such as Thymosin Beta-4 to Remind the Adult Organs of Their Embryonic State',
@@ -94,7 +94,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '34071596',
       doi: '10.3390/cells10061343',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34071596/',
-      summary: 'Reviews Thymosin Beta-4 regenerative signalling including actin sequestration, angiogenesis, and anti-apoptotic effects across multiple tissue repair models.',
+      summary: 'Reviews Thymosin Beta-4 signalling including actin sequestration, angiogenesis, and anti-apoptotic effects across multiple tissue models.',
     },
   ],
 
@@ -107,7 +107,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '9849822',
       doi: '10.1530/eje.0.1390552',
       url: 'https://pubmed.ncbi.nlm.nih.gov/9849822/',
-      summary: 'Characterises Ipamorelin as the first selective GHS-R1a agonist with potency comparable to GHRP-6 but without significant cortisol, prolactin, or ACTH stimulation — establishing its selectivity profile.',
+      summary: 'Characterises Ipamorelin as a selective GHS-R1a agonist with potency comparable to GHRP-6 but without significant cortisol, prolactin, or ACTH stimulation — establishing its selectivity profile.',
     },
     {
       title: 'Growth Hormone Secretagogues',
@@ -117,21 +117,11 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '16533150',
       doi: '10.2174/138620706776055458',
       url: 'https://pubmed.ncbi.nlm.nih.gov/16533150/',
-      summary: 'Reviews the pharmacology of growth hormone secretagogues including receptor binding, pituitary selectivity, and clinical research implications across the GHS class.',
+      summary: 'Reviews the pharmacology of growth hormone secretagogues including receptor binding, pituitary selectivity, and GHS class characterisation.',
     },
   ],
 
   'cjc-1295-no-dac': [
-    {
-      title: 'Pulsatile Secretion of Growth Hormone Persists During Continuous Stimulation by CJC-1295, a Long-Acting GH-Releasing Hormone Analog',
-      authors: 'Ionescu M, Frohman LA.',
-      journal: 'Journal of Clinical Endocrinology & Metabolism',
-      year: 2006,
-      pmid: '17018654',
-      doi: '10.1210/jc.2006-1702',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/17018654/',
-      summary: 'Human trial demonstrating that CJC-1295 sustains pulsatile GH secretion with dose-dependent increases in mean GH and IGF-1 levels over multiple weeks.',
-    },
     {
       title: 'Ipamorelin, the First Selective Growth Hormone Secretagogue',
       authors: 'Raun K, Hansen BS, Johansen NL, et al.',
@@ -145,16 +135,6 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
   ],
 
   'cjc-ipamorelin': [
-    {
-      title: 'Pulsatile Secretion of Growth Hormone Persists During Continuous Stimulation by CJC-1295',
-      authors: 'Ionescu M, Frohman LA.',
-      journal: 'Journal of Clinical Endocrinology & Metabolism',
-      year: 2006,
-      pmid: '17018654',
-      doi: '10.1210/jc.2006-1702',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/17018654/',
-      summary: 'Human trial establishing that CJC-1295 produces sustained, pulsatile GH and IGF-1 elevation — foundational evidence for the GHRH component of this blend.',
-    },
     {
       title: 'Ipamorelin, the First Selective Growth Hormone Secretagogue',
       authors: 'Raun K, Hansen BS, Johansen NL, et al.',
@@ -173,32 +153,11 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '1846653',
       doi: '10.1210/endo-128-1-305',
       url: 'https://pubmed.ncbi.nlm.nih.gov/1846653/',
-      summary: 'Early study demonstrating that co-administration of GHRH and a GHRP produces a synergistic GH response significantly greater than either compound alone — the mechanistic basis for combined secretagogue research.',
+      summary: 'Early in vivo study demonstrating that co-administration of GHRH and a GHRP produces a synergistic GH response significantly greater than either compound alone — the mechanistic basis for combined secretagogue research.',
     },
   ],
 
-  'tesamorelin': [
-    {
-      title: 'Tesamorelin, a Growth Hormone-Releasing Factor Analogue, in HIV-Infected Patients with Abdominal Fat Accumulation',
-      authors: 'Falutz J, Allas S, Blot K, et al.',
-      journal: 'New England Journal of Medicine',
-      year: 2007,
-      pmid: '17978289',
-      doi: '10.1056/NEJMoa072375',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/17978289/',
-      summary: 'Phase III randomised controlled trial demonstrating significant visceral fat reduction with Tesamorelin vs placebo — the pivotal trial supporting FDA approval of Egrifta.',
-    },
-    {
-      title: 'Pulsatile Secretion of Growth Hormone Persists During Continuous Stimulation by CJC-1295',
-      authors: 'Ionescu M, Frohman LA.',
-      journal: 'Journal of Clinical Endocrinology & Metabolism',
-      year: 2006,
-      pmid: '17018654',
-      doi: '10.1210/jc.2006-1702',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/17018654/',
-      summary: 'Human study showing sustained, pulsatile GH elevation from a long-acting GHRH analog — provides context for Tesamorelin\'s mechanism as an FDA-approved GHRH analog.',
-    },
-  ],
+  'tesamorelin': [],
 
   'ghk-cu': [
     {
@@ -209,7 +168,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '26236730',
       doi: '10.1155/2015/648108',
       url: 'https://pubmed.ncbi.nlm.nih.gov/26236730/',
-      summary: 'Reviews GHK-Cu\'s role in skin regeneration: stimulating collagen, elastin, and glycosaminoglycan synthesis, modulating metalloproteinase activity, and attracting immune and endothelial cells to injury sites.',
+      summary: 'Reviews GHK-Cu mechanisms including collagen, elastin, and glycosaminoglycan synthesis stimulation, metalloproteinase modulation, and immune cell recruitment characterisation in dermal research models.',
     },
     {
       title: 'Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data',
@@ -219,17 +178,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '30011851',
       doi: '10.3390/ijms19071987',
       url: 'https://pubmed.ncbi.nlm.nih.gov/30011851/',
-      summary: 'Documents GHK-Cu\'s capacity to up- and down-regulate over 4,000 human genes, essentially resetting gene expression toward a healthier state including DNA repair, antioxidant response, and anti-inflammatory pathways.',
-    },
-    {
-      title: 'Skin Regenerative and Anti-Cancer Actions of Copper Peptides',
-      authors: 'Pickart L, Vasquez-Soltero JM, Margolina A.',
-      journal: 'Cosmetics',
-      year: 2017,
-      pmid: '30050905',
-      doi: '10.3390/cosmetics4020026',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/30050905/',
-      summary: 'Details GHK-Cu\'s fibroblast-activating, collagen-stimulating, and wound-healing properties in animal models, plus its role as a natural plasma protein that declines significantly with age.',
+      summary: 'Documents GHK-Cu modulation of over 4,000 gene targets, characterising effects on DNA repair, antioxidant response, and anti-inflammatory pathway gene expression.',
     },
   ],
 
@@ -252,20 +201,11 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '24786309',
       doi: '10.1016/j.tcb.2014.04.002',
       url: 'https://pubmed.ncbi.nlm.nih.gov/24786309/',
-      summary: 'Reviews the NAD-sirtuin axis as a central regulator of metabolism and ageing, establishing the rationale for NAD+ precursor supplementation research.',
+      summary: 'Reviews the NAD-sirtuin axis as a central regulator of cellular metabolism, characterising NAD+-dependent deacetylase signalling pathways and their downstream effects.',
     },
   ],
 
   'selank': [
-    {
-      title: 'Efficacy and Possible Mechanisms of Action of a New Peptide Anxiolytic Selank in the Therapy of Generalised Anxiety Disorders and Neurasthenia',
-      authors: 'Semenova TP, Kozlovskiy II, Zakharova NM, Kozlovskaya MM.',
-      journal: 'Experimental and Clinical Pharmacology',
-      year: 2008,
-      pmid: '19093364',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/19093364/',
-      summary: 'Reports Phase III clinical trial data in anxiety disorders and neurasthenia, demonstrating anxiolytic efficacy of Selank (Thr-Lys-Pro-Arg-Pro-Gly-Pro) comparable to benzodiazepines with superior tolerability.',
-    },
     {
       title: 'Intranasal Administration of the Peptide Selank Regulates BDNF Expression in the Rat Hippocampus In Vivo',
       authors: 'Inozemtseva LS, Karpenko EA, Dolotov OV, et al.',
@@ -274,7 +214,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '18841804',
       doi: '10.1134/s0012496608040066',
       url: 'https://pubmed.ncbi.nlm.nih.gov/18841804/',
-      summary: 'Demonstrates that intranasal Selank elevates hippocampal BDNF expression in vivo, providing a neurotrophin-based mechanism for its cognitive and anxiolytic effects.',
+      summary: 'Demonstrates that intranasal Selank elevates hippocampal BDNF expression in vivo, characterising its neurotrophin-based signalling mechanism.',
     },
     {
       title: 'Experimental Optimisation of Learning and Memory Processes by Selank',
@@ -283,21 +223,11 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       year: 2010,
       pmid: '20919548',
       url: 'https://pubmed.ncbi.nlm.nih.gov/20919548/',
-      summary: 'Reports improvements in spatial learning and memory consolidation metrics in rodent models following Selank administration, supporting its nootropic research profile.',
+      summary: 'Characterises spatial learning and memory consolidation metrics in rodent models following Selank administration, profiling its CNS signalling mechanism.',
     },
   ],
 
   'semax': [
-    {
-      title: 'The Peptide Semax Affects the Expression of Genes Related to the Immune and Vascular Systems in Rat Brain Focal Ischaemia: Genome-Wide Transcriptional Analysis',
-      authors: 'Medvedeva EV, Dmitrieva VG, Povarova OV, et al.',
-      journal: 'BMC Genomics',
-      year: 2014,
-      pmid: '24529074',
-      doi: '10.1186/1471-2164-15-228',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/24529074/',
-      summary: 'Genome-wide study showing Semax modulates neurotrophic factor gene expression, BDNF receptor upregulation, and vascular-immune pathway activity in ischaemic brain tissue.',
-    },
     {
       title: 'Mechanisms of Semax Action in Neuroprotection: Regulation of Antioxidant Pathways and Gene Expression',
       authors: 'Medvedev AE, et al.',
@@ -305,7 +235,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       year: 2014,
       pmid: '24770788',
       url: 'https://pubmed.ncbi.nlm.nih.gov/24770788/',
-      summary: 'Characterises Semax neuroprotective activity via antioxidant enzyme upregulation, mitochondrial stabilisation under calcium stress, and inhibition of nitric oxide synthesis.',
+      summary: 'Characterises Semax mechanism of action via antioxidant enzyme upregulation, mitochondrial stabilisation under calcium stress, and inhibition of nitric oxide synthesis.',
     },
   ],
 
@@ -320,16 +250,6 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       url: 'https://pubmed.ncbi.nlm.nih.gov/12937682/',
       summary: 'Key in vitro study reporting that Epithalon (AEDG tetrapeptide) induces telomerase activity and produces measurable telomere elongation in human somatic cell cultures.',
     },
-    {
-      title: 'Twenty Years of Study on Effects of Pineal Peptide Preparation: Epithalamin in Experimental Gerontology and Oncology',
-      authors: 'Anisimov VN, Khavinson VK, Morozov VG.',
-      journal: 'Annals of the New York Academy of Sciences',
-      year: 1994,
-      pmid: '8010617',
-      doi: '10.1111/j.1749-6632.1994.tb56853.x',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/8010617/',
-      summary: 'Twenty-year research review of pineal peptide preparations in ageing and oncology models, documenting lifespan extension, neuroendocrine modulation, and antitumour effects in rodent studies.',
-    },
   ],
 
   'mots-c': [
@@ -341,7 +261,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '25738459',
       doi: '10.1016/j.cmet.2015.01.020',
       url: 'https://pubmed.ncbi.nlm.nih.gov/25738459/',
-      summary: 'Discovery paper identifying MOTS-c as a mitochondrially encoded peptide that activates AMPK, improves insulin sensitivity, and reduces obesity and metabolic dysfunction in mice.',
+      summary: 'Discovery paper identifying MOTS-c as a mitochondrially encoded peptide that activates AMPK and modulates glucose and fatty acid metabolism in murine models.',
     },
     {
       title: 'MOTS-c: A Novel Mitochondrial-Derived Peptide Regulating Muscle and Fat Metabolism',
@@ -351,7 +271,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '27216708',
       doi: '10.1016/j.freeradbiomed.2016.05.015',
       url: 'https://pubmed.ncbi.nlm.nih.gov/27216708/',
-      summary: 'Reviews MOTS-c biology including its nuclear translocation under stress, AMPK-mediated metabolic reprogramming, and implications for exercise physiology and age-related metabolic decline.',
+      summary: 'Reviews MOTS-c biology including its nuclear translocation under metabolic stress conditions and AMPK-mediated metabolic reprogramming pathways.',
     },
   ],
 
@@ -368,7 +288,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '26236730',
       doi: '10.1155/2015/648108',
       url: 'https://pubmed.ncbi.nlm.nih.gov/26236730/',
-      summary: 'Reviews GHK-Cu\'s collagen-stimulating, fibroblast-activating, and wound-healing activity — providing the dermal research basis for this blend\'s skin-focused compounds.',
+      summary: 'Reviews GHK-Cu collagen-stimulating and fibroblast-activating mechanisms in dermal research models.',
     },
     {
       title: 'Stable Gastric Pentadecapeptide BPC 157 and Wound Healing',
@@ -378,7 +298,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '34276386',
       doi: '10.3389/fphar.2021.627533',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34276386/',
-      summary: 'Reviews BPC-157 wound and tissue healing across multiple models, relevant to the tissue repair component of this blend.',
+      summary: 'Reviews BPC-157 mechanisms across multiple preclinical models, characterising pathway activity relevant to tissue biology research.',
     },
   ],
 
@@ -391,7 +311,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '9849822',
       doi: '10.1530/eje.0.1390552',
       url: 'https://pubmed.ncbi.nlm.nih.gov/9849822/',
-      summary: 'Foundational pharmacology establishing Ipamorelin\'s selectivity for GH release without cortisol or prolactin stimulation — relevant to the secretagogue component of this blend.',
+      summary: 'Foundational pharmacology establishing Ipamorelin selectivity for GH release without cortisol or prolactin stimulation — relevant to the secretagogue component of this blend.',
     },
     {
       title: 'A Mitochondrial-Derived Peptide MOTS-c Regulates Glucose and Fatty Acid Metabolism',
@@ -401,7 +321,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '25738459',
       doi: '10.1016/j.cmet.2015.01.020',
       url: 'https://pubmed.ncbi.nlm.nih.gov/25738459/',
-      summary: 'Discovery study identifying MOTS-c as an AMPK-activating mitochondrial peptide that improves metabolic function — relevant to the metabolic component of this blend.',
+      summary: 'Discovery study identifying MOTS-c as an AMPK-activating mitochondrial peptide — relevant to the metabolic pathway research component of this blend.',
     },
   ],
 
@@ -415,7 +335,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       year: 2008,
       pmid: '18061177',
       url: 'https://pubmed.ncbi.nlm.nih.gov/18061177/',
-      summary: 'Demonstrates KPV inhibits NF-kB and MAP kinase inflammatory signalling via PepT1-mediated cellular uptake, and reduces incidence of DSS- and TNBS-induced colitis in mice through oral administration.',
+      summary: 'Characterises KPV-mediated NF-kB and MAP kinase inflammatory signalling inhibition via PepT1-mediated cellular uptake in murine gastrointestinal tissue models.',
     },
     {
       title: 'Dissection of the Anti-Inflammatory Effect of the Core and C-Terminal (KPV) Alpha-MSH Peptides',
@@ -445,7 +365,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       year: 1995,
       pmid: '7561636',
       url: 'https://pubmed.ncbi.nlm.nih.gov/7561636/',
-      summary: 'Demonstrates Long R3 IGF-1 infusion stimulates organ growth in the guinea pig model while paradoxically reducing circulating native IGF-1 and IGFBP concentrations, confirming reduced binding protein sequestration.',
+      summary: 'Characterises Long R3 IGF-1 infusion effects on the endocrine axis in guinea pig models, confirming reduced binding protein sequestration compared to native IGF-1.',
     },
     {
       title: 'Long [R3] Insulin-Like Growth Factor-I Reduces Growth, Plasma Growth Hormone, IGF Binding Protein-3 and Endogenous IGF-I Concentrations in Pigs',
@@ -470,45 +390,9 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
 
   'lp-sm': [],
 
-  'sermorelin': [
-    {
-      title: 'Sermorelin: A Better Approach to Management of Adult-Onset Growth Hormone Insufficiency?',
-      authors: 'Walker RF.',
-      journal: 'Clinical Interventions in Aging',
-      year: 2006,
-      pmid: '18046908',
-      url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC2699646/',
-      summary: 'Reviews Sermorelin as a GHRH analogue alternative to recombinant human growth hormone therapy in age-related GH insufficiency, noting its physiological pulsatile stimulation mechanism preserves natural feedback regulation.',
-    },
-    {
-      title: 'Pharmacokinetics of Growth Hormone-Releasing Hormone(1-29)-NH2 and Stimulation of Growth Hormone Secretion in Healthy Subjects',
-      authors: 'Bercu BB, et al.',
-      journal: 'Acta Paediatrica',
-      year: 1993,
-      pmid: '8329825',
-      doi: '10.1111/j.1651-2227.1993.tb12827.x',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/8329825/',
-      summary: 'Characterises dose-dependent GH release following intravenous and intranasal GHRH(1-29) administration in healthy adult men, with sustained GH elevation following repeated dosing.',
-    },
-    {
-      title: 'Growth Hormone Secretagogues: History, Mechanism of Action, and Clinical Development',
-      authors: 'Ishida J, Saitoh M, Ebner N, et al.',
-      journal: 'JCSM Rapid Communications',
-      year: 2020,
-      url: 'https://onlinelibrary.wiley.com/doi/full/10.1002/rco2.9',
-      summary: 'Reviews Sermorelin as a 29-amino-acid GHRH(1-29) analogue, noting it stimulates pituitary GH release without significantly altering prolactin, cortisol, or thyroid hormone levels, supporting FDA approval for GH deficiency in 1997.',
-    },
-  ],
+  'sermorelin': [],
 
   'melanotan-2': [
-    {
-      title: 'Melanocortin Receptors, Melanotropic Peptides and Penile Erection',
-      authors: 'Cuellar FM, McVary KT.',
-      journal: 'Current Pharmaceutical Design',
-      year: 2009,
-      url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC2694735/',
-      summary: 'Reviews Melanotan II as a synthetic cyclic heptapeptide melanocortin receptor agonist, noting its core His-Phe-Arg-Trp sequence shared with ACTH and alpha-MSH drives androgen-dependent pro-erectile and pigmentation effects.',
-    },
     {
       title: 'The Melanocortin Agonist, Melanotan II, Enhances Proceptive Sexual Behaviors in the Female Rat',
       authors: 'Rössler AS, Pfaus JG, Kia HK, et al.',
@@ -517,45 +401,9 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '17113634',
       doi: '10.1016/j.pbb.2006.09.023',
       url: 'https://pubmed.ncbi.nlm.nih.gov/17113634/',
-      summary: 'Demonstrates Melanotan II significantly enhances proceptive sexual behaviours in female rats via central melanocortin receptor activation, providing preclinical behavioural evidence for its CNS mechanism.',
-    },
-    {
-      title: 'Melanocortin Receptor Agonists, Penile Erection, and Sexual Motivation: Human Studies With Melanotan II',
-      authors: 'Wessells H, Levine N, Hadley ME, et al.',
-      journal: 'International Journal of Impotence Research',
-      year: 2000,
-      url: 'https://www.ncbi.nlm.nih.gov/pubmed/11035391',
-      summary: 'Early human studies demonstrating Melanotan II induces penile erection and increased sexual motivation in male subjects, foundational research that led to the development of the refined analogue PT-141.',
+      summary: 'Characterises Melanotan II-induced central melanocortin receptor activation in female rat models, documenting dose-dependent CNS-mediated behavioural responses via MC4R pathway engagement.',
     },
   ],
 
-  'pt-141': [
-    {
-      title: 'Evaluation of the Safety, Pharmacokinetics and Pharmacodynamic Effects of Subcutaneously Administered PT-141',
-      authors: 'Rosen RC, Diamond LE, Earle DC, Shadiack AM, Molinoff PB.',
-      journal: 'International Journal of Impotence Research',
-      year: 2004,
-      pmid: '14999221',
-      doi: '10.1038/sj.ijir.3901200',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/14999221/',
-      summary: 'Phase I safety and pharmacokinetic study of subcutaneous PT-141 in healthy men and PDE5-inhibitor non-responders, establishing dose-response relationships for the melanocortin receptor agonist.',
-    },
-    {
-      title: 'Bremelanotide for Female Sexual Dysfunctions in Premenopausal Women: A Randomized, Placebo-Controlled Dose-Finding Trial',
-      authors: 'Clayton AH, Althof SE, Kingsberg S, et al.',
-      journal: "Women's Health",
-      year: 2016,
-      url: 'https://journals.sagepub.com/doi/10.2217/whe.16.4',
-      summary: 'Randomised placebo-controlled trial supporting the FDA approval of bremelanotide (Vyleesi) for hypoactive sexual desire disorder, demonstrating statistically significant improvement in sexual desire scores versus placebo.',
-    },
-    {
-      title: 'An Effect on the Subjective Sexual Response in Premenopausal Women With Sexual Arousal Disorder by Bremelanotide (PT-141), a Melanocortin Receptor Agonist',
-      authors: 'Diamond LE, Earle DC, Heiman JR, et al.',
-      journal: 'Journal of Sexual Medicine',
-      year: 2005,
-      pmid: '15735664',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/15735664/',
-      summary: 'Phase II clinical trial demonstrating statistically significant improvements in subjective arousal parameters with PT-141 versus placebo in women with sexual arousal disorder, supporting its CNS-mediated mechanism independent of vascular pathways.',
-    },
-  ],
+  'pt-141': [],
 }
