@@ -691,7 +691,7 @@ export default function HomePage() {
             className="bg-bone py-12 px-8 lg:py-24 lg:px-12 flex flex-col items-center justify-center"
           >
             <img
-              src='/images/products/lumo-3-rt-10mg-v2.png'
+              src='/images/products/lp-rt-10mg-v2.png'
               alt='LP-Rt research vial'
               style={{
                 width: 'auto',
