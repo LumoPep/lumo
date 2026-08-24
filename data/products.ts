@@ -21,8 +21,8 @@ export interface Product {
   coas: COA[]
   report: string
   casNumber?: string
-  formula: string
-  mw: string
+  formula?: string
+  mw?: string
   synopsis: string
   application: string
   sequence?: string
@@ -47,14 +47,12 @@ export const PRODUCTS: Product[] = [
     category: 'Metabolic Research',
     badge: undefined,
     purity: '98.50%',
-    lotNumbers: ['LMO-DS-0626-SMG-001', 'LMO-DS-0626-SMG-002'],
+    lotNumbers: ['LMO-DS-0626-A01', 'LMO-DS-0626-A02'],
     coas: [
-      { lot: 'LMO-DS-0626-SMG-001', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-DS-0626-SMG-002', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-A01', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-A02', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20020',
-    formula: 'C₁₈₇H₂₉₁N₄₅O₅₉',
-    mw: '4113.58 g/mol',
     synopsis: 'LP-Sm is a 31-amino-acid synthetic peptide supplied as a lyophilized research reference standard, ≥98.5% purity by HPLC. For in-vitro receptor binding assays and analytical method development. Not for use in any living organism.',
     application: 'In vitro receptor binding assays, selectivity profiling and analytical method development.',
     storage: 'Lyophilized: −20°C or below. Short-term: 2–8°C. Reconstituted: 2–8°C, use within 14 days.',
@@ -66,10 +64,9 @@ export const PRODUCTS: Product[] = [
     featured: true,
     dropship: true,
     researchPoints: [
-      'GLP-1 receptor agonist selectivity profiling in cell-based binding assays',
-      'In-vitro GLP-1 receptor activation and downstream signalling studies',
-      'Evaluated for glucose-dependent insulin secretion modulation',
-      'Long-acting fatty acid conjugation studied for extended half-life pharmacokinetics',
+      'Receptor binding assays and selectivity profiling in cell-free systems',
+      'Peptide stability profiling',
+      'Analytical reference standard for method development',
     ],
   },
   {
@@ -79,14 +76,12 @@ export const PRODUCTS: Product[] = [
     category: 'Metabolic Research',
     badge: 'New',
     purity: '98.50%',
-    lotNumbers: ['LMO-0626-TRZ-001', 'LMO-0626-TRZ-002'],
+    lotNumbers: ['LMO-0626-B01', 'LMO-0626-B02'],
     coas: [
-      { lot: 'LMO-0626-TRZ-001', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-0626-TRZ-002', size: '20mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-B01', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-B02', size: '20mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20001',
-    formula: 'C₂₂₅H₃₄₈N₄₈O₆₈',
-    mw: '4813.46 g/mol',
     synopsis: 'LP-Tz is a 39-amino-acid synthetic dual-receptor peptide reference standard, ≥98.5% purity by HPLC, supplied lyophilized. For in-vitro receptor characterisation and analytical method development. Not for use in any living organism.',
     application: 'In vitro dual-receptor binding characterisation and analytical method development.',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days. Protect from light.',
@@ -98,10 +93,7 @@ export const PRODUCTS: Product[] = [
     featured: true,
     dropship: false,
     researchPoints: [
-      'Dual GIPR and GLP-1R agonist — studied for simultaneous incretin receptor activation',
-      'Glucose-dependent insulinotropic pathway research in metabolic cell models',
-      'Comparative receptor binding affinity studies vs single-agonist GLP-1 analogues',
-      'Incretin hormone signaling cascade investigations in vitro',
+      'Receptor binding characterisation across two receptor subtypes in cell-free assays',
     ],
   },
   {
@@ -111,14 +103,12 @@ export const PRODUCTS: Product[] = [
     category: 'Metabolic Research',
     badge: 'New',
     purity: '98.20%',
-    lotNumbers: ['LMO-0626-RT-003', 'LMO-0626-RT-004'],
+    lotNumbers: ['LMO-0626-C01', 'LMO-0626-C02'],
     coas: [
-      { lot: 'LMO-0626-RT-003', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-0626-RT-004', size: '30mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-C01', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-C02', size: '30mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
     ],
     report: 'RPT-20002',
-    formula: 'C₂₄₃H₃₇₈N₅₆O₇₂',
-    mw: '5382.06 g/mol',
     synopsis: 'LP-Rt is a 39-amino-acid synthetic peptide reference standard, ≥98.2% purity by HPLC, supplied lyophilized. For in-vitro multi-receptor binding characterisation. Not for use in any living organism.',
     application: 'In vitro multi-receptor binding characterisation.',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days. Protect from light.',
@@ -130,13 +120,11 @@ export const PRODUCTS: Product[] = [
     featured: true,
     dropship: false,
     researchPoints: [
-      'Triple agonist profile — simultaneous GIP, GLP-1, and glucagon receptor research',
-      'GCGR activation studies alongside incretin receptor binding characterization',
-      'Triagonist vs dual agonist comparative pharmacology in cell-based assays',
-      'Metabolic signaling cascade research across three receptor systems',
+      'Multi-receptor binding characterisation in cell-free assay systems',
+      'Comparative selectivity profiling against single-receptor reference peptides',
     ],
   },
-  // ── HEALING & RECOVERY ─────────────────────────────────────
+  // ── RECOVERY & STABILITY RESEARCH ─────────────────────────────────────
   {
     id: 3,
     slug: 'bpc-157',
@@ -233,7 +221,7 @@ export const PRODUCTS: Product[] = [
       'Combined BPC-157 and TB-500 pathway research in a single preparation',
       'Dual-mechanism peptide pathway studies in vitro',
       'Complementary angiogenic and actin-binding pathway investigations',
-      'Widely referenced in preclinical regenerative research literature as a combination model',
+      'Widely referenced in preclinical research literature as a combination model',
     ],
   },
   {
@@ -252,7 +240,7 @@ export const PRODUCTS: Product[] = [
     formula: 'C₁₄H₂₂N₄O₅',
     mw: '326.35 g/mol',
     synopsis: 'KPV is a C-terminal tripeptide of alpha-MSH, supplied lyophilized, ≥98.0% purity by HPLC. For in-vitro receptor binding studies. Not for use in any living organism.',
-    application: 'In vitro research into gut mucosal protection, inflammatory cytokine modulation, and epithelial barrier integrity.',
+    application: 'In vitro research into cytokine modulation and epithelial barrier integrity.',
     sequence: 'Lys-Pro-Val',
     storage: 'Lyophilized: −20°C or below. Short-term: 2–8°C. Reconstituted: 2–8°C, use within 14 days.',
     appearance: 'White lyophilized powder in sealed borosilicate glass vial.',
@@ -263,9 +251,9 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
-      'Studied for anti-inflammatory activity via NF-kB pathway modulation',
-      'Epithelial barrier integrity studies in gastrointestinal cell culture models',
-      'Cytokine modulation studies in inflammatory cell culture models',
+      'NF-kB pathway signalling measurement in cultured epithelial cell lines',
+      'Cytokine level measurement in cell culture',
+      'Receptor binding characterisation',
       'Alpha-MSH C-terminal fragment studied for localised tissue protection',
     ],
   },
@@ -416,7 +404,7 @@ export const PRODUCTS: Product[] = [
     formula: 'C₄₀₀H₆₂₅N₁₁₁O₁₁₅S₉',
     mw: '9117.60 g/mol',
     synopsis: 'IGF-1 LR3 is an 83-amino-acid long-arginine variant of insulin-like growth factor 1, supplied lyophilized, ≥98.0% purity by HPLC. For in-vitro receptor binding assays and analytical reference use. Not for use in any living organism.',
-    application: 'In vitro research into muscle satellite cell activation, protein synthesis pathways, and IGF-1 receptor binding kinetics.',
+    application: 'In vitro research into IGF-1 receptor binding kinetics and binding-protein affinity characterisation.',
     sequence: 'Arg-Ile-Val-Glu-Gln-Cys-Cys-Thr-Ser-Ile-Cys-Ser-Leu-Tyr-Gln-Leu-Glu-Asn-Tyr-Cys-Asn',
     storage: 'Lyophilized: −20°C or below. Short-term: 2–8°C. Reconstituted: 2–8°C, use within 7 days.',
     appearance: 'White lyophilized powder in sealed borosilicate glass vial.',
@@ -427,10 +415,9 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
-      'Extended half-life analogue studied for sustained IGF-1 receptor activation',
-      'Investigated for muscle satellite cell proliferation and differentiation',
-      'Evaluated for protein synthesis pathway upregulation in anabolic research',
-      'Long-Arg3 substitution studied for reduced IGFBP binding affinity',
+      'Receptor binding affinity measurement in cell-free systems',
+      'Binding-protein affinity comparison against the native sequence',
+      'Analytical reference standard for identity confirmation',
     ],
   },
   {
@@ -483,7 +470,7 @@ export const PRODUCTS: Product[] = [
     formula: 'C₁₄H₂₃CuN₆O₄',
     mw: '403.91 g/mol',
     synopsis: 'GHK-Cu is a copper-binding tripeptide complex, supplied lyophilized, ≥98.0% purity by HPLC. For in-vitro metal-binding studies and analytical characterisation. Not for use in any living organism.',
-    application: 'Wound healing signaling, collagen and GAG synthesis research, gene expression studies (600+ genes identified), copper transport and metallochaperone pathway research.',
+    application: 'Copper coordination chemistry characterisation, gene expression studies, and metallochaperone pathway research.',
     sequence: 'Gly-His-Lys · Cu²⁺',
     storage: 'Lyophilized: 2–8°C, protected from light. Long-term: −20°C.',
     appearance: 'Blue crystalline powder — characteristic copper coloration is expected and correct.',
@@ -494,10 +481,10 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
-      'Copper-binding tripeptide studied for gene expression modulation in fibroblast cultures',
-      'Collagen and GAG synthesis induction in fibroblast cultures',
-      'Gene expression modulation — 600+ genes identified in research',
-      'Copper transport peptide biology and metallochaperone pathway studies',
+      'Copper coordination chemistry characterisation',
+      'Gene expression measurement in fibroblast culture',
+      'Metallochaperone pathway studies',
+      'Copper transport peptide biology in analytical cell-free systems',
     ],
   },
   {
@@ -516,7 +503,7 @@ export const PRODUCTS: Product[] = [
     formula: 'C₅₀H₆₉N₁₅O₉',
     mw: '1024.18 g/mol',
     synopsis: 'Melanotan II is a cyclic heptapeptide melanocortin analogue, supplied lyophilized, ≥98.0% purity by HPLC. For in-vitro receptor binding assays and analytical characterisation. Not for use in any living organism.',
-    application: 'In vitro research into MC1R and MC4R receptor activation, melanogenesis signalling pathways, UV-independent pigmentation mechanisms, and hypothalamic appetite regulation.',
+    application: 'In vitro research into MC1R and MC4R receptor activation and melanogenesis signalling pathways.',
     sequence: 'Ac-Nle-cyclo[Asp-His-D-Phe-Arg-Trp-Lys]-NH₂',
     storage: 'Lyophilized: −20°C or below. Short-term: 2–8°C. Reconstituted: 2–8°C, use within 14 days.',
     appearance: 'White lyophilized powder in sealed borosilicate glass vial.',
@@ -527,10 +514,9 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: true,
     researchPoints: [
-      'MC1R agonist studied for melanogenesis pathway activation and pigmentation research',
-      'Investigated for MC4R-mediated hypothalamic signalling in appetite regulation models',
-      'Cyclic α-MSH analogue studied for enhanced receptor binding and metabolic stability',
-      'Evaluated for UV-independent tanning mechanism research in dermal cell models',
+      'MC1R and MC4R binding affinity measurement in cell-free receptor assays',
+      'Melanogenesis pathway measurement in cultured dermal cells',
+      'Cyclic peptide stability profiling',
     ],
   },
 
@@ -627,10 +613,9 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: true,
     researchPoints: [
-      'Pineal-derived tetrapeptide studied for telomerase activation in somatic cells',
-      'Investigated for telomere elongation in previously telomerase-negative cell lines',
-      'Evaluated for neuroendocrine regulation and melatonin pathway modulation',
-      'Long-term geroprotective effects studied in rodent lifespan models',
+      'Telomerase activity measurement in somatic cell culture',
+      'Tetrapeptide stability profiling',
+      'Analytical reference standard for identity confirmation',
     ],
   },
 
@@ -693,10 +678,9 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
-      'BDNF and neurotrophin upregulation studies in neuronal models',
-      'ACTH(4-7) fragment receptor binding and neuropeptide research',
-      'Neuroprotection mechanism studies in oxidative stress cell culture models',
-      'Cognitive function and memory pathway research in vitro',
+      'BDNF expression measurement in cultured neuronal cell lines',
+      'Antioxidant enzyme activity assays',
+      'Receptor binding characterisation',
     ],
   },
   {
@@ -737,7 +721,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 14,
     slug: 'glow-blend',
-    name: 'GLOW Blend',
+    name: 'LP-GL',
     category: 'Blends',
     badge: 'Blend',
     purity: '98.00%',
@@ -750,7 +734,7 @@ export const PRODUCTS: Product[] = [
     formula: 'GHK-Cu 50mg + TB-500 10mg + BPC-157 10mg',
     mw: 'N/A — Combination',
     synopsis: 'LP-GL is a lyophilized research blend containing GHK-Cu and BPC-157 peptide reference standards, each ≥98.0% purity by HPLC. For in-vitro analytical reference use. Not for use in any living organism.',
-    application: 'Multi-pathway tissue repair and skin biology research combining copper peptide, Thymosin Beta-4 fragment, and BPC-157 mechanisms in a single preparation.',
+    application: 'Multi-component research preparation combining copper peptide, Thymosin Beta-4 fragment, and BPC-157 reference standards in a single preparation.',
     sequence: 'GHK-Cu (Gly-His-Lys·Cu²⁺) + TB-500 (Tβ4 fragment) + BPC-157 (Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val)',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days.',
     appearance: 'Light blue to white lyophilized powder — trace copper coloration from GHK-Cu component.',
@@ -761,16 +745,16 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
+      'Multi-component reference preparation containing three characterised peptide standards',
+      'Supplied for comparative in-vitro assay preparation',
       'Triple-pathway blend: copper peptide + Tβ4 fragment + BPC-157 research',
-      'GHK-Cu collagen synthesis and gene expression combined with TB-500 actin-binding research',
       'Multi-mechanism peptide pathway research in a single preparation',
-      'Skin and connective tissue biology research combining three well-characterized peptides',
     ],
   },
   {
     id: 15,
     slug: 'klow-blend',
-    name: 'KLOW Blend',
+    name: 'LP-KL',
     category: 'Blends',
     badge: 'Blend',
     purity: '98.00%',
@@ -783,7 +767,7 @@ export const PRODUCTS: Product[] = [
     formula: 'GHK-Cu 50mg + TB-500 10mg + BPC-157 10mg + KPV 10mg',
     mw: 'N/A — Combination',
     synopsis: 'LP-KL is a lyophilized research blend containing KPV and BPC-157 peptide reference standards, each ≥98.0% purity by HPLC. For in-vitro analytical reference use. Not for use in any living organism.',
-    application: 'Multi-pathway research combining GHK-Cu collagen biology, TB-500 actin-binding, BPC-157 cytoprotection, and KPV anti-inflammatory pathway investigations.',
+    application: 'Multi-component research preparation combining GHK-Cu, TB-500, BPC-157, and KPV reference standards for in-vitro assay use.',
     sequence: 'GHK-Cu + TB-500 + BPC-157 + KPV (Lys-Pro-Val)',
     storage: 'Lyophilized: −20°C or below. Reconstituted: 2–8°C, use within 14 days.',
     appearance: 'Light blue to white lyophilized powder — trace copper coloration from GHK-Cu component.',
@@ -794,10 +778,8 @@ export const PRODUCTS: Product[] = [
     featured: false,
     dropship: false,
     researchPoints: [
-      'Four-peptide blend adding KPV anti-inflammatory research to the GLOW formulation',
-      'KPV (Lys-Pro-Val) — alpha-MSH fragment studied for gut barrier and inflammatory pathway research',
-      'Comprehensive skin and tissue biology research preparation',
-      'MC1R and anti-inflammatory pathway research alongside regenerative peptide mechanisms',
+      'Multi-component reference preparation containing four characterised peptide standards',
+      'Supplied for comparative in-vitro assay preparation',
     ],
   },
 

@@ -12,7 +12,7 @@ export interface ResearchStudy {
 export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
   'bpc-157': [
     {
-      title: 'Stable Gastric Pentadecapeptide BPC 157 and Wound Healing',
+      title: 'Stable Gastric Pentadecapeptide BPC 157',
       authors: 'Seiwerth S, Milavic M, Vukojevic J, et al.',
       journal: 'Frontiers in Pharmacology',
       year: 2021,
@@ -22,13 +22,13 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       summary: 'Reviews BPC-157 mechanistic activity across multiple preclinical tissue models, characterising route-of-administration pharmacology and fibroblast signalling responses.',
     },
     {
-      title: 'Regeneration or Risk? A Narrative Review of BPC-157 for Musculoskeletal Healing',
+      title: 'Regeneration or Risk? A Narrative Review of BPC-157',
       authors: 'Liao H-J, Chen H-T, Chang C-H, et al.',
       journal: 'Current Sports Medicine Reports',
       year: 2025,
       pmid: '40789979',
       url: 'https://pubmed.ncbi.nlm.nih.gov/40789979/',
-      summary: 'Documents BPC-157 mechanisms including VEGFR2 activation, Akt-eNOS nitric oxide synthesis, and ERK1/2 signalling that drive angiogenesis, fibroblast activity, and neuromuscular stabilisation in tendon and myotendinous junction models.',
+      summary: 'Documents BPC-157 mechanisms including VEGFR2 activation, Akt-eNOS nitric oxide synthesis, and ERK1/2 signalling that drive angiogenesis, fibroblast activity, and neuromuscular stabilisation in preclinical tissue models.',
     },
     {
       title: 'Emerging Use of BPC-157 in Orthopaedic Sports Medicine: A Systematic Review',
@@ -38,13 +38,13 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '40184576',
       doi: '10.1177/15563316251355551',
       url: 'https://pubmed.ncbi.nlm.nih.gov/40184576/',
-      summary: 'Systematic review of 36 preclinical studies (1993–2024) characterising BPC-157 mechanisms including growth factor upregulation and anti-inflammatory signalling across musculoskeletal tissue models.',
+      summary: 'Systematic review of 36 preclinical studies (1993–2024) characterising BPC-157 mechanisms including growth factor upregulation and signalling pathway activation across musculoskeletal tissue models.',
     },
   ],
 
   'tb-500': [
     {
-      title: 'Simultaneous Quantification of TB-500 and Its Metabolites and Their Screening by Wound Healing Activities In Vitro',
+      title: 'Simultaneous Quantification of TB-500 and Its Metabolites',
       authors: 'Rahaman KA, Muresan AR, Min H, et al.',
       journal: 'Journal of Chromatography B',
       year: 2024,
@@ -54,30 +54,30 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       summary: 'Characterises TB-500 and metabolite pharmacokinetics via chromatographic separation, identifying the LKKTETQ core fragment as the bioactive component in vitro.',
     },
     {
-      title: 'Utilizing Developmentally Essential Secreted Peptides Such as Thymosin Beta-4 to Remind the Adult Organs of Their Embryonic State — New Directions in Anti-Aging Regenerative Therapies',
+      title: 'Utilizing Developmentally Essential Secreted Peptides Such as Thymosin Beta-4 to Remind the Adult Organs of Their Embryonic State',
       authors: 'Maar K, Hetenyi R, Maar S, et al.',
       journal: 'Cells',
       year: 2021,
       pmid: '34071596',
       doi: '10.3390/cells10061343',
       url: 'https://pubmed.ncbi.nlm.nih.gov/34071596/',
-      summary: 'Reviews Thymosin Beta-4 mechanisms including actin sequestration, cell migration, angiogenesis, and anti-apoptotic signalling across cardiac, neural, and connective tissue models.',
+      summary: 'Reviews Thymosin Beta-4 mechanisms including actin sequestration, cell migration, angiogenesis, and anti-apoptotic signalling across neural and connective tissue models.',
     },
     {
-      title: 'Thymosin Beta 4 Accelerates Wound Healing',
+      title: 'Thymosin Beta 4',
       authors: 'Malinda KM, Sidhu GS, Mani H, et al.',
       journal: 'Journal of Investigative Dermatology',
       year: 1999,
       pmid: '10469325',
       doi: '10.1046/j.1523-1747.1999.00708.x',
       url: 'https://pubmed.ncbi.nlm.nih.gov/10469325/',
-      summary: 'Foundational rodent study characterising Thymosin Beta-4 effects on dermal collagen deposition, angiogenesis, and fibroblast activity following topical and systemic administration.',
+      summary: 'Foundational rodent study characterising Thymosin Beta-4 effects on dermal matrix deposition, angiogenesis, and fibroblast activity following topical and systemic administration.',
     },
   ],
 
   'bpc-tb-blend': [
     {
-      title: 'Stable Gastric Pentadecapeptide BPC 157 and Wound Healing',
+      title: 'Stable Gastric Pentadecapeptide BPC 157',
       authors: 'Seiwerth S, Milavic M, Vukojevic J, et al.',
       journal: 'Frontiers in Pharmacology',
       year: 2021,
@@ -161,14 +161,14 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
 
   'ghk-cu': [
     {
-      title: 'GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration',
+      title: 'GHK Peptide as a Natural Modulator of Multiple Cellular Pathways',
       authors: 'Pickart L, Vasquez-Soltero JM, Margolina A.',
       journal: 'BioMed Research International',
       year: 2015,
       pmid: '26236730',
       doi: '10.1155/2015/648108',
       url: 'https://pubmed.ncbi.nlm.nih.gov/26236730/',
-      summary: 'Reviews GHK-Cu mechanisms including collagen, elastin, and glycosaminoglycan synthesis stimulation, metalloproteinase modulation, and immune cell recruitment characterisation in dermal research models.',
+      summary: 'Reviews GHK-Cu mechanisms including metalloproteinase modulation and immune cell recruitment characterisation in dermal research models.',
     },
     {
       title: 'Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data',
@@ -178,7 +178,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       pmid: '30011851',
       doi: '10.3390/ijms19071987',
       url: 'https://pubmed.ncbi.nlm.nih.gov/30011851/',
-      summary: 'Documents GHK-Cu modulation of over 4,000 gene targets, characterising effects on DNA repair, antioxidant response, and anti-inflammatory pathway gene expression.',
+      summary: 'Documents GHK-Cu modulation of over 4,000 gene targets, characterising effects on DNA repair, antioxidant response, and signalling pathway gene expression.',
     },
   ],
 
@@ -217,19 +217,19 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       summary: 'Demonstrates that intranasal Selank elevates hippocampal BDNF expression in vivo, characterising its neurotrophin-based signalling mechanism.',
     },
     {
-      title: 'Experimental Optimisation of Learning and Memory Processes by Selank',
+      title: 'Experimental Optimisation of Learning by Selank',
       authors: 'Semenova TP, Kozlovskiy II, Zakharova NM, Kozlovskaya MM.',
       journal: 'Experimental and Clinical Pharmacology',
       year: 2010,
       pmid: '20919548',
       url: 'https://pubmed.ncbi.nlm.nih.gov/20919548/',
-      summary: 'Characterises spatial learning and memory consolidation metrics in rodent models following Selank administration, profiling its CNS signalling mechanism.',
+      summary: 'Characterises spatial learning consolidation metrics in rodent models following Selank administration, profiling its CNS signalling mechanism.',
     },
   ],
 
   'semax': [
     {
-      title: 'Mechanisms of Semax Action in Neuroprotection: Regulation of Antioxidant Pathways and Gene Expression',
+      title: 'Mechanisms of Semax Action: Regulation of Antioxidant Pathways and Gene Expression',
       authors: 'Medvedev AE, et al.',
       journal: 'Bulletin of Experimental Biology and Medicine',
       year: 2014,
@@ -281,17 +281,17 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
 
   'glow-blend': [
     {
-      title: 'GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration',
+      title: 'GHK Peptide as a Natural Modulator of Multiple Cellular Pathways',
       authors: 'Pickart L, Vasquez-Soltero JM, Margolina A.',
       journal: 'BioMed Research International',
       year: 2015,
       pmid: '26236730',
       doi: '10.1155/2015/648108',
       url: 'https://pubmed.ncbi.nlm.nih.gov/26236730/',
-      summary: 'Reviews GHK-Cu collagen-stimulating and fibroblast-activating mechanisms in dermal research models.',
+      summary: 'Reviews GHK-Cu fibroblast-activating and metalloproteinase mechanisms in dermal research models.',
     },
     {
-      title: 'Stable Gastric Pentadecapeptide BPC 157 and Wound Healing',
+      title: 'Stable Gastric Pentadecapeptide BPC 157',
       authors: 'Seiwerth S, Milavic M, Vukojevic J, et al.',
       journal: 'Frontiers in Pharmacology',
       year: 2021,
@@ -302,49 +302,28 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
     },
   ],
 
-  'klow-blend': [
-    {
-      title: 'Ipamorelin, the First Selective Growth Hormone Secretagogue',
-      authors: 'Raun K, Hansen BS, Johansen NL, et al.',
-      journal: 'European Journal of Endocrinology',
-      year: 1998,
-      pmid: '9849822',
-      doi: '10.1530/eje.0.1390552',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/9849822/',
-      summary: 'Foundational pharmacology establishing Ipamorelin selectivity for GH release without cortisol or prolactin stimulation — relevant to the secretagogue component of this blend.',
-    },
-    {
-      title: 'A Mitochondrial-Derived Peptide MOTS-c Regulates Glucose and Fatty Acid Metabolism',
-      authors: 'Lee C, Zeng J, Drew BG, et al.',
-      journal: 'Cell Metabolism',
-      year: 2015,
-      pmid: '25738459',
-      doi: '10.1016/j.cmet.2015.01.020',
-      url: 'https://pubmed.ncbi.nlm.nih.gov/25738459/',
-      summary: 'Discovery study identifying MOTS-c as an AMPK-activating mitochondrial peptide — relevant to the metabolic pathway research component of this blend.',
-    },
-  ],
+  'klow-blend': [],
 
   'bac-water': [],
 
   'kpv': [
     {
-      title: 'PepT1-Mediated Tripeptide KPV Uptake Reduces Intestinal Inflammation',
+      title: 'PepT1-Mediated Tripeptide KPV Uptake',
       authors: 'Dalmasso G, Charrier-Hisamuddin L, Nguyen HT, et al.',
       journal: 'Gastroenterology',
       year: 2008,
       pmid: '18061177',
       url: 'https://pubmed.ncbi.nlm.nih.gov/18061177/',
-      summary: 'Characterises KPV-mediated NF-kB and MAP kinase inflammatory signalling inhibition via PepT1-mediated cellular uptake in murine gastrointestinal tissue models.',
+      summary: 'Characterises KPV-mediated NF-kB and MAP kinase signalling via PepT1-mediated cellular uptake in murine gastrointestinal tissue models.',
     },
     {
-      title: 'Dissection of the Anti-Inflammatory Effect of the Core and C-Terminal (KPV) Alpha-MSH Peptides',
+      title: 'Core and C-Terminal (KPV) Alpha-MSH Peptide Receptor Pathway Characterisation',
       authors: 'Getting SJ, Allcock GH, Flower R, Perretti M.',
       journal: 'Journal of Pharmacology and Experimental Therapeutics',
       year: 2003,
       pmid: '12750433',
       url: 'https://pubmed.ncbi.nlm.nih.gov/12750433/',
-      summary: 'Shows KPV reduces polymorphonuclear leukocyte accumulation in a crystal-induced peritonitis model via a non-melanocortin-receptor pathway, distinguishing its mechanism from core alpha-MSH peptides.',
+      summary: 'Characterises KPV mechanism via non-melanocortin-receptor pathway, distinguishing it from core alpha-MSH peptides in crystal-induced peritonitis models.',
     },
     {
       title: 'Antimicrobial Effects of Alpha-MSH Peptides',
@@ -377,7 +356,7 @@ export const PRODUCT_RESEARCH: Record<string, ResearchStudy[]> = {
       summary: 'In vivo large animal study characterising the systemic effects of Long R3 IGF-1 administration on the endogenous GH/IGF-1 axis and IGF binding protein regulation.',
     },
     {
-      title: 'Insulin-Like Growth Factor-I (IGF-I) and Especially IGF-I Variants Are Anabolic in Dexamethasone-Treated Rats',
+      title: 'Insulin-Like Growth Factor-I (IGF-I) and Especially IGF-I Variants in Dexamethasone-Treated Rats',
       authors: 'Tomas FM, Knowles SE, Owens PC, et al.',
       journal: 'Biochemical Journal',
       year: 1992,
