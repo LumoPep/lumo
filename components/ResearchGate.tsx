@@ -575,6 +575,34 @@ export default function ResearchGate() {
               </p>
             </div>
 
+            {/* Social proof bar */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '1rem 0', borderTop: '1px solid rgba(245,239,228,0.08)', marginTop: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {[
+                  { initials: 'JR', color: '#7F77DD' },
+                  { initials: 'MN', color: '#1D9E75' },
+                  { initials: 'PT', color: '#D85A30' },
+                  { initials: 'SL', color: '#D4537E' },
+                  { initials: 'AW', color: '#378ADD' },
+                ].map((avatar, i) => (
+                  <div key={avatar.initials} style={{
+                    width: 36, height: 36, borderRadius: '50%',
+                    background: avatar.color,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 12, fontWeight: 500, color: '#fff',
+                    border: '2px solid #1A1814',
+                    marginRight: i < 4 ? -10 : 0,
+                    zIndex: 5 - i,
+                    position: 'relative',
+                  }}>{avatar.initials}</div>
+                ))}
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 500, color: '#F5EFE4', fontFamily: 'var(--font-inter-tight), sans-serif' }}>1,200+ researchers registered</p>
+                <p style={{ margin: 0, fontSize: 13, color: '#F5EFE4', opacity: 0.6, fontFamily: 'var(--font-inter-tight), sans-serif' }}>free to access · join the community</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
