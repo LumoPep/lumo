@@ -352,12 +352,12 @@ export default function ResearchGate() {
             backgroundColor: "#1A1814",
             overflowY: "auto",
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
             padding: "48px 32px",
           }}
         >
-          <div style={{ maxWidth: "460px", width: "100%" }}>
+          <div style={{ maxWidth: "460px", width: "100%", margin: "auto", paddingBottom: "2rem" }}>
 
             {/* Cream logo */}
             <img
