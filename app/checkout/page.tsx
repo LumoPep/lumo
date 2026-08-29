@@ -19,7 +19,7 @@ const cryptoCurrencies = [
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotal, clearCart, addItem } = useCartStore();
+  const { items, getTotal, clearCart, addItem, updateQuantity, removeItem } = useCartStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -142,7 +142,7 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: getTotal(),
+          amount: finalPaymentTotal,
           currency: selectedCrypto,
           email: formData.email,
           customerInfo: {
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
           JSON.stringify({
             paymentId: data.payment.payment_id,
             orderId: data.payment.order_id,
-            amount: getTotal(),
+            amount: finalPaymentTotal,
             currency: selectedCrypto,
             items: items,
           })
@@ -220,6 +220,10 @@ export default function CheckoutPage() {
     promoCode,
     isFirstOrderFlag
   );
+
+  // Crypto discount: 5% applied after all other discounts (always active — crypto-only store)
+  const cryptoDiscount = parseFloat((discountResult.finalTotal * 0.05).toFixed(2));
+  const finalPaymentTotal = parseFloat((discountResult.finalTotal - cryptoDiscount).toFixed(2));
 
   const suggestions = getSuggestions(items);
 
@@ -899,7 +903,27 @@ export default function CheckoutPage() {
                             className="font-mono mt-0.5"
                             style={{ fontSize: "11px", color: "#1A1814" }}
                           >
-                            {item.variant} · qty {item.quantity}
+                            {item.variant}
+                          </div>
+                          <div className="flex items-center justify-between mt-1.5">
+                            <div className="flex items-center">
+                              <button
+                                type="button"
+                                onClick={() => updateQuantity(item.productId, item.variant, item.quantity - 1)}
+                                className="w-7 h-7 border border-[#1A1814]/15 font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
+                              >−</button>
+                              <span className="font-mono text-xs text-[#1A1814] font-medium w-7 text-center">{item.quantity}</span>
+                              <button
+                                type="button"
+                                onClick={() => updateQuantity(item.productId, item.variant, item.quantity + 1)}
+                                className="w-7 h-7 border border-[#1A1814]/15 font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
+                              >+</button>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeItem(item.productId, item.variant)}
+                              className="font-mono text-xs text-[#1A1814]/70 hover:text-[#B8624A] transition-colors"
+                            >✕</button>
                           </div>
                         </div>
                       </div>
@@ -1041,6 +1065,21 @@ export default function CheckoutPage() {
                       </span>
                     )}
                   </div>
+
+                  <div className="flex justify-between items-center">
+                    <span
+                      className="font-mono uppercase"
+                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#607A5C" }}
+                    >
+                      Crypto discount — 5% off
+                    </span>
+                    <span
+                      className="font-mono"
+                      style={{ fontSize: "13px", color: "#607A5C" }}
+                    >
+                      −${cryptoDiscount.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Total */}
@@ -1068,7 +1107,7 @@ export default function CheckoutPage() {
                         letterSpacing: "-0.02em",
                       }}
                     >
-                      ${discountResult.finalTotal.toFixed(2)}
+                      ${finalPaymentTotal.toFixed(2)}
                     </span>
                   </div>
                   {/* Ochre accent underline under total */}
