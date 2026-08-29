@@ -47,7 +47,7 @@ export default function BundleSelector({ basePrice, productSlug, onSelect }: Bun
     <div className="mb-4">
       {/* Quantity Stepper */}
       <div className="mb-3">
-        <label className="text-[9px] font-medium tracking-widest uppercase text-[#1A1814]/70 mb-2 block">
+        <label className="text-[9px] font-medium tracking-widest uppercase text-[#1A1814]/80 mb-2 block">
           QUANTITY
         </label>
         <div className="flex items-center border border-[#1A1814]/15 rounded-lg overflow-hidden w-fit">

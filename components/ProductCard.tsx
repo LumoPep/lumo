@@ -169,7 +169,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           >
             {/* Lot Line */}
             <div
-              className="font-mono mb-2 text-[#1A1814]/70"
+              className="font-mono mb-2 text-[#1A1814]/80"
               style={{
                 fontSize: "11px",
                 letterSpacing: "0.05em",
@@ -197,7 +197,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Description - 2 lines max */}
             <p
-              className="font-editorial mb-4 flex-1 text-[#1A1814]/90"
+              className="font-editorial mb-4 flex-1 text-[#1A1814]/95"
               style={{
                 fontSize: "14px",
                 lineHeight: "1.5",
@@ -230,7 +230,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
                 {product.sizes.length > 1 && (
                   <div
-                    className="text-[10px] text-[#1A1814]/70"
+                    className="text-[10px] text-[#1A1814]/80"
                     style={{
                       marginTop: '2px',
                     }}

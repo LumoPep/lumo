@@ -170,12 +170,12 @@ export default function ProductPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h3 className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>
+                      <h3 className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>
                         CHEMICAL PROPERTIES
                       </h3>
                       <div className="grid grid-cols-2 gap-3 mb-4">
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                          <span className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
                             CAS NUMBER
                           </span>
                           <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -184,7 +184,7 @@ export default function ProductPage() {
                         </div>
 
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                          <span className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
                             MOLECULAR WEIGHT
                           </span>
                           <span style={{ fontSize: '14px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -193,7 +193,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="col-span-2" style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                          <span className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
                             MOLECULAR FORMULA
                           </span>
                           <span style={{ fontSize: '13px', fontWeight: 500, fontFamily: 'monospace', color: '#1A1814' }}>
@@ -202,12 +202,12 @@ export default function ProductPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px', marginTop: '16px' }}>
+                      <h3 className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px', marginTop: '16px' }}>
                         PHYSICAL PROPERTIES
                       </h3>
                       <div className="space-y-3">
                         <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                          <span className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                          <span className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
                             APPEARANCE
                           </span>
                           <span style={{ fontFamily: 'inherit', fontStyle: 'normal', fontSize: '14px', color: '#1A1814' }}>
@@ -217,7 +217,7 @@ export default function ProductPage() {
 
                         {product.sequence && product.sequence !== 'N/A' && (
                           <div style={{ background: '#EBE2CF', borderRadius: '8px', padding: '12px 14px', marginBottom: '8px' }}>
-                            <span className="text-[#1A1814]/70" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                            <span className="text-[#1A1814]/80" style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
                               SEQUENCE
                             </span>
                             <span style={{ fontSize: '13px', fontFamily: 'monospace', lineHeight: 1.6, color: '#1A1814', wordBreak: 'break-all', whiteSpace: 'normal' }}>
@@ -248,7 +248,7 @@ export default function ProductPage() {
                       transition={{ duration: 0.3 }}
                       className="space-y-6"
                     >
-                      <h3 className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]/70 mb-4">
+                      <h3 className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]/80 mb-4">
                         INDEPENDENT VERIFICATION — THIRD-PARTY LAB
                       </h3>
 
@@ -260,7 +260,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             HPLC PURITY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/70 mt-1">
+                          <div className="text-[12px] text-[#1A1814]/80 mt-1">
                             Independent lab
                           </div>
                         </div>
@@ -271,7 +271,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             IDENTITY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/70 mt-1">
+                          <div className="text-[12px] text-[#1A1814]/80 mt-1">
                             Sequence confirmed
                           </div>
                         </div>
@@ -282,7 +282,7 @@ export default function ProductPage() {
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
                             POTENCY
                           </div>
-                          <div className="text-[12px] text-[#1A1814]/70 mt-1">
+                          <div className="text-[12px] text-[#1A1814]/80 mt-1">
                             Strength confirmed
                           </div>
                         </div>
@@ -321,7 +321,7 @@ export default function ProductPage() {
                         <h4 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-3">
                           HANDLING GUIDELINES
                         </h4>
-                        <ul className="space-y-2 font-editorial text-sm text-[#1A1814]/90">
+                        <ul className="space-y-2 font-editorial text-sm text-[#1A1814]/95">
                           <li>· Handle with appropriate laboratory safety equipment</li>
                           <li>· Minimize exposure to air, light, and moisture during use</li>
                           <li>· Dispose of according to institutional waste protocols</li>
@@ -346,7 +346,7 @@ export default function ProductPage() {
                           {product.researchPoints.map((app, index) => (
                             <li
                               key={index}
-                              className="flex items-start space-x-3 font-editorial text-sm text-[#1A1814]/90"
+                              className="flex items-start space-x-3 font-editorial text-sm text-[#1A1814]/95"
                             >
                               <span className="text-clay mt-1">●</span>
                               <span>{app}</span>
@@ -389,7 +389,7 @@ export default function ProductPage() {
               </h1>
 
               {/* Description */}
-              <p className="font-editorial text-[#1A1814]/90 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
+              <p className="font-editorial text-[#1A1814]/95 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
                 {product.synopsis}
               </p>
 
@@ -451,7 +451,7 @@ export default function ProductPage() {
                 </motion.button>
 
                 {/* Shipping Info Strip */}
-                <div className="border-t border-[#EBE2CF] pt-3 mt-3 flex items-center justify-between text-[11px] text-[#1A1814]/70">
+                <div className="border-t border-[#EBE2CF] pt-3 mt-3 flex items-center justify-between text-[11px] text-[#1A1814]/80">
                   <div className="flex items-center gap-1.5">
                     <i className="ti ti-truck" style={{ fontSize: '14px' }}></i>
                     <span>Free shipping on orders over $150</span>

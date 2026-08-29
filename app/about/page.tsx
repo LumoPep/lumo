@@ -339,7 +339,7 @@ export default function AboutPage() {
               >
                 The independent researcher.
               </h3>
-              <p className="font-editorial text-sm text-[#1A1814]/90 leading-relaxed">
+              <p className="font-editorial text-sm text-[#1A1814]/95 leading-relaxed">
                 Academic and private researchers sourcing compounds for in vitro and preclinical study.
               </p>
             </motion.div>
@@ -367,7 +367,7 @@ export default function AboutPage() {
               >
                 The compounding professional.
               </h3>
-              <p className="font-editorial text-sm text-[#1A1814]/90 leading-relaxed">
+              <p className="font-editorial text-sm text-[#1A1814]/95 leading-relaxed">
                 Licensed professionals requiring documented, traceable research-grade peptides.
               </p>
             </motion.div>
@@ -395,7 +395,7 @@ export default function AboutPage() {
               >
                 The institutional buyer.
               </h3>
-              <p className="font-editorial text-sm text-[#1A1814]/90 leading-relaxed">
+              <p className="font-editorial text-sm text-[#1A1814]/95 leading-relaxed">
                 Research institutions and labs needing a verified supplier with full documentation.
               </p>
             </motion.div>
@@ -618,13 +618,13 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="border-l-4 border-clay pl-6 mb-12"
               >
-                <p className="font-editorial text-base text-[#1A1814]/90 leading-relaxed mb-4">
+                <p className="font-editorial text-base text-[#1A1814]/95 leading-relaxed mb-4">
                   All compounds sold by Lumo are intended strictly for in vitro research and laboratory use only. These products are NOT intended for human consumption, medical, veterinary, or household use.
                 </p>
-                <p className="font-editorial text-base text-[#1A1814]/90 leading-relaxed mb-4">
+                <p className="font-editorial text-base text-[#1A1814]/95 leading-relaxed mb-4">
                   By purchasing from Lumo, you acknowledge that you are a qualified researcher or institution and will use these products solely for research purposes in compliance with all applicable laws and regulations.
                 </p>
-                <p className="font-editorial text-base text-[#1A1814]/90 leading-relaxed">
+                <p className="font-editorial text-base text-[#1A1814]/95 leading-relaxed">
                   All buyers must be 21 years of age or older. We maintain strict age verification and research-use-only policies to ensure legal compliance and scientific integrity.
                 </p>
               </motion.div>
