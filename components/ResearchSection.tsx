@@ -14,7 +14,7 @@ export default function ResearchSection({ slug }: ResearchSectionProps) {
 
   return (
     <div className="mt-8 pt-8 border-t border-[#EBE2CF]">
-      <h2 className="text-[10px] font-medium tracking-widest uppercase text-\[#1A1814\]/65 mb-4">
+      <h2 className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814]/70 mb-4">
         RESEARCH
       </h2>
 
@@ -40,11 +40,11 @@ export default function ResearchSection({ slug }: ResearchSectionProps) {
               >
                 {study.title}
               </a>
-              <div className="text-[11px] text-\[#1A1814\]/65 mt-1">
+              <div className="text-[11px] text-[#1A1814]/70 mt-1">
                 {study.authors} · {study.journal} · {study.year}
               </div>
               <div
-                className="text-[12px] text-\[#1A1814\]/65 mt-1"
+                className="text-[12px] text-[#1A1814]/70 mt-1"
                 style={{
                   display: '-webkit-box',
                   WebkitLineClamp: 2,

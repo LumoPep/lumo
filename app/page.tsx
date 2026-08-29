@@ -221,8 +221,8 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="font-editorial text-xl mb-4 leading-relaxed max-w-lg italic"
-                style={{ fontSize: "22px", color: 'rgba(26,24,20,0.75)' }}
+                className="font-editorial text-xl mb-4 leading-relaxed max-w-lg italic text-[#1A1814]/90"
+                style={{ fontSize: "22px" }}
               >
                 Light, made measurable.
               </motion.p>
@@ -232,8 +232,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
-                className="font-editorial text-base mb-10 leading-relaxed max-w-lg"
-                style={{ color: 'rgba(26,24,20,0.75)' }}
+                className="font-editorial text-base mb-10 leading-relaxed max-w-lg text-[#1A1814]/90"
               >
                 Independently tested. Every batch. Results published.
               </motion.p>
@@ -465,7 +464,7 @@ export default function HomePage() {
             <h2 className="font-display text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
               Our research compounds.
             </h2>
-            <p className="font-editorial text-xl text-ink opacity-70">
+            <p className="font-editorial text-xl text-[#1A1814]/90">
               Every compound independently tested — purity, identity, and potency verified on every lot.
             </p>
           </motion.div>
@@ -571,7 +570,7 @@ export default function HomePage() {
             <h2 className="font-display text-4xl mb-3" style={{ fontWeight: 300, color: '#1A1814' }}>
               Browse by research area.
             </h2>
-            <p className="font-editorial text-lg" style={{ color: 'rgba(26,24,20,0.7)' }}>
+            <p className="font-editorial text-lg text-[#1A1814]/90">
               Compounds organized by application.
             </p>
           </motion.div>
@@ -637,11 +636,10 @@ export default function HomePage() {
                     >
                       <div>
                         <div
-                          className="font-mono uppercase tracking-mono mb-2"
+                          className="font-mono uppercase tracking-mono mb-2 text-[#1A1814]/70"
                           style={{
                             fontSize: '10px',
                             letterSpacing: '1.5px',
-                            color: 'rgba(26,24,20,0.55)'
                           }}
                         >
                           {count} {count === 1 ? 'COMPOUND' : 'COMPOUNDS'}
@@ -883,10 +881,9 @@ export default function HomePage() {
                 {card.title}
               </h3>
               <p
-                className="font-editorial"
+                className="font-editorial text-[#1A1814]/90"
                 style={{
                   fontSize: '15px',
-                  color: 'rgba(26,24,20,0.75)',
                   lineHeight: 1.7,
                   marginBottom: '16px',
                 }}
@@ -948,7 +945,7 @@ export default function HomePage() {
             <h2 className="font-display text-5xl text-ink mb-4" style={{ fontWeight: 300 }}>
               How it works.
             </h2>
-            <p className="font-editorial text-xl text-ink opacity-70">
+            <p className="font-editorial text-xl text-[#1A1814]/90">
               Three steps to verified research compounds.
             </p>
           </motion.div>
@@ -1005,7 +1002,7 @@ export default function HomePage() {
                   <h3 className="font-display text-2xl text-ink mb-4" style={{ fontWeight: 300 }}>
                     {step.title}
                   </h3>
-                  <p className="font-editorial text-ink opacity-70 leading-relaxed">
+                  <p className="font-editorial text-[#1A1814]/90 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -1146,8 +1143,7 @@ export default function HomePage() {
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="font-editorial text-xl mb-10"
-            style={{ color: 'rgba(26,24,20,0.75)' }}
+            className="font-editorial text-xl mb-10 text-[#1A1814]/90"
           >
             See current lots or contact us for custom inquiries.
           </motion.p>

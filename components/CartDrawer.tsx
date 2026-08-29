@@ -252,8 +252,8 @@ export default function CartDrawer() {
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <span className="text-clay text-4xl mb-4">●</span>
-              <p className="font-editorial text-ink opacity-60 mb-2">Your cart is empty</p>
-              <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-55">
+              <p className="font-editorial text-[#1A1814]/70 mb-2">Your cart is empty</p>
+              <p className="font-mono text-xs uppercase tracking-mono text-[#1A1814]/70">
                 Add compounds to get started
               </p>
             </div>

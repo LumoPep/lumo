@@ -197,7 +197,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Description - 2 lines max */}
             <p
-              className="font-editorial mb-4 flex-1 text-[#1A1814]/75"
+              className="font-editorial mb-4 flex-1 text-[#1A1814]/90"
               style={{
                 fontSize: "14px",
                 lineHeight: "1.5",
@@ -230,9 +230,8 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </div>
                 {product.sizes.length > 1 && (
                   <div
-                    className="text-[10px]"
+                    className="text-[10px] text-[#1A1814]/70"
                     style={{
-                      color: 'rgba(26,24,20,0.55)',
                       marginTop: '2px',
                     }}
                   >

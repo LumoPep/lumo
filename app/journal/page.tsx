@@ -143,7 +143,7 @@ export default function ResearchLibraryPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-6 font-mono text-xs uppercase tracking-mono text-ink opacity-55"
+            className="mb-6 font-mono text-xs uppercase tracking-mono text-[#1A1814]/70"
           >
             Showing {filteredStudies.length} {filteredStudies.length === 1 ? "study" : "studies"}
           </motion.div>
@@ -182,13 +182,13 @@ export default function ResearchLibraryPage() {
                     </a>
 
                     {/* Authors */}
-                    <div className="text-[11px] text-[#1A1814] opacity-60 mb-2">
+                    <div className="text-[11px] text-[#1A1814]/70 mb-2">
                       {study.authors}
                     </div>
 
                     {/* Summary */}
                     <p
-                      className="text-[12px] text-[#1A1814] leading-relaxed flex-1"
+                      className="text-[12px] text-[#1A1814]/90 leading-relaxed flex-1"
                       style={{
                         display: "-webkit-box",
                         WebkitLineClamp: 3,
@@ -256,7 +256,7 @@ export default function ResearchLibraryPage() {
               transition={{ duration: 0.5 }}
               className="text-center py-20"
             >
-              <p className="font-editorial text-lg text-ink opacity-55">
+              <p className="font-editorial text-lg text-[#1A1814]/70">
                 No studies found matching your search.
               </p>
             </motion.div>

@@ -7,12 +7,12 @@ export default function ResearchDisclaimerBox() {
           <h3 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-3">
             RESEARCH USE ONLY
           </h3>
-          <p className="font-editorial text-sm text-ink opacity-80 leading-relaxed mb-3">
+          <p className="font-editorial text-sm text-[#1A1814]/90 leading-relaxed mb-3">
             This compound is intended strictly for{" "}
             <span className="font-medium">in vitro research and laboratory use only</span>.
             Not for human consumption, clinical, therapeutic, diagnostic, or veterinary use.
           </p>
-          <ul className="font-mono text-xs text-ink opacity-60 space-y-1">
+          <ul className="font-mono text-xs text-[#1A1814]/70 space-y-1">
             <li>· Not for human or animal administration</li>
             <li>· Qualified researchers and institutions only</li>
             <li>· Must be 21+ years of age to purchase</li>
