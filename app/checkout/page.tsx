@@ -1069,7 +1069,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between items-center">
                     <span
                       className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#607A5C" }}
+                      style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
                     >
                       Crypto discount — 5% off
                     </span>
