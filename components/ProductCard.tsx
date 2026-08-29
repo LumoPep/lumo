@@ -223,7 +223,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   style={{
                     fontWeight: 300,
                     fontSize: "24px",
-                    color: '#1A1814',
+                    color: '#B8624A',
                   }}
                 >
                   ${lowestPrice.toFixed(2)}
