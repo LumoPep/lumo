@@ -10,7 +10,7 @@ import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
 import PscCheckout from "@/components/psc/PscCheckout";
 import type { Quote } from "@/lib/psc/quote";
-import { CART_STALE_JS } from "@/lib/psc/buyerCopy";
+import { CART_STALE_JS, CREATE_ATTEMPT_FAILED } from "@/lib/psc/buyerCopy";
 
 const SMOKE_QUOTE: Quote = {
   cart: {
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
       setPayError("");
       setStep("pay");
     } catch {
-      setQuoteError("");
+      setQuoteError(CREATE_ATTEMPT_FAILED);
     } finally {
       setIsQuoting(false);
     }
@@ -941,6 +941,64 @@ export default function CheckoutPage() {
 
                 {/* Price Rows */}
                 <div className="space-y-3" style={{ marginBottom: "16px" }}>
+                  {step === "pay" && quotePack ? (
+                    <>
+                      <div className="flex justify-between items-center">
+                        <span
+                          className="font-mono uppercase"
+                          style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
+                        >
+                          Subtotal
+                        </span>
+                        <span
+                          className="font-mono"
+                          style={{ fontSize: "13px", color: "#1A1814" }}
+                        >
+                          ${(quotePack.quote.subtotal_cents / 100).toFixed(2)}
+                        </span>
+                      </div>
+                      {quotePack.quote.discount_cents > 0 && (
+                        <div className="flex justify-between items-center">
+                          <span
+                            className="font-mono uppercase"
+                            style={{ fontSize: "9px", letterSpacing: "2px", color: "#B8624A" }}
+                          >
+                            {quotePack.quote.discount_label}
+                          </span>
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "13px", color: "#B8624A" }}
+                          >
+                            −${(quotePack.quote.discount_cents / 100).toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex justify-between items-center">
+                        <span
+                          className="font-mono uppercase"
+                          style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
+                        >
+                          Shipping
+                        </span>
+                        {quotePack.quote.shipping_cents === 0 ? (
+                          <span
+                            className="font-mono uppercase"
+                            style={{ fontSize: "11px", letterSpacing: "1px", color: "#607A5C", fontWeight: 500 }}
+                          >
+                            FREE
+                          </span>
+                        ) : (
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "13px", color: "#1A1814" }}
+                          >
+                            ${(quotePack.quote.shipping_cents / 100).toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
                   {bundleSavings > 0 && (
                     <div className="flex justify-between items-center">
                       <span
@@ -1013,6 +1071,8 @@ export default function CheckoutPage() {
                       </span>
                     )}
                   </div>
+                    </>
+                  )}
 
                 </div>
 
