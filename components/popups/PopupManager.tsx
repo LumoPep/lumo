@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 import { PRODUCTS } from "@/data/products";
 import EmailCapturePopup from "./EmailCapturePopup";
@@ -15,6 +16,7 @@ type ActivePopup = "email" | "exit" | "cartExit" | "cartIdle" | "bacWater" | nul
 const noBAC = new Set(["nad-plus", "bac-water", "glow-blend", "klow-blend"]);
 
 export default function PopupManager() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [activePopup, setActivePopup] = useState<ActivePopup>(null);
 
@@ -123,6 +125,7 @@ export default function PopupManager() {
     return () => clearTimeout(t);
   }, [mounted, items.length]);
 
+  if (pathname === "/checkout") return null;
   if (!mounted) return null;
 
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);

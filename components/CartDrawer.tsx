@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 import { PRODUCTS } from "@/data/products";
 import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
@@ -10,6 +11,7 @@ import { useEffect } from "react";
 const CART_W = 420;
 
 export default function CartDrawer() {
+  const pathname = usePathname();
   const {
     items,
     isOpen,
@@ -29,6 +31,8 @@ export default function CartDrawer() {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+
+  if (pathname === "/checkout") return null;
 
   return (
     <>

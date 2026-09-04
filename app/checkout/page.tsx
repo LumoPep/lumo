@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { PRODUCTS } from "@/data/products";
 import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
-import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
 import PscCheckout from "@/components/psc/PscCheckout";
 import type { Quote } from "@/lib/psc/quote";
+import { CART_STALE_JS } from "@/lib/psc/buyerCopy";
 
 const SMOKE_QUOTE: Quote = {
   cart: {
@@ -32,12 +32,11 @@ const SMOKE_QUOTE: Quote = {
   ],
 };
 
-const cryptoCurrencies = [
-  { code: "btc", name: "Bitcoin", symbol: "BTC" },
-  { code: "eth", name: "Ethereum", symbol: "ETH" },
-  { code: "usdttrc20", name: "USDT (TRC-20)", symbol: "USDT" },
-  { code: "usdcerc20", name: "USDC (ERC-20)", symbol: "USDC" },
-];
+function cartFingerprint(
+  cartItems: { productId: string; variant: string; quantity: number }[],
+) {
+  return cartItems.map((item) => `${item.productId}:${item.variant}:${item.quantity}`).join("|");
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -53,14 +52,14 @@ export default function CheckoutPage() {
     state: "",
     zip: "",
     country: "US",
-    confirmResearch: false,
-    confirmAge: false,
-    confirmAccurate: false,
   });
 
-  const [selectedCrypto, setSelectedCrypto] = useState("btc");
-  const [hoveredCrypto, setHoveredCrypto] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [step, setStep] = useState<"review" | "pay">("review");
+  const [quotePack, setQuotePack] = useState<{ quote: Quote; sig: string } | null>(null);
+  const [quoteError, setQuoteError] = useState("");
+  const [staleNotice, setStaleNotice] = useState("");
+  const [payError, setPayError] = useState("");
+  const [isQuoting, setIsQuoting] = useState(false);
 
   // Promo code state
   const [promoCodeInput, setPromoCodeInput] = useState("");
@@ -83,10 +82,24 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (boot !== "live") return;
+    if (step === "pay") return;
     if (items.length === 0) {
       router.push("/products");
     }
-  }, [boot, items, router]);
+  }, [boot, step, items, router]);
+
+  useEffect(() => {
+    if (step !== "pay") return;
+    const snap = cartFingerprint(useCartStore.getState().items);
+    return useCartStore.subscribe((state) => {
+      if (cartFingerprint(state.items) !== snap) {
+        setQuotePack(null);
+        setStep("review");
+        setStaleNotice(CART_STALE_JS);
+        setPayError("");
+      }
+    });
+  }, [step]);
 
   // Debounced first order check
   useEffect(() => {
@@ -114,13 +127,8 @@ export default function CheckoutPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type } = e.target;
-    if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData((prev) => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleApplyPromoCode = async () => {
@@ -151,82 +159,60 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleCheckout = async (e: React.FormEvent) => {
+  const addressValid = Boolean(
+    formData.name.trim() &&
+      formData.address1.trim() &&
+      formData.city.trim() &&
+      formData.state.trim() &&
+      formData.zip.trim() &&
+      formData.country.trim(),
+  );
+
+  const handleContinueToPayment = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (
-      !formData.confirmResearch ||
-      !formData.confirmAge ||
-      !formData.confirmAccurate
-    ) {
-      alert("Please confirm all required statements to proceed.");
-      return;
-    }
-
-    setIsProcessing(true);
-
+    if (!addressValid || isQuoting) return;
+    setIsQuoting(true);
+    setQuoteError("");
     try {
-      // Create payment with NOWPayments
-      const response = await fetch("/api/create-payment", {
+      const response = await fetch("/api/psc/quote", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          amount: finalPaymentTotal,
-          currency: selectedCrypto,
-          email: formData.email,
-          customerInfo: {
-            name: formData.name,
-            institution: formData.institution,
-          },
-          shippingAddress: {
-            address1: formData.address1,
-            address2: formData.address2 || undefined,
-            city: formData.city,
-            state: formData.state,
-            zip: formData.zip,
-            country: formData.country,
-          },
-          items: items,
+          items: items.map((item) => ({
+            productId: item.productId,
+            variant: item.variant,
+            quantity: item.quantity,
+          })),
+          promoCode: promoCode ? promoCodeInput.trim() : undefined,
+          email: formData.email.trim() || undefined,
         }),
       });
-
       const data = await response.json();
-
-      if (data.success && data.payment) {
-        // Store order info in sessionStorage for confirmation page
-        sessionStorage.setItem(
-          "pendingOrder",
-          JSON.stringify({
-            paymentId: data.payment.payment_id,
-            orderId: data.payment.order_id,
-            amount: finalPaymentTotal,
-            currency: selectedCrypto,
-            items: items,
-          })
-        );
-
-        // Clear cart
-        clearCart();
-
-        // Redirect to payment page or show payment details
-        window.location.href = data.payment.invoice_url || "#";
-      } else {
-        throw new Error(data.error || "Payment creation failed");
+      if (!response.ok) {
+        setQuoteError(data?.error?.message || data?.error?.code || "");
+        return;
       }
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert(
-        "An error occurred during checkout. Please try again or contact support."
-      );
-      setIsProcessing(false);
+      setQuotePack({ quote: data.quote, sig: data.sig });
+      setStaleNotice("");
+      setPayError("");
+      setStep("pay");
+    } catch {
+      setQuoteError("");
+    } finally {
+      setIsQuoting(false);
     }
   };
 
-  if (items.length === 0) {
-    return null;
-  }
+  const backToReview = () => {
+    setQuotePack(null);
+    setStep("review");
+    setPayError("");
+  };
+
+  const handlePaid = (orderRef: string) => {
+    clearCart();
+    router.push("/thank-you?order_ref=" + orderRef);
+  };
 
   // Build id → first image lookup from product catalog
   const productImageMap: Record<string, string> = {};
@@ -252,9 +238,7 @@ export default function CheckoutPage() {
     isFirstOrderFlag
   );
 
-  // Crypto discount: 5% applied after all other discounts (always active — crypto-only store)
-  const cryptoDiscount = parseFloat((discountResult.finalTotal * 0.05).toFixed(2));
-  const finalPaymentTotal = parseFloat((discountResult.finalTotal - cryptoDiscount).toFixed(2));
+  const reviewTotal = discountResult.finalTotal;
 
   const suggestions = getSuggestions(items);
 
@@ -311,13 +295,55 @@ export default function CheckoutPage() {
           >
             Complete your order.
           </h1>
+          {staleNotice ? (
+            <p
+              className="font-editorial mt-4"
+              style={{ fontSize: "15px", color: "#B8624A" }}
+              role="alert"
+            >
+              {staleNotice}
+            </p>
+          ) : null}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-          {/* ── LEFT: FORM ──────────────────────────────────── */}
+          {/* ── LEFT: FORM or PAY ───────────────────────────── */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleCheckout} className="space-y-6">
+            {step === "pay" && quotePack ? (
+              <div className="space-y-6">
+                <a
+                  href="#review"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    backToReview();
+                  }}
+                  className="font-mono uppercase"
+                  style={{ fontSize: "11px", letterSpacing: "2px", color: "#1A1814" }}
+                >
+                  ← Edit order
+                </a>
+                {payError ? (
+                  <p
+                    className="font-editorial"
+                    style={{ fontSize: "14px", color: "#B8624A" }}
+                    role="alert"
+                  >
+                    {payError}
+                  </p>
+                ) : null}
+                <PscCheckout
+                  quote={quotePack.quote}
+                  sig={quotePack.sig}
+                  theme="light"
+                  pcid={process.env.NEXT_PUBLIC_PSC_PCID!}
+                  serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
+                  onPaid={handlePaid}
+                  onError={setPayError}
+                />
+              </div>
+            ) : (
+            <form onSubmit={handleContinueToPayment} className="space-y-6">
 
               {/* Contact Information */}
               <div
@@ -346,14 +372,13 @@ export default function CheckoutPage() {
                       className="block font-functional uppercase mb-1.5"
                       style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
-                      Email address *
+                      Email for your quote
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
                       className="w-full focus:outline-none font-functional text-sm"
                       style={{
                         backgroundColor: "#F5EFE4",
@@ -363,12 +388,6 @@ export default function CheckoutPage() {
                       }}
                       placeholder="your@email.com"
                     />
-                    <p
-                      className="font-mono mt-1"
-                      style={{ fontSize: "11px", color: "#1A1814", opacity: 0.8 }}
-                    >
-                      Order confirmation and tracking sent here
-                    </p>
                   </div>
 
                   <div>
@@ -392,6 +411,29 @@ export default function CheckoutPage() {
                         color: "#1A1814",
                       }}
                       placeholder="Dr. Jane Smith"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      className="block font-functional uppercase mb-1.5"
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
+                    >
+                      Institution
+                    </label>
+                    <input
+                      type="text"
+                      name="institution"
+                      value={formData.institution}
+                      onChange={handleChange}
+                      className="w-full focus:outline-none font-functional text-sm"
+                      style={{
+                        backgroundColor: "#F5EFE4",
+                        border: "1px solid rgba(26,24,20,0.15)",
+                        padding: "11px 14px",
+                        color: "#1A1814",
+                      }}
+                      placeholder="Optional"
                     />
                   </div>
 
@@ -567,217 +609,35 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Payment Method */}
-              <div
-                style={{
-                  backgroundColor: "#EBE2CF",
-                  borderLeft: "3px solid #607A5C",
-                  padding: "32px",
-                }}
-              >
-                <div
-                  className="font-mono uppercase mb-1"
-                  style={{ fontSize: "9px", letterSpacing: "3px", color: "#607A5C" }}
-                >
-                  03
-                </div>
-                <h2
-                  className="font-display mb-1"
-                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1.4rem", color: "#1A1814", letterSpacing: "-0.02em" }}
-                >
-                  Payment method
-                </h2>
+              {quoteError ? (
                 <p
-                  className="font-editorial mb-6"
-                  style={{ fontSize: "14px", color: "#1A1814" }}
+                  className="font-editorial"
+                  style={{ fontSize: "14px", color: "#B8624A" }}
+                  role="alert"
                 >
-                  Select your preferred cryptocurrency
+                  {quoteError}
                 </p>
+              ) : null}
 
-                <div className="grid grid-cols-2 gap-3">
-                  {cryptoCurrencies.map((crypto) => (
-                    <button
-                      key={crypto.code}
-                      type="button"
-                      onClick={() => setSelectedCrypto(crypto.code)}
-                      onMouseEnter={() => setHoveredCrypto(crypto.code)}
-                      onMouseLeave={() => setHoveredCrypto(null)}
-                      className="flex items-center gap-3 transition-all"
-                      style={{
-                        padding: "14px 16px",
-                        backgroundColor:
-                          selectedCrypto === crypto.code ? "#B8624A" : "#EBE2CF",
-                        border:
-                          selectedCrypto === crypto.code
-                            ? "1px solid #B8624A"
-                            : "1px solid rgba(26,24,20,0.18)",
-                        outline:
-                          selectedCrypto !== crypto.code && hoveredCrypto === crypto.code
-                            ? "2px solid #B8624A"
-                            : "2px solid transparent",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "8px",
-                          color:
-                            selectedCrypto === crypto.code
-                              ? "#F5EFE4"
-                              : "rgba(26,24,20,0.3)",
-                        }}
-                      >
-                        ●
-                      </span>
-                      <div className="text-left">
-                        <div
-                          className="font-mono uppercase"
-                          style={{
-                            fontSize: "10px",
-                            letterSpacing: "1.5px",
-                            color:
-                              selectedCrypto === crypto.code
-                                ? "#F5EFE4"
-                                : "#1A1814",
-                          }}
-                        >
-                          {crypto.name}
-                        </div>
-                        <div
-                          className="font-mono"
-                          style={{
-                            fontSize: "10px",
-                            color:
-                              selectedCrypto === crypto.code
-                                ? "rgba(245,239,228,0.75)"
-                                : "rgba(26,24,20,0.55)",
-                          }}
-                        >
-                          {crypto.symbol}
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                <div
-                  className="mt-5 flex items-start gap-3"
-                  style={{
-                    backgroundColor: "#F5EFE4",
-                    border: "1px solid rgba(26,24,20,0.12)",
-                    padding: "14px 16px",
-                  }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 20 20" className="flex-shrink-0 mt-0.5">
-                    <circle cx="10" cy="10" r="9" stroke="#607A5C" strokeWidth="1.5" fill="none" />
-                    <circle cx="10" cy="10" r="3" fill="#607A5C" />
-                  </svg>
-                  <div>
-                    <p
-                      className="font-mono uppercase mb-0.5"
-                      style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814" }}
-                    >
-                      Secure crypto payments
-                    </p>
-                    <p
-                      className="font-editorial"
-                      style={{ fontSize: "13px", color: "#1A1814", lineHeight: 1.5 }}
-                    >
-                      Processed securely through NOWPayments. Confirmed automatically via blockchain.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Required Acknowledgments */}
-              <div
-                style={{
-                  backgroundColor: "#F5EFE4",
-                  border: "1px solid rgba(26,24,20,0.15)",
-                  padding: "28px 32px",
-                }}
-              >
-                <h3
-                  className="font-mono uppercase mb-5"
-                  style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814" }}
-                >
-                  Required acknowledgments
-                </h3>
-                <div className="space-y-5">
-                  {[
-                    {
-                      name: "confirmResearch",
-                      checked: formData.confirmResearch,
-                      text: (
-                        <>
-                          I confirm that all products will be used{" "}
-                          <span style={{ fontWeight: 500 }}>exclusively for in vitro research and laboratory purposes</span>.
-                          These products are NOT for human consumption, clinical use, therapeutic applications, or veterinary use.
-                        </>
-                      ),
-                    },
-                    {
-                      name: "confirmAge",
-                      checked: formData.confirmAge,
-                      text: "I confirm that I am at least 21 years of age and affiliated with a qualified research institution, university, or laboratory.",
-                    },
-                    {
-                      name: "confirmAccurate",
-                      checked: formData.confirmAccurate,
-                      text: "I confirm that all information provided is accurate and I agree to comply with all applicable laws and regulations governing research chemical use.",
-                    },
-                  ].map((item) => (
-                    <label
-                      key={item.name}
-                      className="flex items-start gap-3 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        name={item.name}
-                        checked={item.checked}
-                        onChange={handleChange}
-                        required
-                        className="mt-1 flex-shrink-0"
-                        style={{ width: "16px", height: "16px", accentColor: "#B8624A" }}
-                      />
-                      <span
-                        className="font-editorial leading-relaxed"
-                        style={{ fontSize: "14px", color: "#1A1814" }}
-                      >
-                        {item.text}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isProcessing}
+                disabled={!addressValid || isQuoting}
                 className="w-full flex items-center justify-center gap-3 transition-all font-mono uppercase"
                 style={{
-                  backgroundColor: isProcessing ? "rgba(26,24,20,0.5)" : "#1A1814",
+                  backgroundColor: !addressValid || isQuoting ? "rgba(26,24,20,0.5)" : "#1A1814",
                   color: "#EBE2CF",
                   padding: "18px 32px",
                   fontSize: "11px",
                   letterSpacing: "3px",
-                  cursor: isProcessing ? "not-allowed" : "pointer",
+                  cursor: !addressValid || isQuoting ? "not-allowed" : "pointer",
                   border: "none",
                 }}
               >
-                {isProcessing ? (
-                  <>
-                    <span className="animate-spin inline-block">◌</span>
-                    <span>PROCESSING...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>→ PROCEED TO PAYMENT</span>
-                  </>
-                )}
+                Continue to payment
               </button>
 
             </form>
+            )}
           </div>
 
           {/* ── RIGHT: ORDER SUMMARY ────────────────────────── */}
@@ -819,7 +679,8 @@ export default function CheckoutPage() {
 
               <div style={{ backgroundColor: "#F5EFE4", padding: "20px 24px" }}>
 
-                {/* Promo Code */}
+                {/* Promo Code — review only */}
+                {step === "review" ? (
                 <div
                   style={{
                     marginBottom: "16px",
@@ -887,6 +748,7 @@ export default function CheckoutPage() {
                     </div>
                   )}
                 </div>
+                ) : null}
 
                 {/* Item List */}
                 <div
@@ -896,7 +758,45 @@ export default function CheckoutPage() {
                     borderBottom: "1px solid rgba(26,24,20,0.1)",
                   }}
                 >
-                  {items.map((item, index) => (
+                  {step === "pay" && quotePack
+                    ? quotePack.quote.lines.map((line, index) => {
+                        const product = PRODUCTS.find((p) => p.slug === line.slug);
+                        const cartLine = quotePack.quote.cart.items[index];
+                        return (
+                          <div
+                            key={`${line.slug}:${line.size}`}
+                            style={{
+                              paddingBottom: index < quotePack.quote.lines.length - 1 ? "14px" : 0,
+                              marginBottom: index < quotePack.quote.lines.length - 1 ? "14px" : 0,
+                              borderBottom:
+                                index < quotePack.quote.lines.length - 1
+                                  ? "1px solid rgba(26,24,20,0.07)"
+                                  : "none",
+                            }}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <span
+                                  className="font-display"
+                                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1rem", color: "#1A1814" }}
+                                >
+                                  {product?.name ?? line.slug}
+                                </span>
+                                <div className="font-mono mt-0.5" style={{ fontSize: "11px", color: "#1A1814" }}>
+                                  {line.size} × {line.qty}
+                                </div>
+                              </div>
+                              <span
+                                className="font-display flex-shrink-0"
+                                style={{ fontWeight: 300, fontSize: "1rem", color: "#1A1814" }}
+                              >
+                                ${((cartLine?.amount_cents ?? line.unit_cents * line.qty) / 100).toFixed(2)}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })
+                    : items.map((item, index) => (
                     <div
                       key={index}
                       style={{
@@ -1114,20 +1014,6 @@ export default function CheckoutPage() {
                     )}
                   </div>
 
-                  <div className="flex justify-between items-center">
-                    <span
-                      className="font-mono uppercase"
-                      style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814" }}
-                    >
-                      Crypto discount — 5% off
-                    </span>
-                    <span
-                      className="font-mono"
-                      style={{ fontSize: "13px", color: "#607A5C" }}
-                    >
-                      −${cryptoDiscount.toFixed(2)}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Total */}
@@ -1155,7 +1041,9 @@ export default function CheckoutPage() {
                         letterSpacing: "-0.02em",
                       }}
                     >
-                      ${finalPaymentTotal.toFixed(2)}
+                      ${((step === "pay" && quotePack
+                        ? quotePack.quote.cart.total_cents
+                        : Math.round(reviewTotal * 100)) / 100).toFixed(2)}
                     </span>
                   </div>
                   {/* Ochre accent underline under total */}
@@ -1168,12 +1056,6 @@ export default function CheckoutPage() {
                       marginTop: "6px",
                     }}
                   />
-                  <p
-                    className="font-mono text-right mt-2"
-                    style={{ fontSize: "10px", letterSpacing: "1px", color: "#1A1814", opacity: 0.8 }}
-                  >
-                    USD equivalent in {selectedCrypto.toUpperCase()}
-                  </p>
                 </div>
 
                 {/* Trust Indicators */}
@@ -1185,7 +1067,6 @@ export default function CheckoutPage() {
                   }}
                 >
                   {[
-                    { text: "Blockchain-confirmed payment", color: "#607A5C" },
                     { text: "CoA included with every lot", color: "#607A5C" },
                     { text: "Room-temp stable packaging", color: "#607A5C" },
                   ].map((item) => (
@@ -1231,7 +1112,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* ── OTHERS ARE ALSO RESEARCHING ── */}
-            {suggestions.length > 0 && (
+            {step === "review" && suggestions.length > 0 && (
               <div
                 style={{
                   marginTop: "12px",

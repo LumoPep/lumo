@@ -1,10 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 
 export default function FloatingCartButton() {
+  const pathname = usePathname();
   const { toggleCart, getItemCount } = useCartStore();
   const itemCount = getItemCount();
+  if (pathname === "/checkout") return null;
 
   return (
     <button
