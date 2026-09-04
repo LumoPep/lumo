@@ -8,8 +8,12 @@
 export const PLATFORM_PK =
   'pk_live_51TQslM0S5iByLoppsKjlR8WZoTn7htmTQhLa4rDPl50IZC7eBnUWqU80Iv5rlMwyPkI1oH6NSUGkzwQB5JWAAfK1002sPms4MM';
 export const STRIPE_ACCOUNT = 'acct_1U8564119T8shV6E';
-/** Locked method set: must be within the PaymentIntent's set (rail mints card + link). */
-export const PAYMENT_METHOD_TYPES = ['card', 'link'];
+/**
+ * Locked method set — a subset of the PaymentIntent's set (the rail mints card + link).
+ * Card only in the box: Link is hidden client-side because enabling it auto-surfaces its
+ * funding groups (Instant Bank Payments, Klarna-on-Link) as tabs — BNPL is out for RUO.
+ */
+export const PAYMENT_METHOD_TYPES = ['card'];
 /** Server-only endpoint (Bearer psk_). Mints the PI with the 3% application fee. */
 export const RAIL_PAYMENT_INTENT_URL =
   'https://mbkfmnhkxqouggupweby.supabase.co/functions/v1/stripe-payment-intent';

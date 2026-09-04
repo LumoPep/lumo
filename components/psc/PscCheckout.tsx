@@ -190,13 +190,22 @@ export default function PscCheckout(props: PscCheckoutProps) {
       });
       ctxRef.current = { stripe, elements };
 
-      payment = elements.create('payment', { layout: 'tabs' });
+      // Link off in-box (docs: wallets.link 'never'). Link auto-enables its funding groups —
+      // Instant Bank Payments and Klarna-on-Link — as extra tabs; hiding Link hides them.
+      // Wallets live in the Express Checkout row below, not in the card box.
+      payment = elements.create('payment', {
+        layout: 'tabs',
+        wallets: { applePay: 'never', googlePay: 'never', link: 'never' },
+      });
       payment.mount(paymentRef.current);
       payment.on('ready', () => {
         if (!cancelled) setReady(true);
       });
 
-      express = elements.create('expressCheckout');
+      // Apple Pay / Google Pay only: card-funded wallets. Link + BNPL/PayPal/Amazon never.
+      express = elements.create('expressCheckout', {
+        paymentMethods: { link: 'never', klarna: 'never', paypal: 'never', amazonPay: 'never' },
+      });
       express.mount(expressRef.current);
       express.on('click', (event) => {
         if (!ruoRef.current) {
