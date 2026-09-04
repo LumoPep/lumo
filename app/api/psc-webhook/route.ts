@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { amountMatches } from '@/lib/psc/order';
 import { submitToRapid } from '@/lib/psc/rapid';
+import { PRISM_PI_VERSION } from '@/lib/psc/stripe';
 
 export const runtime = 'nodejs';
 
@@ -61,13 +62,14 @@ export async function POST(request: NextRequest) {
   try {
     if (event.type === 'payment_intent.succeeded') {
       const pi = event.data.object as Stripe.PaymentIntent;
-      if (pi.metadata?.psc_embed_pcid !== process.env.NEXT_PUBLIC_PSC_PCID) {
+      // Only PaymentIntents minted by the PRISM rail for this site.
+      if (pi.metadata?.prism !== PRISM_PI_VERSION) {
         return NextResponse.json({ received: true });
       }
       const { data: row, error } = await supabase
         .from('orders')
         .select('*')
-        .eq('payment_intent_id', pi.id)
+        .eq('payment_id', pi.id)
         .maybeSingle();
       if (error) {
         console.error('psc-webhook: lookup failed', error);
@@ -81,18 +83,18 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ received: true });
       }
       const now = new Date().toISOString();
-      if (!amountMatches({ amount: pi.amount, currency: pi.currency }, { expected_total_cents: row.expected_total_cents })) {
+      if (!amountMatches({ amount: pi.amount, currency: pi.currency }, { total: row.total })) {
         const { error: reviewError } = await supabase
           .from('orders')
           .update({ status: 'review', updated_at: now })
-          .eq('payment_intent_id', pi.id);
+          .eq('payment_id', pi.id);
         if (reviewError) console.error('psc-webhook: review update failed', reviewError);
         return NextResponse.json({ received: true });
       }
       const { error: paidError } = await supabase
         .from('orders')
         .update({ status: 'paid', updated_at: now })
-        .eq('payment_intent_id', pi.id);
+        .eq('payment_id', pi.id);
       if (paidError) {
         console.error('psc-webhook: paid update failed', paidError);
         return NextResponse.json({ received: true });
@@ -101,11 +103,15 @@ export async function POST(request: NextRequest) {
       await incrementPromo(row.discount_code);
     } else if (event.type === 'payment_intent.payment_failed') {
       const pi = event.data.object as Stripe.PaymentIntent;
+      if (pi.metadata?.prism !== PRISM_PI_VERSION) {
+        return NextResponse.json({ received: true });
+      }
       const now = new Date().toISOString();
       const { error } = await supabase
         .from('orders')
         .update({ status: 'failed', updated_at: now })
-        .eq('payment_intent_id', pi.id);
+        .eq('payment_id', pi.id)
+        .eq('status', 'pending');
       if (error) console.error('psc-webhook: failed update failed', error);
     }
   } catch (err) {

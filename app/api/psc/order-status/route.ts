@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     const { data, error } = await supabase
       .from('orders')
       .select('status')
-      .eq('payment_intent_id', orderRef)
+      .eq('payment_id', orderRef)
       .maybeSingle();
     if (error) {
       console.error('psc/order-status: lookup failed', error);

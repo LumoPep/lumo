@@ -10,27 +10,10 @@ import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
 import PscCheckout from "@/components/psc/PscCheckout";
 import type { Quote } from "@/lib/psc/quote";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 import { CART_STALE_JS, CREATE_ATTEMPT_FAILED } from "@/lib/psc/buyerCopy";
 
-const SMOKE_QUOTE: Quote = {
-  cart: {
-    items: [
-      { name: "LP-Sm 5mg", qty: 1, amount_cents: 6300 },
-      { name: "LP-Tz 10mg", qty: 2, amount_cents: 13500 },
-    ],
-    total_cents: 19800,
-    currency: "usd",
-  },
-  subtotal_cents: 22000,
-  bundle_rate: 0.1,
-  discount_label: "Bundle discount — 10% off",
-  discount_cents: 2200,
-  shipping_cents: 0,
-  lines: [
-    { slug: "lp-sm", size: "5mg", qty: 1, unit_cents: 7000 },
-    { slug: "lp-tz", size: "10mg", qty: 2, unit_cents: 7500 },
-  ],
-};
 
 function cartFingerprint(
   cartItems: { productId: string; variant: string; quantity: number }[],
@@ -71,22 +54,19 @@ export default function CheckoutPage() {
   // First order detection
   const [isFirstOrderFlag, setIsFirstOrderFlag] = useState(false);
   const [isCheckingFirstOrder, setIsCheckingFirstOrder] = useState(false);
-  const [boot, setBoot] = useState<"wait" | "smoke" | "live">("wait");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const smoke =
-      process.env.NODE_ENV !== "production" &&
-      new URLSearchParams(window.location.search).get("psc") === "smoke";
-    setBoot(smoke ? "smoke" : "live");
+    setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (boot !== "live") return;
+    if (!mounted) return;
     if (step === "pay") return;
     if (items.length === 0) {
       router.push("/products");
     }
-  }, [boot, step, items, router]);
+  }, [mounted, step, items, router]);
 
   useEffect(() => {
     if (step !== "pay") return;
@@ -160,7 +140,8 @@ export default function CheckoutPage() {
   };
 
   const addressValid = Boolean(
-    formData.name.trim() &&
+    EMAIL_RE.test(formData.email.trim()) &&
+      formData.name.trim() &&
       formData.address1.trim() &&
       formData.city.trim() &&
       formData.state.trim() &&
@@ -214,36 +195,6 @@ export default function CheckoutPage() {
     router.push("/thank-you?order_ref=" + orderRef);
   };
 
-  const handleRecordOrder = async (surface: { orderRef: string }) => {
-    if (!quotePack) return false;
-    const gateEmail = (document.getElementById("psc-gate-email") as HTMLInputElement | null)?.value?.trim() || "";
-    const response = await fetch("/api/psc/order", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        quote: quotePack.quote,
-        sig: quotePack.sig,
-        order_ref: surface.orderRef,
-        contact: {
-          email: gateEmail,
-          name: formData.name,
-          institution: formData.institution,
-        },
-        shipping: {
-          address1: formData.address1,
-          address2: formData.address2,
-          city: formData.city,
-          state: formData.state,
-          zip: formData.zip,
-          country: formData.country,
-        },
-        promoCode: promoCode ? promoCodeInput.trim() : undefined,
-      }),
-    });
-    const body = await response.json().catch(() => ({}));
-    return response.ok && body.ok === true;
-  };
-
   // Build id → first image lookup from product catalog
   const productImageMap: Record<string, string> = {};
   PRODUCTS.forEach((p) => {
@@ -272,22 +223,8 @@ export default function CheckoutPage() {
 
   const suggestions = getSuggestions(items);
 
-  if (boot === "wait") {
+  if (!mounted) {
     return null;
-  }
-  if (boot === "smoke") {
-    return (
-      <PscCheckout
-        quote={SMOKE_QUOTE}
-        sig="smoke"
-        theme="light"
-        pcid={process.env.NEXT_PUBLIC_PSC_PCID!}
-        serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
-        onPaid={() => {}}
-        onError={() => {}}
-        onSurface={async () => true}
-      />
-    );
   }
 
   return (
@@ -366,12 +303,22 @@ export default function CheckoutPage() {
                 <PscCheckout
                   quote={quotePack.quote}
                   sig={quotePack.sig}
-                  theme="light"
-                  pcid={process.env.NEXT_PUBLIC_PSC_PCID!}
-                  serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
+                  contact={{
+                    email: formData.email.trim(),
+                    name: formData.name.trim(),
+                    institution: formData.institution.trim(),
+                  }}
+                  shipping={{
+                    address1: formData.address1,
+                    address2: formData.address2,
+                    city: formData.city,
+                    state: formData.state,
+                    zip: formData.zip,
+                    country: formData.country,
+                  }}
+                  promoCode={promoCode ? promoCodeInput.trim() : undefined}
                   onPaid={handlePaid}
                   onError={setPayError}
-                  onSurface={handleRecordOrder}
                 />
               </div>
             ) : (
@@ -404,13 +351,14 @@ export default function CheckoutPage() {
                       className="block font-functional uppercase mb-1.5"
                       style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
                     >
-                      Email for your quote
+                      Email *
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                       className="w-full focus:outline-none font-functional text-sm"
                       style={{
                         backgroundColor: "#F5EFE4",

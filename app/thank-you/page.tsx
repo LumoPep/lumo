@@ -4,6 +4,7 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { useSearchParams } from "next/navigation";
 import { POLL_UNAVAILABLE } from "@/lib/psc/buyerCopy";
+import { PLATFORM_PK, STRIPE_ACCOUNT } from "@/lib/psc/stripe";
 
 const PENDING_COPY = "Payment received by Stripe. We'll email you when it clears.";
 const PAID_COPY = "Paid. Your order is being prepared.";
@@ -89,7 +90,6 @@ function ThankYouContent() {
   const searchParams = useSearchParams();
   const orderRef = searchParams.get("order_ref") ?? "";
   const clientSecret = searchParams.get("payment_intent_client_secret") ?? "";
-  const rootRef = useRef<HTMLDivElement>(null);
   const pollRef = useRef<OrderState | null>(null);
   const intentRef = useRef<OrderState | null>(null);
   const [state, setState] = useState<OrderState>("unknown");
@@ -139,12 +139,10 @@ function ThankYouContent() {
     let cancelled = false;
 
     (async () => {
-      const pk = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
-      const stripeAccount = rootRef.current?.getAttribute("data-stripe-account") ?? "";
-      if (!pk.startsWith("pk_test_") || !stripeAccount.startsWith("acct_")) return;
       try {
         const StripeCtor = await waitForStripe(15000);
-        const stripe = StripeCtor(pk, { stripeAccount });
+        // Platform context, same as the pay box.
+        const stripe = StripeCtor(PLATFORM_PK, { stripeAccount: STRIPE_ACCOUNT });
         // https://docs.stripe.com/js/payment_intents/retrieve_payment_intent
         const result = await stripe.retrievePaymentIntent(clientSecret);
         if (cancelled) return;
@@ -164,11 +162,7 @@ function ThankYouContent() {
 
   return (
     <div className="min-h-screen bg-bone py-24 px-6 flex items-center justify-center">
-      <div
-        ref={rootRef}
-        data-stripe-account={process.env.NEXT_PUBLIC_STRIPE_ACCOUNT ?? ""}
-        className="text-center max-w-md"
-      >
+      <div className="text-center max-w-md">
         <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-3">
           Order
         </div>

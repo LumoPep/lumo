@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --test lib/psc/*.test.ts",
-    "psc:smoke": "python3 .psc-proof/site-smoke.py --url http://localhost:3000/checkout?psc=smoke --tokens public/psc-embed-tokens.css --theme light --slug lumo --shots-dir .psc-proof/shots --thank-you-path /thank-you"
+    "test": "node --test lib/psc/*.test.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { PRODUCTS } from '../../data/products.ts';
 import type { CartItemLike } from '../orderMapping.ts';
 import type { Quote } from './quote.ts';
@@ -12,8 +12,10 @@ export type Address = {
   country: string;
 };
 
+/** Existing `orders` columns only — no schema change on Lumo's Supabase. */
 export type OrdersInsert = {
   order_id: string;
+  /** Stripe PaymentIntent id (pi_…): the webhook / thank-you join key. */
   payment_id: string;
   email: string;
   customer_name: string;
@@ -32,10 +34,12 @@ export type OrdersInsert = {
   total: number;
   currency: 'usd';
   status: 'pending';
-  provider: 'psc';
-  payment_intent_id: string;
-  expected_total_cents: number;
 };
+
+/** Same shape as Lumo's crypto orders (LUMO-<ms>-<rand>) so rapidOrderId math is unchanged. */
+export function newOrderId(now = Date.now()): string {
+  return `LUMO-${now}-${randomBytes(3).toString('hex').toUpperCase()}`;
+}
 
 export function itemsWithSlugs(lines: Quote['lines']): CartItemLike[] {
   return lines.map((line) => {
@@ -52,15 +56,15 @@ export function itemsWithSlugs(lines: Quote['lines']): CartItemLike[] {
 
 export function orderRowFromQuote(
   q: Quote,
-  orderRef: string,
+  ids: { order_id: string; payment_id: string },
   contact: { email: string; name: string; institution?: string },
   ship: Address,
   promoCode?: string | null,
 ): OrdersInsert {
   void contact.institution;
   return {
-    order_id: 'PSC-' + orderRef,
-    payment_id: orderRef,
+    order_id: ids.order_id,
+    payment_id: ids.payment_id,
     email: contact.email,
     customer_name: contact.name,
     address1: ship.address1,
@@ -78,17 +82,18 @@ export function orderRowFromQuote(
     total: q.cart.total_cents / 100,
     currency: 'usd',
     status: 'pending',
-    provider: 'psc',
-    payment_intent_id: orderRef,
-    expected_total_cents: q.cart.total_cents,
   };
 }
 
+/** The PaymentIntent must equal the row's `total` to the cent, in usd. */
 export function amountMatches(
   pi: { amount: number; currency: string },
-  row: { expected_total_cents: number },
+  row: { total: number | string },
 ): boolean {
-  return String(pi.currency).toLowerCase() === 'usd' && pi.amount === row.expected_total_cents;
+  return (
+    String(pi.currency).toLowerCase() === 'usd' &&
+    pi.amount === Math.round(Number(row.total) * 100)
+  );
 }
 
 export function rapidOrderId(order_id: string): number {
