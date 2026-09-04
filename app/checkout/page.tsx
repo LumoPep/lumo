@@ -9,6 +9,28 @@ import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
+import PscCheckout from "@/components/psc/PscCheckout";
+import type { Quote } from "@/lib/psc/quote";
+
+const SMOKE_QUOTE: Quote = {
+  cart: {
+    items: [
+      { name: "LP-Sm 5mg", qty: 1, amount_cents: 6300 },
+      { name: "LP-Tz 10mg", qty: 2, amount_cents: 13500 },
+    ],
+    total_cents: 19800,
+    currency: "usd",
+  },
+  subtotal_cents: 22000,
+  bundle_rate: 0.1,
+  discount_label: "Bundle discount — 10% off",
+  discount_cents: 2200,
+  shipping_cents: 0,
+  lines: [
+    { slug: "lp-sm", size: "5mg", qty: 1, unit_cents: 7000 },
+    { slug: "lp-tz", size: "10mg", qty: 2, unit_cents: 7500 },
+  ],
+};
 
 const cryptoCurrencies = [
   { code: "btc", name: "Bitcoin", symbol: "BTC" },
@@ -50,12 +72,21 @@ export default function CheckoutPage() {
   // First order detection
   const [isFirstOrderFlag, setIsFirstOrderFlag] = useState(false);
   const [isCheckingFirstOrder, setIsCheckingFirstOrder] = useState(false);
+  const [boot, setBoot] = useState<"wait" | "smoke" | "live">("wait");
 
   useEffect(() => {
+    const smoke =
+      process.env.NODE_ENV !== "production" &&
+      new URLSearchParams(window.location.search).get("psc") === "smoke";
+    setBoot(smoke ? "smoke" : "live");
+  }, []);
+
+  useEffect(() => {
+    if (boot !== "live") return;
     if (items.length === 0) {
       router.push("/products");
     }
-  }, [items, router]);
+  }, [boot, items, router]);
 
   // Debounced first order check
   useEffect(() => {
@@ -226,6 +257,23 @@ export default function CheckoutPage() {
   const finalPaymentTotal = parseFloat((discountResult.finalTotal - cryptoDiscount).toFixed(2));
 
   const suggestions = getSuggestions(items);
+
+  if (boot === "wait") {
+    return null;
+  }
+  if (boot === "smoke") {
+    return (
+      <PscCheckout
+        quote={SMOKE_QUOTE}
+        sig="smoke"
+        theme="light"
+        pcid={process.env.NEXT_PUBLIC_PSC_PCID!}
+        serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
+        onPaid={() => {}}
+        onError={() => {}}
+      />
+    );
+  }
 
   return (
     <div style={{ backgroundColor: "#F5EFE4", minHeight: "100vh" }} className="py-16 px-6">
