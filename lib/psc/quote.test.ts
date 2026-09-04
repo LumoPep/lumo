@@ -90,6 +90,34 @@ test('percent promo 0.25 beats first-order 0.20 on a 3-unit cart with a single l
   assert.equal(summed, quote.cart.total_cents);
 });
 
+test('percent 0.10 + firstOrder does not take first-order 20%', () => {
+  const quote = buildQuote(
+    [{ productId: '3', variant: '10mg', quantity: 1 }],
+    { type: 'percent', value: 0.10 },
+    true,
+  );
+  assert.equal(quote.discount_label, 'Promo code applied — 10% off');
+  assert.equal(quote.discount_label.includes('First order'), false);
+  const lines = productLines(quote);
+  assert.equal(lines[0].amount_cents, 6300);
+  assert.equal(quote.shipping_cents, 999);
+  assert.equal(quote.cart.total_cents, 7299);
+});
+
+test('free_shipping + firstOrder zeroes shipping and skips first-order percent', () => {
+  const quote = buildQuote(
+    [{ productId: '3', variant: '10mg', quantity: 1 }],
+    { type: 'free_shipping' },
+    true,
+  );
+  assert.equal(quote.discount_label, 'Promo code applied — Free shipping');
+  const lines = productLines(quote);
+  assert.equal(lines[0].amount_cents, 7000);
+  assert.equal(quote.shipping_cents, 0);
+  assert.equal(quote.cart.items.some((line) => line.name === 'Shipping'), false);
+  assert.equal(quote.cart.total_cents, 7000);
+});
+
 test('promo percent value 1 → bad_promo', () => {
   assert.throws(
     () => buildQuote(AUDIT_CART, { type: 'percent', value: 1 }, false),

@@ -53,23 +53,23 @@ function extraDiscount(
   promo: PromoInput,
   firstOrder: boolean,
 ): { rate: number; kind: 'promo' | 'first_order' | null } {
-  let rate = 0;
-  let kind: 'promo' | 'first_order' | null = null;
   if (promo?.type === 'percent') {
     const value = promo.value;
     if (typeof value !== 'number' || !(value > 0 && value < 1)) {
       throw new QuoteError('bad_promo');
     }
-    rate = value;
-    kind = 'promo';
-  } else if (promo && promo.type !== 'free_shipping') {
+    return { rate: value, kind: 'promo' };
+  }
+  if (promo && promo.type !== 'free_shipping') {
     throw new QuoteError('bad_promo');
   }
-  if (firstOrder && 0.2 > rate) {
-    rate = 0.2;
-    kind = 'first_order';
+  if (promo) {
+    return { rate: 0, kind: null };
   }
-  return { rate, kind };
+  if (firstOrder) {
+    return { rate: 0.2, kind: 'first_order' };
+  }
+  return { rate: 0, kind: null };
 }
 
 function discountLabel(
