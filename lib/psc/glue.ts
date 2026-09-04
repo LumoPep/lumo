@@ -70,6 +70,7 @@ declare global {
 export type GlueOpts = {
   onPaid: (orderRef: string) => void;
   onError: (msg: string) => void;
+  onSurface?: (surface: PaymentSurface) => Promise<boolean>;
 };
 
 export type GlueHandle = {
@@ -131,6 +132,19 @@ export function mountGlue(inst: PscEmbedInstance, opts: GlueOpts): GlueHandle {
       opts.onError(CREATE_ATTEMPT_FAILED);
       return;
     }
+    if (opts.onSurface) {
+      try {
+        const recorded = await opts.onSurface(surface);
+        if (!recorded) {
+          opts.onError(CREATE_ATTEMPT_FAILED);
+          return;
+        }
+      } catch {
+        opts.onError(CREATE_ATTEMPT_FAILED);
+        return;
+      }
+    }
+    if (unmounted || mounted) return;
     const StripeCtor = window.Stripe;
     if (!StripeCtor || !embed) {
       opts.onError(CREATE_ATTEMPT_FAILED);

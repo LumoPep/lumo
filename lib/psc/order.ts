@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { PRODUCTS } from '../../data/products.ts';
 import type { CartItemLike } from '../orderMapping.ts';
 import type { Quote } from './quote.ts';
@@ -88,4 +89,15 @@ export function amountMatches(
   row: { expected_total_cents: number },
 ): boolean {
   return String(pi.currency).toLowerCase() === 'usd' && pi.amount === row.expected_total_cents;
+}
+
+export function rapidOrderId(order_id: string): number {
+  const seg = String(order_id || '').split('-')[1] ?? '';
+  const parsed = Number.parseInt(seg, 10);
+  if (/^\d+$/.test(seg) && Number.isFinite(parsed)) {
+    return parsed % 100000000;
+  }
+  const hex = createHash('sha256').update(order_id).digest('hex').slice(0, 12);
+  const hashed = Number.parseInt(hex, 16) % 100000000;
+  return hashed < 1 ? 1 : hashed;
 }

@@ -214,6 +214,36 @@ export default function CheckoutPage() {
     router.push("/thank-you?order_ref=" + orderRef);
   };
 
+  const handleRecordOrder = async (surface: { orderRef: string }) => {
+    if (!quotePack) return false;
+    const gateEmail = (document.getElementById("psc-gate-email") as HTMLInputElement | null)?.value?.trim() || "";
+    const response = await fetch("/api/psc/order", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        quote: quotePack.quote,
+        sig: quotePack.sig,
+        order_ref: surface.orderRef,
+        contact: {
+          email: gateEmail,
+          name: formData.name,
+          institution: formData.institution,
+        },
+        shipping: {
+          address1: formData.address1,
+          address2: formData.address2,
+          city: formData.city,
+          state: formData.state,
+          zip: formData.zip,
+          country: formData.country,
+        },
+        promoCode: promoCode ? promoCodeInput.trim() : undefined,
+      }),
+    });
+    const body = await response.json().catch(() => ({}));
+    return response.ok && body.ok === true;
+  };
+
   // Build id → first image lookup from product catalog
   const productImageMap: Record<string, string> = {};
   PRODUCTS.forEach((p) => {
@@ -255,6 +285,7 @@ export default function CheckoutPage() {
         serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
         onPaid={() => {}}
         onError={() => {}}
+        onSurface={async () => true}
       />
     );
   }
@@ -340,6 +371,7 @@ export default function CheckoutPage() {
                   serviceBase={process.env.NEXT_PUBLIC_PSC_SERVICE_BASE!}
                   onPaid={handlePaid}
                   onError={setPayError}
+                  onSurface={handleRecordOrder}
                 />
               </div>
             ) : (

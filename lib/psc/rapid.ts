@@ -1,5 +1,6 @@
 import { submitOrderWithSession, type RapidOrder } from '@/lib/rapidfulfillment';
 import { mapOrderItems, type CartItemLike } from '@/lib/orderMapping';
+import { rapidOrderId } from '@/lib/psc/order';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function submitToRapid(order: any): Promise<void> {
@@ -44,10 +45,7 @@ export async function submitToRapid(order: any): Promise<void> {
     // order_date must be YYYY-MM-DD HH:MM:SS
     const orderDate = new Date().toISOString().replace('T', ' ').substring(0, 19);
 
-    // Rapid order_id is int(10). Extract the timestamp segment from LUMO-{ts}-{random}
-    // and take the last 8 digits to produce a numeric ID that fits int(10).
-    const tsPart = order.order_id?.split('-')[1] ?? String(Date.now());
-    const numericOrderId = parseInt(tsPart, 10) % 100000000;
+    const numericOrderId = rapidOrderId(String(order.order_id ?? ''));
 
     const rapidOrder: RapidOrder = {
       orderIdPrefix: parseInt(process.env.RAPID_ORDER_PREFIX ?? '1', 10),

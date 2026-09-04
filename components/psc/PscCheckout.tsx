@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Script from 'next/script';
 import type { Quote } from '@/lib/psc/quote';
 import { CREATE_ATTEMPT_FAILED } from '@/lib/psc/buyerCopy';
-import { mountGlue, type GlueHandle, type PscEmbedInstance } from '@/lib/psc/glue';
+import { mountGlue, type GlueHandle, type PaymentSurface, type PscEmbedInstance } from '@/lib/psc/glue';
 
 export type PscCheckoutProps = {
   quote: Quote;
@@ -14,6 +14,7 @@ export type PscCheckoutProps = {
   serviceBase: string;
   onPaid: (orderRef: string) => void;
   onError: (msg: string) => void;
+  onSurface?: (surface: PaymentSurface) => Promise<boolean>;
 };
 
 export function extractPscCheckoutFragment(html: string): string {
@@ -90,6 +91,7 @@ export default function PscCheckout({
   serviceBase,
   onPaid,
   onError,
+  onSurface,
 }: PscCheckoutProps) {
   void sig;
   const hostRef = useRef<HTMLDivElement>(null);
@@ -97,8 +99,10 @@ export default function PscCheckout({
   const instRef = useRef<PscEmbedInstance | null>(null);
   const onPaidRef = useRef(onPaid);
   const onErrorRef = useRef(onError);
+  const onSurfaceRef = useRef(onSurface);
   onPaidRef.current = onPaid;
   onErrorRef.current = onError;
+  onSurfaceRef.current = onSurface;
 
   useEffect(() => {
     let cancelled = false;
@@ -125,6 +129,9 @@ export default function PscCheckout({
       glueRef.current = mountGlue(inst, {
         onPaid: (orderRef) => onPaidRef.current(orderRef),
         onError: (msg) => onErrorRef.current(msg),
+        onSurface: onSurfaceRef.current
+          ? (surface) => onSurfaceRef.current!(surface)
+          : undefined,
       });
     })().catch(() => {
       if (!cancelled) onErrorRef.current(CREATE_ATTEMPT_FAILED);
