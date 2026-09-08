@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 import { amountMatches } from '@/lib/psc/order';
 import { submitToRapid } from '@/lib/psc/rapid';
 import { PRISM_PI_VERSION } from '@/lib/psc/stripe';
+import { ORDERS_TABLE, pscDb } from '@/lib/psc/db';
 
 export const runtime = 'nodejs';
 
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: { code: 'invalid_signature' } }, { status: 400 });
   }
 
-  const supabase = serverClient();
+  const supabase = pscDb();
   if (!supabase) {
     console.error('psc-webhook: supabase env missing');
     return NextResponse.json({ received: true });
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ received: true });
       }
       const { data: row, error } = await supabase
-        .from('orders')
+        .from(ORDERS_TABLE)
         .select('*')
         .eq('payment_id', pi.id)
         .maybeSingle();
@@ -85,14 +86,14 @@ export async function POST(request: NextRequest) {
       const now = new Date().toISOString();
       if (!amountMatches({ amount: pi.amount, currency: pi.currency }, { total: row.total })) {
         const { error: reviewError } = await supabase
-          .from('orders')
+          .from(ORDERS_TABLE)
           .update({ status: 'review', updated_at: now })
           .eq('payment_id', pi.id);
         if (reviewError) console.error('psc-webhook: review update failed', reviewError);
         return NextResponse.json({ received: true });
       }
       const { error: paidError } = await supabase
-        .from('orders')
+        .from(ORDERS_TABLE)
         .update({ status: 'paid', updated_at: now })
         .eq('payment_id', pi.id);
       if (paidError) {
@@ -108,7 +109,7 @@ export async function POST(request: NextRequest) {
       }
       const now = new Date().toISOString();
       const { error } = await supabase
-        .from('orders')
+        .from(ORDERS_TABLE)
         .update({ status: 'failed', updated_at: now })
         .eq('payment_id', pi.id)
         .eq('status', 'pending');

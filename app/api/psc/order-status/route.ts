@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { ORDERS_TABLE, pscDb } from '@/lib/psc/db';
 
 const ORDER_REF = /^pi_[A-Za-z0-9]+$/;
 const STATES = ['pending', 'paid', 'failed', 'review'] as const;
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
     return jsonState('unknown');
   }
 
-  const supabase = serverClient();
+  const supabase = pscDb();
   if (!supabase) {
     console.error('psc/order-status: supabase env missing');
     return jsonState('unknown');
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const { data, error } = await supabase
-      .from('orders')
+      .from(ORDERS_TABLE)
       .select('status')
       .eq('payment_id', orderRef)
       .maybeSingle();

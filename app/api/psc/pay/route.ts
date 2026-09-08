@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { ORDERS_TABLE, pscDb } from '@/lib/psc/db';
 import { CREATE_ATTEMPT_FAILED, RUO_REQUIRED } from '@/lib/psc/buyerCopy';
 import { newOrderId, orderRowFromQuote, type Address } from '@/lib/psc/order';
 import type { Quote } from '@/lib/psc/quote';
@@ -116,12 +117,12 @@ export async function POST(request: NextRequest) {
     typeof body.promoCode === 'string' ? body.promoCode : null,
   );
 
-  const supabase = serverClient();
+  const supabase = pscDb();
   if (!supabase) {
     console.error('psc/pay: supabase env missing');
     return reject('order_unavailable', CREATE_ATTEMPT_FAILED, 503);
   }
-  const { error } = await supabase.from('orders').insert(row);
+  const { error } = await supabase.from(ORDERS_TABLE).insert(row);
   if (error) {
     console.error('psc/pay: order insert failed', error);
     return reject('order_unavailable', CREATE_ATTEMPT_FAILED, 503);
