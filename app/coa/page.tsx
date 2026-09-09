@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { PRODUCTS, CATEGORY_COLORS } from "@/data/products";
+import { PRODUCTS, CATEGORY_COLORS, getLowestPurity } from "@/data/products";
 import COAModal from "@/components/COAModal";
 
 export default function CoAPage() {
@@ -460,7 +460,7 @@ function CoACard({ product, index }: { product: any; index: number }) {
                   className="text-left lg:text-center mb-2"
                   style={{ fontWeight: 300, fontSize: "40px", lineHeight: 1, color: '#C89A3C' }}
                 >
-                  {product.purity}
+                  {getLowestPurity(product)}
                 </div>
                 <div className="font-mono uppercase tracking-mono text-ink opacity-50 mb-3 text-left lg:text-center" style={{ fontSize: '9px', letterSpacing: '1.5px' }}>
                   {product.purity === 'USP Grade' ? 'USP GRADE' : 'PURITY · HPLC'}
@@ -471,7 +471,7 @@ function CoACard({ product, index }: { product: any; index: number }) {
                   <div className="w-full bg-bone h-1.5 mb-4" style={{ borderRadius: "2px" }}>
                     <motion.div
                       initial={{ width: 0 }}
-                      animate={isInView ? { width: product.purity } : { width: 0 }}
+                      animate={isInView ? { width: getLowestPurity(product) } : { width: 0 }}
                       transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
                       className="h-full"
                       style={{ borderRadius: "2px", backgroundColor: '#C89A3C' }}

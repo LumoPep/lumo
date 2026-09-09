@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Product, CATEGORY_COLORS } from "@/data/products";
+import { Product, CATEGORY_COLORS, getLowestPurity } from "@/data/products";
 import { useCartStore } from "@/lib/store";
 import { showToast } from "@/components/Toast";
 
@@ -177,7 +177,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             >
               {firstSize} · LOT {lotNumber} ·{" "}
               <span className="font-medium" style={{ color: '#C89A3C' }}>
-                {isUSPGrade ? 'USP GRADE' : product.purity}
+                {isUSPGrade ? 'USP GRADE' : getLowestPurity(product)}
               </span>
             </div>
 

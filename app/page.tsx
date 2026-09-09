@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { PRODUCTS, getFeaturedProducts, CATEGORY_COLORS } from "@/data/products";
+import { PRODUCTS, getFeaturedProducts, CATEGORY_COLORS, getLowestPurity } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import LumoLogo from "@/components/LumoLogo";
 
@@ -373,7 +373,7 @@ export default function HomePage() {
             <span className="text-ochre">· THIRD-PARTY VERIFIED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
-                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{getLowestPurity(product)}</span>{' '}
                 {(index + 1) % 6 === 0 && <span className="text-ochre">·· THIRD-PARTY VERIFIED ··</span>}
               </span>
             ))}
@@ -383,7 +383,7 @@ export default function HomePage() {
             <span className="text-ochre">· THIRD-PARTY VERIFIED ·</span>
             {PRODUCTS.filter(p => p.category !== 'Ancillary').map((product, index) => (
               <span key={index}>
-                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{product.purity}</span>{' '}
+                {' '}<span className="text-clay">··</span> {product.name.toUpperCase()} · <span className="text-ochre">{getLowestPurity(product)}</span>{' '}
                 {(index + 1) % 6 === 0 && <span className="text-ochre">·· THIRD-PARTY VERIFIED ··</span>}
               </span>
             ))}

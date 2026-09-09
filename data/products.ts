@@ -5,6 +5,7 @@ export interface COA {
   reportNumber: string
   accessCode: string
   pdfUrl: string
+  purity?: string
   analysisDate: string
   active: boolean
 }
@@ -78,8 +79,8 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     lotNumbers: ['LMO-0626-TRZ-001', 'LMO-0626-TRZ-002'],
     coas: [
-      { lot: 'LMO-0626-TRZ-001', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-0626-TRZ-002', size: '20mg', lab: 'Independent Lab', reportNumber: 'RPT-20001', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-TRZ-001', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-C54D93', accessCode: 'BWE3D6Q', pdfUrl: '/coa/lmo-0626-trz-001.pdf', purity: '99.653%', analysisDate: '08/16/2026', active: true },
+      { lot: 'LMO-0626-TRZ-002', size: '20mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-F9EA67', accessCode: 'DJE3E45', pdfUrl: '/coa/lmo-0626-trz-002.pdf', purity: '99.216%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20001',
     synopsis: 'LP-Tz is a 39-amino-acid synthetic dual-receptor peptide reference standard, ≥98.5% purity by HPLC, supplied lyophilized. For in-vitro receptor characterisation and analytical method development. Not for use in any living organism.',
@@ -105,8 +106,8 @@ export const PRODUCTS: Product[] = [
     purity: '98.20%',
     lotNumbers: ['LMO-0626-RT-003', 'LMO-0626-RT-004'],
     coas: [
-      { lot: 'LMO-0626-RT-003', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-0626-RT-004', size: '30mg', lab: 'Independent Lab', reportNumber: 'RPT-20002', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-RT-003', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-DF5BB3', accessCode: 'YJP1KF9', pdfUrl: '/coa/lmo-0626-rt-003.pdf', purity: '99.192%', analysisDate: '08/16/2026', active: true },
+      { lot: 'LMO-0626-RT-004', size: '30mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-ADD394', accessCode: 'BD66TRJ', pdfUrl: '/coa/lmo-0626-rt-004.pdf', purity: '99.766%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20002',
     synopsis: 'LP-Rt is a 39-amino-acid synthetic peptide reference standard, ≥98.2% purity by HPLC, supplied lyophilized. For in-vitro multi-receptor binding characterisation. Not for use in any living organism.',
@@ -134,7 +135,7 @@ export const PRODUCTS: Product[] = [
     purity: '99.14%',
     batch: 'LMO-0626-BPC-005',
     coas: [
-      { lot: 'LMO-0626-BPC-005', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20003', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-BPC-005', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-FA9821', accessCode: 'RQ1CHMK', pdfUrl: '/coa/lmo-0626-bpc-005.pdf', purity: '99.553%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20003',
     casNumber: '137525-51-0',
@@ -167,7 +168,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.73%',
     batch: 'LMO-0626-TB-006',
     coas: [
-      { lot: 'LMO-0626-TB-006', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20004', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-TB-006', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-C4A1DC', accessCode: '6HEJPKO', pdfUrl: '/coa/lmo-0626-tb-006.pdf', purity: '99.826%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20004',
     casNumber: '77591-33-4',
@@ -200,7 +201,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-0626-BT-007',
     coas: [
-      { lot: 'LMO-0626-BT-007', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20005', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-BT-007', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-863476', accessCode: '92R0A72', pdfUrl: '/coa/lmo-0626-bt-007.pdf', purity: '99.829%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20005',
     casNumber: 'N/A — Combination',
@@ -233,7 +234,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-0626-KPV-008',
     coas: [
-      { lot: 'LMO-0626-KPV-008', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20017', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-KPV-008', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-5F8BD7', accessCode: 'REQZNF5', pdfUrl: '/coa/lmo-0626-kpv-008.pdf', purity: '99.473%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20017',
     casNumber: '13588-25-1',
@@ -267,7 +268,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.81%',
     batch: 'LMO-0626-CJC-009',
     coas: [
-      { lot: 'LMO-0626-CJC-009', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20006', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-CJC-009', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-C5878E', accessCode: 'OOFJZ0A', pdfUrl: '/coa/lmo-0626-cjc-009.pdf', purity: '99.513%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20006',
     casNumber: '863288-34-0',
@@ -300,7 +301,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.60%',
     batch: 'LMO-0626-CI-010',
     coas: [
-      { lot: 'LMO-0626-CI-010', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20007', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-CI-010', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-AD723E', accessCode: '5IO2NX7', pdfUrl: '/coa/lmo-0626-ci-010.pdf', purity: '99.362%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20007',
     casNumber: 'N/A — Combination',
@@ -332,7 +333,7 @@ export const PRODUCTS: Product[] = [
     purity: '99.12%',
     batch: 'LMO-0626-IPA-011',
     coas: [
-      { lot: 'LMO-0626-IPA-011', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20008', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-IPA-011', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-CD7489', accessCode: '8BYP8K6', pdfUrl: '/coa/lmo-0626-ipa-011.pdf', purity: '99.636%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20008',
     casNumber: '170851-70-4',
@@ -364,7 +365,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.90%',
     batch: 'LMO-0626-TSM-013',
     coas: [
-      { lot: 'LMO-0626-TSM-013', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20009', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-TSM-013', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-35E8A4', accessCode: '6POX6PE', pdfUrl: '/coa/lmo-0626-tsm-013.pdf', purity: '99.776%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20009',
     casNumber: '218949-48-9',
@@ -397,7 +398,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-0626-IGF-020',
     coas: [
-      { lot: 'LMO-0626-IGF-020', size: '1mg', lab: 'Independent Lab', reportNumber: 'RPT-20018', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-IGF-020', size: '1mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-5B595F', accessCode: 'ZCLVPPF', pdfUrl: '/coa/lmo-0626-igf-020.pdf', purity: '99.809%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20018',
     casNumber: '946870-92-4',
@@ -463,7 +464,7 @@ export const PRODUCTS: Product[] = [
     purity: '99.08%',
     batch: 'LMO-0626-GHK-012',
     coas: [
-      { lot: 'LMO-0626-GHK-012', size: '100mg', lab: 'Independent Lab', reportNumber: 'RPT-20010', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-GHK-012', size: '100mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-C2F436', accessCode: '9IB3FL5', pdfUrl: '/coa/lmo-0626-ghk-012.pdf', purity: '99.311%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20010',
     casNumber: '89030-95-5',
@@ -529,7 +530,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.00%',
     batch: 'LMO-0626-NAD-016',
     coas: [
-      { lot: 'LMO-0626-NAD-016', size: '500mg', lab: 'Independent Lab', reportNumber: 'RPT-20011', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-NAD-016', size: '500mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-279FDD', accessCode: 'I43SLW5', pdfUrl: '/coa/lmo-0626-nad-016.pdf', purity: '99.471%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20011',
     casNumber: '53-84-9',
@@ -562,7 +563,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-0626-MTS-017',
     coas: [
-      { lot: 'LMO-0626-MTS-017', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20019', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-MTS-017', size: '10mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-414C91', accessCode: 'QDULFQI', pdfUrl: '/coa/lmo-0626-mts-017.pdf', purity: '99.472%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20019',
     casNumber: '1468720-74-2',
@@ -628,7 +629,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.55%',
     batch: 'LMO-0626-SEL-018',
     coas: [
-      { lot: 'LMO-0626-SEL-018', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20012', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-SEL-018', size: '5mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-F82FBF', accessCode: 'KL0R7QE', pdfUrl: '/coa/lmo-0626-sel-018.pdf', purity: '99.817%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20012',
     casNumber: '129954-34-3',
@@ -660,7 +661,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.40%',
     batch: 'LMO-0626-SMX-019',
     coas: [
-      { lot: 'LMO-0626-SMX-019', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20013', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-SMX-019', size: '5mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-BE6A36', accessCode: 'B044ZW9', pdfUrl: '/coa/lmo-0626-smx-019.pdf', purity: '99.577%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20013',
     casNumber: '80714-61-0',
@@ -727,7 +728,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.00%',
     batch: 'LMO-0626-GLW-014',
     coas: [
-      { lot: 'LMO-0626-GLW-014', size: '70mg', lab: 'Independent Lab', reportNumber: 'RPT-20014', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-GLW-014', size: '70mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-8B1E1D', accessCode: 'M6UNYMJ', pdfUrl: '/coa/lmo-0626-glw-014.pdf', purity: '99.236%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20014',
     casNumber: 'N/A — Combination',
@@ -760,7 +761,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.00%',
     batch: 'LMO-0626-KLW-015',
     coas: [
-      { lot: 'LMO-0626-KLW-015', size: '80mg', lab: 'Independent Lab', reportNumber: 'RPT-20015', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-0626-KLW-015', size: '80mg', lab: 'Kovera Labs', reportNumber: 'KVR-2026-BCE74F', accessCode: 'CUWFLQJ', pdfUrl: '/coa/lmo-0626-klw-015.pdf', purity: '99.578%', analysisDate: '08/16/2026', active: true },
     ],
     report: 'RPT-20015',
     casNumber: 'N/A — Combination',
@@ -862,4 +863,15 @@ export function getFeaturedProducts(): Product[] {
 
 export function getProductById(id: number): Product | undefined {
   return PRODUCTS.find((p) => p.id === id);
+}
+
+export function getLowestPurity(product: Product): string {
+  if (product.purity === 'USP Grade') return product.purity;
+  const coaPurities = product.coas
+    ?.map(c => c.purity)
+    .filter((p): p is string => Boolean(p));
+  if (!coaPurities || coaPurities.length === 0) return product.purity;
+  return coaPurities.reduce((min, p) =>
+    parseFloat(p) < parseFloat(min) ? p : min
+  );
 }

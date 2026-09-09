@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { getProductBySlug, PRODUCTS, CATEGORY_COLORS } from "@/data/products";
+import { getProductBySlug, PRODUCTS, CATEGORY_COLORS, getLowestPurity } from "@/data/products";
 import { useCartStore } from "@/lib/store";
 import { showToast } from "@/components/Toast";
 import ProductCard from "@/components/ProductCard";
@@ -49,6 +49,12 @@ export default function ProductPage() {
 
   // Get lot number for current variant
   const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[selectedVariant] : '');
+
+  // Per-lot purity: falls back to product.purity if the active COA has no purity set
+  const activeCoaPurity =
+    product.coas?.find(c => c.active && c.size === product.sizes[selectedVariant])?.purity
+    ?? product.coas?.[0]?.purity
+    ?? product.purity;
 
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
@@ -489,13 +495,13 @@ export default function ProductPage() {
                     className="font-display text-ochre"
                     style={{ fontWeight: 300, fontSize: "36px", lineHeight: 1 }}
                   >
-                    {product.purity}
+                    {activeCoaPurity}
                   </span>
                 </div>
                 <div className="bg-bone h-2" style={{ borderRadius: "4px" }}>
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${product.purity}` }}
+                    animate={{ width: `${activeCoaPurity}` }}
                     transition={{ duration: 1.2, delay: 0.3 }}
                     className="h-full bg-ochre"
                     style={{ borderRadius: "4px" }}
@@ -599,7 +605,7 @@ export default function ProductPage() {
 
               <div className="space-y-3 mb-6">
                 {[
-                  { label: "PURITY", value: product.purity },
+                  { label: "PURITY", value: activeCoaPurity },
                   { label: "CAS", value: product.casNumber },
                   { label: "MW", value: product.mw },
                   { label: "APPEARANCE", value: product.appearance },

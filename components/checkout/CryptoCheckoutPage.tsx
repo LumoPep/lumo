@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useCartStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
-import { PRODUCTS } from "@/data/products";
+import { PRODUCTS, getLowestPurity } from "@/data/products";
 import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
 import ResearchDisclaimerBox from "@/components/ResearchDisclaimerBox";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
@@ -1266,7 +1266,7 @@ export default function CheckoutPage() {
                           className="font-mono"
                           style={{ fontSize: "10px", color: "#C89A3C", marginTop: "3px" }}
                         >
-                          {product.purity}
+                          {getLowestPurity(product)}
                         </div>
                         <div
                           className="font-mono"

@@ -17,11 +17,17 @@ export default function CoAViewer({ product, selectedVariant }: CoAViewerProps) 
 
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
+  // Prism Pro compliance requirement: lp-rt and lp-tz must NOT display CAS number
+  // or molecular weight anywhere on the site. Do not remove this exclusion.
+  const showCasMw = product.slug !== 'lp-rt' && product.slug !== 'lp-tz';
+
   const dataRows = [
     { label: "COMPOUND", value: product.name },
-    { label: "CAS", value: product.casNumber },
-    { label: "MOLECULAR WEIGHT", value: product.mw },
-    { label: "PURITY (HPLC)", value: product.purity },
+    ...(showCasMw ? [
+      { label: "CAS", value: product.casNumber },
+      { label: "MOLECULAR WEIGHT", value: product.mw },
+    ] : []),
+    { label: "PURITY (HPLC)", value: activeCoa?.purity ?? product.purity },
     { label: "IDENTITY (MS)", value: "CONFIRMED" },
     { label: "APPEARANCE", value: product.appearance },
     { label: "TESTED BY", value: activeCoa?.lab || "Independent Laboratory" },
@@ -118,7 +124,22 @@ export default function CoAViewer({ product, selectedVariant }: CoAViewerProps) 
         {/* Footer */}
         <div className="flex items-center justify-between pt-6">
           <div className="font-mono text-xs text-ink opacity-60">
-            Verify · lumo.bio/coa/{activeCoa.lot.toLowerCase().replace(/\-/g, '')}
+            {activeCoa.accessCode ? (
+              <>
+                Verify ·{' '}
+                <a
+                  href="https://koveralabs.com/verify"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  koveralabs.com/verify
+                </a>
+                {' '}(Code: {activeCoa.accessCode})
+              </>
+            ) : (
+              <>Verify · Coming Soon</>
+            )}
           </div>
           <div className="flex items-center space-x-2">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
