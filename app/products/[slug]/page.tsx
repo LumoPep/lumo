@@ -47,14 +47,17 @@ export default function ProductPage() {
 
   const categoryColors = CATEGORY_COLORS[product.category] || CATEGORY_COLORS['Metabolic Research'];
 
-  // Get lot number for current variant
-  const lotNumber = product.batch || (product.lotNumbers ? product.lotNumbers[selectedVariant] : '');
+  // Active COA for the selected variant (drives all COA-derived values on this page)
+  const activeCoa = product.coas?.find(c => c.active && c.size === product.sizes[selectedVariant]) ?? product.coas?.[0];
+
+  // Lot number: prefer activeCoa.lot, fall back to legacy product fields
+  const lotNumber = activeCoa?.lot || product.batch || (product.lotNumbers ? product.lotNumbers[selectedVariant] : '');
 
   // Per-lot purity: falls back to product.purity if the active COA has no purity set
-  const activeCoaPurity =
-    product.coas?.find(c => c.active && c.size === product.sizes[selectedVariant])?.purity
-    ?? product.coas?.[0]?.purity
-    ?? product.purity;
+  const activeCoaPurity = activeCoa?.purity ?? product.purity;
+
+  // Prism Pro compliance: lp-rt and lp-tz must never display CAS or MW
+  const showCasMw = product.slug !== 'lp-rt' && product.slug !== 'lp-tz';
 
   const handleAddToCart = () => {
     const size = product.sizes[selectedVariant];
@@ -481,7 +484,7 @@ export default function ProductPage() {
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1" style={{ fontSize: "10px" }}>
                     REPORT NO.
                   </span>
-                  <span className="font-mono text-sm text-ink font-medium">{product.report}</span>
+                  <span className="font-mono text-sm text-ink font-medium">{activeCoa?.reportNumber ?? product.report}</span>
                 </div>
               </div>
 
@@ -606,8 +609,10 @@ export default function ProductPage() {
               <div className="space-y-3 mb-6">
                 {[
                   { label: "PURITY", value: activeCoaPurity },
-                  { label: "CAS", value: product.casNumber },
-                  { label: "MW", value: product.mw },
+                  ...(showCasMw ? [
+                    { label: "CAS", value: product.casNumber },
+                    { label: "MW", value: product.mw },
+                  ] : []),
                   { label: "APPEARANCE", value: product.appearance },
                 ].map((row, i) => (
                   <div key={i} className="flex items-baseline justify-between">
@@ -637,12 +642,14 @@ export default function ProductPage() {
                 </div>
               </div>
 
-              <button
-                className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all"
+              <a
+                href={activeCoa?.pdfUrl || '#'}
+                download
+                className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all text-center block"
                 style={{ borderRadius: "8px" }}
               >
                 ↓ DOWNLOAD PDF
-              </button>
+              </a>
             </motion.div>
 
             {/* Third-Party Report Card */}
@@ -665,13 +672,13 @@ export default function ProductPage() {
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
                     TESTING LAB
                   </span>
-                  <span className="font-editorial text-sm text-ink">Independent Analytics LLC</span>
+                  <span className="font-editorial text-sm text-ink">{activeCoa?.lab || 'Independent Laboratory'}</span>
                 </div>
                 <div>
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
                     TEST DATE
                   </span>
-                  <span className="font-editorial text-sm text-ink">January 2025</span>
+                  <span className="font-editorial text-sm text-ink">{activeCoa?.analysisDate || 'Coming Soon'}</span>
                 </div>
                 <div>
                   <span className="font-mono text-xs uppercase tracking-mono text-ink opacity-70 block mb-1">
@@ -691,12 +698,25 @@ export default function ProductPage() {
                 </div>
               </div>
 
-              <button
-                className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all"
-                style={{ borderRadius: "8px" }}
-              >
-                ↓ VIEW REPORT
-              </button>
+              {activeCoa?.accessCode ? (
+                <a
+                  href="https://koveralabs.com/verify"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all text-center block"
+                  style={{ borderRadius: "8px" }}
+                >
+                  ↓ VIEW REPORT · {activeCoa.accessCode}
+                </a>
+              ) : (
+                <button
+                  disabled
+                  className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono opacity-40 cursor-not-allowed"
+                  style={{ borderRadius: "8px" }}
+                >
+                  ↓ VIEW REPORT · Coming Soon
+                </button>
+              )}
             </motion.div>
           </div>
         </div>
