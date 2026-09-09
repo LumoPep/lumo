@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Product, CATEGORY_COLORS } from "@/data/products";
 import COAModal from "./COAModal";
+import LumoLogo from "@/components/LumoLogo";
 
 interface CoAViewerProps {
   product: Product;
@@ -43,20 +44,7 @@ export default function CoAViewer({ product, selectedVariant }: CoAViewerProps) 
         {/* Header */}
         <div className="flex items-start justify-between mb-8 pb-6 border-b hairline-border">
           <div className="flex items-center space-x-2">
-            <div className="relative">
-              <span className="font-display text-xl text-ink" style={{ fontWeight: 300 }}>
-                Lumo
-              </span>
-              <div
-                className="absolute bg-clay rounded-full"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  top: "-1px",
-                  right: "-3px",
-                }}
-              />
-            </div>
+            <LumoLogo size="nav" />
           </div>
           <div className="font-mono text-xs uppercase tracking-mono text-ink">
             LOT {activeCoa.lot}
