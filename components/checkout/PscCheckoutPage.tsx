@@ -177,6 +177,7 @@ export default function CheckoutPage() {
       setStaleNotice("");
       setPayError("");
       setStep("pay");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
       setQuoteError(CREATE_ATTEMPT_FAILED);
     } finally {
