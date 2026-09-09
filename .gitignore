@@ -39,3 +39,6 @@ next-env.d.ts
 # serena (local agent config)
 .serena/
 .playwright-mcp/
+
+# local batch directories
+Batch\ 1\ /
