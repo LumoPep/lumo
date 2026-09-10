@@ -249,7 +249,13 @@ function ThankYouContent() {
                 <div className="flex items-start space-x-4">
                   <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">03 —</span>
                   <p className="font-editorial text-sm text-ink opacity-80">
-                    Certificates of analysis are available in your account.
+                    Certificates of analysis for all products are available on each product page.
+                  </p>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">04 —</span>
+                  <p className="font-editorial text-sm text-ink opacity-80">
+                    <a href="/signup" className="text-clay hover:text-ink transition-colors">Create an account</a> to track your orders and view your order history.
                   </p>
                 </div>
               </div>
