@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { useSearchParams } from "next/navigation";
+import { useCartStore } from "@/lib/store";
 import { POLL_UNAVAILABLE } from "@/lib/psc/buyerCopy";
 import { PLATFORM_PK, STRIPE_ACCOUNT } from "@/lib/psc/stripe";
 
@@ -89,12 +90,14 @@ function waitForStripe(ms: number): Promise<StripeBrowser> {
 function ThankYouContent() {
   const searchParams = useSearchParams();
   const orderRef = searchParams.get("order_ref") ?? "";
+  const clearCart = useCartStore((s) => s.clearCart);
   const clientSecret = searchParams.get("payment_intent_client_secret") ?? "";
   const pollRef = useRef<OrderState | null>(null);
   const intentRef = useRef<OrderState | null>(null);
   const [state, setState] = useState<OrderState>("unknown");
 
   useEffect(() => {
+    clearCart();
     pollRef.current = null;
     intentRef.current = null;
     setState("unknown");

@@ -194,7 +194,6 @@ export default function CheckoutPage() {
 
   const handlePaid = (orderRef: string) => {
     setStep("done");
-    clearCart();
     router.push("/thank-you?order_ref=" + orderRef);
   };
 
