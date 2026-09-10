@@ -63,6 +63,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (!mounted) return;
     if (step === "pay") return;
+    if (step === "done") return;
     if (items.length === 0) {
       router.push("/products");
     }
@@ -192,6 +193,7 @@ export default function CheckoutPage() {
   };
 
   const handlePaid = (orderRef: string) => {
+    setStep("done");
     clearCart();
     router.push("/thank-you?order_ref=" + orderRef);
   };
