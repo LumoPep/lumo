@@ -163,16 +163,129 @@ function ThankYouContent() {
     };
   }, [clientSecret, orderRef]);
 
+  const isPaid = state === "paid";
+  const isPending = state === "pending";
+  const isFailed = state === "failed";
+
   return (
-    <div className="min-h-screen bg-bone py-24 px-6 flex items-center justify-center">
-      <div className="text-center max-w-md">
-        <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-3">
-          Order
+    <div className="min-h-screen bg-bone py-16 px-6">
+      <div className="container mx-auto max-w-2xl">
+
+        {/* Header */}
+        <div className="text-center mb-12">
+          <svg width="60" height="60" viewBox="0 0 60 60" className="mx-auto mb-6">
+            {isFailed ? (
+              <>
+                <circle cx="30" cy="30" r="29" stroke="#B8624A" strokeWidth="2" fill="none" />
+                <line x1="20" y1="20" x2="40" y2="40" stroke="#B8624A" strokeWidth="2" strokeLinecap="round" />
+                <line x1="40" y1="20" x2="20" y2="40" stroke="#B8624A" strokeWidth="2" strokeLinecap="round" />
+              </>
+            ) : (
+              <>
+                <circle cx="30" cy="30" r="29" stroke="#607A5C" strokeWidth="2" fill="none" />
+                <polyline points="20,30 28,38 42,22" stroke="#607A5C" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </>
+            )}
+          </svg>
+          <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-3">
+            {isFailed ? "Payment failed" : isPending ? "Processing" : "Order confirmed"}
+          </div>
+          <h1 className="font-display text-4xl text-ink mb-4" style={{ fontWeight: 300 }}>
+            {isFailed
+              ? "Payment not completed"
+              : isPending
+              ? "Payment processing"
+              : "Payment confirmed"}
+          </h1>
+          <p className="font-editorial text-ink opacity-70">
+            {isFailed
+              ? "This payment did not go through. Nothing was charged. Please try again."
+              : isPending
+              ? "Your payment has been received and is being processed. We'll email you once confirmed."
+              : "Your order has been received and is being prepared. A confirmation has been sent to your email."}
+          </p>
         </div>
-        {orderRef ? (
-          <p className="font-mono text-sm text-ink mb-6 break-all">{orderRef}</p>
-        ) : null}
-        <p className="font-editorial text-ink opacity-70">{copyFor(state)}</p>
+
+        {!isFailed && (
+          <>
+            {/* Order ref */}
+            <div className="bg-cream hairline-border p-8 mb-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
+                    Order reference
+                  </p>
+                  <p className="font-mono text-sm text-ink break-all">{orderRef}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
+                    Status
+                  </p>
+                  <p className="font-mono text-sm text-ink">
+                    {isPending ? "Processing" : "Confirmed"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* What happens next */}
+            <div className="bg-cream hairline-border p-8 mb-8">
+              <h2 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-6">
+                What happens next
+              </h2>
+              <div className="space-y-5">
+                <div className="flex items-start space-x-4">
+                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">01 —</span>
+                  <p className="font-editorial text-sm text-ink opacity-80">
+                    A confirmation email is on its way to you now.
+                  </p>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">02 —</span>
+                  <p className="font-editorial text-sm text-ink opacity-80">
+                    Your order will be dispatched within 1–2 business days.
+                  </p>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">03 —</span>
+                  <p className="font-editorial text-sm text-ink opacity-80">
+                    Certificates of analysis are available in your account.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {isFailed ? (
+            <a
+              href="/checkout"
+              className="py-3 px-8 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors text-center"
+            >
+              → Try again
+            </a>
+          ) : (
+            <a
+              href="/products"
+              className="py-3 px-8 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors text-center"
+            >
+              → Continue shopping
+            </a>
+          )}
+          <a
+            href="/contact"
+            className="py-3 px-8 hairline-border text-ink font-mono text-xs uppercase tracking-mono hover:border-clay hover:text-clay transition-colors text-center"
+          >
+            Contact support
+          </a>
+        </div>
+
+        <p className="font-mono text-xs text-ink opacity-30 text-center mt-12">
+          For research use only. Not for human or veterinary use.
+        </p>
+
       </div>
     </div>
   );
