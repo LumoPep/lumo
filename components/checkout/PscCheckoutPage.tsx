@@ -61,10 +61,12 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
+    console.log('[checkout] useEffect fired — mounted:', mounted, 'step:', step, 'items:', items.length);
     if (!mounted) return;
     if (step === "pay") return;
     if (step === "done") return;
     if (items.length === 0) {
+      console.log('[checkout] redirecting to /products — cart empty');
       router.push("/products");
     }
   }, [mounted, step, items, router]);
