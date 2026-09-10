@@ -156,7 +156,7 @@ export default function PscCheckout(props: PscCheckoutProps) {
         return false;
       }
       const pi = result.paymentIntent;
-      if (pi?.status === 'succeeded' && pi.id === data.order_ref) {
+      if (pi?.status === 'succeeded') {
         p.onPaid(data.order_ref);
         return true;
       }
