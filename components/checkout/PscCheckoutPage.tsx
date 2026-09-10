@@ -37,7 +37,7 @@ export default function CheckoutPage() {
     country: "US",
   });
 
-  const [step, setStep] = useState<"review" | "pay">("review");
+  const [step, setStep] = useState<"review" | "pay" | "done">("review");
   const [quotePack, setQuotePack] = useState<{ quote: Quote; sig: string } | null>(null);
   const [quoteError, setQuoteError] = useState("");
   const [staleNotice, setStaleNotice] = useState("");
