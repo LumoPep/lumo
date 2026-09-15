@@ -17,9 +17,10 @@ export interface Product {
   category: string
   badge?: string
   purity: string
+  hasCoa?: boolean   // false = no COA tab, not shown in COA library (e.g. ancillary/solvent products)
   batch?: string
   lotNumbers?: string[]
-  coas: COA[]
+  coas?: COA[]
   report: string
   casNumber?: string
   formula?: string
@@ -791,10 +792,8 @@ export const PRODUCTS: Product[] = [
     name: 'LP-BW Laboratory Solvent',
     category: 'Ancillary',
     purity: 'USP Grade',
+    hasCoa: false,
     batch: 'LMO-0626-BAC-021',
-    coas: [
-      { lot: 'LMO-0626-BAC-021', size: '10ml', lab: 'Independent Lab', reportNumber: 'RPT-20016', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-    ],
     report: 'RPT-20016',
     casNumber: '7732-18-5',
     formula: 'H₂O + 0.9% Benzyl Alcohol',

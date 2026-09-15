@@ -93,7 +93,7 @@ export default function ProductPage() {
     { id: "testing", label: "Testing" },
     { id: "storage", label: "Storage" },
     { id: "research", label: "Research" },
-  ];
+  ].filter(tab => tab.id !== "coa" || product.hasCoa !== false);
 
   return (
     <div className="min-h-screen">
@@ -568,8 +568,8 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Lab Results Section - Bone Background */}
-      <section ref={labResultsRef} className="bg-bone py-16 px-6">
+      {/* Lab Results Section - Bone Background — hidden for products without a COA */}
+      {product.hasCoa !== false && <section ref={labResultsRef} className="bg-bone py-16 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -722,7 +722,7 @@ export default function ProductPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Research Applications Section - Ink Background */}
       <section ref={researchRef} className="bg-ink py-20 px-6">

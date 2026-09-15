@@ -182,18 +182,20 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
 
             {/* 7× Tested Badge */}
-            <div className="mb-3">
-              <span
-                className="text-[10px] tracking-wide uppercase bg-[#607A5C]/10 text-[#3B5438] rounded-full px-2 py-0.5 inline-block"
-                style={{
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontWeight: 500,
-                  letterSpacing: '0.05em',
-                }}
-              >
-                VERIFIED
-              </span>
-            </div>
+            {product.hasCoa !== false && (
+              <div className="mb-3">
+                <span
+                  className="text-[10px] tracking-wide uppercase bg-[#607A5C]/10 text-[#3B5438] rounded-full px-2 py-0.5 inline-block"
+                  style={{
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontWeight: 500,
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  VERIFIED
+                </span>
+              </div>
+            )}
 
             {/* Description - 2 lines max */}
             <p

@@ -202,7 +202,7 @@ export default function CoAPage() {
 
           {/* COA Cards */}
           <div className="space-y-4">
-            {PRODUCTS.map((product, index) => (
+            {PRODUCTS.filter(p => p.hasCoa !== false).map((product, index) => (
               <CoACard key={product.id} product={product} index={index} />
             ))}
           </div>
