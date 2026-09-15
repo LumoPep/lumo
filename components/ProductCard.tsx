@@ -26,6 +26,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   // Special handling for BAC Water - it has 'USP Grade' instead of percentage
   const isUSPGrade = product.purity === 'USP Grade';
 
+  // Dynamic synopsis: use first active COA purity (card has no variant selector)
+  const firstActiveCoa = product.coas?.find(c => c.active && c.size === product.sizes[0]) ?? product.coas?.[0];
+  const synopsisPurity = firstActiveCoa?.purity ? `≥${firstActiveCoa.purity}` : product.purity;
+  const displaySynopsis = product.synopsis.replace('{{PURITY}}', synopsisPurity);
+
   const handleQuickAdd = (sizeIndex: number = 0) => {
     const size = product.sizes[sizeIndex];
     const price = product.prices[sizeIndex];
@@ -209,7 +214,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 overflow: "hidden",
               }}
             >
-              {product.synopsis}
+              {displaySynopsis}
             </p>
 
             {/* Footer Row - Price and CTA */}

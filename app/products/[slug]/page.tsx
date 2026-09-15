@@ -56,6 +56,10 @@ export default function ProductPage() {
   // Per-lot purity: falls back to product.purity if the active COA has no purity set
   const activeCoaPurity = activeCoa?.purity ?? product.purity;
 
+  // Dynamic synopsis: COA purity values are bare numbers (e.g. "99.55%"); product.purity already has ≥ prefix
+  const synopsisPurity = activeCoa?.purity ? `≥${activeCoa.purity}` : product.purity;
+  const displaySynopsis = product.synopsis.replace('{{PURITY}}', synopsisPurity);
+
   // Prism Pro compliance: lp-rt and lp-tz must never display CAS or MW
   const showCasMw = product.slug !== 'lp-rt' && product.slug !== 'lp-tz';
 
@@ -399,7 +403,7 @@ export default function ProductPage() {
 
               {/* Description */}
               <p className="font-editorial text-[#1A1814]/95 mb-5" style={{ fontSize: "15px", lineHeight: 1.5 }}>
-                {product.synopsis}
+                {displaySynopsis}
               </p>
 
               {/* Size Selector */}
