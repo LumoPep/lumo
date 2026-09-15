@@ -125,17 +125,14 @@ export default function CoAViewer({ product, selectedVariant }: CoAViewerProps) 
                     accumarklabs.com/accuverify
                   </a>
                 ) : (
-                  <>
-                    <a
-                      href="https://koveralabs.com/verify"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline hover:opacity-80"
-                    >
-                      koveralabs.com/verify
-                    </a>
-                    {' '}(Code: {activeCoa.accessCode})
-                  </>
+                  <a
+                    href={`https://koveralabs.com/#/verify?code=${activeCoa.reportNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:opacity-80"
+                  >
+                    koveralabs.com/verify
+                  </a>
                 )}
               </>
             ) : (
