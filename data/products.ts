@@ -50,8 +50,8 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     lotNumbers: ['LMO-DS-0626-SMG-001', 'LMO-DS-0626-SMG-002'],
     coas: [
-      { lot: 'LMO-DS-0626-SMG-001', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
-      { lot: 'LMO-DS-0626-SMG-002', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20020', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-SMG-001', size: '5mg', lab: 'Accumark Labs', reportNumber: '3QKX-VLWN', accessCode: '3QKX-VLWN', pdfUrl: '/coa/semaglutide-5mg-SM5.pdf', purity: '99.56%', analysisDate: '09/09/2026', active: true },
+      { lot: 'LMO-DS-0626-SMG-002', size: '10mg', lab: 'Accumark Labs', reportNumber: 'KWMH-SKSQ', accessCode: 'KWMH-SKSQ', pdfUrl: '/coa/semaglutide-10mg-SM10.pdf', purity: '99.57%', analysisDate: '09/10/2026', active: true },
     ],
     report: 'RPT-20020',
     synopsis: 'LP-Sm is a 31-amino-acid synthetic peptide supplied as a lyophilized research reference standard, ≥98.5% purity by HPLC. For in-vitro receptor binding assays and analytical method development. Not for use in any living organism.',
@@ -430,7 +430,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-DS-0626-SRM-003',
     coas: [
-      { lot: 'LMO-DS-0626-SRM-003', size: '5mg', lab: 'Independent Lab', reportNumber: 'RPT-20021', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-SRM-003', size: '5mg', lab: 'Accumark Labs', reportNumber: 'HJJ9-9PZC', accessCode: 'HJJ9-9PZC', pdfUrl: '/coa/sermorelin-5mg-SMO5.pdf', purity: '99.08%', analysisDate: '09/09/2026', active: true },
     ],
     report: 'RPT-20021',
     casNumber: '86168-78-7',
@@ -497,7 +497,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-DS-0626-MT2-005',
     coas: [
-      { lot: 'LMO-DS-0626-MT2-005', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20023', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-MT2-005', size: '10mg', lab: 'Accumark Labs', reportNumber: 'VYCR-M7T4', accessCode: 'VYCR-M7T4', pdfUrl: '/coa/melanotan-2-10mg-ML10.pdf', purity: '99.075%', analysisDate: '09/09/2026', active: true },
     ],
     report: 'RPT-20023',
     casNumber: '121062-08-6',
@@ -596,7 +596,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-DS-0626-EPT-004',
     coas: [
-      { lot: 'LMO-DS-0626-EPT-004', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20022', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-EPT-004', size: '10mg', lab: 'Accumark Labs', reportNumber: 'YCJA-4FKK', accessCode: 'YCJA-4FKK', pdfUrl: '/coa/epithalon-10mg-ET10.pdf', purity: '99.44%', analysisDate: '09/09/2026', active: true },
     ],
     report: 'RPT-20022',
     casNumber: '307297-39-8',
@@ -693,7 +693,7 @@ export const PRODUCTS: Product[] = [
     purity: '98.50%',
     batch: 'LMO-DS-0626-PT1-006',
     coas: [
-      { lot: 'LMO-DS-0626-PT1-006', size: '10mg', lab: 'Independent Lab', reportNumber: 'RPT-20024', accessCode: '', pdfUrl: '/coa/placeholder.pdf', analysisDate: 'Coming Soon', active: true },
+      { lot: 'LMO-DS-0626-PT1-006', size: '10mg', lab: 'Accumark Labs', reportNumber: '8HM6-296A', accessCode: '8HM6-296A', pdfUrl: '/coa/pt-141-10mg-P41.pdf', purity: '99.92%', analysisDate: '09/09/2026', active: true },
     ],
     report: 'RPT-20024',
     casNumber: '189691-06-3',

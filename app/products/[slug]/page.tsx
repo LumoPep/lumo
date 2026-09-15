@@ -700,7 +700,9 @@ export default function ProductPage() {
 
               {activeCoa?.accessCode ? (
                 <a
-                  href="https://koveralabs.com/verify"
+                  href={activeCoa.lab === 'Accumark Labs'
+                    ? `https://accumarklabs.com/accuverify/?accuverify_code=${activeCoa.accessCode}`
+                    : 'https://koveralabs.com/verify'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3 bg-clay text-cream font-mono text-xs uppercase tracking-mono hover:bg-opacity-90 transition-all text-center block"
