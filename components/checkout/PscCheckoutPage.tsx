@@ -67,7 +67,6 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (!mounted) return;
     if (step === "pay") return;
-    if (paidRef.current) return;
     if (items.length === 0) {
       router.push("/products");
     }
