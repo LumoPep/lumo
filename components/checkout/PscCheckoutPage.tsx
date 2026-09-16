@@ -9,6 +9,7 @@ import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
 import PscCheckout from "@/components/psc/PscCheckout";
+import FirstOrderPopup from "@/components/checkout/FirstOrderPopup";
 import type { Quote } from "@/lib/psc/quote";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +54,8 @@ export default function CheckoutPage() {
 
   // First order detection
   const [isFirstOrderFlag, setIsFirstOrderFlag] = useState(false);
+  const [showFirstOrderPopup, setShowFirstOrderPopup] = useState(false);
+  const [popupDismissed, setPopupDismissed] = useState(false);
   const [isCheckingFirstOrder, setIsCheckingFirstOrder] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -96,7 +99,10 @@ export default function CheckoutPage() {
       setIsCheckingFirstOrder(true);
       try {
         const result = await isFirstOrder(formData.email);
-        setIsFirstOrderFlag(result);
+        if (result && !popupDismissed) {
+          setShowFirstOrderPopup(true);
+        }
+        setIsFirstOrderFlag(false);
       } catch (error) {
         console.error("Error checking first order:", error);
         setIsFirstOrderFlag(false);
@@ -230,12 +236,33 @@ export default function CheckoutPage() {
 
   const suggestions = getSuggestions(items);
 
+  const handlePopupUnlock = (email: string) => {
+    setShowFirstOrderPopup(false);
+    setPopupDismissed(true);
+    setIsFirstOrderFlag(true);
+    if (!formData.email) {
+      // pre-fill email if not already filled
+    }
+  };
+
+  const handlePopupDismiss = () => {
+    setShowFirstOrderPopup(false);
+    setPopupDismissed(true);
+    setIsFirstOrderFlag(false);
+  };
+
   if (!mounted) {
     return null;
   }
 
   return (
     <div style={{ backgroundColor: "#F5EFE4", minHeight: "100vh" }} className="py-16 px-3 sm:px-6">
+      {showFirstOrderPopup && (
+        <FirstOrderPopup
+          onUnlock={handlePopupUnlock}
+          onDismiss={handlePopupDismiss}
+        />
+      )}
       <div className="container mx-auto max-w-7xl">
 
         {/* RUO Banner */}
