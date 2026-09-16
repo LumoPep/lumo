@@ -180,36 +180,32 @@ function ThankYouContent() {
   const isFailed = state === "failed";
 
   return (
-    <div className="min-h-screen bg-bone py-16 px-6">
+    <div className="min-h-screen py-16 px-4 sm:px-6" style={{ backgroundColor: "#F5EFE4" }}>
       <div className="container mx-auto max-w-2xl">
 
         {/* Header */}
         <div className="text-center mb-12">
-          <svg width="60" height="60" viewBox="0 0 60 60" className="mx-auto mb-6">
+          <svg width="56" height="56" viewBox="0 0 56 56" className="mx-auto mb-6">
             {isFailed ? (
               <>
-                <circle cx="30" cy="30" r="29" stroke="#B8624A" strokeWidth="2" fill="none" />
-                <line x1="20" y1="20" x2="40" y2="40" stroke="#B8624A" strokeWidth="2" strokeLinecap="round" />
-                <line x1="40" y1="20" x2="20" y2="40" stroke="#B8624A" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="28" cy="28" r="27" stroke="#B8624A" strokeWidth="1.5" fill="none" />
+                <line x1="19" y1="19" x2="37" y2="37" stroke="#B8624A" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="37" y1="19" x2="19" y2="37" stroke="#B8624A" strokeWidth="1.5" strokeLinecap="round" />
               </>
             ) : (
               <>
-                <circle cx="30" cy="30" r="29" stroke="#607A5C" strokeWidth="2" fill="none" />
-                <polyline points="20,30 28,38 42,22" stroke="#607A5C" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="28" cy="28" r="27" stroke="#607A5C" strokeWidth="1.5" fill="none" />
+                <polyline points="18,28 26,36 40,21" stroke="#607A5C" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </>
             )}
           </svg>
-          <div className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-3">
+          <p className="font-mono text-xs uppercase tracking-widest mb-3" style={{ color: "#1A1814", opacity: 0.6, letterSpacing: "0.15em" }}>
             {isFailed ? "Payment failed" : isPending ? "Processing" : "Order confirmed"}
-          </div>
-          <h1 className="font-display text-4xl text-ink mb-4" style={{ fontWeight: 300 }}>
-            {isFailed
-              ? "Payment not completed"
-              : isPending
-              ? "Payment processing"
-              : "Payment confirmed"}
+          </p>
+          <h1 className="font-display mb-4" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 300, color: "#1A1814" }}>
+            {isFailed ? "Payment not completed" : isPending ? "Payment processing" : "Payment confirmed"}
           </h1>
-          <p className="font-editorial text-ink opacity-70">
+          <p className="font-editorial" style={{ fontSize: "1rem", color: "#1A1814", opacity: 0.75, maxWidth: "480px", margin: "0 auto", lineHeight: 1.6 }}>
             {isFailed
               ? "This payment did not go through. Nothing was charged. Please try again."
               : isPending
@@ -220,116 +216,120 @@ function ThankYouContent() {
 
         {!isFailed && (
           <>
-            {/* Order details */}
-            <div className="bg-cream hairline-border p-8 mb-6">
-              <div className="flex justify-between items-start mb-6 pb-6 border-b hairline-border">
+            {/* Order details card */}
+            <div className="mb-6" style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.12)" }}>
+              {/* Order meta */}
+              <div className="flex justify-between items-start px-8 py-6" style={{ borderBottom: "1px solid rgba(26,24,20,0.12)" }}>
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
-                    Order ID
-                  </p>
-                  <p className="font-mono text-sm text-ink">{cleanOrderId ?? orderRef}</p>
+                  <p className="font-mono text-xs uppercase mb-1" style={{ letterSpacing: "0.12em", color: "#1A1814", opacity: 0.55 }}>Order ID</p>
+                  <p className="font-mono text-sm" style={{ color: "#1A1814" }}>{cleanOrderId ?? orderRef}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
-                    Status
-                  </p>
-                  <p className="font-mono text-sm text-ink">
+                  <p className="font-mono text-xs uppercase mb-1" style={{ letterSpacing: "0.12em", color: "#1A1814", opacity: 0.55 }}>Status</p>
+                  <p className="font-mono text-sm" style={{ color: isPending ? "#B8624A" : "#607A5C" }}>
                     {isPending ? "Processing" : "Confirmed"}
                   </p>
                 </div>
               </div>
 
+              {/* Items */}
               {orderItems.length > 0 && (
-                <div className="space-y-4 mb-6">
-                  {orderItems.map((item, index) => (
-                    <div key={index} className="flex justify-between items-start">
-                      <div>
-                        <p className="font-display text-sm text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
-                          {item.productName}
-                        </p>
-                        <p className="font-mono text-xs text-ink opacity-55 mt-0.5">
-                          {item.variant} × {item.quantity}
+                <div className="px-8 py-6" style={{ borderBottom: "1px solid rgba(26,24,20,0.12)" }}>
+                  <div className="space-y-4">
+                    {orderItems.map((item, index) => (
+                      <div key={index} className="flex justify-between items-start">
+                        <div>
+                          <p className="font-display" style={{ fontWeight: 300, fontStyle: "italic", fontSize: "0.95rem", color: "#1A1814" }}>
+                            {item.productName}
+                          </p>
+                          <p className="font-mono mt-0.5" style={{ fontSize: "11px", color: "#1A1814", opacity: 0.6 }}>
+                            {item.variant} × {item.quantity}
+                          </p>
+                        </div>
+                        <p className="font-mono text-sm" style={{ color: "#1A1814" }}>
+                          ${(item.price * item.quantity).toFixed(2)}
                         </p>
                       </div>
-                      <p className="font-mono text-sm text-ink">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
 
+              {/* Total */}
               {orderTotal && (
-                <div className="border-t hairline-border pt-4">
-                  <div className="flex justify-between items-center">
-                    <span className="font-mono text-xs uppercase tracking-mono text-ink font-medium">Total</span>
-                    <span className="font-display text-2xl text-ink" style={{ fontWeight: 300 }}>${orderTotal.toFixed(2)}</span>
-                  </div>
+                <div className="flex justify-between items-center px-8 py-5">
+                  <span className="font-mono text-xs uppercase" style={{ letterSpacing: "0.12em", color: "#1A1814", fontWeight: 600 }}>Total</span>
+                  <span className="font-display" style={{ fontSize: "1.75rem", fontWeight: 300, color: "#1A1814" }}>${orderTotal.toFixed(2)}</span>
                 </div>
               )}
             </div>
 
             {/* What happens next */}
-            <div className="bg-cream hairline-border p-8 mb-8">
-              <h2 className="font-mono text-xs uppercase tracking-mono text-ink font-medium mb-6">
+            <div className="mb-6 px-8 py-7" style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.12)" }}>
+              <h2 className="font-mono text-xs uppercase mb-5" style={{ letterSpacing: "0.12em", color: "#1A1814", fontWeight: 600 }}>
                 What happens next
               </h2>
-              <div className="space-y-5">
-                <div className="flex items-start space-x-4">
-                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">01 —</span>
-                  <p className="font-editorial text-sm text-ink opacity-80">
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <span className="font-mono text-xs flex-shrink-0 mt-0.5" style={{ color: "#B8624A" }}>01 —</span>
+                  <p className="font-editorial text-sm" style={{ color: "#1A1814", opacity: 0.85, lineHeight: 1.6 }}>
                     A confirmation email is on its way to you now.
                   </p>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">02 —</span>
-                  <p className="font-editorial text-sm text-ink opacity-80">
+                <div className="flex items-start gap-4">
+                  <span className="font-mono text-xs flex-shrink-0 mt-0.5" style={{ color: "#B8624A" }}>02 —</span>
+                  <p className="font-editorial text-sm" style={{ color: "#1A1814", opacity: 0.85, lineHeight: 1.6 }}>
                     Your order will be dispatched within 1–2 business days.
                   </p>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">03 —</span>
-                  <p className="font-editorial text-sm text-ink opacity-80">
+                <div className="flex items-start gap-4">
+                  <span className="font-mono text-xs flex-shrink-0 mt-0.5" style={{ color: "#B8624A" }}>03 —</span>
+                  <p className="font-editorial text-sm" style={{ color: "#1A1814", opacity: 0.85, lineHeight: 1.6 }}>
                     Certificates of analysis for all products are available on each product page.
-                  </p>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <span className="font-mono text-xs text-clay flex-shrink-0 mt-0.5">04 —</span>
-                  <p className="font-editorial text-sm text-ink opacity-80">
-                    <a href="/signup" className="text-clay hover:text-ink transition-colors">Create an account</a> to track your orders and view your order history.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* Create account CTA */}
+            <div className="mb-8 px-8 py-7 text-center" style={{ backgroundColor: "#1A1814", border: "1px solid rgba(26,24,20,0.12)" }}>
+              <p className="font-mono text-xs uppercase mb-2" style={{ letterSpacing: "0.12em", color: "#F5EFE4", opacity: 0.6 }}>
+                Track your orders
+              </p>
+              <h3 className="font-display mb-3" style={{ fontSize: "1.5rem", fontWeight: 300, fontStyle: "italic", color: "#F5EFE4" }}>
+                Create an account
+              </h3>
+              <p className="font-editorial text-sm mb-5" style={{ color: "#F5EFE4", opacity: 0.7, lineHeight: 1.6 }}>
+                View your order history, track shipments, and access your certificates of analysis in one place.
+              </p>
+              <a
+                href="/signup"
+                className="inline-block font-mono text-xs uppercase py-3 px-8 transition-colors"
+                style={{ letterSpacing: "0.12em", backgroundColor: "#B8624A", color: "#F5EFE4", borderLeft: "3px solid #F5EFE4" }}
+              >
+                → Create account
+              </a>
+            </div>
           </>
         )}
 
-        {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* Action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           {isFailed ? (
-            <a
-              href="/checkout"
-              className="py-3 px-8 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors text-center"
-            >
+            <a href="/checkout" className="py-3 px-8 text-center font-mono text-xs uppercase transition-colors" style={{ letterSpacing: "0.12em", backgroundColor: "#1A1814", color: "#F5EFE4", borderLeft: "4px solid #B8624A" }}>
               → Try again
             </a>
           ) : (
-            <a
-              href="/products"
-              className="py-3 px-8 bg-ink text-bone font-mono text-xs uppercase tracking-mono hover:bg-clay transition-colors text-center"
-            >
+            <a href="/products" className="py-3 px-8 text-center font-mono text-xs uppercase transition-colors" style={{ letterSpacing: "0.12em", backgroundColor: "#1A1814", color: "#F5EFE4", borderLeft: "4px solid #B8624A" }}>
               → Continue shopping
             </a>
           )}
-          <a
-            href="/contact"
-            className="py-3 px-8 hairline-border text-ink font-mono text-xs uppercase tracking-mono hover:border-clay hover:text-clay transition-colors text-center"
-          >
+          <a href="/contact" className="py-3 px-8 text-center font-mono text-xs uppercase transition-colors" style={{ letterSpacing: "0.12em", border: "1px solid rgba(26,24,20,0.3)", color: "#1A1814" }}>
             Contact support
           </a>
         </div>
 
-        <p className="font-mono text-xs text-ink opacity-30 text-center mt-12">
+        <p className="font-mono text-xs text-center mt-10" style={{ color: "#1A1814", opacity: 0.3, letterSpacing: "0.08em" }}>
           For research use only. Not for human or veterinary use.
         </p>
 
