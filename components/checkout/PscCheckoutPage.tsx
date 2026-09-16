@@ -822,7 +822,7 @@ export default function CheckoutPage() {
                         <div style={{ flex: 1 }}>
                           <div className="flex items-start justify-between gap-2">
                             <a
-                              href={`/products/${item.productId}`}
+                              href={`/products/${productImageMap[item.productId] ? PRODUCTS.find(p => p.id.toString() === item.productId)?.slug ?? item.productId : item.productId}`}
                               className="font-display hover:text-clay transition-colors"
                               style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1rem", color: "#1A1814", lineHeight: 1.2 }}
                             >
