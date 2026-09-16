@@ -36,6 +36,7 @@ export async function submitToRapid(order: any): Promise<void> {
       surname,
       address:  addressLine || '',
       town:     order.city    || '',
+      county:   order.state   || '',
       postcode: order.zip     || '',
       country:  order.country || 'US',
       phone:    order.phone   || '',
