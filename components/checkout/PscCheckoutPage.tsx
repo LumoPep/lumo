@@ -235,7 +235,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div style={{ backgroundColor: "#F5EFE4", minHeight: "100vh" }} className="py-16 px-6">
+    <div style={{ backgroundColor: "#F5EFE4", minHeight: "100vh" }} className="py-16 px-3 sm:px-6">
       <div className="container mx-auto max-w-7xl">
 
         {/* RUO Banner */}
