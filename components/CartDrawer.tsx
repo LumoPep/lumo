@@ -491,7 +491,7 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t hairline-border p-6 space-y-4 bg-cream">
+          <div className="border-t hairline-border px-4 py-2 space-y-2 bg-cream md:px-6 md:py-6 md:space-y-4">
             {/* Shipping pills */}
             <div
               style={{
@@ -552,7 +552,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between">
               <span className="font-mono text-xs uppercase tracking-mono text-ink">Subtotal</span>
               <span
-                className="font-display text-3xl"
+                className="font-display text-2xl md:text-3xl"
                 style={{ fontWeight: 300, color: "#B8624A" }}
               >
                 ${getTotal().toFixed(2)}
