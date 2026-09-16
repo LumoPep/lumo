@@ -821,12 +821,13 @@ export default function CheckoutPage() {
                         )}
                         <div style={{ flex: 1 }}>
                           <div className="flex items-start justify-between gap-2">
-                            <span
-                              className="font-display"
+                            <a
+                              href={`/products/${item.productId}`}
+                              className="font-display hover:text-clay transition-colors"
                               style={{ fontWeight: 300, fontStyle: "italic", fontSize: "1rem", color: "#1A1814", lineHeight: 1.2 }}
                             >
                               {item.productName}
-                            </span>
+                            </a>
                             <span
                               className="font-display flex-shrink-0"
                               style={{ fontWeight: 300, fontSize: "1rem", color: "#1A1814" }}
