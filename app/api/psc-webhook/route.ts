@@ -101,6 +101,25 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ received: true });
       }
       await submitToRapid({ ...row, status: 'paid' });
+      // Send order confirmation email via Resend
+      try {
+        const { orderConfirmationHtml } = await import('@/lib/email/orderConfirmation');
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Lumo <noreply@lumopep.com>',
+            to: [row.email],
+            subject: `Order confirmed — ${row.order_id}`,
+            html: orderConfirmationHtml(row),
+          }),
+        });
+      } catch (emailErr) {
+        console.error('psc-webhook: failed to send order confirmation email', emailErr);
+      }
       await incrementPromo(row.discount_code);
     } else if (event.type === 'payment_intent.payment_failed') {
       const pi = event.data.object as Stripe.PaymentIntent;
