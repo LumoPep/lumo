@@ -58,6 +58,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setMounted(true);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   useEffect(() => {
