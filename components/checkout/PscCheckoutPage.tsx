@@ -807,16 +807,18 @@ export default function CheckoutPage() {
                               filter: "drop-shadow(0 4px 8px rgba(26,24,20,0.12))",
                             }}
                           >
-                            <img
-                              src={productImageMap[item.productId]}
-                              alt=""
-                              aria-hidden="true"
-                              style={{
-                                width: 91,
-                                height: 116,
-                                objectFit: "contain",
-                              }}
-                            />
+                            <a href={`/products/${PRODUCTS.find(p => p.id.toString() === item.productId)?.slug ?? item.productId}`}>
+                              <img
+                                src={productImageMap[item.productId]}
+                                alt=""
+                                aria-hidden="true"
+                                style={{
+                                  width: 91,
+                                  height: 116,
+                                  objectFit: "contain",
+                                }}
+                              />
+                            </a>
                           </div>
                         )}
                         <div style={{ flex: 1 }}>
