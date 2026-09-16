@@ -222,7 +222,7 @@ export default function CartDrawer() {
 
       {/* ── Cart Drawer — slides in first ── */}
       <div
-        className="fixed bottom-0 right-0 h-[75vh] md:h-full md:top-0 flex flex-col bg-bone border-l hairline-border w-screen md:w-[420px] z-50"
+        className="fixed top-0 right-0 h-full flex flex-col bg-bone border-l hairline-border w-screen md:w-[420px] z-50"
         style={{
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 300ms ease-in-out",
@@ -552,7 +552,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between">
               <span className="font-mono text-xs uppercase tracking-mono text-ink">Subtotal</span>
               <span
-                className="font-display text-4xl"
+                className="font-display text-3xl"
                 style={{ fontWeight: 300, color: "#B8624A" }}
               >
                 ${getTotal().toFixed(2)}
@@ -563,7 +563,7 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="block w-full bg-ink text-bone font-mono text-xs uppercase tracking-mono py-4 text-center hover:bg-clay transition-colors"
+              className="block w-full bg-ink text-bone font-mono text-xs uppercase tracking-mono py-3 text-center hover:bg-clay transition-colors"
               style={{ borderLeft: "4px solid #B8624A" }}
             >
               → PROCEED TO CHECKOUT
@@ -571,7 +571,7 @@ export default function CartDrawer() {
 
             <button
               onClick={closeCart}
-              className="block w-full font-mono text-xs uppercase tracking-mono text-ink opacity-60 hover:opacity-100 text-center transition-opacity"
+              className="block w-full font-mono text-xs uppercase tracking-mono text-ink opacity-60 hover:opacity-100 text-center transition-opacity py-1"
             >
               CONTINUE SHOPPING
             </button>
