@@ -95,6 +95,9 @@ function ThankYouContent() {
   const pollRef = useRef<OrderState | null>(null);
   const intentRef = useRef<OrderState | null>(null);
   const [state, setState] = useState<OrderState>("unknown");
+  const [orderItems, setOrderItems] = useState<Array<{ productName: string; variant: string; quantity: number; price: number }>>([]);
+  const [orderTotal, setOrderTotal] = useState<number | null>(null);
+  const [cleanOrderId, setCleanOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     clearCart();
@@ -109,10 +112,19 @@ function ThankYouContent() {
 
     const pollOnce = async () => {
       if (!orderRef) return;
-      const next = await fetchOrderState(orderRef);
-      if (stopped) return;
-      pollRef.current = next;
-      apply();
+      try {
+        const res = await fetch(`/api/psc/order-status?order_ref=${encodeURIComponent(orderRef)}`);
+        const body = await res.json().catch(() => ({}));
+        if (stopped) return;
+        pollRef.current = parseState(body.state);
+        if (body.items?.length > 0) setOrderItems(body.items);
+        if (body.total) setOrderTotal(body.total);
+        if (body.order_id) setCleanOrderId(body.order_id);
+        apply();
+      } catch {
+        pollRef.current = 'unknown';
+        apply();
+      }
     };
 
     void pollOnce();
@@ -208,14 +220,14 @@ function ThankYouContent() {
 
         {!isFailed && (
           <>
-            {/* Order ref */}
+            {/* Order details */}
             <div className="bg-cream hairline-border p-8 mb-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-start mb-6 pb-6 border-b hairline-border">
                 <div>
                   <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
-                    Order reference
+                    Order ID
                   </p>
-                  <p className="font-mono text-sm text-ink break-all">{orderRef}</p>
+                  <p className="font-mono text-sm text-ink">{cleanOrderId ?? orderRef}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-mono text-xs uppercase tracking-mono text-ink opacity-60 mb-1">
@@ -226,6 +238,35 @@ function ThankYouContent() {
                   </p>
                 </div>
               </div>
+
+              {orderItems.length > 0 && (
+                <div className="space-y-4 mb-6">
+                  {orderItems.map((item, index) => (
+                    <div key={index} className="flex justify-between items-start">
+                      <div>
+                        <p className="font-display text-sm text-ink" style={{ fontWeight: 300, fontStyle: "italic" }}>
+                          {item.productName}
+                        </p>
+                        <p className="font-mono text-xs text-ink opacity-55 mt-0.5">
+                          {item.variant} × {item.quantity}
+                        </p>
+                      </div>
+                      <p className="font-mono text-sm text-ink">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {orderTotal && (
+                <div className="border-t hairline-border pt-4">
+                  <div className="flex justify-between items-center">
+                    <span className="font-mono text-xs uppercase tracking-mono text-ink font-medium">Total</span>
+                    <span className="font-display text-2xl text-ink" style={{ fontWeight: 300 }}>${orderTotal.toFixed(2)}</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* What happens next */}

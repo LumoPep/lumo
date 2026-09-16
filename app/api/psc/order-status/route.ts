@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
   try {
     const { data, error } = await supabase
       .from(ORDERS_TABLE)
-      .select('status')
+      .select('status, items, total, order_id')
       .eq('payment_id', orderRef)
       .maybeSingle();
     if (error) {
@@ -44,7 +44,15 @@ export async function GET(request: NextRequest) {
     }
     const status = typeof data?.status === 'string' ? data.status : '';
     if ((STATES as readonly string[]).includes(status)) {
-      return jsonState(status as (typeof STATES)[number]);
+      return NextResponse.json(
+        {
+          state: status as (typeof STATES)[number],
+          items: data?.items ?? [],
+          total: data?.total ?? null,
+          order_id: data?.order_id ?? null,
+        },
+        { headers: { 'cache-control': 'no-store' } },
+      );
     }
     return jsonState('unknown');
   } catch (err) {
