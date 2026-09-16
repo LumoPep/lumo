@@ -217,11 +217,12 @@ export default function CheckoutPage() {
   // Bundle discount is already applied in item prices via the cart store.
   // Pass 0 for quantity so calculateBestDiscount does not apply a bundle tier on top.
   // Promo codes and first-order discounts still evaluate against the subtotal.
+  // If bundle discount is already applied, first order discount should not stack on top.
   const discountResult: DiscountResult = calculateBestDiscount(
     subtotal,
     0,
     promoCode,
-    isFirstOrderFlag
+    bundleSavings > 0 ? false : isFirstOrderFlag
   );
 
   const reviewTotal = discountResult.finalTotal;
