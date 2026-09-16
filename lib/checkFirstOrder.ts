@@ -1,10 +1,12 @@
-import { getSupabase } from './supabase';
+import { pscDb, ORDERS_TABLE } from './psc/db';
 
 export async function isFirstOrder(email: string): Promise<boolean> {
   try {
-    const supabase = getSupabase();
+    const supabase = pscDb();
+    if (!supabase) return false;
+
     const { data, error } = await supabase
-      .from('orders')
+      .from(ORDERS_TABLE)
       .select('id')
       .ilike('email', email)
       .limit(1);
@@ -14,7 +16,6 @@ export async function isFirstOrder(email: string): Promise<boolean> {
       return false;
     }
 
-    // If no orders found, it's a first order
     return !data || data.length === 0;
   } catch (err) {
     console.error('Error checking first order:', err);
