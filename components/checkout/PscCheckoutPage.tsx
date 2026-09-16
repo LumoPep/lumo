@@ -984,7 +984,7 @@ export default function CheckoutPage() {
                     </>
                   ) : (
                     <>
-                  {bundleSavings > 0 && discountResult.type === 'bundle' && (
+                  {bundleSavings > 0 && discountResult.type !== 'first_order' && discountResult.type !== 'promo_percent' && (
                     <div className="flex justify-between items-center">
                       <span
                         className="font-mono uppercase"
