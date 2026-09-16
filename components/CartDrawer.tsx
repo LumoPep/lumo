@@ -5,7 +5,7 @@ import { useCartStore } from "@/lib/store";
 import { PRODUCTS } from "@/data/products";
 import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // Must match md:w-[420px] on the cart drawer
 const CART_W = 420;
@@ -25,8 +25,13 @@ export default function CartDrawer() {
 
   const suggestions = getSuggestions(items).slice(0, 2);
 
+  const cartBodyRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
+    if (isOpen && cartBodyRef.current) {
+      cartBodyRef.current.scrollTop = 0;
+    }
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -252,7 +257,7 @@ export default function CartDrawer() {
         </div>
 
         {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6" ref={cartBodyRef}>
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <span className="text-clay text-4xl mb-4">●</span>
