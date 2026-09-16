@@ -222,7 +222,7 @@ export default function CartDrawer() {
 
       {/* ── Cart Drawer — slides in first ── */}
       <div
-        className="fixed top-0 right-0 h-full flex flex-col bg-bone border-l hairline-border w-screen md:w-[420px] z-50"
+        className="fixed bottom-0 right-0 h-[75vh] md:h-full md:top-0 flex flex-col bg-bone border-l hairline-border w-screen md:w-[420px] z-50"
         style={{
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 300ms ease-in-out",
