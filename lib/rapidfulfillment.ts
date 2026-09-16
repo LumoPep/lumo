@@ -20,6 +20,7 @@ export interface RapidAddress {
   surname: string;
   address: string;      // full address line(s)
   town: string;
+  county?: string;      // state code (e.g. "CA", "TX")
   postcode: string;
   country: string;
   phone: string;
@@ -113,11 +114,12 @@ function addressXml(addr: RapidAddress): string {
     `<surname xsi:type="xsd:string">${xmlEscape(addr.surname)}</surname>`,
     `<address xsi:type="xsd:string">${xmlEscape(addr.address)}</address>`,
     `<town xsi:type="xsd:string">${xmlEscape(addr.town)}</town>`,
+    addr.county ? `<county xsi:type="xsd:string">${xmlEscape(addr.county)}</county>` : '',
     `<postcode xsi:type="xsd:string">${xmlEscape(addr.postcode)}</postcode>`,
     `<country xsi:type="xsd:string">${xmlEscape(addr.country)}</country>`,
     `<phone xsi:type="xsd:string">${xmlEscape(addr.phone)}</phone>`,
     `<email xsi:type="xsd:string">${xmlEscape(addr.email)}</email>`,
-  ].join('\n            ');
+  ].filter(Boolean).join('\n            ');
 }
 
 export async function login(): Promise<string> {
