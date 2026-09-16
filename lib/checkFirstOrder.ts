@@ -1,24 +1,10 @@
-import { pscDb, ORDERS_TABLE } from './psc/db';
-
 export async function isFirstOrder(email: string): Promise<boolean> {
   try {
-    const supabase = pscDb();
-    if (!supabase) return false;
-
-    const { data, error } = await supabase
-      .from(ORDERS_TABLE)
-      .select('id')
-      .ilike('email', email)
-      .limit(1);
-
-    if (error) {
-      console.error('Error checking first order:', error);
-      return false;
-    }
-
-    return !data || data.length === 0;
+    const res = await fetch(`/api/psc/check-first-order?email=${encodeURIComponent(email)}`);
+    const data = await res.json();
+    return data.isFirstOrder ?? true;
   } catch (err) {
-    console.error('Error checking first order:', err);
-    return false;
+    console.error('isFirstOrder: fetch failed', err);
+    return true;
   }
 }
