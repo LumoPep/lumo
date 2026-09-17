@@ -126,6 +126,8 @@ export default function CartDrawer() {
                         height: 96,
                         backgroundColor: "#F5EFE4",
                         border: "1px solid #B8624A",
+                        borderRadius: "8px",
+                        overflow: "hidden",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -281,7 +283,7 @@ export default function CartDrawer() {
                     <div
                       key={`${item.productId}-${item.variant}`}
                       className="bg-bone p-4"
-                      style={{ borderLeft: "3px solid #B8624A" }}
+                      style={{ borderLeft: "3px solid #B8624A", borderRadius: "8px" }}
                     >
                       {/* Top row: image + details + remove */}
                       <div className="flex gap-3 mb-3">
@@ -563,7 +565,7 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="block w-full bg-ink text-bone font-mono text-xs uppercase tracking-mono py-3 text-center hover:bg-clay transition-colors"
+              className="block w-full bg-ink text-bone font-mono text-xs uppercase tracking-mono py-3 text-center hover:bg-clay transition-colors rounded-lg"
               style={{ borderLeft: "4px solid #B8624A" }}
             >
               → PROCEED TO CHECKOUT
