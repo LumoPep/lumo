@@ -15,7 +15,14 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createClient(url, key);
-    await supabase.from('email_captures').upsert(
+    // Sync to Omnisend
+      try {
+        const { omnisendUpsertContact } = await import('@/lib/omnisend');
+        await omnisendUpsertContact({ email: email.toLowerCase().trim(), source: 'first_order_popup' });
+      } catch (omniErr) {
+        console.error('capture-email: omnisend sync failed', omniErr);
+      }
+      await supabase.from('email_captures').upsert(
       { email: email.toLowerCase().trim(), source: 'first_order_popup' },
       { onConflict: 'email' }
     );

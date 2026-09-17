@@ -101,6 +101,13 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ received: true });
       }
       await submitToRapid({ ...row, status: 'paid' });
+      // Sync order to Omnisend
+      try {
+        const { omnisendOrderPlaced } = await import('@/lib/omnisend');
+        await omnisendOrderPlaced(row);
+      } catch (omniErr) {
+        console.error('psc-webhook: omnisend order sync failed', omniErr);
+      }
       // Send order confirmation email via Resend
       try {
         const { orderConfirmationHtml } = await import('@/lib/email/orderConfirmation');
