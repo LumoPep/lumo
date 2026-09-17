@@ -59,6 +59,9 @@ export function orderConfirmationHtml(order: {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Order Confirmed — Lumo</title>
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
+  <style>:root{color-scheme:light only;}@media(prefers-color-scheme:dark){body{background-color:#F5EFE4!important;}}</style>
 </head>
 <body style="margin: 0; padding: 0; background-color: #F5EFE4; font-family: Arial, sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #F5EFE4;">
