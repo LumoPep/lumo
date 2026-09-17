@@ -66,7 +66,7 @@ export function getSuggestions(cartItems: CartItem[]): Product[] {
     if (cartSlugs.has(sugSlug)) continue;
     const product = PRODUCTS.find((p) => p.slug === sugSlug);
     if (product) suggestions.push(product);
-    if (suggestions.length >= 3) break;
+    if (suggestions.length >= 6) break;
   }
 
   return suggestions;
