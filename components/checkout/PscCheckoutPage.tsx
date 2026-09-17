@@ -576,6 +576,7 @@ export default function CheckoutPage() {
                         style={{
                           backgroundColor: "#F5EFE4",
                           border: "1px solid rgba(26,24,20,0.15)",
+                          borderRadius: "8px",
                           padding: "11px 14px",
                           color: "#1A1814",
                         }}
@@ -599,6 +600,7 @@ export default function CheckoutPage() {
                         style={{
                           backgroundColor: "#F5EFE4",
                           border: "1px solid rgba(26,24,20,0.15)",
+                          borderRadius: "8px",
                           padding: "11px 14px",
                           color: "#1A1814",
                         }}
@@ -625,6 +627,7 @@ export default function CheckoutPage() {
                         style={{
                           backgroundColor: "#F5EFE4",
                           border: "1px solid rgba(26,24,20,0.15)",
+                          borderRadius: "8px",
                           padding: "11px 14px",
                           color: "#1A1814",
                         }}
@@ -648,6 +651,7 @@ export default function CheckoutPage() {
                         style={{
                           backgroundColor: "#F5EFE4",
                           border: "1px solid rgba(26,24,20,0.15)",
+                          borderRadius: "8px",
                           padding: "11px 14px",
                           color: "#1A1814",
                         }}
@@ -753,6 +757,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#EBE2CF",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "9px 12px",
                         fontSize: "10px",
                         letterSpacing: "1.5px",
@@ -771,6 +776,7 @@ export default function CheckoutPage() {
                         padding: "9px 14px",
                         fontSize: "10px",
                         letterSpacing: "1.5px",
+                        borderRadius: "8px",
                         opacity: isApplyingPromo || !promoCodeInput.trim() ? 0.45 : 1,
                         cursor: isApplyingPromo || !promoCodeInput.trim() ? "not-allowed" : "pointer",
                         border: "none",
@@ -910,13 +916,13 @@ export default function CheckoutPage() {
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.productId, item.variant, item.quantity - 1)}
-                                className="w-7 h-7 border border-[#1A1814]/15 font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
+                                className="w-7 h-7 border border-[#1A1814]/15 rounded-lg font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
                               >−</button>
                               <span className="font-mono text-xs text-[#1A1814] font-medium w-7 text-center">{item.quantity}</span>
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.productId, item.variant, item.quantity + 1)}
-                                className="w-7 h-7 border border-[#1A1814]/15 font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
+                                className="w-7 h-7 border border-[#1A1814]/15 rounded-lg font-mono text-sm text-[#1A1814] hover:border-[#B8624A] hover:text-[#B8624A] transition-colors flex items-center justify-center"
                               >+</button>
                             </div>
                             <button
@@ -950,6 +956,7 @@ export default function CheckoutPage() {
                       gap: "10px",
                       backgroundColor: "rgba(200,154,60,0.08)",
                       border: "1px solid rgba(200,154,60,0.3)",
+                      borderRadius: "999px",
                       padding: "10px 14px",
                     }}
                   >
@@ -974,6 +981,7 @@ export default function CheckoutPage() {
                       gap: "10px",
                       backgroundColor: "rgba(184,98,74,0.07)",
                       border: "1px solid rgba(184,98,74,0.25)",
+                      borderRadius: "999px",
                       padding: "10px 14px",
                     }}
                   >

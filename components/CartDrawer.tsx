@@ -48,7 +48,7 @@ export default function CartDrawer() {
 
       {/* ADD button hover style */}
       <style>{`
-        .lumo-fbt-add { background-color: #F5EFE4; border: 1px solid rgba(26,24,20,0.2); border-radius: 6px; }
+        .lumo-fbt-add { background-color: #F5EFE4; border: 1px solid rgba(26,24,20,0.2); border-radius: 6px; transition: border-color 150ms ease; }
         .lumo-fbt-add:hover { border-color: #B8624A; }
       `}</style>
 
@@ -100,7 +100,7 @@ export default function CartDrawer() {
           </div>
 
           {/* Product cards */}
-          <div className="flex flex-col">
+          <div className="flex flex-col" style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
             {suggestions.map((product, idx) => {
               const hasMultipleVariants = product.sizes.length > 1;
               return (
@@ -201,11 +201,7 @@ export default function CartDrawer() {
                       style={{
                         width: "100%",
                         padding: "7px 0",
-                        backgroundColor: "#F5EFE4",
-                        border: "1px solid rgba(26,24,20,0.2)",
-                        borderRadius: "6px",
                         cursor: "pointer",
-                        transition: "border-color 150ms ease",
                       }}
                     >
                       <span
@@ -275,7 +271,6 @@ export default function CartDrawer() {
                 {items.map((item) => {
                   const { discount } = getProductDiscount(item.productId);
                   const discountedPrice = item.price * (1 - discount);
-                  const lineTotal = discountedPrice * item.quantity;
                   const product = PRODUCTS.find(
                     (p) => p.id.toString() === item.productId
                   );
@@ -328,17 +323,11 @@ export default function CartDrawer() {
                                 {item.variant}
                               </p>
                               {discount > 0 ? (
-                                <div className="mt-1">
-                                  <p className="font-display text-sm text-ink line-through opacity-50">
-                                    ${item.price.toFixed(2)}
-                                  </p>
-                                  <p className="font-display text-base text-ink">
-                                    ${discountedPrice.toFixed(2)}{" "}
-                                    <span className="text-[10px] font-mono text-[#607A5C]">
-                                      ({(discount * 100).toFixed(0)}% off)
-                                    </span>
-                                  </p>
-                                </div>
+                                <p className="font-display text-sm text-ink mt-1">
+                                  <span className="line-through opacity-50">${item.price.toFixed(2)}</span>{" "}
+                                  ${discountedPrice.toFixed(2)}{" "}
+                                  <span className="text-[10px] font-mono text-[#607A5C]">({(discount * 100).toFixed(0)}% off)</span>
+                                </p>
                               ) : (
                                 <p className="font-display text-base text-ink mt-1">
                                   ${item.price.toFixed(2)}
@@ -356,7 +345,7 @@ export default function CartDrawer() {
                       </div>
 
                       {/* Quantity Controls */}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center">
                         <div className="flex items-center space-x-3">
                           <button
                             onClick={() =>
@@ -377,9 +366,6 @@ export default function CartDrawer() {
                           >
                             +
                           </button>
-                        </div>
-                        <div className="font-display text-ink" style={{ fontWeight: 300 }}>
-                          ${lineTotal.toFixed(2)}
                         </div>
                       </div>
                     </div>
@@ -494,7 +480,7 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t hairline-border px-4 py-2 space-y-2 bg-cream md:px-6 md:py-6 md:space-y-4">
+          <div className="border-t hairline-border px-4 py-2 space-y-2 bg-cream md:px-6 md:py-3 md:space-y-2">
             {/* Shipping pills */}
             <div
               style={{
@@ -557,7 +543,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between">
               <span className="font-mono text-xs uppercase tracking-mono text-ink">Subtotal</span>
               <span
-                className="font-display text-2xl md:text-3xl"
+                className="font-display text-xl md:text-2xl"
                 style={{ fontWeight: 300, color: "#B8624A" }}
               >
                 ${getTotal().toFixed(2)}

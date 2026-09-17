@@ -38,6 +38,7 @@ export default function CartIdlePopup({ onClose, itemCount }: Props) {
           maxWidth: "420px",
           backgroundColor: "#1A1814",
           borderLeft: "4px solid #C89A3C",
+          borderRadius: "16px",
           padding: "24px 28px",
           position: "relative",
           boxShadow: "0 8px 32px rgba(26,24,20,0.4)",
@@ -93,6 +94,7 @@ export default function CartIdlePopup({ onClose, itemCount }: Props) {
               width: "100%",
               padding: "12px 20px",
               backgroundColor: "#B8624A",
+              borderRadius: "8px",
               textAlign: "center",
               cursor: "pointer",
             }}
