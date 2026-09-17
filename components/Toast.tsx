@@ -32,7 +32,7 @@ export default function Toast() {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      <div className="bg-ink text-bone hairline-border p-4 flex items-center space-x-3 min-w-[300px]">
+      <div className="bg-ink text-bone hairline-border p-4 flex items-center space-x-3 min-w-[300px] rounded-xl">
         <span className="text-clay">●</span>
         <p className="font-mono text-xs uppercase tracking-mono">{message}</p>
       </div>

@@ -546,6 +546,7 @@ export default function ResearchGate() {
                 width: "100%",
                 padding: "18px 28px",
                 backgroundColor: canEnter ? "#B8624A" : "transparent",
+                  borderRadius: "8px",
                 border: `1px solid ${canEnter ? "#B8624A" : "rgba(245,239,228,0.14)"}`,
                 color: canEnter ? "#F5EFE4" : "rgba(245,239,228,0.18)",
                 fontFamily: "var(--font-jetbrains), monospace",
