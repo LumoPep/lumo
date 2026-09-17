@@ -138,7 +138,7 @@ export default function NavBar() {
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={toggleCart}
-                className="px-4 py-2 border hairline-border font-mono text-xs uppercase tracking-mono text-ink hover:border-clay transition-colors flex items-center space-x-2"
+                className="px-4 py-2 border hairline-border rounded-lg font-mono text-xs uppercase tracking-mono text-ink hover:border-clay transition-colors flex items-center space-x-2"
               >
                 <span className="text-clay">●</span>
                 <span>CART</span>

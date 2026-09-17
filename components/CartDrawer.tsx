@@ -48,8 +48,8 @@ export default function CartDrawer() {
 
       {/* ADD button hover style */}
       <style>{`
-        .lumo-fbt-add { border-left: 3px solid transparent; }
-        .lumo-fbt-add:hover { border-left-color: rgba(26,24,20,0.35); }
+        .lumo-fbt-add { background-color: #F5EFE4 !important; border: 1px solid rgba(26,24,20,0.2); border-radius: 6px; }
+        .lumo-fbt-add:hover { border-color: #B8624A; }
       `}</style>
 
       {/* ── FBT Side Panel — desktop only, slides in 180ms after cart ── */}
@@ -181,7 +181,7 @@ export default function CartDrawer() {
                     >
                       <span
                         className="font-mono uppercase"
-                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#F5EFE4" }}
+                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814" }}
                       >
                         SELECT
                       </span>
@@ -200,16 +200,17 @@ export default function CartDrawer() {
                       }
                       style={{
                         width: "100%",
-                        padding: "9px 0",
-                        backgroundColor: "#B8624A",
-                        border: "none",
+                        padding: "7px 0",
+                        backgroundColor: "#F5EFE4",
+                        border: "1px solid rgba(26,24,20,0.2)",
+                        borderRadius: "6px",
                         cursor: "pointer",
-                        transition: "border-left-color 150ms ease",
+                        transition: "border-color 150ms ease",
                       }}
                     >
                       <span
                         className="font-mono uppercase"
-                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#F5EFE4" }}
+                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814" }}
                       >
                         + ADD
                       </span>
@@ -361,7 +362,7 @@ export default function CartDrawer() {
                             onClick={() =>
                               updateQuantity(item.productId, item.variant, item.quantity - 1)
                             }
-                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                            className="w-8 h-8 hairline-border rounded-lg font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
                           >
                             −
                           </button>
@@ -372,7 +373,7 @@ export default function CartDrawer() {
                             onClick={() =>
                               updateQuantity(item.productId, item.variant, item.quantity + 1)
                             }
-                            className="w-8 h-8 hairline-border font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
+                            className="w-8 h-8 hairline-border rounded-lg font-mono text-sm text-ink hover:border-clay transition-colors flex items-center justify-center"
                           >
                             +
                           </button>
@@ -513,6 +514,7 @@ export default function CartDrawer() {
                   color: "#F5EFE4",
                   backgroundColor: "#607A5C",
                   padding: "4px 10px",
+                  borderRadius: "999px",
                 }}
               >
                 🚚 FREE SHIPPING $150+
@@ -525,6 +527,7 @@ export default function CartDrawer() {
                   color: "#F5EFE4",
                   backgroundColor: "#607A5C",
                   padding: "4px 10px",
+                  borderRadius: "999px",
                 }}
               >
                 ⚡ 2-DAY DELIVERY
