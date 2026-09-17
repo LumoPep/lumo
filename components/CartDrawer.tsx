@@ -66,6 +66,7 @@ export default function CartDrawer() {
             backgroundColor: "#F5EFE4",
             borderTop: "3px solid #B8624A",
             borderRight: "1px solid #1A1814",
+            borderRadius: "16px 0 0 16px",
             overflow: "hidden",
             transform: isOpen
               ? "translateX(0)"
@@ -228,6 +229,8 @@ export default function CartDrawer() {
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 300ms ease-in-out",
           borderTop: "2px solid #C89A3C",
+          borderRadius: "16px 0 0 16px",
+          overflow: "hidden",
         }}
       >
         {/* Header — Ink background */}
