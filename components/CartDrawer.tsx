@@ -23,7 +23,7 @@ export default function CartDrawer() {
     addItem,
   } = useCartStore();
 
-  const suggestions = getSuggestions(items).slice(0, 2);
+  const suggestions = getSuggestions(items).slice(0, 6);
 
   const cartBodyRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ export default function CartDrawer() {
             backgroundColor: "#F5EFE4",
             borderTop: "3px solid #B8624A",
             borderRight: "1px solid #1A1814",
-            overflowY: "auto",
+            overflow: "hidden",
             transform: isOpen
               ? "translateX(0)"
               : `translateX(calc(100% + ${CART_W}px))`,
@@ -78,7 +78,7 @@ export default function CartDrawer() {
           {/* Header */}
           <div
             style={{
-              padding: "20px 20px 14px",
+              padding: "12px 14px 10px",
               borderBottom: "1px solid rgba(200,154,60,0.2)",
               flexShrink: 0,
             }}
@@ -107,7 +107,7 @@ export default function CartDrawer() {
                 <div
                   key={product.slug}
                   style={{
-                    padding: "16px 20px",
+                    padding: "8px 14px",
                     borderBottom:
                       idx < suggestions.length - 1
                         ? "1px solid rgba(200,154,60,0.3)"
@@ -115,15 +115,16 @@ export default function CartDrawer() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "10px",
+                    gap: "6px",
+                    flexShrink: 0,
                   }}
                 >
                   {/* Product image — Bone bg, Clay 1px border */}
                   {product.images[0] && (
                     <div
                       style={{
-                        width: 96,
-                        height: 96,
+                        width: 64,
+                        height: 64,
                         backgroundColor: "#F5EFE4",
                         border: "1px solid #B8624A",
                         borderRadius: "8px",
@@ -137,18 +138,18 @@ export default function CartDrawer() {
                       <img
                         src={product.images[0]}
                         alt={product.name}
-                        style={{ width: 96, height: 96, objectFit: "contain" }}
+                        style={{ width: 64, height: 64, objectFit: "contain" }}
                       />
                     </div>
                   )}
 
-                  {/* Product name — Fraunces italic, 15px */}
+                  {/* Product name */}
                   <div
                     className="font-display"
                     style={{
                       fontWeight: 300,
                       fontStyle: "italic",
-                      fontSize: "15px",
+                      fontSize: "12px",
                       color: "#1A1814",
                       textAlign: "center",
                       lineHeight: 1.3,
@@ -160,7 +161,7 @@ export default function CartDrawer() {
                   {/* Price — Ochre */}
                   <div
                     className="font-mono"
-                    style={{ fontSize: "12px", color: "#C89A3C", textAlign: "center" }}
+                    style={{ fontSize: "10px", color: "#C89A3C", textAlign: "center" }}
                   >
                     ${product.prices[0]}
                   </div>
@@ -173,15 +174,16 @@ export default function CartDrawer() {
                       style={{
                         display: "block",
                         width: "100%",
-                        padding: "9px 0",
+                        padding: "5px 0",
                         backgroundColor: "#1A1814",
                         textAlign: "center",
                         textDecoration: "none",
+                        borderRadius: "6px",
                       }}
                     >
                       <span
                         className="font-mono uppercase"
-                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814" }}
+                        style={{ fontSize: "8px", letterSpacing: "2px", color: "#F5EFE4" }}
                       >
                         SELECT
                       </span>
@@ -200,13 +202,13 @@ export default function CartDrawer() {
                       }
                       style={{
                         width: "100%",
-                        padding: "7px 0",
+                        padding: "5px 0",
                         cursor: "pointer",
                       }}
                     >
                       <span
                         className="font-mono uppercase"
-                        style={{ fontSize: "9px", letterSpacing: "2px", color: "#1A1814" }}
+                        style={{ fontSize: "8px", letterSpacing: "2px", color: "#1A1814" }}
                       >
                         + ADD
                       </span>
