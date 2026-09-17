@@ -19,7 +19,7 @@ export default function EmailCapturePopup({ onClose }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    await fetch("https://formspree.io/f/xqpzqavr", {
+    await fetch("/api/capture-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, source: "popup_email_capture" }),
