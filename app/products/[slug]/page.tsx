@@ -63,7 +63,7 @@ export default function ProductPage() {
   // Prism Pro compliance: lp-rt and lp-tz must never display CAS or MW
   const showCasMw = product.slug !== 'lp-rt' && product.slug !== 'lp-tz';
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const size = product.sizes[selectedVariant];
     const basePrice = product.prices[selectedVariant];
     const sku = product.skus[selectedVariant];
@@ -82,6 +82,11 @@ export default function ProductPage() {
       });
     }
 
+    // Track add to cart in Omnisend
+    try {
+      const { omnisendTrackAddToCart } = await import('@/lib/omnisend-browser');
+      omnisendTrackAddToCart({ productId: product.id.toString(), productName: product.name, variant: size, price: basePrice, productUrl: window.location.href });
+    } catch {}
     showToast(`Added ${totalItems}x ${product.name} (${size}) to cart`);
     openCart();
   };

@@ -62,6 +62,14 @@ export default function CheckoutPage() {
   useEffect(() => {
     setMounted(true);
     window.scrollTo({ top: 0, behavior: 'instant' });
+    // Track started checkout in Omnisend
+    void (async () => {
+      try {
+        const { omnisendTrackStartedCheckout } = await import('@/lib/omnisend-browser');
+        const { items, getTotal } = useCartStore.getState();
+        omnisendTrackStartedCheckout({ cartTotal: getTotal(), items: items.map(i => ({ productId: i.productId, productName: i.productName, variant: i.variant, price: i.price, quantity: i.quantity })) });
+      } catch {}
+    })();
   }, []);
 
   useEffect(() => {
