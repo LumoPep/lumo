@@ -33,13 +33,18 @@ export async function omnisendUpsertContact(params: {
   email: string;
   firstName?: string;
   lastName?: string;
+  phone?: string;
   source?: string;
 }): Promise<void> {
   const nameParts = params.firstName
     ? { firstName: params.firstName, lastName: params.lastName ?? '' }
     : {};
+  const identifiers: unknown[] = [{ type: 'email', id: params.email, channels: { email: { status: 'subscribed', statusDate: new Date().toISOString() } } }];
+  if (params.phone) {
+    identifiers.push({ type: 'phone', id: params.phone, channels: { sms: { status: 'subscribed', statusDate: new Date().toISOString() } } });
+  }
   await post('/contacts', {
-    identifiers: [{ type: 'email', id: params.email, channels: { email: { status: 'subscribed', statusDate: new Date().toISOString() } } }],
+    identifiers,
     ...nameParts,
     sendWelcomeEmail: false,
   });
@@ -63,7 +68,7 @@ export async function omnisendOrderPlaced(order: {
   const lastName = spaceIdx > 0 ? fullName.slice(spaceIdx + 1) : '';
 
   // Upsert contact first
-  await omnisendUpsertContact({ email: order.email, firstName, lastName });
+  await omnisendUpsertContact({ email: order.email, firstName, lastName, phone: (order as any).phone || undefined });
 
   // Send order event
   await post('/orders', {
