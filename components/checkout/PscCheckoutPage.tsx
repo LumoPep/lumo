@@ -403,6 +403,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -427,6 +428,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -450,6 +452,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -473,6 +476,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -522,6 +526,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -545,6 +550,7 @@ export default function CheckoutPage() {
                       style={{
                         backgroundColor: "#F5EFE4",
                         border: "1px solid rgba(26,24,20,0.15)",
+                        borderRadius: "8px",
                         padding: "11px 14px",
                         color: "#1A1814",
                       }}
@@ -665,7 +671,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={!addressValid || isQuoting}
-                className="w-full flex items-center justify-center gap-3 transition-all font-mono uppercase"
+                className="w-full flex items-center justify-center gap-3 transition-all font-mono uppercase rounded-lg"
                 style={{
                   backgroundColor: !addressValid || isQuoting ? "rgba(26,24,20,0.5)" : "#1A1814",
                   color: "#EBE2CF",
@@ -1326,6 +1332,7 @@ export default function CheckoutPage() {
                         style={{
                           backgroundColor: "#B8624A",
                           border: "none",
+                          borderRadius: "8px",
                           cursor: "pointer",
                           padding: "9px 12px",
                           flexShrink: 0,

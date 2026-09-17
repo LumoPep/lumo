@@ -48,7 +48,7 @@ export default function CartDrawer() {
 
       {/* ADD button hover style */}
       <style>{`
-        .lumo-fbt-add { background-color: #F5EFE4 !important; border: 1px solid rgba(26,24,20,0.2); border-radius: 6px; }
+        .lumo-fbt-add { background-color: #F5EFE4; border: 1px solid rgba(26,24,20,0.2); border-radius: 6px; }
         .lumo-fbt-add:hover { border-color: #B8624A; }
       `}</style>
 
