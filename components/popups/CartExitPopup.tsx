@@ -41,6 +41,7 @@ export default function CartExitPopup({ onClose, items }: Props) {
           width: "100%",
           maxWidth: "520px",
           backgroundColor: "#1A1814",
+          borderRadius: "16px",
           borderTop: "3px solid #B8624A",
           padding: "40px 36px",
           position: "relative",

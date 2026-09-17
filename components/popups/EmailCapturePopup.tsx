@@ -52,6 +52,7 @@ export default function EmailCapturePopup({ onClose }: Props) {
           width: "100%",
           maxWidth: "480px",
           backgroundColor: "#1A1814",
+          borderRadius: "16px",
           borderTop: "3px solid #B8624A",
           padding: "40px 36px",
           position: "relative",
@@ -147,7 +148,7 @@ export default function EmailCapturePopup({ onClose }: Props) {
                   color: "#1A1814",
                   outline: "none",
                   boxSizing: "border-box",
-                  borderRadius: 0,
+                  borderRadius: 8,
                   marginBottom: "12px",
                   fontFamily: "Inter Tight, sans-serif",
                 }}
@@ -161,7 +162,7 @@ export default function EmailCapturePopup({ onClose }: Props) {
                   backgroundColor: submitting ? "rgba(184,98,74,0.6)" : "#B8624A",
                   border: "none",
                   cursor: submitting ? "not-allowed" : "pointer",
-                  borderRadius: 0,
+                  borderRadius: 8,
                 }}
               >
                 <span

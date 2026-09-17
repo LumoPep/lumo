@@ -147,7 +147,7 @@ export default function ExitIntentPopup({ onClose }: Props) {
                   color: "#1A1814",
                   outline: "none",
                   boxSizing: "border-box",
-                  borderRadius: 0,
+                  borderRadius: 8,
                   marginBottom: "12px",
                   fontFamily: "Inter Tight, sans-serif",
                 }}
@@ -161,7 +161,7 @@ export default function ExitIntentPopup({ onClose }: Props) {
                   backgroundColor: submitting ? "rgba(184,98,74,0.6)" : "#B8624A",
                   border: "none",
                   cursor: submitting ? "not-allowed" : "pointer",
-                  borderRadius: 0,
+                  borderRadius: 8,
                 }}
               >
                 <span

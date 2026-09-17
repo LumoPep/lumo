@@ -49,6 +49,7 @@ export default function BacWaterPopup({ onClose }: Props) {
       <div
         style={{
           backgroundColor: "#1A1814",
+          borderRadius: "16px",
           borderTop: "3px solid #B8624A",
           padding: "24px 24px 20px",
           position: "relative",
