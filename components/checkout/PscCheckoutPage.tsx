@@ -30,6 +30,7 @@ export default function CheckoutPage() {
     email: "",
     name: "",
     institution: "",
+    phone: "",
     address1: "",
     address2: "",
     city: "",
@@ -453,6 +454,29 @@ export default function CheckoutPage() {
                         color: "#1A1814",
                       }}
                       placeholder="Optional"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      className="block font-functional uppercase mb-1.5"
+                      style={{ fontSize: "11px", letterSpacing: "1.5px", color: "#1A1814" }}
+                    >
+                      Phone <span style={{ opacity: 0.5, textTransform: "none", fontSize: "10px" }}>— for SMS order updates (optional)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone ?? ""}
+                      onChange={handleChange}
+                      className="w-full focus:outline-none font-functional text-sm"
+                      style={{
+                        backgroundColor: "#F5EFE4",
+                        border: "1px solid rgba(26,24,20,0.15)",
+                        padding: "11px 14px",
+                        color: "#1A1814",
+                      }}
+                      placeholder="+1 (555) 000-0000"
                     />
                   </div>
 
