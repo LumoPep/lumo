@@ -791,7 +791,7 @@ export default function AccountPage() {
                           }}
                         >
                           <Link
-                            href="/compounds"
+                            href="/products"
                             className="font-mono uppercase"
                             style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
                           >
