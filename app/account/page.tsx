@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
+import { useCartStore } from "@/lib/store";
 import { OrderCard, type Order } from "@/components/OrderCard";
 
 export default function AccountPage() {
@@ -32,6 +34,11 @@ export default function AccountPage() {
   const [nameLoading, setNameLoading] = useState(false);
   const [nameSuccess, setNameSuccess] = useState(false);
   const [nameError, setNameError]     = useState<string | null>(null);
+
+  // ── UI hover state ─────────────────────────────────────────
+  const [hoveredBtn, setHoveredBtn]   = useState<string | null>(null);
+
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     const supabase = createClient();
@@ -442,226 +449,358 @@ export default function AccountPage() {
                     </p>
                   </div>
 
-                  {/* ── SECTION 1: PASSWORD ───────────────────────── */}
-                  <div
-                    style={{
-                      backgroundColor: "#EBE2CF",
-                      borderLeft: "3px solid #B8624A",
-                      padding: "24px 28px",
-                      marginBottom: "16px",
-                    }}
-                  >
-                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
-                      <span
-                        className="font-mono"
-                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
-                      >
-                        PASSWORD
-                      </span>
-                    </div>
+                  {/* Two-column layout: settings left, product panel right */}
+                  <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
 
-                    <form onSubmit={handlePasswordUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                      <div>
-                        <label
-                          className="font-mono"
-                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
-                        >
-                          New Password
-                        </label>
-                        <input
-                          type="password"
-                          required
-                          value={pwNew}
-                          onChange={(e) => setPwNew(e.target.value)}
-                          className="font-functional w-full"
-                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
-                        />
-                      </div>
-                      <div>
-                        <label
-                          className="font-mono"
-                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
-                        >
-                          Confirm New Password
-                        </label>
-                        <input
-                          type="password"
-                          required
-                          value={pwConfirm}
-                          onChange={(e) => setPwConfirm(e.target.value)}
-                          className="font-functional w-full"
-                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
-                        />
-                      </div>
+                    {/* Left: settings panels */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
 
-                      {pwSuccess && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
-                          Password updated.
-                        </p>
-                      )}
-                      {pwError && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
-                          {pwError}
-                        </p>
-                      )}
-
-                      <button
-                        type="submit"
-                        disabled={pwLoading}
-                        className="font-mono uppercase w-full"
+                      {/* ── SECTION 1: PASSWORD ───────────────────────── */}
+                      <div
                         style={{
-                          padding: "11px",
-                          backgroundColor: pwLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
-                          color: "#F5EFE4",
-                          fontSize: "10px",
-                          letterSpacing: "2px",
-                          border: "none",
-                          cursor: pwLoading ? "not-allowed" : "pointer",
-                          marginTop: "4px",
+                          backgroundColor: "#EBE2CF",
+                          borderLeft: "2px solid rgba(184,98,74,0.4)",
+                          padding: "24px 28px",
+                          marginBottom: "16px",
                         }}
                       >
-                        {pwLoading ? "UPDATING…" : "→ UPDATE PASSWORD"}
-                      </button>
-                    </form>
-                  </div>
+                        <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                          >
+                            PASSWORD
+                          </span>
+                        </div>
 
-                  {/* ── SECTION 2: EMAIL ───────────────────────────── */}
-                  <div
-                    style={{
-                      backgroundColor: "#EBE2CF",
-                      borderLeft: "3px solid #B8624A",
-                      padding: "24px 28px",
-                      marginBottom: "16px",
-                    }}
-                  >
-                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
-                      <span
-                        className="font-mono"
-                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
-                      >
-                        EMAIL ADDRESS
-                      </span>
-                    </div>
+                        <form onSubmit={handlePasswordUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                          <div>
+                            <label
+                              className="font-mono"
+                              style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                            >
+                              New Password
+                            </label>
+                            <input
+                              type="password"
+                              required
+                              value={pwNew}
+                              onChange={(e) => setPwNew(e.target.value)}
+                              className="font-functional w-full"
+                              style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                            />
+                          </div>
+                          <div>
+                            <label
+                              className="font-mono"
+                              style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                            >
+                              Confirm New Password
+                            </label>
+                            <input
+                              type="password"
+                              required
+                              value={pwConfirm}
+                              onChange={(e) => setPwConfirm(e.target.value)}
+                              className="font-functional w-full"
+                              style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                            />
+                          </div>
 
-                    <form onSubmit={handleEmailUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                      <div>
-                        <label
-                          className="font-mono"
-                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
-                        >
-                          New Email Address
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={newEmail}
-                          onChange={(e) => setNewEmail(e.target.value)}
-                          className="font-functional w-full"
-                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
-                        />
+                          {pwSuccess && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                              Password updated.
+                            </p>
+                          )}
+                          {pwError && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                              {pwError}
+                            </p>
+                          )}
+
+                          <button
+                            type="submit"
+                            disabled={pwLoading}
+                            onMouseEnter={() => setHoveredBtn("pw")}
+                            onMouseLeave={() => setHoveredBtn(null)}
+                            className="font-mono uppercase w-full"
+                            style={{
+                              padding: "11px",
+                              backgroundColor: pwLoading ? "rgba(184,98,74,0.5)" : hoveredBtn === "pw" ? "#B8624A" : "transparent",
+                              color: pwLoading || hoveredBtn === "pw" ? "#F5EFE4" : "#1A1814",
+                              fontSize: "10px",
+                              letterSpacing: "2px",
+                              border: hoveredBtn === "pw" ? "1px solid #B8624A" : "1px solid rgba(26,24,20,0.25)",
+                              borderRadius: "8px",
+                              cursor: pwLoading ? "not-allowed" : "pointer",
+                              marginTop: "4px",
+                              transition: "all 150ms ease",
+                            }}
+                          >
+                            {pwLoading ? "UPDATING…" : "→ UPDATE PASSWORD"}
+                          </button>
+                        </form>
                       </div>
 
-                      {emailSuccess && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
-                          Check your inbox to confirm your new email address.
-                        </p>
-                      )}
-                      {emailError && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
-                          {emailError}
-                        </p>
-                      )}
-
-                      <button
-                        type="submit"
-                        disabled={emailLoading}
-                        className="font-mono uppercase w-full"
+                      {/* ── SECTION 2: EMAIL ───────────────────────────── */}
+                      <div
                         style={{
-                          padding: "11px",
-                          backgroundColor: emailLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
-                          color: "#F5EFE4",
-                          fontSize: "10px",
-                          letterSpacing: "2px",
-                          border: "none",
-                          cursor: emailLoading ? "not-allowed" : "pointer",
-                          marginTop: "4px",
+                          backgroundColor: "#EBE2CF",
+                          borderLeft: "2px solid rgba(184,98,74,0.4)",
+                          padding: "24px 28px",
+                          marginBottom: "16px",
                         }}
                       >
-                        {emailLoading ? "UPDATING…" : "→ UPDATE EMAIL"}
-                      </button>
-                    </form>
-                  </div>
+                        <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                          >
+                            EMAIL ADDRESS
+                          </span>
+                        </div>
 
-                  {/* ── SECTION 3: DISPLAY NAME ────────────────────── */}
-                  <div
-                    style={{
-                      backgroundColor: "#EBE2CF",
-                      borderLeft: "3px solid #B8624A",
-                      padding: "24px 28px",
-                    }}
-                  >
-                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
-                      <span
-                        className="font-mono"
-                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
-                      >
-                        DISPLAY NAME
-                      </span>
-                    </div>
+                        <form onSubmit={handleEmailUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                          <div>
+                            <label
+                              className="font-mono"
+                              style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                            >
+                              New Email Address
+                            </label>
+                            <input
+                              type="email"
+                              required
+                              value={newEmail}
+                              onChange={(e) => setNewEmail(e.target.value)}
+                              className="font-functional w-full"
+                              style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                            />
+                          </div>
 
-                    <form onSubmit={handleNameUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                      <div>
-                        <label
-                          className="font-mono"
-                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
-                        >
-                          First Name
-                        </label>
-                        <input
-                          type="text"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          placeholder="e.g. Jordan"
-                          className="font-functional w-full"
-                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
-                        />
-                        <p
-                          className="font-mono"
-                          style={{ fontSize: "9px", color: "#1A1814", opacity: 0.4, marginTop: "5px", letterSpacing: "0.5px" }}
-                        >
-                          Used for personalised order confirmation emails.
-                        </p>
+                          {emailSuccess && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                              Check your inbox to confirm your new email address.
+                            </p>
+                          )}
+                          {emailError && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                              {emailError}
+                            </p>
+                          )}
+
+                          <button
+                            type="submit"
+                            disabled={emailLoading}
+                            onMouseEnter={() => setHoveredBtn("email")}
+                            onMouseLeave={() => setHoveredBtn(null)}
+                            className="font-mono uppercase w-full"
+                            style={{
+                              padding: "11px",
+                              backgroundColor: emailLoading ? "rgba(184,98,74,0.5)" : hoveredBtn === "email" ? "#B8624A" : "transparent",
+                              color: emailLoading || hoveredBtn === "email" ? "#F5EFE4" : "#1A1814",
+                              fontSize: "10px",
+                              letterSpacing: "2px",
+                              border: hoveredBtn === "email" ? "1px solid #B8624A" : "1px solid rgba(26,24,20,0.25)",
+                              borderRadius: "8px",
+                              cursor: emailLoading ? "not-allowed" : "pointer",
+                              marginTop: "4px",
+                              transition: "all 150ms ease",
+                            }}
+                          >
+                            {emailLoading ? "UPDATING…" : "→ UPDATE EMAIL"}
+                          </button>
+                        </form>
                       </div>
 
-                      {nameSuccess && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
-                          Name updated.
-                        </p>
-                      )}
-                      {nameError && (
-                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
-                          {nameError}
-                        </p>
-                      )}
-
-                      <button
-                        type="submit"
-                        disabled={nameLoading}
-                        className="font-mono uppercase w-full"
+                      {/* ── SECTION 3: DISPLAY NAME ────────────────────── */}
+                      <div
                         style={{
-                          padding: "11px",
-                          backgroundColor: nameLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
-                          color: "#F5EFE4",
-                          fontSize: "10px",
-                          letterSpacing: "2px",
-                          border: "none",
-                          cursor: nameLoading ? "not-allowed" : "pointer",
-                          marginTop: "4px",
+                          backgroundColor: "#EBE2CF",
+                          borderLeft: "2px solid rgba(184,98,74,0.4)",
+                          padding: "24px 28px",
                         }}
                       >
-                        {nameLoading ? "SAVING…" : "→ UPDATE NAME"}
-                      </button>
-                    </form>
+                        <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                          >
+                            DISPLAY NAME
+                          </span>
+                        </div>
+
+                        <form onSubmit={handleNameUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                          <div>
+                            <label
+                              className="font-mono"
+                              style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                            >
+                              First Name
+                            </label>
+                            <input
+                              type="text"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              placeholder="e.g. Jordan"
+                              className="font-functional w-full"
+                              style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                            />
+                            <p
+                              className="font-mono"
+                              style={{ fontSize: "9px", color: "#1A1814", opacity: 0.4, marginTop: "5px", letterSpacing: "0.5px" }}
+                            >
+                              Used for personalised order confirmation emails.
+                            </p>
+                          </div>
+
+                          {nameSuccess && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                              Name updated.
+                            </p>
+                          )}
+                          {nameError && (
+                            <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                              {nameError}
+                            </p>
+                          )}
+
+                          <button
+                            type="submit"
+                            disabled={nameLoading}
+                            onMouseEnter={() => setHoveredBtn("name")}
+                            onMouseLeave={() => setHoveredBtn(null)}
+                            className="font-mono uppercase w-full"
+                            style={{
+                              padding: "11px",
+                              backgroundColor: nameLoading ? "rgba(184,98,74,0.5)" : hoveredBtn === "name" ? "#B8624A" : "transparent",
+                              color: nameLoading || hoveredBtn === "name" ? "#F5EFE4" : "#1A1814",
+                              fontSize: "10px",
+                              letterSpacing: "2px",
+                              border: hoveredBtn === "name" ? "1px solid #B8624A" : "1px solid rgba(26,24,20,0.25)",
+                              borderRadius: "8px",
+                              cursor: nameLoading ? "not-allowed" : "pointer",
+                              marginTop: "4px",
+                              transition: "all 150ms ease",
+                            }}
+                          >
+                            {nameLoading ? "SAVING…" : "→ UPDATE NAME"}
+                          </button>
+                        </form>
+                      </div>
+
+                    </div>
+
+                    {/* Right: product panel (desktop only) */}
+                    <div className="hidden lg:block" style={{ width: "280px", flexShrink: 0 }}>
+                      <div
+                        style={{
+                          backgroundColor: "#EBE2CF",
+                          border: "1px solid rgba(26,24,20,0.1)",
+                        }}
+                      >
+                        {/* Panel header */}
+                        <div
+                          style={{
+                            borderLeft: "2px solid #C89A3C",
+                            paddingLeft: "10px",
+                            margin: "20px 20px 16px",
+                          }}
+                        >
+                          <span
+                            className="font-mono"
+                            style={{ fontSize: "9px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                          >
+                            YOU MIGHT ALSO NEED
+                          </span>
+                        </div>
+
+                        {/* Products */}
+                        <div style={{ padding: "0 12px 4px" }}>
+                          {([
+                            { slug: "bac-water", name: "LP-BW Laboratory Solvent", purity: "USP Grade", image: "/images/products/bac-water-v2.png", size: "10ml", price: 15, sku: "BACW-10" },
+                            { slug: "cjc-ipamorelin", name: "CJC+Ipamorelin", purity: "98.60%", image: "/images/products/cjc-ipamorelin-v2.png", size: "10mg", price: 70, sku: "CJCIPA-10" },
+                            { slug: "ghk-cu", name: "GHK-Cu", purity: "99.08%", image: "/images/products/ghk-cu-v2.png", size: "100mg", price: 50, sku: "GHKCU-100" },
+                          ] as const).map((p, i, arr) => (
+                            <div
+                              key={p.slug}
+                              style={{
+                                display: "flex",
+                                gap: "10px",
+                                alignItems: "flex-start",
+                                paddingBottom: "14px",
+                                marginBottom: i < arr.length - 1 ? "14px" : 0,
+                                borderBottom: i < arr.length - 1 ? "1px solid rgba(26,24,20,0.08)" : "none",
+                              }}
+                            >
+                              <Image
+                                src={p.image}
+                                alt={p.name}
+                                width={64}
+                                height={64}
+                                style={{ objectFit: "contain", flexShrink: 0 }}
+                              />
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div
+                                  className="font-display"
+                                  style={{ fontWeight: 300, fontStyle: "italic", fontSize: "13px", color: "#1A1814", lineHeight: 1.3, marginBottom: "3px" }}
+                                >
+                                  {p.name}
+                                </div>
+                                <div
+                                  className="font-mono"
+                                  style={{ fontSize: "9px", color: "#C89A3C", letterSpacing: "1px", marginBottom: "6px" }}
+                                >
+                                  {p.purity}
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px" }}>
+                                  <span
+                                    className="font-functional"
+                                    style={{ fontSize: "12px", color: "#1A1814" }}
+                                  >
+                                    ${p.price}
+                                  </span>
+                                  <button
+                                    onClick={() => addItem({ productId: p.slug, productName: p.name, variant: p.size, price: p.price, sku: p.sku })}
+                                    className="font-mono uppercase"
+                                    style={{
+                                      padding: "5px 10px",
+                                      backgroundColor: "#B8624A",
+                                      color: "#F5EFE4",
+                                      fontSize: "8px",
+                                      letterSpacing: "1px",
+                                      border: "none",
+                                      cursor: "pointer",
+                                      borderRadius: "4px",
+                                      flexShrink: 0,
+                                    }}
+                                  >
+                                    ADD TO CART
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* View all link */}
+                        <div
+                          style={{
+                            padding: "12px 20px",
+                            borderTop: "1px solid rgba(26,24,20,0.08)",
+                          }}
+                        >
+                          <Link
+                            href="/compounds"
+                            className="font-mono uppercase"
+                            style={{ fontSize: "9px", letterSpacing: "1.5px", color: "#B8624A" }}
+                          >
+                            → View all compounds
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </motion.div>
               )}
