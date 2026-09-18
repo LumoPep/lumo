@@ -7,6 +7,17 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase-browser";
 
+function getPasswordStrength(pw: string): { level: number; label: string; color: string } {
+  if (pw.length < 8) return { level: 1, label: "WEAK",   color: "#B8624A" };
+  const hasLower   = /[a-z]/.test(pw);
+  const hasUpper   = /[A-Z]/.test(pw);
+  const hasDigit   = /[0-9]/.test(pw);
+  const hasSpecial = /[^a-zA-Z0-9]/.test(pw);
+  if (hasUpper && hasLower && hasDigit && hasSpecial) return { level: 4, label: "STRONG", color: "#607A5C" };
+  if ((hasLower || hasUpper) && hasDigit)             return { level: 3, label: "GOOD",   color: "#607A5C" };
+  return { level: 2, label: "FAIR", color: "#C89A3C" };
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -84,6 +95,8 @@ export default function SignupPage() {
       setGoogleLoading(false);
     }
   };
+
+  const pwStrength = getPasswordStrength(password);
 
   if (success) {
     return (
@@ -319,7 +332,7 @@ export default function SignupPage() {
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value); setPasswordError(""); }}
+                  onChange={(e) => { setPassword(e.target.value); setPasswordError(""); setFormError(""); }}
                   placeholder="Min. 8 characters"
                   className="font-functional"
                   style={{
@@ -333,6 +346,18 @@ export default function SignupPage() {
                     boxSizing: "border-box",
                   }}
                 />
+                {password.length > 0 && (
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "7px" }}>
+                    <div style={{ display: "flex", flex: 1, gap: "4px" }}>
+                      {[0, 1, 2, 3].map((i) => (
+                        <div key={i} style={{ flex: 1, height: "4px", backgroundColor: i < pwStrength.level ? pwStrength.color : "rgba(26,24,20,0.1)" }} />
+                      ))}
+                    </div>
+                    <span className="font-mono" style={{ fontSize: "9px", letterSpacing: "1px", color: pwStrength.color, flexShrink: 0 }}>
+                      {pwStrength.label}
+                    </span>
+                  </div>
+                )}
                 {passwordError && (
                   <p className="font-mono" style={{ fontSize: "10px", color: "#C0392B", marginTop: "5px" }}>{passwordError}</p>
                 )}
@@ -346,7 +371,7 @@ export default function SignupPage() {
                 <input
                   type="password"
                   value={confirmPassword}
-                  onChange={(e) => { setConfirmPassword(e.target.value); setConfirmError(""); }}
+                  onChange={(e) => { setConfirmPassword(e.target.value); setConfirmError(""); setFormError(""); }}
                   placeholder="••••••••"
                   className="font-functional"
                   style={{
@@ -421,13 +446,16 @@ export default function SignupPage() {
               {/* Create Account button */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !password || !confirmPassword}
                 style={{
                   width: "100%",
                   padding: "14px 20px",
                   backgroundColor: loading ? "rgba(184,98,74,0.6)" : "#B8624A",
                   border: "none",
-                  cursor: loading ? "not-allowed" : "pointer",
+                  cursor: (loading || !password || !confirmPassword) ? "not-allowed" : "pointer",
+                  pointerEvents: (!password || !confirmPassword) ? "none" : "auto",
+                  opacity: (!password || !confirmPassword) ? 0.4 : 1,
+                  transition: "opacity 150ms ease",
                 }}
               >
                 <span className="font-mono uppercase" style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#F5EFE4" }}>

@@ -9,6 +9,17 @@ import { createClient } from "@/lib/supabase-browser";
 import { useCartStore } from "@/lib/store";
 import { OrderCard, type Order } from "@/components/OrderCard";
 
+function getPasswordStrength(pw: string): { level: number; label: string; color: string } {
+  if (pw.length < 8) return { level: 1, label: "WEAK",   color: "#B8624A" };
+  const hasLower   = /[a-z]/.test(pw);
+  const hasUpper   = /[A-Z]/.test(pw);
+  const hasDigit   = /[0-9]/.test(pw);
+  const hasSpecial = /[^a-zA-Z0-9]/.test(pw);
+  if (hasUpper && hasLower && hasDigit && hasSpecial) return { level: 4, label: "STRONG", color: "#607A5C" };
+  if ((hasLower || hasUpper) && hasDigit)             return { level: 3, label: "GOOD",   color: "#607A5C" };
+  return { level: 2, label: "FAIR", color: "#C89A3C" };
+}
+
 export default function AccountPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("ORDERS");
@@ -104,6 +115,7 @@ export default function AccountPage() {
   }
 
   const tabs = ["ORDERS", "COAS", "PROFILE"];
+  const pwStrength = getPasswordStrength(pwNew);
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
@@ -485,10 +497,22 @@ export default function AccountPage() {
                               type="password"
                               required
                               value={pwNew}
-                              onChange={(e) => setPwNew(e.target.value)}
+                              onChange={(e) => { setPwNew(e.target.value); setPwError(null); }}
                               className="font-functional w-full"
                               style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
                             />
+                            {pwNew.length > 0 && (
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "7px" }}>
+                                <div style={{ display: "flex", flex: 1, gap: "4px" }}>
+                                  {[0, 1, 2, 3].map((i) => (
+                                    <div key={i} style={{ flex: 1, height: "4px", backgroundColor: i < pwStrength.level ? pwStrength.color : "rgba(26,24,20,0.1)" }} />
+                                  ))}
+                                </div>
+                                <span className="font-mono" style={{ fontSize: "9px", letterSpacing: "1px", color: pwStrength.color, flexShrink: 0 }}>
+                                  {pwStrength.label}
+                                </span>
+                              </div>
+                            )}
                           </div>
                           <div>
                             <label
@@ -501,7 +525,7 @@ export default function AccountPage() {
                               type="password"
                               required
                               value={pwConfirm}
-                              onChange={(e) => setPwConfirm(e.target.value)}
+                              onChange={(e) => { setPwConfirm(e.target.value); setPwError(null); }}
                               className="font-functional w-full"
                               style={{ backgroundColor: "#EBE2CF", border: "1px solid rgba(26,24,20,0.15)", borderRadius: "8px", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
                             />
@@ -520,19 +544,21 @@ export default function AccountPage() {
 
                           <button
                             type="submit"
-                            disabled={pwLoading}
+                            disabled={pwLoading || !pwNew || !pwConfirm}
                             onMouseEnter={() => setHoveredBtn("pw")}
                             onMouseLeave={() => setHoveredBtn(null)}
                             className="font-mono uppercase w-full"
                             style={{
                               padding: "11px",
-                              backgroundColor: pwLoading ? "rgba(184,98,74,0.5)" : hoveredBtn === "pw" ? "#B8624A" : "transparent",
-                              color: pwLoading || hoveredBtn === "pw" ? "#F5EFE4" : "#1A1814",
+                              backgroundColor: pwLoading ? "rgba(184,98,74,0.5)" : (hoveredBtn === "pw" && !!pwNew && !!pwConfirm) ? "#B8624A" : "transparent",
+                              color: (pwLoading || (hoveredBtn === "pw" && !!pwNew && !!pwConfirm)) ? "#F5EFE4" : "#1A1814",
                               fontSize: "10px",
                               letterSpacing: "2px",
-                              border: hoveredBtn === "pw" ? "1px solid #B8624A" : "1px solid rgba(26,24,20,0.25)",
+                              border: (hoveredBtn === "pw" && !!pwNew && !!pwConfirm) ? "1px solid #B8624A" : "1px solid rgba(26,24,20,0.25)",
                               borderRadius: "8px",
-                              cursor: pwLoading ? "not-allowed" : "pointer",
+                              cursor: (pwLoading || !pwNew || !pwConfirm) ? "not-allowed" : "pointer",
+                              pointerEvents: (!pwNew || !pwConfirm) ? "none" : "auto",
+                              opacity: (!pwNew || !pwConfirm) ? 0.4 : 1,
                               marginTop: "4px",
                               transition: "all 150ms ease",
                             }}
