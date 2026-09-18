@@ -7,6 +7,17 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase-browser";
 
+function getPasswordStrength(pw: string): { level: number; label: string; color: string } {
+  if (pw.length < 8) return { level: 1, label: "WEAK",   color: "#B8624A" };
+  const hasLower   = /[a-z]/.test(pw);
+  const hasUpper   = /[A-Z]/.test(pw);
+  const hasDigit   = /[0-9]/.test(pw);
+  const hasSpecial = /[^a-zA-Z0-9]/.test(pw);
+  if (hasUpper && hasLower && hasDigit && hasSpecial) return { level: 4, label: "STRONG", color: "#607A5C" };
+  if ((hasLower || hasUpper) && hasDigit)             return { level: 3, label: "GOOD",   color: "#607A5C" };
+  return { level: 2, label: "FAIR", color: "#C89A3C" };
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -65,11 +76,13 @@ export default function LoginPage() {
     }
   };
 
+  const pwStrength = getPasswordStrength(password);
+
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
 
       {/* ── HEADER BANNER ──────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1A1814", padding: "28px 24px" }}>
+      <section style={{ backgroundColor: "#1A1814", padding: "20px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -93,11 +106,11 @@ export default function LoginPage() {
       </section>
 
       {/* ── TWO COLUMN ─────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5" style={{ minHeight: "calc(100vh - 200px)" }}>
+      <div className="grid grid-cols-1 lg:[grid-template-columns:35%_65%]" style={{ minHeight: "calc(100vh - 200px)" }}>
 
         {/* ── LEFT: BRAND PANEL ────────────────────────────────── */}
         <div
-          className="lg:col-span-2 hidden lg:flex flex-col justify-between"
+          className="hidden lg:flex flex-col justify-between"
           style={{ backgroundColor: "#1A1814", borderTop: "3px solid #C89A3C", padding: "56px 48px" }}
         >
           {/* Wordmark */}
@@ -175,7 +188,7 @@ export default function LoginPage() {
 
         {/* ── RIGHT: FORM PANEL ───────────────────────────────── */}
         <motion.div
-          className="lg:col-span-3 flex items-start justify-center"
+          className="flex items-start justify-center"
           style={{ backgroundColor: "#F5EFE4", padding: "56px 48px" }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -212,6 +225,7 @@ export default function LoginPage() {
                 padding: "13px 20px",
                 backgroundColor: "#1A1814",
                 border: "none",
+                borderRadius: "8px",
                 cursor: googleLoading ? "not-allowed" : "pointer",
                 opacity: googleLoading ? 0.6 : 1,
                 marginBottom: "20px",
@@ -265,7 +279,8 @@ export default function LoginPage() {
                     width: "100%",
                     padding: "11px 14px",
                     backgroundColor: "#EBE2CF",
-                    border: emailError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.3)",
+                    border: emailError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.15)",
+                    borderRadius: "8px",
                     fontSize: "14px",
                     color: "#1A1814",
                     outline: "none",
@@ -297,13 +312,26 @@ export default function LoginPage() {
                     width: "100%",
                     padding: "11px 14px",
                     backgroundColor: "#EBE2CF",
-                    border: passwordError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.3)",
+                    border: passwordError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.15)",
+                    borderRadius: "8px",
                     fontSize: "14px",
                     color: "#1A1814",
                     outline: "none",
                     boxSizing: "border-box",
                   }}
                 />
+                {password.length > 0 && (
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "7px" }}>
+                    <div style={{ display: "flex", flex: 1, gap: "4px" }}>
+                      {[0, 1, 2, 3].map((i) => (
+                        <div key={i} style={{ flex: 1, height: "4px", backgroundColor: i < pwStrength.level ? pwStrength.color : "rgba(26,24,20,0.1)" }} />
+                      ))}
+                    </div>
+                    <span className="font-mono" style={{ fontSize: "9px", letterSpacing: "1px", color: pwStrength.color, flexShrink: 0 }}>
+                      {pwStrength.label}
+                    </span>
+                  </div>
+                )}
                 {passwordError && (
                   <p className="font-mono" style={{ fontSize: "10px", color: "#C0392B", marginTop: "5px" }}>
                     {passwordError}
@@ -347,6 +375,7 @@ export default function LoginPage() {
                   padding: "14px 20px",
                   backgroundColor: loading ? "rgba(184,98,74,0.6)" : "#B8624A",
                   border: "none",
+                  borderRadius: "8px",
                   cursor: loading ? "not-allowed" : "pointer",
                 }}
               >

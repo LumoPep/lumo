@@ -101,7 +101,7 @@ export default function SignupPage() {
   if (success) {
     return (
       <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
-        <section style={{ backgroundColor: "#1A1814", padding: "28px 24px" }}>
+        <section style={{ backgroundColor: "#1A1814", padding: "20px 24px" }}>
           <div className="container mx-auto max-w-7xl">
             <div className="font-mono uppercase" style={{ fontSize: "10px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}>
               07.3 — ACCOUNT CREATION
@@ -137,7 +137,7 @@ export default function SignupPage() {
     <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }}>
 
       {/* ── HEADER BANNER ──────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1A1814", padding: "28px 24px" }}>
+      <section style={{ backgroundColor: "#1A1814", padding: "20px 24px" }}>
         <div className="container mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -161,11 +161,11 @@ export default function SignupPage() {
       </section>
 
       {/* ── TWO COLUMN ─────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5" style={{ minHeight: "calc(100vh - 200px)" }}>
+      <div className="grid grid-cols-1 lg:[grid-template-columns:35%_65%]" style={{ minHeight: "calc(100vh - 200px)" }}>
 
         {/* ── LEFT: BRAND PANEL ────────────────────────────────── */}
         <div
-          className="lg:col-span-2 hidden lg:flex flex-col justify-between"
+          className="hidden lg:flex flex-col justify-between"
           style={{ backgroundColor: "#1A1814", borderTop: "3px solid #C89A3C", padding: "56px 48px" }}
         >
           <div>
@@ -233,7 +233,7 @@ export default function SignupPage() {
 
         {/* ── RIGHT: FORM PANEL ───────────────────────────────── */}
         <motion.div
-          className="lg:col-span-3 flex items-start justify-center"
+          className="flex items-start justify-center"
           style={{ backgroundColor: "#F5EFE4", padding: "56px 48px" }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -269,6 +269,7 @@ export default function SignupPage() {
                 padding: "13px 20px",
                 backgroundColor: "#1A1814",
                 border: "none",
+                borderRadius: "8px",
                 cursor: googleLoading ? "not-allowed" : "pointer",
                 opacity: googleLoading ? 0.6 : 1,
                 marginBottom: "20px",
@@ -312,7 +313,8 @@ export default function SignupPage() {
                     width: "100%",
                     padding: "11px 14px",
                     backgroundColor: "#EBE2CF",
-                    border: emailError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.3)",
+                    border: emailError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.15)",
+                    borderRadius: "8px",
                     fontSize: "14px",
                     color: "#1A1814",
                     outline: "none",
@@ -339,7 +341,8 @@ export default function SignupPage() {
                     width: "100%",
                     padding: "11px 14px",
                     backgroundColor: "#EBE2CF",
-                    border: passwordError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.3)",
+                    border: passwordError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.15)",
+                    borderRadius: "8px",
                     fontSize: "14px",
                     color: "#1A1814",
                     outline: "none",
@@ -378,7 +381,8 @@ export default function SignupPage() {
                     width: "100%",
                     padding: "11px 14px",
                     backgroundColor: "#EBE2CF",
-                    border: confirmError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.3)",
+                    border: confirmError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.15)",
+                    borderRadius: "8px",
                     fontSize: "14px",
                     color: "#1A1814",
                     outline: "none",
@@ -395,6 +399,7 @@ export default function SignupPage() {
                 style={{
                   backgroundColor: "#EBE2CF",
                   border: checkboxError ? "1px solid #C0392B" : "1px solid rgba(26,24,20,0.12)",
+                  borderRadius: "8px",
                   padding: "16px",
                   marginBottom: "20px",
                   display: "flex",
@@ -452,6 +457,7 @@ export default function SignupPage() {
                   padding: "14px 20px",
                   backgroundColor: loading ? "rgba(184,98,74,0.6)" : "#B8624A",
                   border: "none",
+                  borderRadius: "8px",
                   cursor: (loading || !password || !confirmPassword) ? "not-allowed" : "pointer",
                   pointerEvents: (!password || !confirmPassword) ? "none" : "auto",
                   opacity: (!password || !confirmPassword) ? 0.4 : 1,
