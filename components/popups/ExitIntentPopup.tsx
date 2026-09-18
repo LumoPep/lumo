@@ -52,6 +52,7 @@ export default function ExitIntentPopup({ onClose }: Props) {
           width: "100%",
           maxWidth: "480px",
           backgroundColor: "#1A1814",
+          borderRadius: "16px",
           borderTop: "3px solid #C89A3C",
           padding: "40px 36px",
           position: "relative",
