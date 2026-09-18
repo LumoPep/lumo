@@ -348,6 +348,17 @@ export default function Footer() {
                       </Link>
                     </li>
                     <li>
+                      <Link
+                        href="/order-lookup"
+                        className="font-editorial text-cream transition-opacity"
+                        style={{ fontSize: "14px", opacity: 0.85 }}
+                        onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
+                      >
+                        Order Lookup
+                      </Link>
+                    </li>
+                    <li>
                       <a
                         href="mailto:support@lumopep.com"
                         className="font-editorial text-cream transition-opacity"

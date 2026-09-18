@@ -171,6 +171,15 @@ export function orderConfirmationHtml(order: {
             </td>
           </tr>
 
+          <!-- Track order link -->
+          <tr>
+            <td style="background-color: #F5EFE4; padding: 0 40px 24px; text-align: center;">
+              <p style="font-family: monospace; font-size: 11px; color: #1A1814; opacity: 0.5; margin: 0;">
+                Track your order at <a href="https://lumopep.com/order-lookup" style="color: #B8624A; text-decoration: none;">lumopep.com/order-lookup</a>
+              </p>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
             <td style="background-color: #1A1814; padding: 24px 40px; text-align: center;">

@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
+import { OrderCard, type Order } from "@/components/OrderCard";
 
 export default function AccountPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("ORDERS");
   const [sessionChecked, setSessionChecked] = useState(false);
+  const [orders, setOrders] = useState<Order[] | null>(null);
+  const [ordersLoading, setOrdersLoading] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -18,6 +21,12 @@ export default function AccountPage() {
         router.push("/login");
       } else {
         setSessionChecked(true);
+        setOrdersLoading(true);
+        fetch("/api/orders/my-orders")
+          .then((r) => r.json())
+          .then((data) => setOrders(data.orders ?? []))
+          .catch(() => setOrders([]))
+          .finally(() => setOrdersLoading(false));
       }
     });
   }, [router]);
@@ -141,80 +150,101 @@ export default function AccountPage() {
                     </p>
                   </div>
 
-                  {/* Empty state */}
-                  <div
-                    style={{
-                      backgroundColor: "#EBE2CF",
-                      borderLeft: "2px solid #B8624A",
-                      padding: "56px 40px",
-                      textAlign: "center",
-                    }}
-                  >
-                    {/* Aperture mark */}
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      style={{ margin: "0 auto 20px" }}
-                    >
-                      <circle cx="20" cy="20" r="18" stroke="#B8624A" strokeWidth="1" fill="none" />
-                      <line x1="20" y1="2" x2="20" y2="38" stroke="#B8624A" strokeWidth="1" />
-                      <line x1="2" y1="20" x2="38" y2="20" stroke="#B8624A" strokeWidth="1" />
-                      <circle cx="20" cy="20" r="5" fill="#B8624A" />
-                    </svg>
-
-                    <div
-                      className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
-                    >
-                      NO ORDERS ON FILE
+                  {/* Loading */}
+                  {ordersLoading && (
+                    <div style={{ padding: "48px", textAlign: "center" }}>
+                      <span
+                        className="font-mono"
+                        style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814", opacity: 0.35 }}
+                      >
+                        LOADING ORDERS…
+                      </span>
                     </div>
+                  )}
 
-                    <p
-                      className="font-editorial"
+                  {/* Order cards */}
+                  {!ordersLoading && orders && orders.length > 0 && (
+                    <div>
+                      {orders.map((order) => (
+                        <OrderCard key={order.order_id} order={order} />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Empty state */}
+                  {!ordersLoading && orders !== null && orders.length === 0 && (
+                    <div
                       style={{
-                        fontSize: "14px",
-                        color: "#1A1814",
-                        maxWidth: "360px",
-                        margin: "0 auto 28px",
-                        lineHeight: 1.6,
+                        backgroundColor: "#EBE2CF",
+                        borderLeft: "2px solid #B8624A",
+                        padding: "56px 40px",
+                        textAlign: "center",
                       }}
                     >
-                      Orders are confirmed by email after blockchain payment verification. Check your inbox for confirmation details.
-                    </p>
+                      {/* Aperture mark */}
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        style={{ margin: "0 auto 20px" }}
+                      >
+                        <circle cx="20" cy="20" r="18" stroke="#B8624A" strokeWidth="1" fill="none" />
+                        <line x1="20" y1="2" x2="20" y2="38" stroke="#B8624A" strokeWidth="1" />
+                        <line x1="2" y1="20" x2="38" y2="20" stroke="#B8624A" strokeWidth="1" />
+                        <circle cx="20" cy="20" r="5" fill="#B8624A" />
+                      </svg>
 
-                    <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                      <Link
-                        href="/products"
-                        className="font-mono uppercase"
-                        style={{
-                          padding: "11px 24px",
-                          backgroundColor: "#B8624A",
-                          color: "#F5EFE4",
-                          fontSize: "10px",
-                          letterSpacing: "2px",
-                          display: "inline-block",
-                        }}
+                      <div
+                        className="font-mono"
+                        style={{ fontSize: "10px", letterSpacing: "2px", color: "#1A1814", opacity: 0.5, marginBottom: "20px", textTransform: "uppercase" }}
                       >
-                        → Browse compounds
-                      </Link>
-                      <a
-                        href="mailto:support@lumopep.com"
-                        className="font-mono uppercase"
-                        style={{
-                          padding: "11px 24px",
-                          backgroundColor: "transparent",
-                          color: "#1A1814",
-                          fontSize: "10px",
-                          letterSpacing: "2px",
-                          border: "1px solid #B8624A",
-                          display: "inline-block",
-                        }}
-                      >
-                        Order support
-                      </a>
+                        No orders on file yet.
+                      </div>
+
+                      <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+                        <Link
+                          href="/products"
+                          className="font-mono uppercase"
+                          style={{
+                            padding: "11px 24px",
+                            backgroundColor: "#B8624A",
+                            color: "#F5EFE4",
+                            fontSize: "10px",
+                            letterSpacing: "2px",
+                            display: "inline-block",
+                          }}
+                        >
+                          → Browse compounds
+                        </Link>
+                        <a
+                          href="mailto:support@lumopep.com"
+                          className="font-mono uppercase"
+                          style={{
+                            padding: "11px 24px",
+                            backgroundColor: "transparent",
+                            color: "#1A1814",
+                            fontSize: "10px",
+                            letterSpacing: "2px",
+                            border: "1px solid #B8624A",
+                            display: "inline-block",
+                          }}
+                        >
+                          Order support
+                        </a>
+                      </div>
+
+                      {/* Guest lookup link */}
+                      <div style={{ marginTop: "24px" }}>
+                        <Link
+                          href="/order-lookup"
+                          className="font-mono"
+                          style={{ fontSize: "10px", color: "#B8624A", letterSpacing: "1px" }}
+                        >
+                          Looking for an order? Look it up here →
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Reassurance strip */}
                   <div
