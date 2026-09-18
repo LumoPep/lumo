@@ -14,6 +14,25 @@ export default function AccountPage() {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [ordersLoading, setOrdersLoading] = useState(false);
 
+  // ── Profile: password ──────────────────────────────────────
+  const [pwNew, setPwNew]         = useState("");
+  const [pwConfirm, setPwConfirm] = useState("");
+  const [pwLoading, setPwLoading] = useState(false);
+  const [pwSuccess, setPwSuccess] = useState(false);
+  const [pwError, setPwError]     = useState<string | null>(null);
+
+  // ── Profile: email ─────────────────────────────────────────
+  const [newEmail, setNewEmail]       = useState("");
+  const [emailLoading, setEmailLoading] = useState(false);
+  const [emailSuccess, setEmailSuccess] = useState(false);
+  const [emailError, setEmailError]   = useState<string | null>(null);
+
+  // ── Profile: display name ──────────────────────────────────
+  const [firstName, setFirstName]     = useState("");
+  const [nameLoading, setNameLoading] = useState(false);
+  const [nameSuccess, setNameSuccess] = useState(false);
+  const [nameError, setNameError]     = useState<string | null>(null);
+
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -21,6 +40,13 @@ export default function AccountPage() {
         router.push("/login");
       } else {
         setSessionChecked(true);
+        // Seed display name from user metadata
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          if (user?.user_metadata?.first_name) {
+            setFirstName(user.user_metadata.first_name as string);
+          }
+        });
+        // Fetch orders
         setOrdersLoading(true);
         fetch("/api/orders/my-orders")
           .then((r) => r.json())
@@ -30,6 +56,41 @@ export default function AccountPage() {
       }
     });
   }, [router]);
+
+  async function handlePasswordUpdate(e: React.FormEvent) {
+    e.preventDefault();
+    setPwError(null);
+    setPwSuccess(false);
+    if (pwNew.length < 8) { setPwError("Password must be at least 8 characters."); return; }
+    if (pwNew !== pwConfirm) { setPwError("Passwords do not match."); return; }
+    setPwLoading(true);
+    const { error } = await createClient().auth.updateUser({ password: pwNew });
+    setPwLoading(false);
+    if (error) { setPwError(error.message); }
+    else { setPwSuccess(true); setPwNew(""); setPwConfirm(""); }
+  }
+
+  async function handleEmailUpdate(e: React.FormEvent) {
+    e.preventDefault();
+    setEmailError(null);
+    setEmailSuccess(false);
+    setEmailLoading(true);
+    const { error } = await createClient().auth.updateUser({ email: newEmail.trim() });
+    setEmailLoading(false);
+    if (error) { setEmailError(error.message); }
+    else { setEmailSuccess(true); setNewEmail(""); }
+  }
+
+  async function handleNameUpdate(e: React.FormEvent) {
+    e.preventDefault();
+    setNameError(null);
+    setNameSuccess(false);
+    setNameLoading(true);
+    const { error } = await createClient().auth.updateUser({ data: { first_name: firstName.trim() } });
+    setNameLoading(false);
+    if (error) { setNameError(error.message); }
+    else { setNameSuccess(true); }
+  }
 
   if (!sessionChecked) {
     return <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }} />;
@@ -381,61 +442,226 @@ export default function AccountPage() {
                     </p>
                   </div>
 
-                  {/* Coming soon */}
+                  {/* ── SECTION 1: PASSWORD ───────────────────────── */}
                   <div
                     style={{
                       backgroundColor: "#EBE2CF",
-                      border: "1px solid rgba(26,24,20,0.12)",
-                      padding: "56px 40px",
-                      textAlign: "center",
+                      borderLeft: "3px solid #B8624A",
+                      padding: "24px 28px",
+                      marginBottom: "16px",
                     }}
                   >
-                    {/* Solar mark */}
-                    <svg
-                      width="36"
-                      height="36"
-                      viewBox="0 0 36 36"
-                      style={{ margin: "0 auto 20px" }}
-                    >
-                      <circle cx="18" cy="18" r="16" stroke="#B8624A" strokeWidth="1" fill="none" />
-                      <circle cx="18" cy="18" r="7" stroke="#B8624A" strokeWidth="1" fill="none" />
-                      <circle cx="18" cy="18" r="2.5" fill="#B8624A" />
-                    </svg>
-
-                    <div
-                      className="font-mono uppercase"
-                      style={{ fontSize: "9px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
-                    >
-                      COMING SOON
+                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                      <span
+                        className="font-mono"
+                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                      >
+                        PASSWORD
+                      </span>
                     </div>
 
-                    <p
-                      className="font-editorial"
-                      style={{
-                        fontSize: "14px",
-                        color: "#1A1814",
-                        maxWidth: "340px",
-                        margin: "0 auto 28px",
-                        lineHeight: 1.6,
-                      }}
-                    >
-                      Account management is in development. To update your details or contact information, contact us directly.
-                    </p>
+                    <form onSubmit={handlePasswordUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                      <div>
+                        <label
+                          className="font-mono"
+                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                        >
+                          New Password
+                        </label>
+                        <input
+                          type="password"
+                          required
+                          value={pwNew}
+                          onChange={(e) => setPwNew(e.target.value)}
+                          className="font-functional w-full"
+                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          className="font-mono"
+                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                        >
+                          Confirm New Password
+                        </label>
+                        <input
+                          type="password"
+                          required
+                          value={pwConfirm}
+                          onChange={(e) => setPwConfirm(e.target.value)}
+                          className="font-functional w-full"
+                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                        />
+                      </div>
 
-                    <a
-                      href="mailto:support@lumopep.com"
-                      className="font-mono uppercase"
-                      style={{
-                        padding: "11px 24px",
-                        backgroundColor: "#B8624A",
-                        color: "#F5EFE4",
-                        fontSize: "10px",
-                        letterSpacing: "2px",
-                        display: "inline-block",
-                      }}
-                    >
-                      → Contact support
-                    </a>
+                      {pwSuccess && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                          Password updated.
+                        </p>
+                      )}
+                      {pwError && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                          {pwError}
+                        </p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={pwLoading}
+                        className="font-mono uppercase w-full"
+                        style={{
+                          padding: "11px",
+                          backgroundColor: pwLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
+                          color: "#F5EFE4",
+                          fontSize: "10px",
+                          letterSpacing: "2px",
+                          border: "none",
+                          cursor: pwLoading ? "not-allowed" : "pointer",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {pwLoading ? "UPDATING…" : "→ UPDATE PASSWORD"}
+                      </button>
+                    </form>
+                  </div>
+
+                  {/* ── SECTION 2: EMAIL ───────────────────────────── */}
+                  <div
+                    style={{
+                      backgroundColor: "#EBE2CF",
+                      borderLeft: "3px solid #B8624A",
+                      padding: "24px 28px",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                      <span
+                        className="font-mono"
+                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                      >
+                        EMAIL ADDRESS
+                      </span>
+                    </div>
+
+                    <form onSubmit={handleEmailUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                      <div>
+                        <label
+                          className="font-mono"
+                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                        >
+                          New Email Address
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={newEmail}
+                          onChange={(e) => setNewEmail(e.target.value)}
+                          className="font-functional w-full"
+                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                        />
+                      </div>
+
+                      {emailSuccess && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                          Check your inbox to confirm your new email address.
+                        </p>
+                      )}
+                      {emailError && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                          {emailError}
+                        </p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={emailLoading}
+                        className="font-mono uppercase w-full"
+                        style={{
+                          padding: "11px",
+                          backgroundColor: emailLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
+                          color: "#F5EFE4",
+                          fontSize: "10px",
+                          letterSpacing: "2px",
+                          border: "none",
+                          cursor: emailLoading ? "not-allowed" : "pointer",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {emailLoading ? "UPDATING…" : "→ UPDATE EMAIL"}
+                      </button>
+                    </form>
+                  </div>
+
+                  {/* ── SECTION 3: DISPLAY NAME ────────────────────── */}
+                  <div
+                    style={{
+                      backgroundColor: "#EBE2CF",
+                      borderLeft: "3px solid #B8624A",
+                      padding: "24px 28px",
+                    }}
+                  >
+                    <div style={{ borderLeft: "2px solid #C89A3C", paddingLeft: "10px", marginBottom: "20px" }}>
+                      <span
+                        className="font-mono"
+                        style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#1A1814", textTransform: "uppercase" }}
+                      >
+                        DISPLAY NAME
+                      </span>
+                    </div>
+
+                    <form onSubmit={handleNameUpdate} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                      <div>
+                        <label
+                          className="font-mono"
+                          style={{ display: "block", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "#1A1814", opacity: 0.65, marginBottom: "6px" }}
+                        >
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="e.g. Jordan"
+                          className="font-functional w-full"
+                          style={{ backgroundColor: "#EBE2CF", border: "1px solid #1A1814", padding: "10px 12px", fontSize: "14px", color: "#1A1814", outline: "none" }}
+                        />
+                        <p
+                          className="font-mono"
+                          style={{ fontSize: "9px", color: "#1A1814", opacity: 0.4, marginTop: "5px", letterSpacing: "0.5px" }}
+                        >
+                          Used for personalised order confirmation emails.
+                        </p>
+                      </div>
+
+                      {nameSuccess && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#607A5C", letterSpacing: "0.5px" }}>
+                          Name updated.
+                        </p>
+                      )}
+                      {nameError && (
+                        <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", letterSpacing: "0.5px" }}>
+                          {nameError}
+                        </p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={nameLoading}
+                        className="font-mono uppercase w-full"
+                        style={{
+                          padding: "11px",
+                          backgroundColor: nameLoading ? "rgba(184,98,74,0.5)" : "#B8624A",
+                          color: "#F5EFE4",
+                          fontSize: "10px",
+                          letterSpacing: "2px",
+                          border: "none",
+                          cursor: nameLoading ? "not-allowed" : "pointer",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {nameLoading ? "SAVING…" : "→ UPDATE NAME"}
+                      </button>
+                    </form>
                   </div>
                 </motion.div>
               )}
