@@ -58,23 +58,12 @@ const sections = [
     title: "Wrong Product Shipped",
     content: [
       "If we ship the incorrect product by error, we will correct the mistake at no cost to you.",
-      "Contact us immediately if you receive the wrong product. Do not open or use the incorrect product. We will arrange for return of the incorrect item and ship the correct product.",
-      "We cover all return shipping costs for our errors.",
-    ],
-  },
-  {
-    id: "cryptocurrency",
-    number: "07",
-    title: "Cryptocurrency Payment Refunds",
-    content: [
-      "Cryptocurrency payments are final once blockchain confirmation occurs. We cannot reverse crypto transactions.",
-      "If a refund is approved (damaged shipment, quality issue, etc.), we will issue the refund in the same cryptocurrency you used for payment, at the current market rate at time of refund.",
-      "You are responsible for providing a valid wallet address for refund. We are not responsible for refunds sent to incorrect addresses.",
+      "Contact us immediately if you receive the wrong product with your order number and photos. Do not open or use the incorrect product. We will arrange to correct the mistake at no cost to you.",
     ],
   },
   {
     id: "contact",
-    number: "08",
+    number: "07",
     title: "How to Request a Refund",
     content: [
       "For all refund requests or shipping issues, contact support@lumopep.com with: Your order number; Description of the issue; Photos (if applicable); Your preferred resolution.",
