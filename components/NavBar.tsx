@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,6 +45,20 @@ export default function NavBar() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+  const accountRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!accountDropdownOpen) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
+        setAccountDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [accountDropdownOpen]);
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -113,26 +127,84 @@ export default function NavBar() {
             <div className="flex items-center gap-3">
 
               {/* Account icon */}
-              <Link
-                href={user ? "/account" : "/login"}
-                className={`hidden md:flex items-center justify-center p-2 transition-colors ${
-                  isActive("/account") || isActive("/login") ? "text-clay" : "text-ink hover:text-clay"
-                }`}
-                aria-label={user ? "Your account" : "Sign in"}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                >
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 20c0-3.5 3.6-6.5 8-6.5s8 3 8 6.5" />
-                </svg>
-              </Link>
+              <div className="hidden md:block relative" ref={accountRef}>
+                {!user ? (
+                  <Link
+                    href="/login"
+                    className={`flex items-center justify-center p-2 transition-colors ${
+                      isActive("/login") ? "text-clay" : "text-ink hover:text-clay"
+                    }`}
+                    aria-label="Sign in"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                      <circle cx="12" cy="8" r="4" />
+                      <path d="M4 20c0-3.5 3.6-6.5 8-6.5s8 3 8 6.5" />
+                    </svg>
+                  </Link>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setAccountDropdownOpen((o) => !o)}
+                      className={`flex items-center justify-center p-2 transition-colors ${
+                        isActive("/account") || accountDropdownOpen ? "text-clay" : "text-ink hover:text-clay"
+                      }`}
+                      aria-label="Your account"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-3.5 3.6-6.5 8-6.5s8 3 8 6.5" />
+                      </svg>
+                    </button>
+
+                    {accountDropdownOpen && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "calc(100% + 8px)",
+                          right: 0,
+                          backgroundColor: "#1A1814",
+                          borderTop: "2px solid #B8624A",
+                          minWidth: "140px",
+                          zIndex: 100,
+                        }}
+                      >
+                        <Link
+                          href="/account"
+                          onClick={() => setAccountDropdownOpen(false)}
+                          className="block transition-colors hover:text-clay"
+                          style={{
+                            padding: "10px 16px",
+                            fontFamily: "JetBrains Mono, monospace",
+                            fontSize: "10px",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#F5EFE4",
+                          }}
+                        >
+                          MY ACCOUNT
+                        </Link>
+                        <button
+                          onClick={() => { setAccountDropdownOpen(false); handleSignOut(); }}
+                          className="block w-full text-left transition-colors hover:text-clay"
+                          style={{
+                            padding: "10px 16px",
+                            fontFamily: "JetBrains Mono, monospace",
+                            fontSize: "10px",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#F5EFE4",
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                          }}
+                        >
+                          SIGN OUT
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
 
               {/* Cart Button */}
               <motion.button

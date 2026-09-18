@@ -110,6 +110,11 @@ export default function AccountPage() {
     else { setNameSuccess(true); }
   }
 
+  async function handleSignOut() {
+    await createClient().auth.signOut();
+    router.push("/");
+  }
+
   if (!sessionChecked) {
     return <div style={{ minHeight: "100vh", backgroundColor: "#F5EFE4" }} />;
   }
@@ -122,26 +127,48 @@ export default function AccountPage() {
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
       <section style={{ backgroundColor: "#1A1814", padding: "48px 24px" }}>
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="font-mono uppercase"
-            style={{ fontSize: "10px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
-          >
-            07.1 — ACCOUNT DASHBOARD
-          </motion.div>
+        <div className="container mx-auto max-w-7xl" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="font-mono uppercase"
+              style={{ fontSize: "10px", letterSpacing: "3px", color: "#B8624A", marginBottom: "12px" }}
+            >
+              07.1 — ACCOUNT DASHBOARD
+            </motion.div>
 
-          <motion.h1
-            className="font-display"
-            style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#F5EFE4", letterSpacing: "-0.02em" }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            <motion.h1
+              className="font-display"
+              style={{ fontWeight: 300, fontStyle: "italic", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#F5EFE4", letterSpacing: "-0.02em" }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              Your research orders.
+            </motion.h1>
+          </div>
+
+          <button
+            onClick={handleSignOut}
+            onMouseEnter={() => setHoveredBtn("signout")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="font-mono uppercase hidden md:block"
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "10px",
+              letterSpacing: "2px",
+              color: hoveredBtn === "signout" ? "#B8624A" : "#F5EFE4",
+              opacity: hoveredBtn === "signout" ? 1 : 0.6,
+              paddingBottom: "4px",
+              transition: "all 150ms ease",
+            }}
           >
-            Your research orders.
-          </motion.h1>
+            → SIGN OUT
+          </button>
         </div>
       </section>
 
