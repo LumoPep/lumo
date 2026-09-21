@@ -5,12 +5,33 @@ import { rapidOrderId } from '@/lib/psc/order';
 export const runtime = 'nodejs';
 
 type RapidShipment = {
-  lumo_numeric_id: number;
+  rapid_order_id?: string | null;
+  lumo_numeric_id?: number | string | null;
   tracking_number: string;
   carrier: string;
   shipped_at?: string | null;
   estimated_delivery?: string | null;
 };
+
+/** Extract the numeric order ID from a Rapid order ID string like "1-71468164" → 71468164. */
+function parseRapidOrderId(rapid_order_id: string): number | null {
+  const parts = rapid_order_id.split('-');
+  const numeric = parts[parts.length - 1];
+  const parsed = Number.parseInt(numeric, 10);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+/** Resolve the numeric ID to match against rapidOrderId(order.order_id). */
+function resolveNumericId(shipment: RapidShipment): number | null {
+  if (shipment.rapid_order_id) {
+    return parseRapidOrderId(shipment.rapid_order_id);
+  }
+  if (shipment.lumo_numeric_id != null) {
+    const n = Number(shipment.lumo_numeric_id);
+    return Number.isFinite(n) ? n : null;
+  }
+  return null;
+}
 
 function trackingUrl(carrier: string, trackingNumber: string): string | null {
   const c = carrier.toUpperCase();
@@ -49,7 +70,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   }
 
-  // Fetch all paid orders to match by lumo_numeric_id
+  // Fetch all paid orders to match by numeric order ID
   const { data: orders, error: fetchError } = await db
     .from(ORDERS_TABLE)
     .select('*')
@@ -62,13 +83,20 @@ export async function POST(request: NextRequest) {
 
   for (const shipment of shipments) {
     try {
-      // Find the matching order
+      const numericId = resolveNumericId(shipment);
+
+      if (numericId === null) {
+        console.error('rapid-webhook: could not resolve numeric ID from shipment', shipment);
+        continue;
+      }
+
+      // Find the matching order via rapid_order_id (primary) or lumo_numeric_id (fallback)
       const order = (orders ?? []).find(
-        (o: { order_id: string }) => rapidOrderId(o.order_id) === shipment.lumo_numeric_id,
+        (o: { order_id: string }) => rapidOrderId(o.order_id) === numericId,
       );
 
       if (!order) {
-        console.error('rapid-webhook: no paid order found for lumo_numeric_id', shipment.lumo_numeric_id);
+        console.error('rapid-webhook: no paid order found for numeric ID', numericId, shipment.rapid_order_id ?? shipment.lumo_numeric_id);
         continue;
       }
 
@@ -120,7 +148,7 @@ export async function POST(request: NextRequest) {
         console.error('rapid-webhook: omnisend fulfillment failed', omniErr);
       }
     } catch (err) {
-      console.error('rapid-webhook: error processing shipment', shipment.lumo_numeric_id, err);
+      console.error('rapid-webhook: error processing shipment', shipment.rapid_order_id ?? shipment.lumo_numeric_id, err);
     }
   }
 
