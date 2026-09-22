@@ -437,10 +437,10 @@ export default function HomePage() {
               <div className="test-chip bg-[#F5EFE4] border border-[#1A1814]/10 rounded-lg px-4 py-3 flex flex-col">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 <div className="text-[10px] font-medium tracking-widest uppercase text-[#1A1814] mt-2">
-                  POTENCY
+                  CONTENT
                 </div>
                 <div className="text-[11px] text-\[#1A1814\]/65 mt-0.5">
-                  Strength confirmed
+                  Exact mg verified
                 </div>
               </div>
 
@@ -465,7 +465,7 @@ export default function HomePage() {
               Our research compounds.
             </h2>
             <p className="font-editorial text-xl text-[#1A1814]/95">
-              Every compound independently tested — purity, identity, and potency verified on every lot.
+              Every compound independently tested — purity, identity, and content verified on every lot.
             </p>
           </motion.div>
 

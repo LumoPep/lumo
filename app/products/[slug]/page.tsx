@@ -294,14 +294,14 @@ export default function ProductPage() {
                           </div>
                         </div>
 
-                        {/* Test 3 - Potency */}
+                        {/* Test 3 - Content */}
                         <div className="bg-[#F5EFE4] border border-[#EBE2CF] rounded-lg p-4">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#607A5C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-2xl mb-2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                           <div className="text-[11px] font-medium tracking-widest uppercase text-[#1A1814]">
-                            POTENCY
+                            CONTENT
                           </div>
                           <div className="text-[12px] text-[#1A1814]/80 mt-1">
-                            Strength confirmed
+                            Exact mg verified
                           </div>
                         </div>
 
@@ -530,7 +530,7 @@ export default function ProductPage() {
                   {[
                     { icon: 'ti-flask', label: 'HPLC Purity', sub: 'Independent lab' },
                     { icon: 'ti-dna', label: 'Identity', sub: 'Sequence confirmed' },
-                    { icon: 'ti-activity', label: 'Potency', sub: 'Strength confirmed' },
+                    { icon: 'ti-activity', label: 'Content', sub: 'Exact mg verified' },
                   ].map((chip, i) => (
                     <div key={i} style={{ background: '#F5EFE4', border: '0.5px solid rgba(26,24,20,0.12)', borderRadius: '8px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <i className={`ti ${chip.icon}`} style={{ fontSize: '14px', color: '#607A5C' }} aria-hidden="true" />

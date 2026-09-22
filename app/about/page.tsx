@@ -34,8 +34,8 @@ const TESTS = [
     ),
   },
   {
-    name: "Potency",
-    description: "Strength confirmed by third-party lab",
+    name: "Content",
+    description: "Exact mg verified by third-party lab",
     accent: "#C89A3C",
     tint: "#FBF5E8",
     icon: (
@@ -456,7 +456,7 @@ export default function AboutPage() {
                 {
                   number: "01",
                   title: "Independent Verification",
-                  description: "Every batch tested by a third-party laboratory for purity, identity, and potency before it ships.",
+                  description: "Every batch tested by a third-party laboratory for purity, identity, and content before it ships.",
                 },
                 {
                   number: "02",
@@ -551,7 +551,7 @@ export default function AboutPage() {
                 {
                   number: "02",
                   title: "Independent Verification",
-                  description: "Third-party laboratory verification: purity, identity, and potency confirmed before release.",
+                  description: "Third-party laboratory verification: purity, identity, and content confirmed before release.",
                 },
                 {
                   number: "03",

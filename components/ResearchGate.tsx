@@ -18,7 +18,7 @@ const FALLING_VIALS = [
 const TESTS = [
   "HPLC Purity",
   "UV/MS Identity",
-  "Potency Verified",
+  "Exact mg verified",
   "Lot Traceable",
   "COA Published",
 ];

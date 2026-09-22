@@ -88,7 +88,7 @@ export default function CoAPage() {
               Every Lumo batch is independently verified.
             </h2>
             <p className="font-editorial text-lg text-ink opacity-60 max-w-3xl mx-auto">
-              Purity, identity, and potency — confirmed before every lot ships.
+              Purity, identity, and content — confirmed before every lot ships.
             </p>
           </motion.div>
 
@@ -106,8 +106,8 @@ export default function CoAPage() {
                 color: "#4A8A88",
               },
               {
-                title: "Potency",
-                description: "Third-party laboratory confirms active strength before every lot ships.",
+                title: "Content",
+                description: "Third-party laboratory confirms exact milligram content before every lot ships.",
                 color: "#C89A3C",
               },
             ].map((test, index) => (
