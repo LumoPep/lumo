@@ -23,12 +23,13 @@ function parseRapidOrderId(rapid_order_id: string): number | null {
 
 /** Resolve the numeric ID to match against rapidOrderId(order.order_id). */
 function resolveNumericId(shipment: RapidShipment): number | null {
-  if (shipment.rapid_order_id) {
-    return parseRapidOrderId(shipment.rapid_order_id);
-  }
+  // Prefer lumo_numeric_id — the exact value we sent via custom_data.orig_order_id
   if (shipment.lumo_numeric_id != null) {
     const n = Number(shipment.lumo_numeric_id);
     return Number.isFinite(n) ? n : null;
+  }
+  if (shipment.rapid_order_id) {
+    return parseRapidOrderId(shipment.rapid_order_id);
   }
   return null;
 }
