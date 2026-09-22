@@ -45,6 +45,7 @@ export interface RapidOrder {
   items: RapidOrderItem[];
   totalCost: number;     // total_cost
   currency: string;
+  custom_data?: Record<string, unknown>;
 }
 
 function xmlEscape(str: string): string {
@@ -188,6 +189,7 @@ export async function submitOrder(sessionId: string, order: RapidOrder): Promise
         </products>
         <total_cost xsi:type="xsd:float">${order.totalCost.toFixed(2)}</total_cost>
         <currency xsi:type="xsd:string">${xmlEscape(order.currency)}</currency>
+        ${order.custom_data ? `<custom_data xsi:type="xsd:string">${xmlEscape(JSON.stringify(order.custom_data))}</custom_data>` : ''}
       </ordersData>
     </urn:orders_new>`);
 

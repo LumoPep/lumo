@@ -58,6 +58,7 @@ export async function submitToRapid(order: any): Promise<void> {
       shipping:      addressData,
       items:         mapped,
       totalCost:     order.total ?? 0,
+      custom_data:   { orig_order_id: numericOrderId },
     };
 
     const result = await submitOrderWithSession(rapidOrder);
