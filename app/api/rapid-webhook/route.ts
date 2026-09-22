@@ -70,14 +70,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   }
 
-  // Fetch all paid orders to match by numeric order ID
+  // Fetch all paid or fulfilled orders to match by numeric order ID
   const { data: orders, error: fetchError } = await db
     .from(ORDERS_TABLE)
     .select('*')
-    .eq('status', 'paid');
+    .in('status', ['paid', 'fulfilled']);
 
   if (fetchError) {
-    console.error('rapid-webhook: failed to fetch paid orders', fetchError);
+    console.error('rapid-webhook: failed to fetch paid/fulfilled orders', fetchError);
     return NextResponse.json({ received: true });
   }
 
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       );
 
       if (!order) {
-        console.error('rapid-webhook: no paid order found for numeric ID', numericId, shipment.rapid_order_id ?? shipment.lumo_numeric_id);
+        console.error('rapid-webhook: no paid/fulfilled order found for numeric ID', numericId, shipment.rapid_order_id ?? shipment.lumo_numeric_id);
         continue;
       }
 
