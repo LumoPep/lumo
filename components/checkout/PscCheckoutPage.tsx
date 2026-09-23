@@ -108,7 +108,7 @@ export default function CheckoutPage() {
         if (result && !popupDismissed) {
           setShowFirstOrderPopup(true);
         }
-        setIsFirstOrderFlag(false);
+        setIsFirstOrderFlag(result);
       } catch (error) {
         console.error("Error checking first order:", error);
         setIsFirstOrderFlag(false);
