@@ -139,6 +139,7 @@ export async function POST(request: NextRequest) {
         if (lumoDb) {
           const { error: lumoErr } = await lumoDb.from('lumo_orders').insert({
             order_id:        row.order_id,
+            payment_id:      pi.id,
             email:           row.email,
             customer_name:   row.customer_name ?? null,
             phone:           row.phone ?? null,
