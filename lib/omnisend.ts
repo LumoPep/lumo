@@ -40,9 +40,9 @@ export async function omnisendUpsertContact(params: {
     ? { firstName: params.firstName, lastName: params.lastName ?? '' }
     : {};
   const now = new Date().toISOString();
-  const identifiers: unknown[] = [{ type: 'email', id: params.email, sendWelcomeMessage: false, channels: { email: { status: 'subscribed', statusChangedAt: now } } }];
+  const identifiers: unknown[] = [{ type: 'email', id: params.email, source: 'api', sendWelcomeMessage: false, channels: { email: { status: 'subscribed', statusChangedAt: now } } }];
   if (params.phone) {
-    identifiers.push({ type: 'phone', id: params.phone, sendWelcomeMessage: false, channels: { sms: { status: 'subscribed', statusChangedAt: now } } });
+    identifiers.push({ type: 'phone', id: params.phone, source: 'api', sendWelcomeMessage: false, channels: { sms: { status: 'subscribed', statusChangedAt: now } } });
   }
   await post('/contacts', {
     identifiers,
@@ -71,17 +71,17 @@ export async function omnisendOrderPlaced(order: {
   await omnisendUpsertContact({ email: order.email, firstName, lastName, phone: (order as any).phone || undefined });
 
   // Send order event
+  const now = new Date().toISOString();
   await post('/orders', {
     orderID: order.order_id,
     email: order.email,
-    orderNumber: order.order_id,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: now,
+    updatedAt: now,
     currency: order.currency?.toUpperCase() ?? 'USD',
-    orderSum: order.total,
-    subTotalSum: order.subtotal,
-    discountSum: order.discount_amount,
-    shippingSum: order.shipping_amount,
+    orderSum:     Math.round(order.total * 100),
+    subTotalSum:  Math.round(order.subtotal * 100),
+    discountSum:  Math.round(order.discount_amount * 100),
+    shippingSum:  Math.round(order.shipping_amount * 100),
     fulfillmentStatus: 'unfulfilled',
     paymentStatus: 'paid',
     products: order.items.map((item, i) => ({
@@ -90,7 +90,7 @@ export async function omnisendOrderPlaced(order: {
       sku: item.variant,
       title: item.productName,
       quantity: item.quantity,
-      price: item.price,
+      price: Math.round(item.price * 100),
     })),
   });
 }
