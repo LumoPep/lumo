@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkIsFirstOrder } from '@/app/api/psc/check-first-order/route';
+import { checkIsFirstOrder } from '@/lib/psc/checkIsFirstOrder';
 import { getSupabase } from '@/lib/supabase';
 import {
   QuoteError,
