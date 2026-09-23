@@ -34,72 +34,158 @@ export default function FirstOrderPopup({ onDismiss, onUnlock }: FirstOrderPopup
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style={{ backgroundColor: "rgba(26,24,20,0.7)" }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        backgroundColor: "rgba(26,24,20,0.85)",
+        zIndex: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+        animation: "fadeIn 0.2s ease",
+      }}
+      onClick={(e) => { if (e.target === e.currentTarget) onDismiss(); }}
     >
+      <style>{`@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
+
       <div
-        className="w-full max-w-md"
-        style={{ backgroundColor: "#F5EFE4", border: "1px solid rgba(26,24,20,0.15)" }}
+        style={{
+          width: "100%",
+          maxWidth: "480px",
+          backgroundColor: "#1A1814",
+          borderRadius: "16px",
+          borderTop: "3px solid #C89A3C",
+          padding: "40px 36px",
+          position: "relative",
+        }}
       >
-        {/* Header */}
-        <div
-          className="px-8 py-6 text-center"
-          style={{ backgroundColor: "#1A1814", borderBottom: "3px solid #B8624A" }}
+        {/* Close */}
+        <button
+          onClick={onDismiss}
+          style={{
+            position: "absolute",
+            top: "16px",
+            right: "16px",
+            background: "none",
+            border: "none",
+            color: "#B8624A",
+            fontSize: "20px",
+            cursor: "pointer",
+            lineHeight: 1,
+            padding: "4px 8px",
+          }}
+          aria-label="Close"
         >
-          <p className="font-mono text-xs uppercase mb-2" style={{ letterSpacing: "0.15em", color: "#F5EFE4", opacity: 0.6 }}>
-            First order offer
-          </p>
-          <h2 className="font-display" style={{ fontSize: "1.75rem", fontWeight: 300, fontStyle: "italic", color: "#F5EFE4" }}>
-            Unlock 20% off
-          </h2>
+          ×
+        </button>
+
+        {/* Label */}
+        <div
+          className="font-mono uppercase"
+          style={{ fontSize: "9px", letterSpacing: "3px", color: "#C89A3C", marginBottom: "14px" }}
+        >
+          FIRST ORDER OFFER
         </div>
+
+        {/* Heading */}
+        <h2
+          className="font-display"
+          style={{
+            fontWeight: 300,
+            fontStyle: "italic",
+            fontSize: "clamp(1.5rem, 3vw, 2rem)",
+            color: "#F5EFE4",
+            lineHeight: 1.15,
+            marginBottom: "14px",
+          }}
+        >
+          Unlock 20% off your first order.
+        </h2>
 
         {/* Body */}
-        <div className="px-8 py-8">
-          <p className="font-editorial text-sm mb-6 text-center" style={{ color: "#1A1814", opacity: 0.75, lineHeight: 1.6 }}>
-            Enter your email to unlock 20% off your first order. We'll also keep you updated on new compounds and research.
+        <p
+          className="font-editorial"
+          style={{
+            fontSize: "14px",
+            color: "#EBE2CF",
+            opacity: 0.7,
+            lineHeight: 1.65,
+            marginBottom: "28px",
+          }}
+        >
+          Enter your email to unlock 20% off. We'll also keep you updated on new compounds and research.
+        </p>
+
+        {/* Input */}
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => { setEmail(e.target.value); setError(""); }}
+          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          placeholder="your@email.com"
+          style={{
+            width: "100%",
+            padding: "12px 14px",
+            backgroundColor: "#F5EFE4",
+            border: "1px solid rgba(235,226,207,0.3)",
+            fontSize: "14px",
+            color: "#1A1814",
+            outline: "none",
+            boxSizing: "border-box",
+            borderRadius: "8px",
+            marginBottom: "12px",
+            fontFamily: "Inter Tight, sans-serif",
+          }}
+        />
+
+        {error && (
+          <p className="font-mono" style={{ fontSize: "11px", color: "#B8624A", marginBottom: "10px" }}>
+            {error}
           </p>
+        )}
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); setError(""); }}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-            placeholder="your@email.com"
-            className="w-full font-mono text-sm px-4 py-3 mb-2 focus:outline-none"
-            style={{
-              backgroundColor: "#EBE2CF",
-              border: "1px solid rgba(26,24,20,0.2)",
-              color: "#1A1814",
-            }}
-          />
-
-          {error && (
-            <p className="font-mono text-xs mb-3" style={{ color: "#B8624A" }}>{error}</p>
-          )}
-
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="w-full font-mono text-xs uppercase py-3 mb-3 transition-colors"
-            style={{
-              letterSpacing: "0.12em",
-              backgroundColor: loading ? "#607A5C" : "#1A1814",
-              color: "#F5EFE4",
-              borderLeft: "4px solid #B8624A",
-            }}
+        {/* CTA */}
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          style={{
+            width: "100%",
+            padding: "14px 20px",
+            backgroundColor: loading ? "rgba(184,98,74,0.6)" : "#B8624A",
+            border: "none",
+            cursor: loading ? "not-allowed" : "pointer",
+            borderRadius: "8px",
+            marginBottom: "16px",
+          }}
+        >
+          <span
+            className="font-mono uppercase"
+            style={{ fontSize: "10px", letterSpacing: "2.5px", color: "#F5EFE4" }}
           >
-            {loading ? "Unlocking..." : "→ Unlock 20% off"}
-          </button>
+            {loading ? "Unlocking…" : "→ Unlock 20% off"}
+          </span>
+        </button>
 
-          <button
-            onClick={onDismiss}
-            className="w-full font-mono text-xs uppercase py-2 transition-opacity"
-            style={{ letterSpacing: "0.12em", color: "#1A1814", opacity: 0.45 }}
+        {/* Dismiss */}
+        <button
+          onClick={onDismiss}
+          style={{
+            display: "block",
+            width: "100%",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            textAlign: "center",
+          }}
+        >
+          <span
+            className="font-mono uppercase"
+            style={{ fontSize: "9px", letterSpacing: "2px", color: "#EBE2CF", opacity: 0.4 }}
           >
             No thanks
-          </button>
-        </div>
+          </span>
+        </button>
       </div>
     </div>
   );
