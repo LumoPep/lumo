@@ -19,6 +19,7 @@ CREATE TABLE orders (
   payment_id TEXT,                      -- NOWPayments payment ID
   email TEXT NOT NULL,
   customer_name TEXT,
+  phone TEXT,
   address1 TEXT,
   address2 TEXT,
   city TEXT,
@@ -45,6 +46,7 @@ CREATE INDEX orders_order_id_idx ON orders(order_id);
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_id TEXT UNIQUE;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_id TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_name TEXT;
+-- ALTER TABLE orders ADD COLUMN IF NOT EXISTS phone TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS address1 TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS address2 TEXT;
 -- ALTER TABLE orders ADD COLUMN IF NOT EXISTS city TEXT;

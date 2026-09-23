@@ -127,6 +127,34 @@ export async function POST(request: NextRequest) {
       } catch (emailErr) {
         console.error('psc-webhook: failed to send order confirmation email', emailErr);
       }
+      // Duplicate order to Lumo's own Supabase for internal reporting
+      try {
+        const lumoDb = serverClient();
+        if (lumoDb) {
+          const { error: lumoErr } = await lumoDb.from('orders').insert({
+            order_id:        row.order_id,
+            email:           row.email,
+            customer_name:   row.customer_name ?? null,
+            phone:           row.phone ?? null,
+            items:           row.items ?? [],
+            subtotal:        row.subtotal,
+            discount_amount: row.discount_amount ?? 0,
+            discount_type:   row.discount_type ?? null,
+            shipping_amount: row.shipping_amount ?? 0,
+            total:           row.total,
+            address1:        row.address1 ?? '',
+            address2:        row.address2 ?? null,
+            city:            row.city ?? '',
+            state:           row.state ?? '',
+            zip:             row.zip ?? '',
+            country:         row.country ?? 'US',
+            status:          'paid',
+          });
+          if (lumoErr) console.error('psc-webhook: failed to write order to Lumo Supabase', lumoErr);
+        }
+      } catch (lumoWriteErr) {
+        console.error('psc-webhook: lumo supabase write threw', lumoWriteErr);
+      }
       await incrementPromo(row.discount_code);
     } else if (event.type === 'payment_intent.payment_failed') {
       const pi = event.data.object as Stripe.PaymentIntent;
