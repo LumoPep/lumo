@@ -15,7 +15,7 @@ async function post(path: string, body: unknown): Promise<void> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': key,
+        'Authorization': `Omnisend-API-Key ${key}`,
       },
       body: JSON.stringify(body),
     });
@@ -102,7 +102,7 @@ export async function omnisendOrderFulfilled(orderId: string, email: string): Pr
   try {
     await fetch(`${OMNISEND_API}/orders/${encodeURIComponent(orderId)}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'X-API-KEY': key },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Omnisend-API-Key ${key}` },
       body: JSON.stringify({ fulfillmentStatus: 'fulfilled', updatedAt: new Date().toISOString() }),
     });
   } catch (err) {
