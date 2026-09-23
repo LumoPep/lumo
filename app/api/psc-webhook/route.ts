@@ -16,6 +16,12 @@ function serverClient() {
   return createClient(url, key);
 }
 
+function lumoClient() {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!key) return null;
+  return createClient('https://auqspvdbelxnhluikifc.supabase.co', key);
+}
+
 async function incrementPromo(code: string | null | undefined) {
   if (!code) return;
   const supabase = serverClient();
@@ -129,7 +135,7 @@ export async function POST(request: NextRequest) {
       }
       // Duplicate order to Lumo's own Supabase for internal reporting
       try {
-        const lumoDb = serverClient();
+        const lumoDb = lumoClient();
         if (lumoDb) {
           const { error: lumoErr } = await lumoDb.from('orders').insert({
             order_id:        row.order_id,
