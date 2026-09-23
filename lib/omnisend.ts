@@ -39,14 +39,14 @@ export async function omnisendUpsertContact(params: {
   const nameParts = params.firstName
     ? { firstName: params.firstName, lastName: params.lastName ?? '' }
     : {};
-  const identifiers: unknown[] = [{ type: 'email', id: params.email, channels: { email: { status: 'subscribed', statusDate: new Date().toISOString() } } }];
+  const now = new Date().toISOString();
+  const identifiers: unknown[] = [{ type: 'email', id: params.email, sendWelcomeMessage: false, channels: { email: { status: 'subscribed', statusChangedAt: now } } }];
   if (params.phone) {
-    identifiers.push({ type: 'phone', id: params.phone, channels: { sms: { status: 'subscribed', statusDate: new Date().toISOString() } } });
+    identifiers.push({ type: 'phone', id: params.phone, sendWelcomeMessage: false, channels: { sms: { status: 'subscribed', statusChangedAt: now } } });
   }
   await post('/contacts', {
     identifiers,
     ...nameParts,
-    sendWelcomeEmail: false,
   });
 }
 
@@ -86,11 +86,11 @@ export async function omnisendOrderPlaced(order: {
     paymentStatus: 'paid',
     products: order.items.map((item, i) => ({
       productID: `${order.order_id}-${i}`,
+      variantID: item.variant,
       sku: item.variant,
-      name: item.productName,
+      title: item.productName,
       quantity: item.quantity,
       price: item.price,
-      imageUrl: '',
     })),
   });
 }
