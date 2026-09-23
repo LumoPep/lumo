@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isFirstOrder } from '@/lib/checkFirstOrder';
+import { checkIsFirstOrder } from '@/app/api/psc/check-first-order/route';
 import { getSupabase } from '@/lib/supabase';
 import {
   QuoteError,
@@ -50,7 +50,7 @@ async function lookupPromo(code: string): Promise<PromoInput> {
 async function firstOrderFlag(email: string | undefined): Promise<boolean> {
   if (!email) return false;
   try {
-    return await isFirstOrder(email);
+    return await checkIsFirstOrder(email);
   } catch {
     return false;
   }

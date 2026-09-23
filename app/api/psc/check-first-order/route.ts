@@ -8,12 +8,8 @@ function lumoClient() {
   return createClient('https://auqspvdbelxnhluikifc.supabase.co', key);
 }
 
-export async function GET(request: NextRequest) {
-  const email = request.nextUrl.searchParams.get('email');
-  if (!email) {
-    return NextResponse.json({ isFirstOrder: true });
-  }
-
+/** Direct DB check — safe to call server-side without an HTTP round-trip. */
+export async function checkIsFirstOrder(email: string): Promise<boolean> {
   const trimmedEmail = email.trim();
 
   // --- Check 1: PRISM Supabase ---
@@ -40,9 +36,7 @@ export async function GET(request: NextRequest) {
     console.error('check-first-order: PRISM check threw', err);
   }
 
-  if (prismHasOrders) {
-    return NextResponse.json({ isFirstOrder: false });
-  }
+  if (prismHasOrders) return false;
 
   // --- Check 2: Lumo Supabase (lumo_orders) ---
   let lumoHasOrders = false;
@@ -68,5 +62,14 @@ export async function GET(request: NextRequest) {
     console.error('check-first-order: Lumo check threw', err);
   }
 
-  return NextResponse.json({ isFirstOrder: !lumoHasOrders });
+  return !lumoHasOrders;
+}
+
+export async function GET(request: NextRequest) {
+  const email = request.nextUrl.searchParams.get('email');
+  if (!email) {
+    return NextResponse.json({ isFirstOrder: true });
+  }
+  const isFirstOrder = await checkIsFirstOrder(email);
+  return NextResponse.json({ isFirstOrder });
 }
