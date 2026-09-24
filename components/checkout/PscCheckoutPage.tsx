@@ -8,6 +8,7 @@ import { getSuggestions } from "@/lib/frequentlyBoughtTogether";
 import { calculateBestDiscount, type DiscountResult } from "@/lib/discount";
 import { validatePromoCode } from "@/lib/validatePromoCode";
 import { isFirstOrder } from "@/lib/checkFirstOrder";
+import { ttq } from "@/lib/ttq";
 import PscCheckout from "@/components/psc/PscCheckout";
 import FirstOrderPopup from "@/components/checkout/FirstOrderPopup";
 import type { Quote } from "@/lib/psc/quote";
@@ -63,6 +64,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     setMounted(true);
     window.scrollTo({ top: 0, behavior: 'instant' });
+    ttq()?.track('InitiateCheckout');
     // Track started checkout in Omnisend
     void (async () => {
       try {

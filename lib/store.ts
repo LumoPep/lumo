@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { ttq } from "@/lib/ttq";
 
 export interface CartItem {
   productId: string;
@@ -53,6 +54,13 @@ export const useCartStore = create<CartStore>()(
           return {
             items: [...state.items, { ...newItem, quantity: 1 }],
           };
+        });
+        ttq()?.track('AddToCart', {
+          content_id: newItem.productId,
+          content_name: newItem.productName,
+          price: newItem.price,
+          quantity: 1,
+          currency: 'USD',
         });
       },
 

@@ -5,6 +5,7 @@ import Script from "next/script";
 import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 import { POLL_UNAVAILABLE } from "@/lib/psc/buyerCopy";
+import { ttq } from "@/lib/ttq";
 import { PLATFORM_PK, STRIPE_ACCOUNT } from "@/lib/psc/stripe";
 
 const PENDING_COPY = "Payment received by Stripe. We'll email you when it clears.";
@@ -94,6 +95,7 @@ function ThankYouContent() {
   const clientSecret = searchParams.get("payment_intent_client_secret") ?? "";
   const pollRef = useRef<OrderState | null>(null);
   const intentRef = useRef<OrderState | null>(null);
+  const pixelFiredRef = useRef(false);
   const [state, setState] = useState<OrderState>("unknown");
   const [orderItems, setOrderItems] = useState<Array<{ productName: string; variant: string; quantity: number; price: number }>>([]);
   const [orderTotal, setOrderTotal] = useState<number | null>(null);
@@ -174,6 +176,13 @@ function ThankYouContent() {
       cancelled = true;
     };
   }, [clientSecret, orderRef]);
+
+  useEffect(() => {
+    if (state === 'paid' && orderTotal !== null && !pixelFiredRef.current) {
+      pixelFiredRef.current = true;
+      ttq()?.track('CompletePayment', { value: orderTotal, currency: 'USD' });
+    }
+  }, [state, orderTotal]);
 
   const isPaid = state === "paid";
   const isPending = state === "pending";
