@@ -83,12 +83,12 @@ const faqCategories: FAQCategory[] = [
       {
         question: "What payment methods do you accept?",
         answer:
-          "We accept cryptocurrency payments including Bitcoin (BTC), Ethereum (ETH), USDT (TRC-20), USDC (ERC-20), and Litecoin (LTC). Crypto payments provide secure, private transactions processed through NOWPayments. Payment instructions are provided during checkout, and orders are processed immediately upon blockchain confirmation.",
+          "We accept all major credit and debit cards (Visa, Mastercard, Amex, Discover). Payments are processed securely at checkout and orders are confirmed immediately upon authorization.",
       },
       {
         question: "How long does order processing take?",
         answer:
-          "Orders are typically processed within 1-2 business days after payment confirmation. Cryptocurrency payments are confirmed automatically through the blockchain, usually within 10-60 minutes depending on network congestion. You'll receive tracking information via email once your order ships.",
+          "Orders are typically processed within 1-2 business days of payment confirmation. You'll receive tracking information via email once your order ships.",
       },
       {
         question: "Do you offer bulk or institutional pricing?",

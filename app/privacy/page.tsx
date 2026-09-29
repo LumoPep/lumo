@@ -10,7 +10,7 @@ const sections = [
     title: "Information We Collect",
     content: [
       "Lumo collects minimal personal information necessary to process research peptide orders and provide customer support.",
-      "Information collected includes: Email address for order confirmation and communication; Shipping address for product delivery; Payment information (processed securely through third-party cryptocurrency payment processors—we do not store payment details); Order history and product preferences; Communications with our support team.",
+      "Information collected includes: Email address for order confirmation and communication; Shipping address for product delivery; Payment information (processed securely through our payment provider—we do not store card details); Order history and product preferences; Communications with our support team.",
       "We do not collect unnecessary personal data. We do not use tracking cookies beyond essential functionality cookies required for the website to operate.",
     ],
   },
@@ -28,18 +28,17 @@ const sections = [
     title: "Information Sharing & Third Parties",
     content: [
       "Lumo does not sell, rent, or share your personal information with third parties for marketing purposes.",
-      "We may share limited information with: Shipping carriers (name and address only) to deliver your orders; Payment processors to complete cryptocurrency transactions; Legal authorities if required by law or to protect our rights.",
+      "We may share limited information with: Shipping carriers (name and address only) to deliver your orders; Payment processors to complete card transactions; Legal authorities if required by law or to protect our rights.",
       "All third-party service providers are bound by confidentiality agreements and are prohibited from using your information for purposes other than providing services to Lumo.",
     ],
   },
   {
-    id: "crypto",
+    id: "payment",
     number: "04",
-    title: "Cryptocurrency Payment Privacy",
+    title: "Payment Security",
     content: [
-      "We accept cryptocurrency payments specifically to provide enhanced privacy for our customers.",
-      "Cryptocurrency transactions are processed through secure third-party payment providers. We do not have access to your wallet addresses or private keys.",
-      "Blockchain transactions are public by nature. While we cannot control blockchain transparency, we do not link your identity to blockchain transaction data in our systems beyond what is necessary for order fulfillment.",
+      "All payments are processed securely through our payment provider using industry-standard encryption. We do not store, transmit, or have access to your full card number or CVV.",
+      "Payment data is handled exclusively by our PCI-compliant payment processor. Lumo retains only a transaction reference and the last four digits of your card for order records.",
     ],
   },
   {
@@ -231,8 +230,7 @@ export default function PrivacyPage() {
                   <p className="font-editorial text-ink italic" style={{ fontSize: "15px" }}>
                     <strong className="text-clay">OUR COMMITMENT:</strong> Lumo respects your privacy.
                     We collect only what is necessary to fulfill your orders and provide support. We do
-                    not sell your data. We do not share your information with marketers. We use
-                    cryptocurrency payments to provide enhanced transaction privacy.
+                    not sell your data. We do not share your information with marketers. We use secure, PCI-compliant payment processing to protect your financial data.
                   </p>
                 </motion.div>
               </div>

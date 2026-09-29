@@ -10,7 +10,7 @@ const sections = [
     title: "Shipping Overview",
     content: [
       "Lumo ships research peptides in secure packaging to ensure product integrity from our facility to your laboratory.",
-      "All orders are processed within 1-2 business days of payment confirmation. Cryptocurrency payments are confirmed automatically via blockchain, typically within 10-60 minutes.",
+      "All orders are processed within 1-2 business days of payment confirmation.",
     ],
   },
   {

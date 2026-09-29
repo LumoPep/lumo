@@ -38,9 +38,9 @@ const sections = [
     number: "04",
     title: "Payment Terms",
     content: [
-      "We accept cryptocurrency payments including Bitcoin (BTC), Ethereum (ETH), USDT, and USDC. All payments are processed through our secure payment provider.",
-      "Cryptocurrency payments are final and non-refundable once blockchain confirmation occurs. Prices are quoted in USD but paid in cryptocurrency at the current exchange rate at time of payment.",
-      "You are responsible for any blockchain transaction fees. We are not responsible for payments sent to incorrect addresses or lost due to user error.",
+      "We accept all major credit and debit cards. All payments are processed securely through our payment provider.",
+      "All prices are quoted and charged in USD. Payments are processed at the time of order placement.",
+      "Lumo is not responsible for declined transactions or fees charged by your card issuer. Contact your financial institution for payment-related issues not originating from our platform.",
     ],
   },
   {
