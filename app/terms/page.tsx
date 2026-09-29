@@ -11,7 +11,7 @@ const sections = [
     title: "Acceptance of Terms",
     content: [
       "By accessing or using Lumo's website, services, or purchasing any products, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.",
-      "These terms constitute a legally binding agreement between you and Lumo. We reserve the right to modify these terms at any time. Your continued use of the site after changes constitutes acceptance of modified terms.",
+      "These terms constitute a legally binding agreement between you and LumoPep, LLC, a Wyoming limited liability company doing business as Lumo (\"Lumo,\" \"we,\" \"us,\" or \"our\"). We reserve the right to modify these terms at any time. Your continued use of the site after changes constitutes acceptance of modified terms.",
     ],
   },
   {
@@ -64,8 +64,18 @@ const sections = [
     ],
   },
   {
-    id: "termination",
+    id: "indemnification",
     number: "07",
+    title: "Assumption of Risk & Indemnification",
+    content: [
+      "You acknowledge that research compounds carry inherent risks and that you are solely responsible for their safe storage, handling, use, and disposal. You knowingly and voluntarily assume all risks arising from your purchase, possession, handling, or use of any Lumo product, including any use in breach of these Terms.",
+      "You agree to defend, indemnify, and hold harmless LumoPep, LLC and its members, managers, employees, agents, suppliers, and fulfillment partners from and against any and all claims, demands, losses, liabilities, damages, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to: (1) your use or misuse of any product, including any human or animal use; (2) your breach of these Terms or of any representation you make in them; or (3) your violation of any law or the rights of any third party.",
+      "This section survives the completion of your order and any termination of your account.",
+    ],
+  },
+  {
+    id: "termination",
+    number: "08",
     title: "Account Termination",
     content: [
       "We reserve the right to terminate or suspend your account and refuse service at any time, for any reason, including but not limited to: Violation of these Terms of Service; Suspected misuse of products; Fraudulent activity; Providing false information during registration or purchase.",
@@ -74,7 +84,7 @@ const sections = [
   },
   {
     id: "governing",
-    number: "08",
+    number: "09",
     title: "Governing Law",
     content: [
       "These Terms shall be governed by and construed in accordance with the laws of the State of Wyoming, without regard to conflict of law provisions.",
@@ -275,7 +285,7 @@ export default function TermsPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="font-mono text-cream text-xs mb-8"
           >
-            Last updated: July 2026
+            Last updated: September 2026
           </motion.p>
 
           <motion.button
